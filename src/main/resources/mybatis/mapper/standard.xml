@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="standard">
+
+ 	
+	<!-- 전체 설비 목록 조회 -->
+	<select id="getChimStandardList" parameterType="standard" resultType="standard">
+       select ROW_NUMBER()OVER(ORDER BY CORP_NAME, PROD_NAME, PROD_NO) AS ROW_NUM ,  
+			CORP_NAME, 
+			PROD_NAME,
+			PROD_GYU, 
+			PROD_NO, 
+			PROD_JAI, 
+			FAC_NAME,
+			TECH_TE, 
+			WSTD_CODE,
+			TECH_NO,
+			PROD_DANJ,
+			PROD_DANG,
+			PROD_KIJONG,
+			PROD_PG,
+			PROD_PG1,
+			PROD_PG2,
+			PROD_SG,
+			PROD_SG1,
+			PROD_SG2,
+			PROD_E1
+		FROM vworkstd
+		where 1=1
+		<if test='wstdGubn == "B"'>
+			and WSTD_GUBN = 'B'		
+		</if>
+		<if test='wstdGubn == "P"'>
+			and WSTD_GUBN = 'P'		
+		</if>
+		<if test='wstdGubn == "V"'>
+			and WSTD_GUBN = 'V'		
+		</if>
+		<if test='wstdGubn == "S"'>
+			and WSTD_GUBN = 'S'		
+		</if>
+		<if test='wstdGubn == "H"'>
+			and WSTD_GUBN = 'H'		
+		</if>
+		<if test='wstdGubn == "J"'>
+			and WSTD_GUBN = 'J'		
+		</if>
+		<if test='wstdGubn == "Y"'>
+			and WSTD_GUBN = 'Y'		
+		</if>
+		order by CORP_NAME, PROD_NAME, PROD_NO
+    </select>
+    
+</mapper>

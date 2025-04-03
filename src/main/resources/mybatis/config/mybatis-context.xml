@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+	<package name="com.tkheat.domain"/>
+</typeAliases>
+  <mappers>
+  	<mapper resource="mybatis/mapper/users.xml"/>
+  	<mapper resource="mybatis/mapper/corp.xml"/>
+  	<mapper resource="mybatis/mapper/fac.xml"/>
+  	<mapper resource="mybatis/mapper/product.xml"/>
+  	<mapper resource="mybatis/mapper/measure.xml"/>
+  	<mapper resource="mybatis/mapper/standard.xml"/>
+  	<mapper resource="mybatis/mapper/ipgo.xml"/>
+  	<mapper resource="mybatis/mapper/chulgo.xml"/>
+  	<mapper resource="mybatis/mapper/jaego.xml"/>
+  	<mapper resource="mybatis/mapper/gongjung.xml"/>
+  </mappers>
+</configuration>

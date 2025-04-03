@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="measure">
+	
+	
+	<select id="getMeasureList" parameterType="measure" resultType="measure">
+		SET LOCK_TIMEOUT 10000;
+		SELECT 'T' + RIGHT('000000000' + CAST(TER_CODE AS nvarchar), 9) AS TER_BAR
+			 ,TER_CODE
+			 ,TER_NAME
+			 ,TER_NO
+			 ,TER_MODEL
+			 ,TER_SN
+			 ,TER_YONG
+			 ,TER_KIND
+			 ,TER_MAN1
+			 ,TER_MAN2
+			 ,TER_PLACE
+			 ,TER_USE
+			 ,TER_UBIGO
+			 ,TER_BIGO
+			 ,TER_MAKER
+			 ,convert(varchar(10), TER_MDATE, 120) AS TER_MDATE
+			 ,TER_BUY
+			 ,convert(varchar(10), TER_BDATE, 120) AS TER_BDATE
+			 ,TER_BMON
+			 ,TER_NEXT_GUM
+			 ,TER_END_GUM
+			 ,TER_GUM
+			 ,TER_V
+			 ,TER_A TER_KW
+		FROM TESTER WITH(NOLOCK)
+	</select>
+	
+
+</mapper>

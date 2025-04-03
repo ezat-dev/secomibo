@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ipgo">
+
+
+	<!-- 입고 조회 -->
+	<select id="getIpgoList" parameterType="ipgo" resultType="ipgo">
+		SELECT ORDERT.ORD_PRN,
+		ORDERT.ORD_CODE,
+		PRODUCT.PROD_CODE,
+		ORDERT.ORD_DATE,
+		CORP.CORP_NAME,
+		PRODUCT.PROD_NAME,
+		ORDERT.ORD_NAP,
+		PRODUCT.PROD_NO,
+		PRODUCT.PROD_GYU,
+		PRODUCT.PROD_JAI,
+		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2 AS prod_pg,
+		PRODUCT.PROD_SG + ' ' + PRODUCT.PROD_SG1 + '~' + PRODUCT.PROD_SG2 AS
+		Prod_sg,
+		PRODUCT.PROD_GD4 + '~' + PRODUCT.PROD_GD5 AS Prod_cd,
+		PRODUCT.PROD_E1,
+		TECHIN.TECH_TE,
+		ORDERT.ORD_LOT,
+		ORDERT.ORD_GYU,
+		ROUND(ORD_AMNT,2) AS ORD_AMNT,
+		ORD_DANG,
+		ORDERT.ORD_MON,
+		ORDERT.ORD_DANW,
+		ROUND(ORDERT.ORD_SU, 1) as ORD_SU, ORDERT.ORD_SUNIP,
+		case when ORD_CHULHACHECK ='true' then '출고' else '미출고' END AS
+		ORD_CHULHACHECK,
+		ORDERT.ORD_DANJ,
+		ORDERT.ORD_BIGO,
+		ORDERT.ORD_NAME,
+		CASE
+		WHEN [ORDERT].[ORD_T02] = '1'
+		THEN 'O'
+		ELSE 'X'
+		END AS ORD_T02,
+		CASE
+		WHEN [ORDERT].[ORD_T01] = '1'
+		THEN 'O'
+		ELSE 'X'
+		END AS ORD_T01,
+		ORDERT.ORD_BOXSU,
+		IPTEST.ITST_WP
+		FROM ORDERT
+		INNER JOIN PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE
+		INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN IPTEST ON ORDERT.ORD_CODE = IPTEST.ORD_CODE
+		LEFT OUTER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO
+		WHERE CONVERT(CHAR(19),ORDERT.ORD_DATE,120) BETWEEN #{s_date} AND #{e_date}
+		<!--
+		<if test="corp_name != null">
+			AND CORP.CORP_NAME LIKE '%'+ #{corp_name} +'%'
+		</if>
+		<if test="prod_name != null">
+			AND PRODUCT.PROD_NAME LIKE '%'+ #{prod_name} +'%'
+		</if>
+		<if test="prod_no != null">
+			AND PRODUCT.PROD_NO LIKE '%'+ #{prod_no} +'%'
+		</if>
+		<if test="prod_gyu != null">
+			AND PRODUCT.PROD_GYU LIKE '%'+ #{prod_gyu} +'%'
+		</if>
+		<if test="ord_code != null">
+			AND ORDERT.ORD_CODE LIKE '%'+ #{ord_code} +'%'
+		</if>
+		<if test="prod_jai != null">
+			AND PRODUCT.PROD_JAI LIKE '%'+ #{prod_jai} +'%'
+		</if>
+		<if test="ord_name != null">
+			AND ORDERT.ORD_NAME LIKE '%'+ #{ord_name} +'%'
+		</if>
+		<if test="ord_lot != null">
+			AND ORDERT.ORD_LOT LIKE '%'+ #{ord_lot} +'%'
+		</if>
+		<if test="tech_te != null">
+			AND TECHIN.TECH_TE LIKE '%'+ #{tech_te} +'%'
+		</if>
+		 <if test="ORD_PRN != ''"> AND ORDERT.ORD_PRN like '%'+#{ORD_PRN}+'%' 
+			</if>
+		<if test="prod_gubn != null">
+			AND PRODUCT.PROD_GUBN LIKE + '%' +
+			CASE #{prod_gubn}
+			WHEN '양산'
+			THEN '양산'
+			WHEN '개발'
+			THEN '개발'
+			ELSE ''
+			END + '%'
+		</if>
+	 -->
+	</select>
+
+
+
+</mapper>
