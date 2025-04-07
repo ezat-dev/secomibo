@@ -1,0 +1,16 @@
+package com.tkheat.dao;
+
+import java.util.List;
+
+import com.tkheat.domain.Work;
+
+public interface ProductionDao {
+
+	List<Work> getWorkInstructionList(Work work);
+	
+	List<Work> getWorkStatusList(Work work);
+	
+	List<Work> getNonReportList(Work work);
+	
+	List<Work> getProdWaitingStatusList(Work work);
+}

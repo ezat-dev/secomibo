@@ -40,10 +40,24 @@
             text-align: center;
         }
         
-.row_select{
-	background-color:#9ABCEA !important;
-}
-    
+		.row_select{
+			background-color:#9ABCEA !important;
+		}
+		.box1 {
+			display: flex;
+			justify-content: right;
+			align-items: center;
+			width: 1500px;
+			margin-left: -1020px;
+		}
+		
+		.box1 input{
+			width : 5%;
+		}
+		.box1 select{
+			width: 5%
+		}    
+      
     
     </style>
     
@@ -51,8 +65,22 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">설비NO :</label>
+		<input type="text" class="fac_no" id="fac_no" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">설비명 :</label>
+		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">설비현황표 :</label>
+		<input type="text" class="" id="" style="font-size: 16px;" autocomplete="off">
+			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getFacList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -185,34 +213,37 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/management/facInsert/getFacList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"fac_no": $("#fac_no").val(),
+                "fac_name": $("#fac_name").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"설비명", field:"fac_name", sorter:"string", width:150,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"규격", field:"fac_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"형식", field:"fac_hyun", sorter:"string", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"용도", field:"fac_yong", sorter:"int", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"설치장소", field:"fac_plc", sorter:"int", width:200,
-			        hozAlign:"center"},
+			        hozAlign:"center", headerFilter:"input"},
 			    {title:"능력", field:"fac_able", sorter:"int", width:120,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"제작사", field:"fac_make", sorter:"int", width:150,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"구매처", field:"fac_cbuy", sorter:"int", width:100,
-					hozAlign:"center"},      		
+					hozAlign:"center", headerFilter:"input"},      		
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

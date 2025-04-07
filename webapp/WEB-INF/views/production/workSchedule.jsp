@@ -34,7 +34,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -620px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+}      
     
     </style>
     
@@ -42,6 +55,31 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">지시일 :</label>
+		<input type="date" class="plnp_date" id="plnp_date" style="font-size: 16px;" autocomplete="off">
+		
+		<label class="daylabel">설비명 :</label>
+		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px; autocomplete="off">
+			
+		<label class="daylabel">거래처명 :</label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품명 :</label>
+		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품번 :</label>
+		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">제품구분 :</label>
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+		
+		
+			
+	</div>
     
     <div class="button-container">
         <button class="select-button">
@@ -76,12 +114,12 @@
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getWorkScheduleList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getWorkScheduleList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -91,12 +129,19 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/production/workSchedule/getWorkScheduleList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"plnp_date": $("#plnp_date").val(),
+                "corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_no": $("#prod_no").val(),
+                "prod_gubn": $("#prod_gubn").val(),
+                "fac_name": $("#fac_name").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");

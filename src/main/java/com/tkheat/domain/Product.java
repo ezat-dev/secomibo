@@ -89,6 +89,7 @@ public class Product {
 	private String tech_no;					//공정
 	private String tech_pattern;			//공정패턴
 	private String tech_seq;				//공정순서
+	private String tech_te;
 
 	//PRODUCT_IMG 테이블
 //	private int prod_code;					//제품코드 기준으로 저장
@@ -617,6 +618,12 @@ public class Product {
 	}
 	public void setCorp_name(String corp_name) {
 		this.corp_name = corp_name;
+	}
+	public String getTech_te() {
+		return tech_te;
+	}
+	public void setTech_te(String tech_te) {
+		this.tech_te = tech_te;
 	}
 	
 }

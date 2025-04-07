@@ -1,0 +1,37 @@
+package com.tkheat.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.tkheat.domain.Work;
+
+@Repository
+public class ProductionDaoImpl implements ProductionDao{
+
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Override
+	public List<Work> getWorkInstructionList(Work work) {
+		return sqlSession.selectList("work.getWorkInstructionList",work);
+	}
+	
+	@Override
+	public List<Work> getWorkStatusList(Work work) {
+		return sqlSession.selectList("work.getWorkStatusList",work);
+	}
+	
+	@Override
+	public List<Work> getNonReportList(Work work) {
+		return sqlSession.selectList("work.getNonReportList",work);
+	}
+	
+	@Override
+	public List<Work> getProdWaitingStatusList(Work work) {
+		return sqlSession.selectList("work.getProdWaitingStatusList",work);
+	}
+
+}

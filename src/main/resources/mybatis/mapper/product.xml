@@ -203,62 +203,62 @@
 						FROM PRODUCT
 							INNER JOIN CORP 	 ON PRODUCT.CORP_CODE = CORP.CORP_CODE
 							INNER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO
-							<if test="CORP_NAME != '' and CORP_NAME != null">
-							AND CORP.CORP_NAME 		LIKE + '%' + #{CORP_NAME} + '%'
+							<if test="corp_name != '' and corp_name != null">
+							AND CORP.CORP_NAME 		LIKE + '%' + #{corp_name} + '%'
 							</if>
-							<if test="PROD_NAME != '' and PROD_NAME != null">
-								AND PRODUCT.PROD_NAME 	LIKE + '%' + #{PROD_NAME} + '%'
+							<if test="prod_name != '' and prod_name != null">
+								AND PRODUCT.PROD_NAME 	LIKE + '%' + #{prod_name} + '%'
 							</if>
-							<if test="PROD_NO != '' and PROD_NO != null">
-								AND PRODUCT.PROD_NO 	LIKE + '%' + #{PROD_NO} + '%'
+							<if test="prod_no != '' and prod_no != null">
+								AND PRODUCT.PROD_NO 	LIKE + '%' + #{prod_no} + '%'
 							</if>
-							<if test="PROD_GYU != '' and PROD_GYU != null">
-								AND PRODUCT.PROD_GYU 	LIKE + '%' + #{PROD_GYU} + '%'
+							<if test="prod_gyu != '' and prod_gyu != null">
+								AND PRODUCT.PROD_GYU 	LIKE + '%' + #{prod_gyu} + '%'
 							</if>
-							<if test="PROD_JAI != '' and PROD_JAI != null">
-								AND PRODUCT.PROD_JAI 	LIKE + '%' + #{PROD_JAI} + '%'
+							<if test="prod_jai != '' and prod_jai != null">
+								AND PRODUCT.PROD_JAI 	LIKE + '%' + #{prod_jai} + '%'
 							</if>
-							<if test="CORP_BUSINESS != '' and CORP_BUSINESS != null">
+							<!-- <if test="CORP_BUSINESS != '' and CORP_BUSINESS != null">
 								AND CORP.CORP_BUSINESS	LIKE + '%' + #{CORP_BUSINESS} + '%'
-							</if>
-							<if test="TECH_TE != '' and TECH_TE != null">
-								AND TECHIN.TECH_TE		LIKE + '%' + #{TECH_TE} + '%'
+							</if> -->
+							<if test="tech_no != '' and tech_no != null">
+								AND TECHIN.TECH_no		LIKE + '%' + #{tech_no} + '%'
 							</if>
 						ORDER BY PROD_CODE ASC
 					)
-					<if test="CORP_NAME!='' and CORP_NAME != null">
-						AND CORP.CORP_NAME 		LIKE + '%' + #{CORP_NAME} + '%'
+					<if test="corp_name!='' and corp_name != null">
+						AND CORP.CORP_NAME 		LIKE + '%' + #{corp_name} + '%'
 					</if>
-					<if test="PROD_NAME!='' and PROD_NAME != null">
-						AND PRODUCT.PROD_NAME 	LIKE + '%' + #{PROD_NAME} + '%'
+					<if test="prod_name!='' and prod_name != null">
+						AND PRODUCT.PROD_NAME 	LIKE + '%' + #{prod_name} + '%'
 					</if>
-					<if test="PROD_NO!='' and PROD_NO != null">
-						AND PRODUCT.PROD_NO 	LIKE + '%' + #{PROD_NO} + '%'
+					<if test="prod_no!='' and prod_no != null">
+						AND PRODUCT.PROD_NO 	LIKE + '%' + #{prod_no} + '%'
 					</if>
-					<if test="PROD_GYU!='' and PROD_GYU != null">
-						AND PRODUCT.PROD_GYU 	LIKE + '%' + #{PROD_GYU} + '%'
+					<if test="prod_gyu!='' and prod_gyu != null">
+						AND PRODUCT.PROD_GYU 	LIKE + '%' + #{prod_gyu} + '%'
 					</if>
-					<if test="PROD_JAI!='' and PROD_JAI != null">
-						AND PRODUCT.PROD_JAI 	LIKE + '%' + #{PROD_JAI} + '%'
+					<if test="prod_jai!='' and prod_jai != null">
+						AND PRODUCT.PROD_JAI 	LIKE + '%' + #{prod_jai} + '%'
 					</if>
-					<if test="CORP_BUSINESS!='' and CORP_BUSINESS != null">
+					<!-- <if test="CORP_BUSINESS!='' and CORP_BUSINESS != null">
 						AND CORP.CORP_BUSINESS	LIKE + '%' + #{CORP_BUSINESS} + '%'
-					</if>
-					<if test="TECH_TE!='' and TECH_TE != null">
-						AND TECHIN.TECH_TE		LIKE + '%' + #{TECH_TE} + '%'
+					</if> -->
+					<if test="tech_te!='' and tech_te != null">
+						AND TECHIN.TECH_TE		LIKE + '%' + #{tech_te} + '%'
 					</if>
 				ORDER BY PROD_CODE ASC
 		)
 		select * from selectProdList
 		where 1=1
-			<if test="PG_SPEC!='' and PG_SPEC != null">
-				and PG_SPEC 		like + '%' + #{PG_SPEC} + '%'
+			<if test="prod_pg!='' and prod_pg != null">
+				and PROD_PG 		like + '%' + #{prod_pg} + '%'
 			</if>
-			<if test="GD_SPEC!='' and GD_SPEC != null">
-				and GD_SPEC 		like + '%' + #{GD_SPEC} + '%'
+			<if test="prod_gd3!='' and prod_gd3 != null">
+				and PROD_GD3 		like + '%' + #{prod_gd3} + '%'
 			</if>
-			<if test="SG_SPEC!='' and SG_SPEC != null">
-				and SG_SPEC 		like + '%' + #{SG_SPEC} + '%'
+			<if test="prod_sg!='' and prod_sg != null">
+				and PROD_SG 		like + '%' + #{prod_sg} + '%'
 			</if>
 	</select>
 	

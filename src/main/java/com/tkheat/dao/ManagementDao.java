@@ -11,7 +11,7 @@ import com.tkheat.domain.Standard;
 import com.tkheat.domain.Users;
 
 public interface ManagementDao {
-	List<Users> getUserList(); 
+	List<Users> getUserList(Users user); 
 	
 	List<Users> getBigPageList(); 
 	
@@ -23,17 +23,17 @@ public interface ManagementDao {
 	
 	void productInsertSave(Product product);
 	
-	List<Corp> getCorpList(); 
+	List<Corp> getCorpList(Corp corp); 
 	
-	List<Fac> getFacList();
+	List<Fac> getFacList(Fac fac);
 	
-	List<Product> getProductList();
+	List<Product> getProductList(Product product);
 	
 	List<Measure> getMeasureList();
 	
-	List<Standard> getChimStandardList();
+	List<Standard> getChimStandardList(Standard standard);
 	
-	List<Standard> getGoStandardList();
+	List<Standard> getGoStandardList(Standard standard);
 	
 	void insertUser(Users users);
 }

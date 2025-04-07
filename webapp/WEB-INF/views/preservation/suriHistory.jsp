@@ -425,21 +425,27 @@ textarea {
 	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
 	header.addEventListener('mousedown', function(e) {
-	    let offsetX = e.clientX - modal.getBoundingClientRect().left; // 마우스와 모달의 x 위치 차이
-	    let offsetY = e.clientY - modal.getBoundingClientRect().top; // 마우스와 모달의 y 위치 차이
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
 
-	    function moveModal(e) {
-	        modal.style.left = (e.clientX - offsetX) + 'px';
-	        modal.style.top = (e.clientY - offsetY) + 'px';
-	    }
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
 
-	    function stopMove() {
-	        window.removeEventListener('mousemove', moveModal); // 이동 중지
-	        window.removeEventListener('mouseup', stopMove); // 마우스 업 이벤트 제거
-	    }
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
 
-	    window.addEventListener('mousemove', moveModal); // 마우스 이동 이벤트
-	    window.addEventListener('mouseup', stopMove); // 마우스 업 이벤트
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
 	});
 		
 

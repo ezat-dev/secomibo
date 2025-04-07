@@ -69,10 +69,31 @@ public class ManagementController {
 	//전체 제품 목록 조회
 	@RequestMapping(value = "/management/productInsert/productList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getProductList() {
+	public Map<String, Object> getProductList(
+			@RequestParam String corp_name,
+            @RequestParam String prod_name,
+            @RequestParam String prod_no,
+            @RequestParam String prod_gyu,
+            @RequestParam String prod_jai,
+            @RequestParam String prod_pg,
+            @RequestParam String prod_gd3,
+            @RequestParam String prod_sg,
+            @RequestParam String tech_te) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
-		List<Product> productList = managementService.getProductList();
+		Product product = new Product();
+		product.setCorp_name(corp_name);
+		product.setProd_name(prod_name);
+		product.setProd_no(prod_no);
+		product.setProd_gyu(prod_gyu);
+		product.setProd_jai(prod_jai);
+		product.setProd_pg(prod_pg);
+		product.setProd_gd3(prod_gd3);
+		product.setProd_sg(prod_sg);
+		product.setTech_te(tech_te);
+		
+		
+		List<Product> productList = managementService.getProductList(product);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<productList.size(); i++) {
@@ -85,7 +106,7 @@ public class ManagementController {
 			rowMap.put("prod_no", productList.get(i).getProd_no());
 			rowMap.put("prod_gyu", productList.get(i).getProd_gyu());
 			rowMap.put("prod_jai", productList.get(i).getProd_jai());
-			rowMap.put("tech_no", productList.get(i).getTech_no());
+			rowMap.put("tech_te", productList.get(i).getTech_te());
 			rowMap.put("prod_danj", productList.get(i).getProd_danj());
 			rowMap.put("prod_danw", productList.get(i).getProd_danw());
 			rowMap.put("prod_dang", productList.get(i).getProd_dang());
@@ -113,10 +134,22 @@ public class ManagementController {
 	//전체 거래처목록 조회
 	@RequestMapping(value = "/management/cutumInsert/list", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getCorpList() {
+	public Map<String, Object> getCorpList(
+			@RequestParam String corp_name,
+            @RequestParam String corp_plc,
+            @RequestParam String corp_gubn,
+            @RequestParam String corp_mast
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Corp corp = new Corp();
+		corp.setCorp_name(corp_name);
+		corp.setCorp_plc(corp_plc);
+		corp.setCorp_gubn(corp_gubn);
+		corp.setCorp_mast(corp_mast);
+		
 
-		List<Corp> corpList = managementService.getCorpList();
+		List<Corp> corpList = managementService.getCorpList(corp);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<corpList.size(); i++) {
@@ -152,10 +185,17 @@ public class ManagementController {
 	//전체 설비목록 조회
 	@RequestMapping(value = "/management/facInsert/getFacList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getFacList() {
+	public Map<String, Object> getFacList(
+			@RequestParam String fac_no,
+            @RequestParam String fac_name
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Fac fac = new Fac();
+		fac.setFac_no(fac_no);
+		fac.setFac_name(fac_name);
 
-		List<Fac> facList = managementService.getFacList();
+		List<Fac> facList = managementService.getFacList(fac);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<facList.size(); i++) {
@@ -191,10 +231,23 @@ public class ManagementController {
 	//침탄로 작업표준 조회
 	@RequestMapping(value = "/management/chimStandardInsert/getChimStandardList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getChimStandardList() {
+	public Map<String, Object> getChimStandardList(
+			@RequestParam String corp_name,
+            @RequestParam String prod_name,
+            @RequestParam String prod_no,
+            @RequestParam String fac_name
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Standard standard = new Standard();
+		
+		standard.setCorp_name(corp_name);
+		standard.setProd_name(prod_name);
+		standard.setProd_no(prod_no);
+		standard.setFac_name(fac_name);
+		
 
-		List<Standard> chimStandardList = managementService.getChimStandardList();
+		List<Standard> chimStandardList = managementService.getChimStandardList(standard);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<chimStandardList.size(); i++) {
@@ -252,10 +305,20 @@ public class ManagementController {
 	//고주파로 작업표준 조회
 	@RequestMapping(value = "/management/goStandardInsert/getGoStandardList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getGoStandardList() {
+	public Map<String, Object> getGoStandardList(
+			@RequestParam String corp_name,
+            @RequestParam String prod_name,
+            @RequestParam String prod_no
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Standard standard = new Standard();
+		
+		standard.setCorp_name(corp_name);
+		standard.setProd_name(prod_name);
+		standard.setProd_no(prod_no);
 
-		List<Standard> goStandardList = managementService.getGoStandardList();
+		List<Standard> goStandardList = managementService.getGoStandardList(standard);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<goStandardList.size(); i++) {
@@ -332,10 +395,20 @@ public class ManagementController {
 	//전체 사용자목록 조회
 	@RequestMapping(value = "/management/authority/userList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getUserList() {
+	public Map<String, Object> getUserList(
+			@RequestParam String user_buso,
+            @RequestParam String user_jick,
+            @RequestParam String user_name,
+            @RequestParam String user_ret) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Users user = new Users();
+		user.setUser_buso(user_buso);
+		user.setUser_jick(user_jick);
+		user.setUser_name(user_name);
+		user.setUser_ret(user_ret);
 
-		List<Users> userList = managementService.getUserList();
+		List<Users> userList = managementService.getUserList(user);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<userList.size(); i++) {

@@ -4,53 +4,67 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="standard">
 
- 	
+
 	<!-- 전체 설비 목록 조회 -->
-	<select id="getChimStandardList" parameterType="standard" resultType="standard">
-       select ROW_NUMBER()OVER(ORDER BY CORP_NAME, PROD_NAME, PROD_NO) AS ROW_NUM ,  
-			CORP_NAME, 
-			PROD_NAME,
-			PROD_GYU, 
-			PROD_NO, 
-			PROD_JAI, 
-			FAC_NAME,
-			TECH_TE, 
-			WSTD_CODE,
-			TECH_NO,
-			PROD_DANJ,
-			PROD_DANG,
-			PROD_KIJONG,
-			PROD_PG,
-			PROD_PG1,
-			PROD_PG2,
-			PROD_SG,
-			PROD_SG1,
-			PROD_SG2,
-			PROD_E1
+	<select id="getChimStandardList" parameterType="standard"
+		resultType="standard">
+		select ROW_NUMBER()OVER(ORDER BY CORP_NAME, PROD_NAME, PROD_NO) AS
+		ROW_NUM ,
+		CORP_NAME,
+		PROD_NAME,
+		PROD_GYU,
+		PROD_NO,
+		PROD_JAI,
+		FAC_NAME,
+		TECH_TE,
+		WSTD_CODE,
+		TECH_NO,
+		PROD_DANJ,
+		PROD_DANG,
+		PROD_KIJONG,
+		PROD_PG,
+		PROD_PG1,
+		PROD_PG2,
+		PROD_SG,
+		PROD_SG1,
+		PROD_SG2,
+		PROD_E1
 		FROM vworkstd
 		where 1=1
-		<if test='wstdGubn == "B"'>
-			and WSTD_GUBN = 'B'		
+		<if test='wstd_gubn == "B"'>
+			and WSTD_GUBN = 'B'
 		</if>
-		<if test='wstdGubn == "P"'>
-			and WSTD_GUBN = 'P'		
+		<if test='wstd_gubn == "P"'>
+			and WSTD_GUBN = 'P'
 		</if>
-		<if test='wstdGubn == "V"'>
-			and WSTD_GUBN = 'V'		
+		<if test='wstd_gubn == "V"'>
+			and WSTD_GUBN = 'V'
 		</if>
-		<if test='wstdGubn == "S"'>
-			and WSTD_GUBN = 'S'		
+		<if test='wstd_gubn == "S"'>
+			and WSTD_GUBN = 'S'
 		</if>
-		<if test='wstdGubn == "H"'>
-			and WSTD_GUBN = 'H'		
+		<if test='wstd_gubn == "H"'>
+			and WSTD_GUBN = 'H'
 		</if>
-		<if test='wstdGubn == "J"'>
-			and WSTD_GUBN = 'J'		
+		<if test='wstd_gubn == "J"'>
+			and WSTD_GUBN = 'J'
 		</if>
-		<if test='wstdGubn == "Y"'>
-			and WSTD_GUBN = 'Y'		
+		<if test='wstd_gubn == "Y"'>
+			and WSTD_GUBN = 'Y'
+		</if>
+		<if test='corp_name != null and corp_name != ""'>
+			AND CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
+		</if>
+		<if test='prod_name != null and prod_name != ""'>
+			AND PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
+		</if>
+		<if test='prod_no != null and prod_no != ""'>
+			AND PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
+		</if>
+		<if test='fac_name != null and fac_name != ""'>
+			AND FAC_NAME LIKE CONCAT('%', #{fac_name}, '%')
 		</if>
 		order by CORP_NAME, PROD_NAME, PROD_NO
-    </select>
-    
+	</select>
+
 </mapper>

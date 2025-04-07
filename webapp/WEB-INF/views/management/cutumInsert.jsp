@@ -25,7 +25,7 @@
         }
 
         .tabulator {
-            width: 90%;
+            width: 120%;
             max-width: 100%;
             max-height: 900px;
             overflow-x: hidden !important;  
@@ -40,6 +40,21 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
+
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -900px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+}  
     
     
     </style>
@@ -48,9 +63,26 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">거래처명 :</label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">지역 :</label>
+		<input type="text" class="corp_plc" id="corp_plc" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">구분 :</label>
+		<input type="text" class="corp_gubn" id="corp_gubn" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">영업담당자 :</label>
+		<input type="text" class="corp_mast" id="corp_mast" style="font-size: 16px; autocomplete="off">
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getCutumList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -173,34 +205,39 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/management/cutumInsert/list",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"corp_name": $("#corp_name").val(),
+                "corp_plc": $("#corp_plc").val(),
+                "corp_gubn": $("#corp_gubn").val(),
+                "corp_mast": $("#corp_mast").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"구분ID", field:"corp_gubn", sorter:"string", width:120,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"거래처명", field:"corp_name", sorter:"string", width:150,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"영업담당자", field:"corp_name2", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"사업자번호", field:"corp_no", sorter:"string", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"전화", field:"corp_tel", sorter:"int", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"FAX", field:"corp_fax", sorter:"int", width:200,
-			        hozAlign:"center"},
+			        hozAlign:"center", headerFilter:"input"},
 			    {title:"대표", field:"corp_boss", sorter:"int", width:120,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"담당자", field:"corp_mast", sorter:"int", width:150,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"지역", field:"corp_plc", sorter:"int", width:100,
-					hozAlign:"center"},      		
+					hozAlign:"center", headerFilter:"input"},      		
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

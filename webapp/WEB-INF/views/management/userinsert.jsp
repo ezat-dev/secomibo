@@ -43,7 +43,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -780px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+}    
     
     </style>
     
@@ -51,8 +64,28 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">부서 :</label>
+		<input type="text" class="user_buso" id="user_buso" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">직책 :</label>
+		<input type="text" class="user_jick" id="user_jick" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">이름 :</label>
+		<input type="text" class="user_name" id="user_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">재직구분 :</label>
+		<input type="text" class="user_ret" id="user_ret" style="font-size: 16px; autocomplete="off">
+			
+		<label class="daylabel">보고서타입 :</label>
+		<input type="text" class="" id="" style="font-size: 16px; autocomplete="off">
+			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getAllUserList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -147,8 +180,10 @@
 		    ajaxURL:"/tkheat/management/authority/userList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
-			    "sdate":$("#").val(),
-			    
+		    	"user_buso": $("#user_buso").val(),
+                "user_jick": $("#user_jick").val(),
+                "user_name": $("#user_name").val(),
+                "user_ret": $("#user_ret").val(),
 			   },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,

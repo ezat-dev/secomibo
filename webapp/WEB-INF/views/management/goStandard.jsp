@@ -116,14 +116,43 @@
     .btnSaveClose button:hover {
         background: #0056b3; /* 호버 시 색상 변경 */
     }    
+    
+    .box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1080px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+} 
     </style>
     
     
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">거래처명 :</label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품명 :</label>
+		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품번 :</label>
+		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px;" autocomplete="off">
+			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getGoStandardList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -698,30 +727,34 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/management/goStandardInsert/getGoStandardList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_no": $("#prod_no").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"거래처명", field:"corp_name", sorter:"string", width:120,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"품명", field:"prod_name", sorter:"string", width:150,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"품번", field:"prod_no", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"규격", field:"prod_gyu", sorter:"string", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"재질", field:"prod_jai", sorter:"int", width:200,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"설비", field:"fac_code", sorter:"int", width:200,
-			        hozAlign:"center"},
+			        hozAlign:"center", headerFilter:"input"},
 			    {title:"공정", field:"tech_te", sorter:"int", width:120,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -759,21 +792,27 @@
 	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
 	header.addEventListener('mousedown', function(e) {
-	    let offsetX = e.clientX - modal.getBoundingClientRect().left; // 마우스와 모달의 x 위치 차이
-	    let offsetY = e.clientY - modal.getBoundingClientRect().top; // 마우스와 모달의 y 위치 차이
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
 
-	    function moveModal(e) {
-	        modal.style.left = (e.clientX - offsetX) + 'px';
-	        modal.style.top = (e.clientY - offsetY) + 'px';
-	    }
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
 
-	    function stopMove() {
-	        window.removeEventListener('mousemove', moveModal); // 이동 중지
-	        window.removeEventListener('mouseup', stopMove); // 마우스 업 이벤트 제거
-	    }
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
 
-	    window.addEventListener('mousemove', moveModal); // 마우스 이동 이벤트
-	    window.addEventListener('mouseup', stopMove); // 마우스 업 이벤트
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
 	});
 		
 

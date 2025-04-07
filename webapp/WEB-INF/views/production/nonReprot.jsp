@@ -34,6 +34,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -380px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+} 
     
     
     </style>
@@ -42,9 +56,33 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">고객명 : </label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품명 : </label>
+		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품번 : </label>
+		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">규격 : </label>
+		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">제품구분 : </label>
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getNonReportList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -76,12 +114,12 @@
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getNonReportList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getNonReportList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -91,12 +129,20 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/production/nonReport/getNonReportList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+		    	"edate": $("#edate").val(),
+                "corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_no": $("#prod_no").val(),
+                "prod_gyu": $("#prod_gyu").val(),
+                "prod_gubn": $("#prod_gubn").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
@@ -105,23 +151,23 @@
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"작성일", field:"prod_code", sorter:"string", width:120,
+		        {title:"발생일", field:"werr_wdate", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"고객명", field:"prod_date", sorter:"string", width:120,
+			    {title:"고객명", field:"corp_name", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"품명", field:"corp_name", sorter:"string", width:120,
+				{title:"품명", field:"prod_name", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품번", field:"prod_name", sorter:"string", width:150,
+				{title:"품번", field:"prod_no", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"수주일", field:"prod_no", sorter:"string", width:120,
+		        {title:"수주일", field:"ord_date", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"공정", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"공정", field:"tech_te", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"설비", field:"prod_jai", sorter:"string", width:100,
+		        {title:"설비", field:"werr_fac", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"구분", field:"tech_te", sorter:"string", width:100,
+		        {title:"구분", field:"werr_gubn", sorter:"string", width:100,
 			        hozAlign:"center"},	
-		        {title:"수량", field:"prod_danj", sorter:"int", width:100,
+		        {title:"수량", field:"werr_amnt", sorter:"int", width:100,
 		        	hozAlign:"center"},
 				    
 		    ],

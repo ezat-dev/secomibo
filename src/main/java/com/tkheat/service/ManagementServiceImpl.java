@@ -20,8 +20,8 @@ public class ManagementServiceImpl implements ManagementService {
 	private ManagementDao managementDao;
 	
 	@Override
-	public List<Users> getUserList(){
-		return managementDao.getUserList();
+	public List<Users> getUserList(Users user){
+		return managementDao.getUserList(user);
 	}
 	@Override
 	public List<Users> getBigPageList(){
@@ -48,18 +48,18 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
-	public List<Corp> getCorpList(){
-		return managementDao.getCorpList();
+	public List<Corp> getCorpList(Corp corp){
+		return managementDao.getCorpList(corp);
 	}
 	
 	@Override
-	public List<Fac> getFacList(){
-		return managementDao.getFacList();
+	public List<Fac> getFacList(Fac fac){
+		return managementDao.getFacList(fac);
 	}
 	
 	@Override
-	public List<Product> getProductList(){
-		return managementDao.getProductList();
+	public List<Product> getProductList(Product product){
+		return managementDao.getProductList(product);
 	}
 	
 	@Override
@@ -68,13 +68,13 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
-	public List<Standard> getChimStandardList(){
-		return managementDao.getChimStandardList();
+	public List<Standard> getChimStandardList(Standard standard){
+		return managementDao.getChimStandardList(standard);
 	}
 	
 	@Override
-	public List<Standard> getGoStandardList(){
-		return managementDao.getGoStandardList();
+	public List<Standard> getGoStandardList(Standard standard){
+		return managementDao.getGoStandardList(standard);
 	}
 	
 	@Override

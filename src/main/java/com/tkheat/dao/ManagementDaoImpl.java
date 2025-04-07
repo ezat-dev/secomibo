@@ -21,8 +21,8 @@ public class ManagementDaoImpl implements ManagementDao {
 	 private SqlSession sqlSession;
 
 	 @Override
-	 public List<Users> getUserList() {
-		 return sqlSession.selectList("users.getUserList");
+	 public List<Users> getUserList(Users user) {
+		 return sqlSession.selectList("users.getUserList", user);
 	 }
 	 
 	 @Override
@@ -51,18 +51,18 @@ public class ManagementDaoImpl implements ManagementDao {
 	}
 	
 	@Override
-	 public List<Corp> getCorpList() {
-		 return sqlSession.selectList("corp.getCorpList");
+	 public List<Corp> getCorpList(Corp corp) {
+		 return sqlSession.selectList("corp.getCorpList", corp);
 	 }
 	
 	@Override
-	 public List<Fac> getFacList() {
-		 return sqlSession.selectList("fac.getFacList");
+	 public List<Fac> getFacList(Fac fac) {
+		 return sqlSession.selectList("fac.getFacList", fac);
 	 }
 	
 	@Override
-	 public List<Product> getProductList() {
-		 return sqlSession.selectList("product.getProductList");
+	 public List<Product> getProductList(Product product) {
+		 return sqlSession.selectList("product.getProductList",product);
 	 }
 	
 	@Override
@@ -71,14 +71,14 @@ public class ManagementDaoImpl implements ManagementDao {
 	 }
 	
 	@Override
-	 public List<Standard> getChimStandardList() {
-		 return sqlSession.selectList("standard.getChimStandardList");
+	 public List<Standard> getChimStandardList(Standard standard) {
+		 return sqlSession.selectList("standard.getChimStandardList",standard);
 	 }
 	
 	// gubn으로 구분하기 때문에 같은 쿼리 사용
 	@Override
-	 public List<Standard> getGoStandardList() {
-		 return sqlSession.selectList("standard.getChimStandardList");
+	 public List<Standard> getGoStandardList(Standard standard) {
+		 return sqlSession.selectList("standard.getChimStandardList",standard);
 	 }
 	
 	 @Override

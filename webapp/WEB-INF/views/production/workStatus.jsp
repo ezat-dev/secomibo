@@ -34,7 +34,21 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -380px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}  
+        
     
     </style>
     
@@ -42,9 +56,32 @@
     <body>
     
     <div class="tab">
-    
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">거래처명 : </label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품명 : </label>
+		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
+			
+		<label class="daylabel">품번 : </label>
+		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">공정 : </label>
+		<input type="text" class="tech_te" id="tech_te" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">제품구분 : </label>
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getWorkStatusList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -76,12 +113,12 @@
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getWorkStatusList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getWorkStatusList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -91,50 +128,50 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/production/workStatus/getWorkStatusList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+		    	"edate": $("#edate").val(),
+                "corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_no": $("#prod_no").val(),
+                "tech_te": $("#tech_te").val(),
+                "prod_gubn": $("#prod_gubn").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"plnp_no", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"일자", field:"prod_code", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"수주NO", field:"ord_code", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"생산LOT", field:"ilbo_lot", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"공정", field:"tech_te", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"설비", field:"fac_name", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"거래처", field:"corp_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품번", field:"prod_no", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"규격", field:"prod_gyu", sorter:"int", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"재질", field:"prod_jai", sorter:"int", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"수량", field:"plnp_dsu", sorter:"int", width:100,
+				    hozAlign:"center", headerFilter:"input"},
 				    
 		    ],
 		    rowFormatter:function(row){

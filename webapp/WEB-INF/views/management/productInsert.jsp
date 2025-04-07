@@ -10,160 +10,254 @@
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
-    
-.main{
-	width:98%;
+.main {
+	width: 98%;
 }
+
 .container {
 	display: flex;
 	justify-content: space-between;
 }
+
 .detail {
-    background: #ffffff;
-    border: 1px solid #000000;
-    width: 1200px; /* 가로 길이 고정 */
-    height: 720px; /* 세로 길이 고정 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-    margin: 20px auto; /* 중앙 정렬 */
-    padding: 20px;
-    border-radius: 5px; /* 모서리 둥글게 */
-    overflow-y: auto; /* 세로 스크롤 추가 */
-    position: relative; /* 자식 요소의 절대 위치 설정을 위한 기준 */
+	background: #ffffff;
+	border: 1px solid #000000;
+	width: 1200px; /* 가로 길이 고정 */
+	height: 720px; /* 세로 길이 고정 */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+	margin: 20px auto; /* 중앙 정렬 */
+	padding: 20px;
+	border-radius: 5px; /* 모서리 둥글게 */
+	overflow-y: auto; /* 세로 스크롤 추가 */
+	position: relative; /* 자식 요소의 절대 위치 설정을 위한 기준 */
 }
 
 .insideTable {
-    width: 100%; /* 내부 테이블 너비 100% */
-    border-collapse: collapse;
+	width: 100%; /* 내부 테이블 너비 100% */
+	border-collapse: collapse;
 }
 
-.insideTable th,
-.insideTable td {
-    padding: 5px; /* 셀 패딩을 줄여 세로 길이 감소 */
-    border: 1px solid #ccc; /* 셀 경계선 */
-    text-align: left; /* 텍스트 왼쪽 정렬 */
+.insideTable th, .insideTable td {
+	padding: 5px; /* 셀 패딩을 줄여 세로 길이 감소 */
+	border: 1px solid #ccc; /* 셀 경계선 */
+	text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
 .insideTable th {
-    background: #f0f0f0; /* 헤더 배경색 */
-    font-weight: bold; /* 굵은 글씨 */
+	background: #f0f0f0; /* 헤더 배경색 */
+	font-weight: bold; /* 굵은 글씨 */
 }
 
 .basic {
-    background: #ffffff;
-    border: 1px solid #949494; /* 경계선 색상 */
-    width: calc(50% - 10px); /* 입력 박스 너비 조정 */
-    padding: 5px; /* 내부 여백 */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
-    border-radius: 3px; /* 둥근 모서리 */
-    display: inline-block; /* 인라인 블록으로 설정하여 가로 정렬 */
-    margin-right: 5px; /* 입력 박스 간격 조정 */
+	background: #ffffff;
+	border: 1px solid #949494; /* 경계선 색상 */
+	width: calc(50% - 10px); /* 입력 박스 너비 조정 */
+	padding: 5px; /* 내부 여백 */
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
+	border-radius: 3px; /* 둥근 모서리 */
+	display: inline-block; /* 인라인 블록으로 설정하여 가로 정렬 */
+	margin-right: 5px; /* 입력 박스 간격 조정 */
 }
 
 .basic:last-child {
-    margin-right: 0; /* 마지막 입력 박스의 여백 제거 */
+	margin-right: 0; /* 마지막 입력 박스의 여백 제거 */
 }
 
-.btnSearchCorp,
-.btn1T {
-    background: #007bff; /* 버튼 배경색 */
-    color: white; /* 버튼 글자색 */
-    border: none; /* 경계선 없음 */
-    padding: 5px 10px; /* 내부 여백 */
-    cursor: pointer; /* 커서 변경 */
-    border-radius: 3px; /* 모서리 둥글게 */
-    margin-top: 5px; /* 위쪽 여백 */
+.btnSearchCorp, .btn1T {
+	background: #007bff; /* 버튼 배경색 */
+	color: white; /* 버튼 글자색 */
+	border: none; /* 경계선 없음 */
+	padding: 5px 10px; /* 내부 여백 */
+	cursor: pointer; /* 커서 변경 */
+	border-radius: 3px; /* 모서리 둥글게 */
+	margin-top: 5px; /* 위쪽 여백 */
 }
 
-.btnSearchCorp:hover,
-.btn1T:hover {
-    background: #0056b3; /* 호버 시 색상 변경 */
+.btnSearchCorp:hover, .btn1T:hover {
+	background: #0056b3; /* 호버 시 색상 변경 */
 }
 
 .resultArea2 {
-    background: #f9f9f9; /* 결과 영역 배경색 */
-    padding: 10px; /* 내부 여백 */
-    border: 1px solid #ddd; /* 경계선 */
-    border-radius: 5px; /* 모서리 둥글게 */
+	background: #f9f9f9; /* 결과 영역 배경색 */
+	padding: 10px; /* 내부 여백 */
+	border: 1px solid #ddd; /* 경계선 */
+	border-radius: 5px; /* 모서리 둥글게 */
 }
 
 .imgArea {
-    width: 200px; /* 이미지 영역 너비 */
-    height: 150px; /* 이미지 영역 높이 */
-    border: 1px solid #ddd; /* 경계선 */
-    margin-bottom: 10px; /* 하단 여백 */
+	width: 200px; /* 이미지 영역 너비 */
+	height: 150px; /* 이미지 영역 높이 */
+	border: 1px solid #ddd; /* 경계선 */
+	margin-bottom: 10px; /* 하단 여백 */
 }
 
 .imgClass {
-    width: 100%; /* 이미지 너비 */
-    height: 100%; /* 이미지 높이 */
-    object-fit: cover; /* 이미지 비율 유지 */
+	width: 100%; /* 이미지 너비 */
+	height: 100%; /* 이미지 높이 */
+	object-fit: cover; /* 이미지 비율 유지 */
 }
 
 .tdRight {
-    text-align: right; /* 오른쪽 정렬 */
+	text-align: right; /* 오른쪽 정렬 */
 }
 
 .thSub2 {
-    width: 150px; /* 서브 헤더 너비 */
+	width: 150px; /* 서브 헤더 너비 */
 }
 
 .valClean {
-    margin-left: 5px; /* 여백 */
+	margin-left: 5px; /* 여백 */
 }
 
 textarea {
-    border: 1px solid #949494; /* 경계선 색상 */
-    padding: 5px; /* 내부 여백 */
-    width: calc(100% - 10px); /* 너비 100%에서 여백 제외 */
-    height: 100px; /* 높이 */
-    border-radius: 3px; /* 둥근 모서리 */
-}    
+	border: 1px solid #949494; /* 경계선 색상 */
+	padding: 5px; /* 내부 여백 */
+	width: calc(100% - 10px); /* 너비 100%에서 여백 제외 */
+	height: 100px; /* 높이 */
+	border-radius: 3px; /* 둥근 모서리 */
+}
 
 .productModal {
-    position: fixed; /* 화면에 고정 */
-    top: 50%; /* 수직 중앙 */
-    left: 50%; /* 수평 중앙 */
-    display : none;
-    transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-.header {
-    display: flex; /* 플렉스 박스 사용 */
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px; /* 상단 여백 */
-    background-color: #33363d; /* 배경색 */
-    height: 50px; /* 높이 */
-    color: white; /* 글자색 */
-    font-size: 20px; /* 글자 크기 */
-    text-align: center; /* 텍스트 정렬 */
+	position: fixed; /* 화면에 고정 */
+	top: 50%; /* 수직 중앙 */
+	left: 50%; /* 수평 중앙 */
+	display: none;
+	transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+	z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
+.header {
+	display: flex; /* 플렉스 박스 사용 */
+	justify-content: center; /* 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: 10px; /* 상단 여백 */
+	background-color: #33363d; /* 배경색 */
+	height: 50px; /* 높이 */
+	color: white; /* 글자색 */
+	font-size: 20px; /* 글자 크기 */
+	text-align: center; /* 텍스트 정렬 */
+}
 
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	background: #007bff; /* 버튼 배경색 */
+	color: white; /* 버튼 글자색 */
+	border: none; /* 경계선 없음 */
+	padding: 8px 15px; /* 내부 여백 */
+	cursor: pointer; /* 커서 변경 */
+	border-radius: 3px; /* 모서리 둥글게 */
+	margin: 0 10px; /* 버튼 간격 */
+	margin-top: 10px;
+	align-items: center; /* 수직 중앙 정렬 */
+}
 
-    .btnSaveClose button:hover {
-        background: #0056b3; /* 호버 시 색상 변경 */
-    } 
-    </style>
+.btnSaveClose button:hover {
+	background: #0056b3; /* 호버 시 색상 변경 */
+}
+
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -250px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+}
+</style>
     
     
     <body>
     
     <div class="tab">
     
+    <div class="box1">
+           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+			<label class="daylabel">업체명 :</label>
+			<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
+			
+			<label class="daylabel">품명 :</label>
+			<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
+			
+			<label class="daylabel">품번 :</label>
+			<input type="text" class="prod_no" id="prod_no" style="font-size: 16px;" autocomplete="off">
+			
+			<label class="daylabel">규격 :</label>
+			<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
+			
+			<label class="daylabel">재질 :</label>
+			<input type="text" class="prod_jai" id="prod_jai" style="font-size: 16px; autocomplete="off">
+			
+			<label class="daylabel">표면경도 :</label>
+			<input type="text" class="prod_pg" id="prod_pg" style="font-size: 16px; autocomplete="off">
+			
+			<label class="daylabel">경화깊이 :</label>
+			<input type="text" class="prod_gd3" id="prod_gd3" style="font-size: 16px; autocomplete="off">
+			
+			<label class="daylabel">심부경도 :</label>
+			<input type="text" class="prod_sg" id="prod_sg" style="font-size: 16px; autocomplete="off">
+			
+			<label class="daylabel">공정 :</label>
+			<select id="tech_te" name="tech_te" class="basic valPost valClean">
+                  
+                    <option value="">전체</option>
+                    
+                    <option value="A08">가스산질화</option>
+                  
+                    <option value="A11">가스연질화</option>
+                  
+                    <option value="A12">가스질화</option>
+                  
+                    <option value="A13">기타</option>
+                  
+                    <option value="A14">염욕질화</option>
+                  
+                    <option value="A15">외주품</option>
+                  
+                    <option value="A16">이온질화</option>
+                  
+                    <option value="A17">진공열처리</option>
+                  
+                    <option value="A18">침류질화</option>
+                  
+                    <option value="A20">침탄</option>
+                  
+                    <option value="A21">침탄질화</option>
+                  
+                    <option value="A27">침탄PQ</option>
+                  
+                    <option value="A30">템퍼링</option>
+                  
+                    <option value="A31">템퍼링기타</option>
+                  
+                    <option value="A32">Annearling</option>
+                  
+                    <option value="A33">Case-Vc</option>
+                  
+                    <option value="A34">Normalizing</option>
+                  
+                    <option value="A35">PLASOX</option>
+                  
+                    <option value="B16">PQ</option>
+                  
+                    <option value="B17">QT</option>
+                  
+                    <option value="B38">VT침탄</option>
+                  
+                </select>
+			
+			
+			
+			</div>
+    
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getProductList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -180,6 +274,7 @@ textarea {
             
         </button>
     </div>
+    
 </div>
     <main class="main">
 		<div class="container">
@@ -219,7 +314,7 @@ textarea {
               <th class="left">거래처</th>
               <td>
                   <input id="CORP_NAME" name="corp_name"class="basic valClean" type="text" style="width:60%;" value="다산테크" readonly="">
-                  <input id="CORP_CODE" name="corp_code" class="basic valPost valClean" type="hidden" style="width:50%;" value="" readonly="">
+                  <input id="CORP_CODE" name="corp_code" class="basic valPost valClean" type="hidden" style="width:50%;" value="0" readonly="">
                 <input class="btnSearchCorp" name="" type="button" title="거래처선택" value="검색">
               </td>
               <th>관리번호</th>
@@ -229,7 +324,7 @@ textarea {
               <th class="left">품명</th>
               <td>
                 <input id="PROD_NAME" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
-                <input id="PROD_CODE" name="prod_code" class="basic valPost valClean" type="hidden" value="">
+<!--                 <input id="PROD_CODE" name="prod_code" class="basic valPost valClean" type="hidden" value=""> -->
               </td>
               <th><span class="left">품번</span></th>
               <td><input id="PROD_NO" name="prod_no" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
@@ -764,7 +859,6 @@ textarea {
 	//이벤트
 	//함수
 	function getProductList(){
-		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
 		    layout:"fitColumns",
@@ -777,47 +871,56 @@ textarea {
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/management/productInsert/productList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_no": $("#prod_no").val(),
+                "prod_gyu": $("#prod_gyu").val(),
+                "prod_jai": $("#prod_jai").val(),
+                "prod_pg": $("#prod_pg").val(),
+                "prod_gd3": $("#prod_gd3").val(),
+                "prod_sg": $("#prod_sg").val(),
+                "tech_te": $("#tech_te").val(),
+			    },
      	    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
+				    hozAlign:"center", headerFilter:"input"},     
 				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
+		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_no", sorter:"string", width:100,
-			        hozAlign:"center"},	
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"공정", field:"tech_te", sorter:"string", width:100,
+			        hozAlign:"center", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}},	
 		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"단가(EA)", field:"prod_dang", sorter:"int", width:100,
-				    hozAlign:"center"},	
+				    hozAlign:"center", headerFilter:"input"},	
 				{title:"단가(kG)", field:"prod_dang", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"표면경도", field:"prod_pg", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 			    {title:"경화깊이", field:"prod_gd3", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
  			    {title:"심부경도", field:"prod_sg", sorter:"int", width:100,
-					hozAlign:"center"},
-				    
+					hozAlign:"center", headerFilter:"input"},
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -844,6 +947,16 @@ textarea {
 		});		
 	}
 
+	function techNoSelect(){
+		var obj = {
+				"":"전체",
+				"A08":"가스산질화",
+				"A11":"가스연질화",
+				"A12":"가스질화",
+			};
+
+		return obj;	
+	}
 
 
 	function save(){
@@ -905,22 +1018,29 @@ textarea {
 	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
 	header.addEventListener('mousedown', function(e) {
-	    let offsetX = e.clientX - modal.getBoundingClientRect().left; // 마우스와 모달의 x 위치 차이
-	    let offsetY = e.clientY - modal.getBoundingClientRect().top; // 마우스와 모달의 y 위치 차이
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
 
-	    function moveModal(e) {
-	        modal.style.left = (e.clientX - offsetX) + 'px';
-	        modal.style.top = (e.clientY - offsetY) + 'px';
-	    }
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
 
-	    function stopMove() {
-	        window.removeEventListener('mousemove', moveModal); // 이동 중지
-	        window.removeEventListener('mouseup', stopMove); // 마우스 업 이벤트 제거
-	    }
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
 
-	    window.addEventListener('mousemove', moveModal); // 마우스 이동 이벤트
-	    window.addEventListener('mouseup', stopMove); // 마우스 업 이벤트
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
 	});
+
 		
 
 	// 모달 열기
@@ -937,6 +1057,14 @@ textarea {
 	});
 
 
+
+
+
+
+
+
+
+	
 
     </script>
 

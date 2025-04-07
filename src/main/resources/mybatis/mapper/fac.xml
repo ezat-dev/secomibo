@@ -8,19 +8,26 @@
 	<!-- 전체 설비 목록 조회 -->
 	<select id="getFacList" parameterType="fac" resultType="fac">
        SELECT FAC_CODE, 
-		       FAC_NO, 
-		       FAC_NAME,
-		       FAC_GUBN, 
-		       FAC_GYU, 
-		       FAC_HYUN, 
-		       FAC_YONG, 
-		       FAC_PLC, 
-		       FAC_ABLE, 
-		       FAC_MAKE, 
-		       FAC_CBUY,
-		       FAC_DAN 
-		  FROM FACILITY 
-		ORDER BY FAC_NO ASC
+           FAC_NO, 
+           FAC_NAME,
+           FAC_GUBN, 
+           FAC_GYU, 
+           FAC_HYUN, 
+           FAC_YONG, 
+           FAC_PLC, 
+           FAC_ABLE, 
+           FAC_MAKE, 
+           FAC_CBUY,
+           FAC_DAN 
+		    FROM FACILITY 
+		    WHERE 1=1
+    <if test="fac_no != null and fac_no != ''">
+        AND FAC_NO LIKE CONCAT('%', #{fac_no}, '%')
+    </if>
+    <if test="fac_name != null and fac_name != ''">
+        AND FAC_NAME LIKE CONCAT('%', #{fac_name}, '%')
+    </if>
+    ORDER BY FAC_NO ASC
     </select>
     
 </mapper>
