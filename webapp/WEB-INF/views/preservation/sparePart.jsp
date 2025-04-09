@@ -307,66 +307,57 @@ textarea {
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getSparePartList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getSparePartList(){
 		
 		userTable = new Tabulator("#tab1", {
-		    height:"750px",
+		    height:"330px",
 		    layout:"fitColumns",
 		    selectable:true,	//로우 선택설정
 		    tooltips:true,
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/preservation/sparePart/getSparePartList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"spp_idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
+		        {title:"매입처", field:"spp_purchase", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
+			    {title:"품번", field:"spp_no", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"품명", field:"spp_name", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
+				{title:"규격", field:"spp_gyu", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
+		        {title:"교체주기", field:"spp_yong", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"적정재고", field:"spp_proper", sorter:"int", width:100,
 		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        {title:"비고", field:"spp_bigo", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
+		        {title:"입고", field:"sph_input", sorter:"int", width:100,
 			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
+		        {title:"수리출고", field:"sph_suriout", sorter:"int", width:100,
 		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
+		        {title:"자산출고", field:"sph_jasanout", sorter:"int", width:100,
 			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
+			    {title:"현재고", field:"spp_jaigo", sorter:"int", width:100,
 				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-				    
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

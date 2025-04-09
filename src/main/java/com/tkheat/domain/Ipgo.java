@@ -3,8 +3,8 @@ package com.tkheat.domain;
 public class Ipgo {
 
 	//ORDERT 테이블(입고이력)
-	private String s_date; // 시작일
-	private String e_date; // 종료일
+	private String sdate; // 시작일
+	private String edate; // 종료일
 	
 	private int ord_code;			//입고코드
 	private String ord_input;		//
@@ -399,16 +399,16 @@ public class Ipgo {
 		this.prod_cd = prod_cd;
 	}
 	public String getSdate() {
-		return s_date;
+		return sdate;
 	}
 	public void setSdate(String sdate) {
-		this.s_date = sdate;
+		this.sdate = sdate;
 	}
 	public String getEdate() {
-		return e_date;
+		return edate;
 	}
 	public void setEdate(String edate) {
-		this.e_date = edate;
+		this.edate = edate;
 	}
 	
 	

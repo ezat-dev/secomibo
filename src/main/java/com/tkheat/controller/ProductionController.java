@@ -267,6 +267,7 @@ public class ProductionController {
 		 return "/production/prodWaitingStatus.jsp";
 	 }	 
 	 
+	 
 	//생산대기현황 조회
 		 @RequestMapping(value = "/production/prodWaitingStatus/getProdWaitingStatusList", method = RequestMethod.POST) 
 		 @ResponseBody 
@@ -276,8 +277,9 @@ public class ProductionController {
 				 @RequestParam String corp_name,
 				 @RequestParam String prod_name,
 				 @RequestParam String prod_no,
-				 @RequestParam String prod_gubn,
-				 @RequestParam String prod_gyu) {
+				 @RequestParam String ord_code,
+				 @RequestParam String prod_gyu,
+				 @RequestParam String corp_business) {
 			 Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 			 Work work = new Work();
@@ -286,8 +288,9 @@ public class ProductionController {
 			 work.setCorp_name(corp_name);
 			 work.setProd_name(prod_name);
 			 work.setProd_no(prod_no);
-			 work.setProd_gubn(prod_gubn);
+			 work.setProd_gubn(ord_code);
 			 work.setProd_gyu(prod_gyu);
+			 work.setCorp_business(corp_business);
 
 
 			 List<Work> prodWaitingStatusList = productionService.getProdWaitingStatusList(work);

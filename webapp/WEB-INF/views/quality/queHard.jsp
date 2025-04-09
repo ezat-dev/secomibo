@@ -18,22 +18,23 @@
 	display: flex;
 	justify-content: space-between;
 }
-.tabulator {
-	width: 100%;
-	max-width: 100%;
-	max-height: 900px;
-	overflow-x: hidden !important;  
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -310px;
 }
-        
-.tabulator .tabulator-cell {
-	white-space: normal !important;
-	word-break: break-word; 
-	text-align: center;
+
+.box1 input[type="text"]{
+	width : 5%;
 }
-        
-.row_select{
-	background-color:#9ABCEA !important;
+.box1 input[type="date"]{
+	width : 7%;
 }
+.box1 select{
+	width: 5%
+} 
     
     
     </style>
@@ -42,6 +43,12 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+       <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>        
+	   <label class="daylabel">기간 : </label>
+	   <input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+	   <input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">			
+	</div>
     
     <div class="button-container">
         <button class="select-button">
@@ -81,7 +88,7 @@
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getQueHardList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -91,50 +98,55 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/quality/queHard/getQueHardList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+                "edate": $("#edate").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
+		        {title:"준비코드", field:"juckjaecode", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
+			    {title:"작업일", field:"prod_date", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"시작", field:"corp_name", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
+				{title:"종료", field:"prod_name", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
+		        {title:"LOTNO", field:"prod_no", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"작업자", field:"prod_gyu", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        {title:"품명", field:"prod_jai", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
+		        {title:"품번", field:"tech_te", sorter:"string", width:100,
 			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
+		        {title:"규격", field:"prod_danj", sorter:"int", width:100,
 		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
+		        {title:"재질", field:"prod_danw", sorter:"int", width:100,
 			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
+			    {title:"표면경도", field:"prod_danw", sorter:"int", width:100,
 				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
+				{title:"판정", field:"prod_danw", sorter:"int", width:100,
 				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
+				{title:"x1", field:"ilbo_pg1", sorter:"int", width:100,
 					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
+			    {title:"x2", field:"ilbo_pg2", sorter:"int", width:100,
 					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
+ 			    {title:"x3", field:"ilbo_pg3", sorter:"int", width:100,
 					hozAlign:"center"},
+				{title:"x4", field:"ilbo_pg4", sorter:"int", width:100,
+					hozAlign:"center"},
+	 			{title:"x5", field:"ilbo_pg5", sorter:"int", width:100,
+				    hozAlign:"center"},	
 				    
 		    ],
 		    rowFormatter:function(row){

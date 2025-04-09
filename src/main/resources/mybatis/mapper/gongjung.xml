@@ -6,11 +6,7 @@
 
 	<!-- 입출고 삭제현황 조회 -->
 	<select id="getIpChulDeleteList" parameterType="gongjung" resultType="gongjung">
-		SET LOCK_TIMEOUT 10000;
-		WITH DEL_NUMS AS
-		(
-		SELECT ROW_NUMBER() OVER
-		(ORDER BY ${sidx} ${sord}) AS 'ROWNUM',
+		SELECT 
 		CONVERT(char(10), DEL_DATE, 23)
 		as DEL_DATE,
 		CONVERT(char(10), ORD_DATE, 23) as ORD_DATE,
@@ -19,8 +15,9 @@
 		CORP_NAME, PROD_NAME,PROD_NO,PROD_GYU, DEL_SU, DEL_AMNT, ORD_LOT ,
 		SESSION_NAME
 		FROM DEL_LOG WITH(NOLOCK)
+		WHERE DEL_DATE BETWEEN #{sdate} AND #{edate}
+		<!-- 
 		<where>
-			DEL_DATE BETWEEN #{strtDate}+' 00:00:00' AND #{endDate}+' 23:59:59'
 			<if test="DEL_DATE != null">
 				AND DEL_DATE = #{del_date}
 			</if>
@@ -50,13 +47,60 @@
 			</if>
 			and DEL_KIND != '제품등록'
 		</where>
-		)
-		SELECT ROWNUM, *
-		FROM DEL_NUMS WITH(NOLOCK)
-		WHERE ROWNUM BETWEEN
-		${start} AND ${end}
+			 -->
+		
 	</select>
 
+	<!-- 공정작업현황 조회 -->
+	
+	<select id="getWorkStatusList" parameterType="gongjung" resultType="gongjung">
+		SELECT CORP_NAME, PRODUCT.PROD_CODE, PROD_NAME, PROD_NO, PROD_GYU, PROD_JAI,ORD_NAME, ORDERT.ORD_CODE,
+			ORD_SU,
+			OCH_SU,ORD_LOT
+		FROM ORDERT
+			INNER JOIN PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE
+			INNER JOIN CORP ON CORP.CORP_CODE = PRODUCT.CORP_CODE
+			LEFT OUTER JOIN OCHULGO ON OCHULGO.ORD_CODE = ORDERT.ORD_CODE
+		WHERE 
+            ORD_DATE BETWEEN #{sdate} AND #{edate}
+            <!-- 
+			<if test='ordCode != ""'>
+				and ORDERT.ORD_CODE		like +'%' + #{ordCode} + '%'
+			</if>		 
+			 
+			and CORP_NAME 		like +'%' + #{corpName} + '%'
+			and PROD_NAME 		like +'%' + #{prodName} + '%'
+			and PROD_NO 		like +'%' + #{prodNo} + '%'
+			and ORD_LOT 		like +'%' + #{ordLot} + '%'
+			and PROD_GYU 		like +'%' + #{prodGyu} + '%'
+			and PROD_JAI 		like +'%' + #{prodJai} + '%'
+			and PROD_GUBN like + '%' + case  #{prodGubn} when '양산' then '양산' when '개발' then '개발' else '' end  + '%'
+			and ORD_NAME 		like +'%' + #{ordName} + '%'
+			-->
+		order by ORD_NAME
+	
+	</select>
 
+	<select id="getWorkStatusListGongjungSum" parameterType="gongjung" resultType="gongjung">
+		SELECT ILBO_GUBN, SUM(ILBO_SU) AS ILBO_SU
+		FROM ORDERT
+			INNER JOIN PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE
+			INNER JOIN WORKILBO ON WORKILBO.ORD_CODE = ORDERT.ORD_CODE
+			INNER JOIN CORP ON CORP.CORP_CODE = PRODUCT.CORP_CODE
+		WHERE 
+			ORDERT.ORD_CODE		like CONCAT('%',#{ord_code},'%')
+			AND ORD_DATE BETWEEN #{sdate} AND #{edate}
+			<!-- 
+			and CORP_NAME 		like +'%' + #{corpName} + '%'
+			and PROD_NAME 		like +'%' + #{prodName} + '%'
+			and PROD_NO 		like +'%' + #{prodNo} + '%'
+			and ORD_LOT 		like +'%' + #{ordLot} + '%'
+			and PROD_GYU 		like +'%' + #{prodGyu} + '%'
+			and PROD_JAI 		like +'%' + #{prodJai} + '%'
+			and ORD_NAME 		like +'%' + #{ordName} + '%'
+			and PROD_GUBN like + '%' + case  #{prodGubn} when '양산' then '양산' when '개발' then '개발' else '' end  + '%'
+			-->
+		GROUP BY ILBO_GUBN
+	</select>
 
 </mapper>

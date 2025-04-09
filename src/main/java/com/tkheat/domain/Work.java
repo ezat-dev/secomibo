@@ -35,7 +35,7 @@ public class Work {
 	private String prod_gd4;			//경화깊이 수치 시작값
 	private String prod_gd5;			//경화깊이 수치 종료값
 	private String prod_cd;
-	private String prod_pg;
+	private String prod_pg;             //표면경도
 	private String prod_sg;
 	private String prod_gubn;
 	private String prod_date;
@@ -60,6 +60,13 @@ public class Work {
 	private String ilbo_lot;			//생산 LOT, 열처리 LOT
 	private int sum_su;
 	private int ilbo_su;				//생산 수량
+	private String ilbo_ok;             //판정
+	private int ilbo_pg1;               //검사값 x1~5
+	private int ilbo_pg2;
+	private int ilbo_pg3;
+	private int ilbo_pg4;
+	private int ilbo_pg5;
+	
 	
 	//ORDERT 테이블
 	private int ord_code;				//수주NO
@@ -74,6 +81,31 @@ public class Work {
 	private String werr_gubn;			//부적합 공정
 	private int werr_code;				//부적합 코드
 	private String werr_fac;			//부적합 설비
+	private String werr_lot;        // LOT No
+	private String werr_date;       // 작성일자
+	private String werr_yu;         // 관리번호
+	private String werr_mon;        // 금액
+	private String werr_user;       // 발생자
+	private String werr_rep;        // 보고자
+	private boolean werr_alert;     // 알림 체크박스
+	private String werr_buso;       // 부서 (select)
+	private String werr_in_out_gubn; // 출입 구분 (select)
+	private String werr_gnote;      // 불량내용
+	private String werr_case;       // 발생원인 및 원인분석
+	private String werr_jgubn;      // 조치구분 (select)
+	private String werr_jnote;      // 대책수립 및 대책실시
+	private String werr_fname;      // 파일 첨부
+	private String werr_note;       // 결과분석 및 사후관리
+	private String werr_user1;      // 유효성 점검 1차 사용자
+	private String werr_note1;      // 유효성 점검 1차 내용
+	private String werr_bigo1;      // 유효성 점검 1차 비고
+	private String werr_user2;      // 유효성 점검 2차 사용자
+	private String werr_note2;      // 유효성 점검 2차 내용
+	private String werr_bigo2;      // 유효성 점검 2차 비고
+	private String werr_user3;      // 유효성 점검 3차 사용자
+	private String werr_note3;      // 유효성 점검 3차 내용
+	private String werr_bigo3;      // 유효성 점검 3차 비고
+
 	
 	//LOT추적관리(입고)
 	//입고 그리드
@@ -798,5 +830,245 @@ public class Work {
 
 	public void setJan(int jan) {
 		this.jan = jan;
+	}
+
+	public String getWerr_lot() {
+		return werr_lot;
+	}
+
+	public void setWerr_lot(String werr_lot) {
+		this.werr_lot = werr_lot;
+	}
+
+	public String getWerr_date() {
+		return werr_date;
+	}
+
+	public void setWerr_date(String werr_date) {
+		this.werr_date = werr_date;
+	}
+
+	public String getWerr_yu() {
+		return werr_yu;
+	}
+
+	public void setWerr_yu(String werr_yu) {
+		this.werr_yu = werr_yu;
+	}
+
+	public String getWerr_user() {
+		return werr_user;
+	}
+
+	public void setWerr_user(String werr_user) {
+		this.werr_user = werr_user;
+	}
+
+	public boolean isWerr_alert() {
+		return werr_alert;
+	}
+
+	public void setWerr_alert(boolean werr_alert) {
+		this.werr_alert = werr_alert;
+	}
+
+	public String getWerr_mon() {
+		return werr_mon;
+	}
+
+	public void setWerr_mon(String werr_mon) {
+		this.werr_mon = werr_mon;
+	}
+
+	public String getWerr_rep() {
+		return werr_rep;
+	}
+
+	public void setWerr_rep(String werr_rep) {
+		this.werr_rep = werr_rep;
+	}
+
+	public String getWerr_in_out_gubn() {
+		return werr_in_out_gubn;
+	}
+
+	public void setWerr_in_out_gubn(String werr_in_out_gubn) {
+		this.werr_in_out_gubn = werr_in_out_gubn;
+	}
+
+	public String getWerr_gnote() {
+		return werr_gnote;
+	}
+
+	public void setWerr_gnote(String werr_gnote) {
+		this.werr_gnote = werr_gnote;
+	}
+
+	public String getWerr_case() {
+		return werr_case;
+	}
+
+	public void setWerr_case(String werr_case) {
+		this.werr_case = werr_case;
+	}
+
+	public String getWerr_jgubn() {
+		return werr_jgubn;
+	}
+
+	public void setWerr_jgubn(String werr_jgubn) {
+		this.werr_jgubn = werr_jgubn;
+	}
+
+	public String getWerr_jnote() {
+		return werr_jnote;
+	}
+
+	public void setWerr_jnote(String werr_jnote) {
+		this.werr_jnote = werr_jnote;
+	}
+
+	public String getWerr_note() {
+		return werr_note;
+	}
+
+	public void setWerr_note(String werr_note) {
+		this.werr_note = werr_note;
+	}
+
+	public String getWerr_fname() {
+		return werr_fname;
+	}
+
+	public void setWerr_fname(String werr_fname) {
+		this.werr_fname = werr_fname;
+	}
+
+	public String getWerr_buso() {
+		return werr_buso;
+	}
+
+	public void setWerr_buso(String werr_buso) {
+		this.werr_buso = werr_buso;
+	}
+
+	public String getWerr_user1() {
+		return werr_user1;
+	}
+
+	public void setWerr_user1(String werr_user1) {
+		this.werr_user1 = werr_user1;
+	}
+
+	public String getWerr_note1() {
+		return werr_note1;
+	}
+
+	public void setWerr_note1(String werr_note1) {
+		this.werr_note1 = werr_note1;
+	}
+
+	public String getWerr_note2() {
+		return werr_note2;
+	}
+
+	public void setWerr_note2(String werr_note2) {
+		this.werr_note2 = werr_note2;
+	}
+
+	public String getWerr_bigo1() {
+		return werr_bigo1;
+	}
+
+	public void setWerr_bigo1(String werr_bigo1) {
+		this.werr_bigo1 = werr_bigo1;
+	}
+
+	public String getWerr_user2() {
+		return werr_user2;
+	}
+
+	public void setWerr_user2(String werr_user2) {
+		this.werr_user2 = werr_user2;
+	}
+
+	public String getWerr_bigo2() {
+		return werr_bigo2;
+	}
+
+	public void setWerr_bigo2(String werr_bigo2) {
+		this.werr_bigo2 = werr_bigo2;
+	}
+
+	public String getWerr_user3() {
+		return werr_user3;
+	}
+
+	public void setWerr_user3(String werr_user3) {
+		this.werr_user3 = werr_user3;
+	}
+
+	public String getWerr_note3() {
+		return werr_note3;
+	}
+
+	public void setWerr_note3(String werr_note3) {
+		this.werr_note3 = werr_note3;
+	}
+
+	public String getWerr_bigo3() {
+		return werr_bigo3;
+	}
+
+	public void setWerr_bigo3(String werr_bigo3) {
+		this.werr_bigo3 = werr_bigo3;
+	}
+
+	public String getIlbo_ok() {
+		return ilbo_ok;
+	}
+
+	public void setIlbo_ok(String ilbo_ok) {
+		this.ilbo_ok = ilbo_ok;
+	}
+
+	public int getIlbo_pg1() {
+		return ilbo_pg1;
+	}
+
+	public void setIlbo_pg1(int ilbo_pg1) {
+		this.ilbo_pg1 = ilbo_pg1;
+	}
+
+	public int getIlbo_pg2() {
+		return ilbo_pg2;
+	}
+
+	public void setIlbo_pg2(int ilbo_pg2) {
+		this.ilbo_pg2 = ilbo_pg2;
+	}
+
+	public int getIlbo_pg4() {
+		return ilbo_pg4;
+	}
+
+	public void setIlbo_pg4(int ilbo_pg4) {
+		this.ilbo_pg4 = ilbo_pg4;
+	}
+
+	public int getIlbo_pg3() {
+		return ilbo_pg3;
+	}
+
+	public void setIlbo_pg3(int ilbo_pg3) {
+		this.ilbo_pg3 = ilbo_pg3;
+	}
+
+	public int getIlbo_pg5() {
+		return ilbo_pg5;
+	}
+
+	public void setIlbo_pg5(int ilbo_pg5) {
+		this.ilbo_pg5 = ilbo_pg5;
 	}
 }

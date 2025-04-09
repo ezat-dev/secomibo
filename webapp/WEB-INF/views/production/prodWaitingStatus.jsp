@@ -175,7 +175,7 @@
 		        	hozAlign:"center"},
 		        {title:"적재수량", field:"ilbo_su", sorter:"string", width:100,
 			        hozAlign:"center"},	
-		        {title:"잔량", field:"jan", sorter:"int", width:100,
+		        {title:"잔량", field:"j", sorter:"int", width:100,
 		        	hozAlign:"center"},
 				    
 		    ],

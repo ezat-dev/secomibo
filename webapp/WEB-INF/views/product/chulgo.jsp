@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>거래처등록</title>
+<title>출고관리</title>
 <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
 <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp"%>
@@ -36,13 +36,39 @@
 .row_select {
 	background-color: #9ABCEA !important;
 }
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1020px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+} 
 </style>
 <body>
 
 	<div class="tab">
+	<div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+		<label class="daylabel">제품구분 : </label>
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+			
+	</div>
 
 		<div class="button-container">
-			<button class="select-button">
+			<button class="select-button" onclick="getChulgoList();">
 				<img src="/tkheat/css/image/search-icon.png" alt="select"
 					class="button-image">
 
@@ -97,54 +123,58 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/product/chulgo/getChulgoList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+		    	"edate": $("#edate").val(),
+		    	"prod_gubn": $("#prod_gubn").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"출력", field:"och_prn", sorter:"string", width:120,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"입고일", field:"ord_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
+				    hozAlign:"center", headerFilter:"input"},     
 				{title:"출고일", field:"och_date", sorter:"string", width:120,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"수주No", field:"och_code", sorter:"string", width:150,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"거래처", field:"corp_name", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
+		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"품명", field:"prod_name", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"품번", field:"prod_no", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"규격", field:"prod_gyu", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"공정", field:"tech_te", sorter:"int", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"입고/타각LOT", field:"och_lot", sorter:"int", width:100,
-				    hozAlign:"center"},	
+				    hozAlign:"center", headerFilter:"input"},	
 				{title:"단위", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"출고수량", field:"och_su", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 			    {title:"출고중량", field:"och_amnt", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
  			    {title:"금액", field:"och_mon", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"단가", field:"och_dang", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"단중", field:"prod_danj", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"마감월", field:"och_ma", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"비고", field:"och_bigo", sorter:"int", width:100,
-					hozAlign:"center"},	
+					hozAlign:"center", headerFilter:"input"},	
 				    
 		    ],
 		    rowFormatter:function(row){

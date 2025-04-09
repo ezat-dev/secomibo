@@ -128,15 +128,15 @@ function pageObject(paramKey){
 			"b07":["/tkheat/production/workSchedule","작업스케줄"],
 			"c01":["/tkheat/process/cleanSiljuk","전세정작업실적"],
 			"c02":["/tkheat/process/chimSiljuk","침탄작업실적"],
-			"c03":["/tkheat/process/gojuSiljuk","고주파작업실적"],//기존 : 각로별작업실적
+			"c03":"",//기존 : 각로별작업실적
 			"c04":["/tkheat/process/temSiljuk","템퍼링작업실적"],
 			"c05":["/tkheat/process/cleanRwSiljuk","후세정작업실적"],
 			"c06":["/tkheat/process/shortSiljuk","쇼트/샌딩작업실적"],
 			"c07":"",
 			"c08":["/tkheat/process/facSiljuk","설비별작업실적"],
-			"c09":["/tkheat/process/prodFaulty","제품별불량현황"],
-			"c10":["/tkheat/process/temHard","템퍼링경도현황"],
-			"c11":["/tkheat/process/queHard","소입경도현황"],//기존 : 출고대기현황
+			"c09":"",
+			"c10":"",
+			"c11":"",//기존 : 출고대기현황
 			"c12":["/tkheat/process/readySiljuk","준비작업실적"],
 			"d01":"",//기존 : 전체모니터링
 			"d02":"",//기존 : 전체모니터링(설비)
@@ -157,8 +157,8 @@ function pageObject(paramKey){
 			"f05":["/tkheat/quality/jajuStatus","자주검사불량현황"],//기존 : LOT추적
 			"f06":["/tkheat/quality/jajuJochi","자주검사불량조치관리"],//기존 : 월별 불량현황
 			"f07":"",//기존 : 세척청정도검사
-			"f08":["/tkheat/process/queHard","소입경도현황"],
-			"f09":["/tkheat/process/temHard","템퍼링경도현황"],
+			"f08":["/tkheat/quality/queHard","소입경도현황"],
+			"f09":["/tkheat/quality/temHard","템퍼링경도현황"],
 			"g01":["/tkheat/operation/pIpgoStatus","제품별입고현황"],
 			"g02":["/tkheat/operation/pChulgoStatus","제품별출고현황"],
 			"g03":["/tkheat/operation/prodSiljuk","제품별작업실적"],
@@ -183,7 +183,7 @@ function pageObject(paramKey){
 			"h03":["/tkheat/management/facInsert","설비등록"],
 			"h04":["/tkheat/management/chimStandard","침탄로작업표준"],
 			"h05":["/tkheat/management/userinsert","작업자등록"],
-			"h06":["/tkheat/management/goStandard","고주파로작업표준"],//기존 : 불량코드등록
+			"h06":"",//기존 : 불량코드등록
 			"h07":"",//기존 : 설비비가동코드등록
 			"h08":["/tkheat/management/authority","사원별권한등록"],
 			"h09":"",//기존 : 로그인기록

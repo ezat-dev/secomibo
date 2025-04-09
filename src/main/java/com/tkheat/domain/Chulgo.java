@@ -2,6 +2,12 @@ package com.tkheat.domain;
 
 public class Chulgo {
 
+	
+	//검색조건
+	private String sdate; 
+	private String edate;
+	
+	
 	//출고관리
 	//OCHULGO 테이블
 	private int och_code;			//출고코드
@@ -379,5 +385,17 @@ public class Chulgo {
 	}
 	public void setIlbo_jung(float ilbo_jung) {
 		this.ilbo_jung = ilbo_jung;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
 	}
 }

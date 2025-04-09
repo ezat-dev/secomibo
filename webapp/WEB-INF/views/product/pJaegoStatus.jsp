@@ -34,7 +34,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1200px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}         
     
     </style>
     
@@ -42,9 +55,19 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getPJaegoStatusList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -95,60 +118,63 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/product/pjaegoStatus/getPJaegoStatusList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+		    	"edate": $("#edate").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"거래처", field:"corp_name", sorter:"string", width:120,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"품명", field:"prod_name", sorter:"string", width:120,
-				    hozAlign:"center"},     
+				    hozAlign:"center", headerFilter:"input"},     
 				{title:"규격", field:"prod_gyu", sorter:"string", width:120,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"품번", field:"prod_no", sorter:"string", width:150,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"재질", field:"prod_jai", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
+		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"단위", field:"prod_danw", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"단가", field:"prod_dang", sorter:"string", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"전월재고", field:"pjai_pre", sorter:"int", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"당월입고", field:"pjai_ip", sorter:"int", width:100,
-				    hozAlign:"center"},	
+				    hozAlign:"center", headerFilter:"input"},	
 				{title:"당월출고수", field:"pjai_ch", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"전산재고수", field:"pjai_jai", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 			    {title:"전산재고중량", field:"pjai_jai_j", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
  			    {title:"전산금액", field:"pjai_jai_mon", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"조정수량", field:"pjai_jo", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"조정중량", field:"pjai_jo_j", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"실재고수", field:"pjai_real", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"실재고중량", field:"pjai_real_j", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"실재고금액", field:"pjai_real_mon", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"비고", field:"och_bigo", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"영업담당자", field:"corp_business", sorter:"int", width:100,
-					hozAlign:"center"},				
+					hozAlign:"center", headerFilter:"input"},				
 				    
 		    ],
 		    rowFormatter:function(row){

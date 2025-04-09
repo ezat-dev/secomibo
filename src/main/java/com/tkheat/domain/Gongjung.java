@@ -4,6 +4,10 @@ public class Gongjung {
 
 	//공정작업현황
 	
+	//검색조건
+		private String sdate; 
+		private String edate;
+	
 	//CORP 테이블
 	private int corp_code;			//거래처코드
 	private String corp_name;		//거래처명
@@ -211,5 +215,17 @@ public class Gongjung {
 	}
 	public void setProd_s(String prod_s) {
 		this.prod_s = prod_s;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
 	}
 }

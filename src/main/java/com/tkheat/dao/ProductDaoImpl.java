@@ -22,33 +22,33 @@ public class ProductDaoImpl implements ProductDao {
 	 }
 	
 	@Override
-	 public List<Chulgo> getChulgoList() {
-		 return sqlSession.selectList("chulgo.getChulgoList");
+	 public List<Chulgo> getChulgoList(Chulgo chulgo) {
+		 return sqlSession.selectList("chulgo.getChulgoList", chulgo);
 	 }
 	
 	@Override
-	 public List<Chulgo> getChulgoWaitingList() {
-		 return sqlSession.selectList("chulgo.getChulgoWaitingList");
+	 public List<Chulgo> getChulgoWaitingList(Chulgo chulgo) {
+		 return sqlSession.selectList("chulgo.getChulgoWaitingList", chulgo);
 	 }
 	
 	@Override
-	 public List<Jaego> getJaegoStatusList() {
-		 return sqlSession.selectList("jaego.getJaegoStatusList");
+	 public List<Jaego> getJaegoStatusList(Jaego jaego) {
+		 return sqlSession.selectList("jaego.getJaegoStatusList", jaego);
 	 }
 	
 	@Override
-	 public List<Jaego> getPJaegoStatusList() {
-		 return sqlSession.selectList("jaego.getPJaegoStatusList");
+	 public List<Jaego> getPJaegoStatusList(Jaego jaego) {
+		 return sqlSession.selectList("jaego.getPJaegoStatusList", jaego);
 	 }
 	
 	@Override
-	 public List<Gongjung> getIpChulDeleteList() {
-		 return sqlSession.selectList("gongjung.getIpChulDeleteList");
+	 public List<Gongjung> getIpChulDeleteList(Gongjung gongjung) {
+		 return sqlSession.selectList("gongjung.getIpChulDeleteList", gongjung);
 	 }
 	
 	@Override
-	 public List<Gongjung> getWorkStatusList() {
-		 return sqlSession.selectList("gongjung.getWorkStatusList");
+	 public List<Gongjung> getWorkStatusList(Gongjung gongjung) {
+		 return sqlSession.selectList("gongjung.getWorkStatusList", gongjung);
 	 }
 }
 

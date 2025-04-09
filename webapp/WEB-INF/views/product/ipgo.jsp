@@ -34,7 +34,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1200px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}         
     
     </style>
     
@@ -42,9 +55,19 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getIpgoList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -95,62 +118,65 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/product/ipgo/getIpgoList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+		    	"edate": $("#edate").val(),
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"출력", field:"ord_prn", sorter:"string", width:80,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"수주NO", field:"ord_code", sorter:"string", width:100,
-				    hozAlign:"center"},     
+				    hozAlign:"center", headerFilter:"input"},     
 				{title:"입고일", field:"ord_date", sorter:"string", width:120,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"출고예정", field:"ord_nap", sorter:"string", width:150,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"거래처", field:"corp_name", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
+		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"품명", field:"prod_name", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"품번", field:"prod_no", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"재질", field:"prod_jai", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"공정", field:"tech_te", sorter:"int", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"단위", field:"ord_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
+				    hozAlign:"center", headerFilter:"input"},	
 				{title:"박스수량", field:"ord_boxsu", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"수량", field:"ord_su", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"중량", field:"ord_amnt", sorter:"int", width:100,
-					hozAlign:"center"},	
+					hozAlign:"center", headerFilter:"input"},	
 				{title:"입고/타각LOT", field:"ord_lot", sorter:"int", width:100,
-					hozAlign:"center"},	
+					hozAlign:"center", headerFilter:"input"},	
 				{title:"수입검사", field:"itst_wp", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"담당자", field:"ord_name", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"선입", field:"ord_sunip", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"비고", field:"ord_bigo", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"표면경도", field:"prod_pg", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"경화깊이", field:"prod_cd", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"심부경도", field:"prod_sg", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"화합물층", field:"prod_e1", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

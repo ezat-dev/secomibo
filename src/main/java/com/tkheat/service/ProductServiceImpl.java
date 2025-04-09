@@ -22,32 +22,32 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Chulgo> getChulgoWaitingList(){
-		return productDao.getChulgoWaitingList();
+	public List<Chulgo> getChulgoWaitingList(Chulgo chulgo){
+		return productDao.getChulgoWaitingList(chulgo);
 	}
 	
 	@Override
-	public List<Chulgo> getChulgoList(){
-		return productDao.getChulgoList();
+	public List<Chulgo> getChulgoList(Chulgo chulgo){
+		return productDao.getChulgoList(chulgo);
 	}
 	
 	@Override
-	public List<Jaego> getJaegoStatusList(){
-		return productDao.getJaegoStatusList();
+	public List<Jaego> getJaegoStatusList(Jaego jaego){
+		return productDao.getJaegoStatusList(jaego);
 	}
 	
 	@Override
-	public List<Jaego> getPJaegoStatusList(){
-		return productDao.getPJaegoStatusList();
+	public List<Jaego> getPJaegoStatusList(Jaego jaego){
+		return productDao.getPJaegoStatusList(jaego);
 	}
 	
 	@Override
-	public List<Gongjung> getIpChulDeleteList(){
-		return productDao.getIpChulDeleteList();
+	public List<Gongjung> getIpChulDeleteList(Gongjung gongjung){
+		return productDao.getIpChulDeleteList(gongjung);
 	}
 	
 	@Override
-	public List<Gongjung> getWorkStatusList(){
-		return productDao.getWorkStatusList();
+	public List<Gongjung> getWorkStatusList(Gongjung gongjung){
+		return productDao.getWorkStatusList(gongjung);
 	}
 }

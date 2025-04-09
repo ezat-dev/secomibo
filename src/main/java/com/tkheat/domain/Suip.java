@@ -2,6 +2,10 @@ package com.tkheat.domain;
 
 public class Suip {
 
+	
+	private String sdate;
+	private String edate;
+	
 	private int prod_code;
 	private int corp_code;
 	private String corp_name;           //거래처명
@@ -118,6 +122,18 @@ public class Suip {
 	}
 	public void setItst_wp(String itst_wp) {
 		this.itst_wp = itst_wp;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
 	}
 
 }

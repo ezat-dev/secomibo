@@ -34,7 +34,23 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -310px;
+}
+
+.box1 input[type="text"]{
+	width : 5%;
+}
+.box1 input[type="date"]{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}      
     
     </style>
     
@@ -42,9 +58,38 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+		<label class="daylabel">기간 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+		<label class="daylabel">거래처 : </label>
+		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">품명 : </label>
+		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">재질 : </label>
+		<input type="text" class="prod_jai" id="prod_jai" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">제품구분 : </label>
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+		
+		<label class="daylabel">품번 : </label>
+		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
+		
+		<!-- <label class="daylabel">규격 : </label>
+		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off"> -->
+				
+		<!-- <label class="daylabel">담당자 : </label>
+		<input type="text" class="ord_name" id="ord_name" style="font-size: 16px; autocomplete="off"> -->
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getReadySiljukList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -76,12 +121,12 @@
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getReadySiljukList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getReadySiljukList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -91,12 +136,22 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/process/readySiljuk/getReadySiljukList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+                "edate": $("#edate").val(),
+                "corp_name": $("#corp_name").val(),
+                "prod_name": $("#prod_name").val(),
+                "prod_jai": $("#prod_jai").val(),
+                "prod_no": $("#prod_no").val(),
+                "prod_gyu": $("#prod_gyu").val(),
+                "prod_gubn": $("#prod_gubn").val(),
+                "ord_name": $("#ord_name").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");

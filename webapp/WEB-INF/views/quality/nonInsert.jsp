@@ -123,7 +123,23 @@ textarea {
     .btnSaveClose button:hover {
         background: #0056b3; /* 호버 시 색상 변경 */
     }
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -310px;
+}
 
+.box1 input[type="text"]{
+	width : 5%;
+}
+.box1 input[type="date"]{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}
 
 
     
@@ -133,6 +149,15 @@ textarea {
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+		<label class="daylabel">기간 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+			
+	</div>
     
     <div class="button-container">
         <button class="select-button">
@@ -418,12 +443,13 @@ textarea {
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getNonInsertList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	// 객체는 work
+	function getNonInsertList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -433,51 +459,37 @@ textarea {
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/quality/nonInsert/getNonInsertList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+                "edate": $("#edate").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
+		        {title:"검사일", field:"werr_date", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
+			    {title:"거래처", field:"corp_name", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"품명", field:"prod_name", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
+				{title:"품번", field:"prod_no", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
+		        {title:"열처리LOT", field:"werr_lot", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"유형", field:"werr_gubn", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        {title:"수량", field:"werr_amnt", sorter:"int", width:100,
 		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-				    
+		        {title:"금액", field:"werr_mon", sorter:"int", width:100,
+			        hozAlign:"center"},
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

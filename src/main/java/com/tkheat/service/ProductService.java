@@ -11,17 +11,17 @@ public interface ProductService {
 	
 	List<Ipgo> getIpgoList(Ipgo ipgo);
 	
-	List<Chulgo> getChulgoList();
+	List<Chulgo> getChulgoList(Chulgo chulgo);
 	
-	List<Chulgo> getChulgoWaitingList();
+	List<Chulgo> getChulgoWaitingList(Chulgo chulgo);
 	
-	List<Jaego> getJaegoStatusList();
+	List<Jaego> getJaegoStatusList(Jaego jaego);
 	
-	List<Jaego> getPJaegoStatusList();
+	List<Jaego> getPJaegoStatusList(Jaego jaego);
 	
-	List<Gongjung> getIpChulDeleteList();
+	List<Gongjung> getIpChulDeleteList(Gongjung gongjung);
 	
-	List<Gongjung> getWorkStatusList();
+	List<Gongjung> getWorkStatusList(Gongjung gongjung);
 	
 	
 }

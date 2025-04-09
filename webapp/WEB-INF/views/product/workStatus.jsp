@@ -34,7 +34,20 @@
 .row_select{
 	background-color:#9ABCEA !important;
 }
-    
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1200px;
+}
+
+.box1 input{
+	width : 7%;
+}
+.box1 select{
+	width: 5%
+}     
     
     </style>
     
@@ -42,9 +55,18 @@
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+		<label class="daylabel">일자 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+			
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getWorkStatusList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -95,48 +117,51 @@
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/product/workStatus/getWorkStatusList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+			    "sdate": $("#sdate").val(),
+			    "edate": $("#edate").val(),				  
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"담당자", field:"ord_name", sorter:"string", width:120,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"수주NO", field:"ord_code", sorter:"string", width:120,
-				    hozAlign:"center"},     
+				    hozAlign:"center", headerFilter:"input"},     
 				{title:"거래처", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
+				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
+		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
+		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"입고", field:"ord_su", sorter:"string", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"준비", field:"prod_j", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"전세정", field:"prod_p", sorter:"int", width:100,
-			        hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"침탄", field:"prod_a", sorter:"int", width:100,
-				    hozAlign:"center"},	
+				    hozAlign:"center", headerFilter:"input"},	
 				{title:"고주파", field:"prod_h", sorter:"int", width:100,
-				    hozAlign:"center"},
+				    hozAlign:"center", headerFilter:"input"},
 				{title:"후세정", field:"prod_f", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 			    {title:"템퍼링", field:"prod_r", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
  			    {title:"쇼트", field:"prod_s", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				{title:"출고", field:"och_su", sorter:"int", width:100,
-					hozAlign:"center"},
+					hozAlign:"center", headerFilter:"input"},
 				    
 		    ],
 		    rowFormatter:function(row){

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="siljuk">
+
+	<!-- 침탄작업실적 조회 -->
+	<select id="getChimSiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		SELECT ROW_NUMBER()OVER(ORDER BY IlboDate, IlboStrt) AS
+		ROW_NUM, vWrkBang.IlboDate, vWrkBang.IlboStrt, vWrkBang.IlboEnd,
+		vWrkBang.CORP_NAME, vWrkBang.PROD_NAME, vWrkBang.PROD_NO,
+		vWrkBang.PROD_GYU,
+		vWrkBang.PROD_JAI, vWrkBang.ILBO_SU,
+		vWrkBang.USER_NAME,
+		vWrkBang.ORD_NAME,vWrkBang.ILBO_CODE,
+		vWrkBang.ILBO_NO,
+		vWrkBang.ORD_CODE, vWrkBang.ORD_LOT
+		FROM vWrkBang
+		INNER JOIN PRODUCT ON
+		vWrkBang.PROD_CODE = PRODUCT.PROD_CODE
+		where
+		ILBO_STRT between #{sdate} and #{edate}
+		and vWrkBang.CORP_NAME like +
+		'%' + #{corp_name} + '%'
+		and vWrkBang.PROD_NAME like + '%' +
+		#{prod_name} + '%'
+		and vWrkBang.PROD_NO like + '%' + #{prod_no} + '%'
+		and vWrkBang.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and
+		vWrkBang.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and PRODUCT.PROD_GUBN
+		like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발'
+		else '' end + '%'
+		and vWrkBang.ORD_NAME like + '%' + #{ord_name} + '%'
+		ORDER BY IlboDate, IlboStrt
+	</select>
+
+
+	<!-- 전세정 조회 -->
+	<select id="getCleanSiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		SELECT ROW_NUMBER()OVER(ORDER BY IlboDate, IlboStrt) AS
+		ROW_NUM, vWrkPrepare.IlboDate, vWrkPrepare.IlboStrt,
+		vWrkPrepare.IlboEnd, vWrkPrepare.CORP_NAME, vWrkPrepare.PROD_NAME,
+		vWrkPrepare.PROD_NO, vWrkPrepare.PROD_GYU,
+		vWrkPrepare.PROD_JAI,
+		vWrkPrepare.ILBO_SU, vWrkPrepare.USER_NAME, vWrkPrepare.ORD_NAME,
+		vWrkPrepare.ILBO_CODE, vWrkPrepare.ILBO_NO, vWrkPrepare.ORD_CODE,
+		vWrkPrepare.ORD_LOT
+		FROM vWrkPrepare
+		INNER JOIN PRODUCT ON
+		vWrkPrepare.PROD_CODE = PRODUCT.PROD_CODE
+		where ILBO_STRT between
+		#{sdate} and #{edate}
+		and vWrkPrepare.CORP_NAME like + '%' +
+		#{corp_name} + '%'
+		and vWrkPrepare.PROD_NAME like + '%' + #{prod_name}
+		+ '%'
+		and vWrkPrepare.PROD_NO like + '%' + #{prod_no} + '%'
+		and
+		vWrkPrepare.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and
+		vWrkPrepare.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and
+		PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발' else '' end + '%'
+		and vWrkPrepare.ord_NAME like +
+		'%' + #{ord_name} + '%'
+		ORDER BY IlboDate, IlboStrt
+	</select>
+	
+	
+	<!-- 후세정 조회 -->
+	<select id="getCleanRwSiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		SELECT ROW_NUMBER()OVER(ORDER BY IlboDate, IlboStrt) AS
+		ROW_NUM, vWrkPrepare.IlboDate, vWrkPrepare.IlboStrt,
+		vWrkPrepare.IlboEnd, vWrkPrepare.CORP_NAME, vWrkPrepare.PROD_NAME,
+		vWrkPrepare.PROD_NO, vWrkPrepare.PROD_GYU,
+		vWrkPrepare.PROD_JAI,
+		vWrkPrepare.ILBO_SU, vWrkPrepare.USER_NAME, vWrkPrepare.ORD_NAME,
+		vWrkPrepare.ILBO_CODE, vWrkPrepare.ILBO_NO, vWrkPrepare.ORD_CODE,
+		vWrkPrepare.ORD_LOT
+		FROM vWrkPrepare
+		INNER JOIN PRODUCT ON
+		vWrkPrepare.PROD_CODE = PRODUCT.PROD_CODE
+		where ILBO_STRT between
+		#{sdate} and #{edate}
+		and vWrkPrepare.CORP_NAME like + '%' +
+		#{corp_name} + '%'
+		and vWrkPrepare.PROD_NAME like + '%' + #{prod_name}
+		+ '%'
+		and vWrkPrepare.PROD_NO like + '%' + #{prod_no} + '%'
+		and
+		vWrkPrepare.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and
+		vWrkPrepare.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and
+		PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발' else '' end + '%'
+		and vWrkPrepare.ord_NAME like +
+		'%' + #{ord_name} + '%'
+		ORDER BY IlboDate, IlboStrt
+	</select>
+	
+
+	<!-- 템퍼링 조회 -->
+	<select id="getTemSiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		SELECT
+		ROW_NUMBER() OVER (ORDER BY TMP_STRT) AS ROW_NUM,
+		vWrkTemper.TmpDate, vWrkTemper.FAC_NAME, vWrkTemper.TMP_LOT,
+		vWrkTemper.IlboStrt, vWrkTemper.IlboEnd, vWrkTemper.CORP_NAME,
+		vWrkTemper.PROD_NAME, vWrkTemper.PROD_NO, vWrkTemper.PROD_GYU,
+		vWrkTemper.PROD_JAI, vWrkTemper.TMP_AMNT, vWrkTemper.USER_NAME,
+		vWrkTemper.TMP_CODE, vWrkTemper.TMP_NO
+		FROM vWrkTemper
+		INNER JOIN
+		PRODUCT ON vWrkTemper.PROD_CODE = PRODUCT.PROD_CODE
+		WHERE TMP_STRT
+		BETWEEN #{sdate} AND #{edate}
+		AND vWrkTemper.CORP_NAME LIKE '%' +
+		ISNULL(#{corp_name}, '') + '%'
+		AND vWrkTemper.PROD_NAME LIKE '%' +
+		ISNULL(#{prod_name}, '') + '%'
+		AND vWrkTemper.PROD_NO LIKE '%' +
+		ISNULL(#{prod_no}, '') + '%'
+		AND vWrkTemper.PROD_GYU LIKE '%' +
+		ISNULL(#{prod_gyu}, '') + '%'
+		AND vWrkTemper.FAC_NAME LIKE '%' +
+		ISNULL(#{fac_name}, '') + '%'
+		AND (
+		#{prod_gubn} IS NULL OR #{prod_gubn}
+		= ''
+		OR PRODUCT.PROD_GUBN LIKE
+		'%' + #{prod_gubn} + '%'
+		)
+		ORDER BY
+		TMP_STRT
+	</select>
+
+
+	<!-- 쇼트/샌딩 작업실적 조회 -->
+	<select id="getShortSiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		SELECT ROW_NUMBER()OVER(ORDER BY IlboDate, IlboStrt) AS
+		ROW_NUM, vWrkShot.IlboDate, vWrkShot.IlboStrt, vWrkShot.IlboEnd,
+		vWrkShot.CORP_NAME, vWrkShot.PROD_NAME, vWrkShot.PROD_NO,
+		vWrkShot.PROD_GYU,
+		vWrkShot.PROD_JAI, vWrkShot.ILBO_SU, vWrkShot.USER_NAME,vWrkShot.ORD_NAME,
+		vWrkShot.ILBO_CODE, vWrkShot.ILBO_NO, vWrkShot.ORD_CODE,
+		vWrkShot.ILBO_LOT,vWrkShot.ORD_LOT
+		FROM vWrkShot
+		INNER JOIN PRODUCT ON
+		vWrkShot.PROD_CODE = PRODUCT.PROD_CODE
+		where ILBO_STRT between #{sdate} and #{edate}
+		and vWrkShot.CORP_NAME like + '%' + #{corp_ame} + '%'
+		and vWrkShot.PROD_NAME like + '%' + #{prod_ame} + '%'
+		and vWrkShot.PROD_NO like + '%' + #{prod_no} + '%'
+		and vWrkShot.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and vWrkShot.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발' else '' end + '%'
+		and vWrkShot.ORD_NAME like + '%' + #{ord_name} + '%'
+		ORDER BY IlboDate, IlboStrt
+	</select>
+	
+	
+	<!-- 준비 작업실적 조회 -->
+	<select id="getReadySiljukList" parameterType="siljuk"
+		resultType="siljuk">
+		
+	</select>
+
+
+
+</mapper>

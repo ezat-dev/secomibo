@@ -207,32 +207,17 @@
 
 	<!-- 생산대기현황 조회 -->
 	<select id="getProdWaitingStatusList" parameterType="work" resultType="work">
-	  SELECT 
-		ROW_NUMBER() OVER (ORDER BY ORD_DATE, CORP_NAME, PROD_NAME) AS ROW_NUM,
-		ORD_CODE, ORD_DATE, CORP_NAME, PROD_NAME, PROD_NO, PROD_GYU, PROD_JAI,
-		Jan, LotSu, ITST_WP, ORD_SU, ORD_AMNT, ILBOSU, ILBOJUNG
-		FROM 
-			vJanSetting
-		WHERE 
-			Jan > 0
-			AND (
-				(
-					(#{sdate} IS NULL OR #{sdate} = '')
-					AND (#{edate} IS NULL OR #{edate} = '')
-					AND ORD_DATE = LEFT(CONVERT(NVARCHAR, GETDATE(), 120), 10)
-				)
-				OR
-				(
-					#{sdate} IS NOT NULL AND #{sdate} != ''
-					AND #{edate} IS NOT NULL AND #{edate} != ''
-					AND ORD_DATE BETWEEN #{sdate} + ' 00:00:00' AND #{edate} + ' 23:59:59'
-				)
-			)
-			AND (CORP_NAME LIKE '%' + ISNULL(#{corp_name}, '') + '%')
-			AND (PROD_NAME LIKE '%' + ISNULL(#{prod_name}, '') + '%')
-			AND (PROD_NO LIKE '%' + ISNULL(#{prod_no}, '') + '%')
-			AND (ORD_CODE LIKE '%' + ISNULL(#{ord_code}, '') + '%')
-			AND (PROD_GYU LIKE '%' + ISNULL(#{prod_gyu}, '') + '%')
+	  SELECT ROW_NUMBER()OVER(ORDER BY ORD_DATE, CORP_NAME, PROD_NAME ) AS ROW_NUM,
+		       ORD_CODE, ORD_DATE, CORP_NAME, PROD_NAME, PROD_NO, PROD_GYU, PROD_JAI, Jan, LotSu,
+		       ITST_WP, ORD_SU, ORD_AMNT, ILBOSU, ILBOJUNG
+		FROM   vJanSetting
+		WHERE  (Jan > 0)
+		and ORD_DATE BETWEEN #{sdate} AND #{edate}
+		<!-- and CORP_NAME like + '%' + #{corp_name} + '%'
+		and PROD_NAME like + '%' + #{prod_name} + '%'
+		and PROD_NO like + '%' + #{prod_no} + '%'
+		and ORD_CODE like + '%' + #{ord_code} + '%'
+		and PROD_GYU like + '%' + #{prod_gyu} + '%' -->
 
 </select>
 	

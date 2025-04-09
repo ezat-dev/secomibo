@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tkheat.domain.Chulgo;
@@ -32,12 +33,15 @@ public class ProductController {
 	//입고관리 조회
 	@RequestMapping(value = "/product/ipgo/getIpgoList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getIpgoList() {
+	public Map<String, Object> getIpgoList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Ipgo ipgo = new Ipgo();
-		ipgo.setSdate("2024-02-01 00:00:00");
-		ipgo.setEdate("2024-02-20 23:59:59");
+		ipgo.setSdate(sdate);
+		ipgo.setEdate(edate);
 		
 		List<Ipgo> ipgoList = productService.getIpgoList(ipgo);
 
@@ -90,10 +94,19 @@ public class ProductController {
 	//출고관리 조회
 	@RequestMapping(value = "/product/chulgo/getChulgoList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getChulgoList() {
+	public Map<String, Object> getChulgoList(
+			@RequestParam String sdate,
+			@RequestParam String edate,
+			@RequestParam String prod_gubn
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		 Chulgo chulgo = new Chulgo();
+		 chulgo.setSdate(sdate);
+		 chulgo.setEdate(edate);
+		 chulgo.setProd_gubn(prod_gubn);
 
-		List<Chulgo> chulgoList = productService.getChulgoList();
+		List<Chulgo> chulgoList = productService.getChulgoList(chulgo);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<chulgoList.size(); i++) {
@@ -139,10 +152,17 @@ public class ProductController {
 	//재고현황(상세정보) 조회
 	@RequestMapping(value = "/product/jaegoStatus/getJaegoStatusList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getJaegoStatusList() {
+	public Map<String, Object> getJaegoStatusList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Jaego jaego = new Jaego();
+		jaego.setSdate(sdate);
+		jaego.setEdate(edate);
 
-		List<Jaego> jaegoList = productService.getJaegoStatusList();
+		List<Jaego> jaegoList = productService.getJaegoStatusList(jaego);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<jaegoList.size(); i++) {
@@ -185,13 +205,20 @@ public class ProductController {
 		return "/product/pJaegoStatus.jsp";
 	}
 	
-	//재고현황(상세정보) 조회
+	//제품별재고현황 조회
 		@RequestMapping(value = "/product/pjaegoStatus/getPJaegoStatusList", method = RequestMethod.POST) 
 		@ResponseBody 
-		public Map<String, Object> getPJaegoStatusList() {
+		public Map<String, Object> getPJaegoStatusList(
+				@RequestParam String sdate,
+				@RequestParam String edate
+				) {
 			Map<String, Object> rtnMap = new HashMap<String, Object>();
+			
+			Jaego jaego = new Jaego();
+			jaego.setSdate(sdate);
+			jaego.setEdate(edate);
 
-			List<Jaego> pJaegoList = productService.getPJaegoStatusList();
+			List<Jaego> pJaegoList = productService.getPJaegoStatusList(jaego);
 
 			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 			for(int i=0; i<pJaegoList.size(); i++) {
@@ -239,10 +266,17 @@ public class ProductController {
 	//출고대기현황 조회
 	@RequestMapping(value = "/product/chulgoWaiting/getChulgoWaitingList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getChulgoWaitingList() {
+	public Map<String, Object> getChulgoWaitingList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Chulgo chulgo = new Chulgo();
+		 chulgo.setSdate(sdate);
+		 chulgo.setEdate(edate);
 
-		List<Chulgo> chulgoWaitingList = productService.getChulgoWaitingList();
+		List<Chulgo> chulgoWaitingList = productService.getChulgoWaitingList(chulgo);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<chulgoWaitingList.size(); i++) {
@@ -278,10 +312,17 @@ public class ProductController {
 	//공정작업현황 조회
 	@RequestMapping(value = "/product/workStatus/getWorkStatusList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getWorkStatusList() {
+	public Map<String, Object> getWorkStatusList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Gongjung gongjung = new Gongjung();
+		gongjung.setSdate(sdate);
+		gongjung.setEdate(edate);
 
-		List<Gongjung> workStatusList = productService.getWorkStatusList();
+		List<Gongjung> workStatusList = productService.getWorkStatusList(gongjung);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<workStatusList.size(); i++) {
@@ -323,10 +364,18 @@ public class ProductController {
 	//입출고삭제현황 조회
 	@RequestMapping(value = "/product/ipChulDelete/getIpChulDeleteList", method = RequestMethod.POST) 
 	@ResponseBody 
-	public Map<String, Object> getIpChulDeleteList() {
+	public Map<String, Object> getIpChulDeleteList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Gongjung gongjung = new Gongjung();
+		gongjung.setSdate(sdate);
+		gongjung.setEdate(edate);
 
-		List<Gongjung> ipChulDeleteList = productService.getIpChulDeleteList();
+		List<Gongjung> ipChulDeleteList = productService.getIpChulDeleteList(gongjung);
+		
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<ipChulDeleteList.size(); i++) {

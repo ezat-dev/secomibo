@@ -1,7 +1,11 @@
 package com.tkheat.domain;
 
 public class Jaego {
-
+	
+	//검색조건
+		private String sdate; 
+		private String edate;
+		
 	//재고현황(상세정보)
 	//ORDERT 테이블
 	private int ord_code;			//수주NO
@@ -333,5 +337,17 @@ public class Jaego {
 	}
 	public void setProd_danw(String prod_danw) {
 		this.prod_danw = prod_danw;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
 	}
 }

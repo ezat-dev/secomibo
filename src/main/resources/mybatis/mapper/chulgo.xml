@@ -5,8 +5,7 @@
 <mapper namespace="chulgo">
 
 	<!-- 출고 조회 -->
-	<select id="getChulgoList" parameterType="chulgo"
-		resultType="chulgo">
+	<select id="getChulgoList" parameterType="chulgo" resultType="chulgo">
 		SELECT
 		OCH_CODE, OCH_NO,
 		CONVERT(char(10), ORD_DATE, 23) as ORD_DATE,
@@ -17,11 +16,13 @@
 		PROD_GUBN, PROD_NAME, PROD_NO, PROD_JAI, PROD_GYU, PROD_DANW,
 		OCH_DANG, PROD_DANJ,
 		CORP_NAME, TECH_TE, OCH_MA, CORP_GYUL2
-		FROM OCHULGO -- 여기서 부터 WHERE 종료 부분까지는 공통
+		FROM OCHULGO <!--  여기서 부터 WHERE 종료 부분까지는 공통-->
 		INNER JOIN ORDERT ON ORDERT.ORD_CODE = OCHULGO.ORD_CODE
 		INNER JOIN PRODUCT ON PRODUCT.PROD_CODE = ORDERT.PROD_CODE
 		INNER JOIN CORP ON CORP.CORP_CODE = PRODUCT.CORP_CODE
 		INNER JOIN TECHIN ON TECHIN.TECH_NO = PRODUCT.TECH_NO
+		WHERE OCH_DATE BETWEEN #{sdate} AND #{edate}
+		<!-- 
 		<where>
 			OCH_CODE != 0
 			AND OCH_DATE BETWEEN #{dateS}+' 00:00:00' AND #{dateE}+' 23:59:59'
@@ -86,9 +87,111 @@
 				AND TECH_TE like '%'+#{TECH_TE}+'%'
 			</if>
 		</where>
-
+		 -->
 	</select>
 
-
+	<select id="getChulgoWaitingList" parameterType="chulgo" resultType="chulgo">
+		SELECT ORDERT.ORD_CODE, ORD_DATE,PRODUCT.PROD_CODE,
+		IsNULL( ORD_CHULHACHECK, 0 ) as ORD_CHULHACHECK,
+		ORD_SU, ORD_AMNT, ORD_NAME, ORD_BIGO, ORD_LOT,
+		PROD_GUBN, PROD_NAME, PROD_NO, PROD_JAI, PROD_GYU, ORD_DANW,
+		ORD_DANG, ORD_DANJ,
+		CORP_NAME,TECH_TE,
+		CASE WHEN ORD_DANW = 'KG'
+			THEN ORD_AMNT - (ISNULL(OCH_AMNT_SUM,0)+ORD_DANJ)
+			ELSE ( ORD_SU - ISNULL(OCH_SU_SUM,0) )
+		END as JAIGO,
+		ORD_SU - ISNULL(OCH_SU_SUM,0) AS JAIGO_SU,
+		ORD_AMNT - (ISNULL(OCH_AMNT_SUM,0)+ORD_DANJ) AS JAIGO_AMNT,
+		ORD_AMNT - (ISNULL(OCH_AMNT_SUM,0)+ORD_DANJ) AS ochAmnt,
+		CASE WHEN ORD_DANW = 'KG'
+			THEN ORD_AMNT
+			ELSE ORD_SU
+		END as ORDSU,
+		CASE WHEN ORD_DANW = 'KG'
+			THEN ISNULL(OCH_AMNT_SUM,0)
+			ELSE ISNULL(OCH_SU_SUM,0)
+		END as OCHSU,
+		CASE WHEN ORD_DANW = 'KG'
+			THEN ORD_DANG * ( ORD_AMNT - (ISNULL(OCH_AMNT_SUM,0)+ORD_DANJ) )
+			ELSE ORD_DANG * ( ORD_SU - ISNULL(OCH_SU_SUM,0) )
+		END as ochMon,
+		OCHULGO_SUM.*
+		FROM     ORDERT
+			INNER JOIN PRODUCT ON PRODUCT.PROD_CODE = ORDERT.PROD_CODE
+			INNER JOIN CORP ON CORP.CORP_CODE = PRODUCT.CORP_CODE
+			LEFT OUTER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO
+			LEFT OUTER JOIN (
+			SELECT  MAX(OCHULGO.ORD_CODE) AS ORD_CODE_SUM,
+					COUNT (OCHULGO.ORD_CODE) AS COUNT_SUM,
+					SUM(OCH_SU) AS OCH_SU_SUM,
+					SUM(OCH_AMNT) AS OCH_AMNT_SUM,
+					SUM(OCH_SPECIMEN) AS OCH_SPECIMEN_SUM
+			FROM OCHULGO
+			INNER JOIN ORDERT ON ORDERT.ORD_CODE = OCHULGO.ORD_CODE
+			WHERE ORD_DATE BETWEEN #{sdate} and #{edate}
+			GROUP BY OCHULGO.ORD_CODE
+			) OCHULGO_SUM ON OCHULGO_SUM.ORD_CODE_SUM = ORDERT.ORD_CODE
+		WHERE
+		ORD_DATE BETWEEN #{sdate} and #{edate}
+		AND IsNULL( ORD_CHULHACHECK, 0 ) != '1'
+		AND 0 <![CDATA[ < ]]> ORD_SU - ISNULL(OCH_SU_SUM,0)
+		<!-- 
+		<if test="ORD_CODE != null">
+			AND	ORD_CODE like '%'+ #{ORD_CODE} +'%'
+		</if>
+		<if test="ORD_DATE != null">
+			AND	ORD_DATE = #{ORD_DATE}
+		</if>
+		<if test="ORD_NAME != null">
+			AND	ORD_NAME like '%'+ #{ORD_NAME} +'%'
+		</if>
+		<if test="CORP_NAME != null">
+			AND	CORP_NAME like '%'+ #{CORP_NAME} +'%'
+		</if>
+		<if test="PROD_NAME != null">
+			AND	PROD_NAME like '%'+ #{PROD_NAME} +'%'
+		</if>
+		<if test="PROD_NO != null">
+			AND	PROD_NO like '%'+ #{PROD_NO} +'%'
+		</if>
+		<if test="PROD_JAI != null">
+			AND	PROD_JAI like '%'+ #{PROD_JAI} +'%'
+		</if>
+		<if test="PROD_GYU != null">
+			AND	PROD_GYU like '%'+ #{PROD_GYU} +'%'
+		</if>
+		<if test="TECH_TE != null">
+			AND	TECH_TE like '%'+ #{TECH_TE} +'%'
+		</if>
+		<if test="ORD_LOT != null">
+			AND	ORD_LOT like '%'+ #{ORD_LOT} +'%'
+		</if>
+		<if test="ORD_DANG != null">
+			AND	ORD_DANG = #{ORD_DANG}
+		</if>
+		<if test="ORD_DANJ != null">
+			AND	ORD_DANJ = #{ORD_DANJ}
+		</if>
+		<if test="ORD_SU != null">
+			AND	ORD_SU = #{ORD_SU}
+		</if>
+		<if test="JAIGO != null">
+			AND	JAIGO = #{JAIGO}
+		</if>
+		<if test="ORDSU != null">
+			AND	ORDSU = #{ORDSU}
+		</if>
+		<if test="OCHSU != null">
+			AND	OCHSU = #{OCHSU}
+		</if>
+		<if test="ORD_BIGO != null">
+			AND	ORD_BIGO like '%'+ #{ORD_BIGO}
+		</if>
+		<if test="ORD_DANW != null">
+			AND	ORD_DANW = #{ORD_DANW}
+		</if>
+		 -->
+	</select>
 
 </mapper>
