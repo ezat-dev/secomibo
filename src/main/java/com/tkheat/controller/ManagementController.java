@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tkheat.domain.Bega;
 import com.tkheat.domain.Corp;
 import com.tkheat.domain.Fac;
 import com.tkheat.domain.Measure;
@@ -49,50 +50,67 @@ public class ManagementController {
 	}	 
 
 
-	//제품등록 - 제품 저장
+	//제품등록 - insert
 	@RequestMapping(value = "/management/productInsert/productInsertSave", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> productInsertSave(
 			@ModelAttribute Product product){
-		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<>();
 
-		System.out.println(product);
+		
+		try {
+			managementService.productInsertSave(product);
+			result.put("status", "success");
+			result.put("message", "OK");
 
-		//			 managementService.productInsertSave(product);
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
 
-		rtnMap.put("data", product);
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
 
-		return rtnMap;
+		return result;
 	}
+
 
 
 	//전체 제품 목록 조회
 	@RequestMapping(value = "/management/productInsert/productList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getProductList(
-			@RequestParam String corp_name,
-            @RequestParam String prod_name,
-            @RequestParam String prod_no,
-            @RequestParam String prod_gyu,
-            @RequestParam String prod_jai,
-            @RequestParam String prod_pg,
-            @RequestParam String prod_gd3,
-            @RequestParam String prod_sg,
-            @RequestParam String tech_te) {
+	/*
+	 * @RequestParam String corp_name,
+	 * 
+	 * @RequestParam String prod_name,
+	 * 
+	 * @RequestParam String prod_no,
+	 * 
+	 * @RequestParam String prod_gyu,
+	 * 
+	 * @RequestParam String prod_jai,
+	 * 
+	 * @RequestParam String prod_pg,
+	 * 
+	 * @RequestParam String prod_gd3,
+	 * 
+	 * @RequestParam String prod_sg,
+	 * 
+	 * @RequestParam String tech_te
+	 */) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Product product = new Product();
-		product.setCorp_name(corp_name);
-		product.setProd_name(prod_name);
-		product.setProd_no(prod_no);
-		product.setProd_gyu(prod_gyu);
-		product.setProd_jai(prod_jai);
-		product.setProd_pg(prod_pg);
-		product.setProd_gd3(prod_gd3);
-		product.setProd_sg(prod_sg);
-		product.setTech_te(tech_te);
-		
-		
+		/*
+		 * product.setCorp_name(corp_name); product.setProd_name(prod_name);
+		 * product.setProd_no(prod_no); product.setProd_gyu(prod_gyu);
+		 * product.setProd_jai(prod_jai); product.setProd_pg(prod_pg);
+		 * product.setProd_gd3(prod_gd3); product.setProd_sg(prod_sg);
+		 * product.setTech_te(tech_te);
+		 */
+
+
 		List<Product> productList = managementService.getProductList(product);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
@@ -102,6 +120,7 @@ public class ManagementController {
 			rowMap.put("prod_code", productList.get(i).getProd_code());
 			rowMap.put("prod_date", productList.get(i).getProd_date());
 			rowMap.put("corp_name", productList.get(i).getCorp_name());
+			rowMap.put("corp_code", productList.get(i).getCorp_code());
 			rowMap.put("prod_name", productList.get(i).getProd_name());
 			rowMap.put("prod_no", productList.get(i).getProd_no());
 			rowMap.put("prod_gyu", productList.get(i).getProd_gyu());
@@ -111,8 +130,21 @@ public class ManagementController {
 			rowMap.put("prod_danw", productList.get(i).getProd_danw());
 			rowMap.put("prod_dang", productList.get(i).getProd_dang());
 			rowMap.put("prod_pg", productList.get(i).getProd_pg());
+			rowMap.put("prod_gd1", productList.get(i).getProd_gd1());
+			rowMap.put("prod_gd2", productList.get(i).getProd_gd2());
 			rowMap.put("prod_gd3", productList.get(i).getProd_gd3());
 			rowMap.put("prod_sg", productList.get(i).getProd_sg());
+			rowMap.put("prod_no", productList.get(i).getProd_no());
+			rowMap.put("prod_cno", productList.get(i).getProd_cno());
+			rowMap.put("prod_pwsno", productList.get(i).getProd_pwsno());
+			rowMap.put("prod_do", productList.get(i).getProd_do());
+			rowMap.put("prod_refno", productList.get(i).getProd_refno());
+			rowMap.put("prod_kijong", productList.get(i).getProd_kijong());
+			rowMap.put("prod_e1", productList.get(i).getProd_e1());
+			rowMap.put("prod_e3", productList.get(i).getProd_e3());
+			rowMap.put("prod_khecd", productList.get(i).getProd_khecd());
+			rowMap.put("prod_khtcd", productList.get(i).getProd_khtcd());
+			rowMap.put("prod_gd5", productList.get(i).getProd_gd5());
 
 			rtnList.add(rowMap);
 		}
@@ -132,22 +164,22 @@ public class ManagementController {
 	}
 
 	//전체 거래처목록 조회
-	@RequestMapping(value = "/management/cutumInsert/list", method = RequestMethod.POST) 
+	@RequestMapping(value = "/management/cutumInsert/cutumInsertList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getCorpList(
 			@RequestParam String corp_name,
-            @RequestParam String corp_plc,
-            @RequestParam String corp_gubn,
-            @RequestParam String corp_mast
+			@RequestParam String corp_plc,
+			@RequestParam String corp_gubn,
+			@RequestParam String corp_mast
 			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
+
 		Corp corp = new Corp();
 		corp.setCorp_name(corp_name);
 		corp.setCorp_plc(corp_plc);
 		corp.setCorp_gubn(corp_gubn);
 		corp.setCorp_mast(corp_mast);
-		
+
 
 		List<Corp> corpList = managementService.getCorpList(corp);
 
@@ -164,6 +196,7 @@ public class ManagementController {
 			rowMap.put("corp_boss", corpList.get(i).getCorp_boss());
 			rowMap.put("corp_mast", corpList.get(i).getCorp_mast());
 			rowMap.put("corp_plc", corpList.get(i).getCorp_plc());
+			rowMap.put("corp_code", corpList.get(i).getCorp_code());
 
 			rtnList.add(rowMap);
 		}
@@ -187,10 +220,10 @@ public class ManagementController {
 	@ResponseBody 
 	public Map<String, Object> getFacList(
 			@RequestParam String fac_no,
-            @RequestParam String fac_name
+			@RequestParam String fac_name
 			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
+
 		Fac fac = new Fac();
 		fac.setFac_no(fac_no);
 		fac.setFac_name(fac_name);
@@ -210,6 +243,7 @@ public class ManagementController {
 			rowMap.put("fac_able", facList.get(i).getFac_able());
 			rowMap.put("fac_make", facList.get(i).getFac_make());
 			rowMap.put("fac_cbuy", facList.get(i).getFac_cbuy());
+			rowMap.put("fac_code", facList.get(i).getFac_code());
 
 			rtnList.add(rowMap);
 		}
@@ -232,20 +266,25 @@ public class ManagementController {
 	@RequestMapping(value = "/management/chimStandardInsert/getChimStandardList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getChimStandardList(
-			@RequestParam String corp_name,
-            @RequestParam String prod_name,
-            @RequestParam String prod_no,
-            @RequestParam String fac_name
+	/*
+	 * @RequestParam String corp_name,
+	 * 
+	 * @RequestParam String prod_name,
+	 * 
+	 * @RequestParam String prod_no,
+	 * 
+	 * @RequestParam String fac_name
+	 */
 			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
+
 		Standard standard = new Standard();
-		
-		standard.setCorp_name(corp_name);
-		standard.setProd_name(prod_name);
-		standard.setProd_no(prod_no);
-		standard.setFac_name(fac_name);
-		
+
+		/*
+		 * standard.setCorp_name(corp_name); standard.setProd_name(prod_name);
+		 * standard.setProd_no(prod_no); standard.setFac_name(fac_name);
+		 */
+
 
 		List<Standard> chimStandardList = managementService.getChimStandardList(standard);
 
@@ -261,6 +300,7 @@ public class ManagementController {
 			rowMap.put("prod_dang", chimStandardList.get(i).getProd_dang());
 			rowMap.put("fac_code", chimStandardList.get(i).getFac_code());
 			rowMap.put("tech_te", chimStandardList.get(i).getTech_te());
+			rowMap.put("prod_code", chimStandardList.get(i).getProd_code());
 
 			rtnList.add(rowMap);
 		}
@@ -270,6 +310,33 @@ public class ManagementController {
 
 		return rtnMap; 
 	}
+	
+	
+	//침탄로작업표준 등록 - insert
+		@RequestMapping(value = "/management/chimStandardInsert/chimStandardSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> chimStandardSave(@ModelAttribute Standard standard) {
+		    Map<String, Object> result = new HashMap<>();
+		    
+		    
+
+		    try {
+		    	managementService.chimStandardSave(standard);
+		        result.put("status", "success");
+		        result.put("message", "OK");
+		        
+		    } catch (Exception e) {
+		        result.put("status", "error");
+		        result.put("message", e.getMessage());
+		    }
+		    
+		    System.out.println(result.get("status"));
+		    System.out.println(result.get("message"));
+
+		    return result;
+		}
+	
+	
 
 
 	//작업자등록 - 화면로드
@@ -307,13 +374,13 @@ public class ManagementController {
 	@ResponseBody 
 	public Map<String, Object> getGoStandardList(
 			@RequestParam String corp_name,
-            @RequestParam String prod_name,
-            @RequestParam String prod_no
+			@RequestParam String prod_name,
+			@RequestParam String prod_no
 			) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
+
 		Standard standard = new Standard();
-		
+
 		standard.setCorp_name(corp_name);
 		standard.setProd_name(prod_name);
 		standard.setProd_no(prod_no);
@@ -397,11 +464,11 @@ public class ManagementController {
 	@ResponseBody 
 	public Map<String, Object> getUserList(
 			@RequestParam String user_buso,
-            @RequestParam String user_jick,
-            @RequestParam String user_name,
-            @RequestParam String user_ret) {
+			@RequestParam String user_jick,
+			@RequestParam String user_name,
+			@RequestParam String user_ret) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
+
 		Users user = new Users();
 		user.setUser_buso(user_buso);
 		user.setUser_jick(user_jick);

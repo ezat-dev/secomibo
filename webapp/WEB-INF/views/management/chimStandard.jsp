@@ -102,23 +102,47 @@
     font-size: 20px; /* 글자 크기 */
     text-align: center; /* 텍스트 정렬 */
 }
-
-
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .btnSaveClose button:hover {
-        background: #0056b3; /* 호버 시 색상 변경 */
-    }
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
     
 body{
 	font-size : 15px;
@@ -136,7 +160,42 @@ body{
 }
 .box1 select{
 	width: 5%
-}      
+} 
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}     
     </style>
     
     
@@ -145,9 +204,7 @@ body{
     <div class="tab">
     <div class="box1">
          <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
-        
-        
-		<label class="daylabel">고객명 :</label>
+		<!-- <label class="daylabel">고객명 :</label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">품명 :</label>
@@ -157,8 +214,7 @@ body{
 		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">설비 :</label>
-		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px; autocomplete="off">
-			
+		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px; autocomplete="off"> -->			
 	</div>
     <div class="button-container">
         <button class="select-button" onclick="getChimStandardList();">
@@ -173,7 +229,7 @@ body{
             <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
             
         </button>
-        <button class="printer-button">
+        <button class="printer-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
             
         </button>
@@ -186,9 +242,13 @@ body{
 			<div id="tab1" class="tabulator"></div>
 		</div>
 	</main>
-	    
+
+
+
+
+<form method="post" id="chimStandardForm" name="chimStandardForm">	    
    <div class="chimStandardModal">    
-	<form name="searchForm" method="post" enctype="multipart/form-data">
+	
       <div id="editPop">
        <div class="header">
        			침탄로표준등록
@@ -202,7 +262,7 @@ body{
                 
                 
                 <div class="imgArea" id="previewId7" style="height:90px;border:1px solid #ddd;">
-                  <img class="rp-img-popup" id="prev_previewId7" src="/images/prod/P.jpg" width="30%" height="100%">
+                  <img class="rp-img-popup" id="prev_previewId7"  width="30%" height="100%">
                 </div>
               </div>
             </fieldset><table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
@@ -218,35 +278,35 @@ body{
           </colgroup>
             
           <tbody><tr>
-            <th class="left">고객명<input id="prodCode" name="prod_code" type="hidden" value=""></th>
-            <td class=""><input id="corpName" name="corp_name" class="basic" type="text" style="width:70%;" value="" readonly="">
-            <input class="" type="button" title="제품선택" onclick="MM_openBrWindow('etcSub_popup_06_1','Srch','width=1024,height=720,scrollbars=yes')"></td>
+            <th class="left">고객명<input id="prod_code" name="prod_code" type="hidden" value=""></th>
+            <td class=""><input id="corp_name" name="corp_name" class="basic" type="text" style="width:70%;" value="" readonly="">
+            <input class="" type="button" title="제품선택" onclick="openProductListModal();"></td>
             <th class="">단중(g)</th>
-            <td class=""><input id="prodDanj" name="prod_danj" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_danj" name="prod_danj" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="">도번/품번</th>
-            <td class=""><input id="prodNo" name="prod_no" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_no" name="prod_no" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="">품명</th>
-            <td class=""><input id="prodName" name="prod_name" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_name" name="prod_name" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
           </tr>
           <tr>
             <th class="left">재질</th>
-            <td class=""><input id="prodJai" name="prod_jai" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_jai" name="prod_jai" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="">단가</th>
-            <td class=""><input id="prodDang" name="prod_dang" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_dang" name="prod_dang" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="">주문번호</th>
-            <td class=""><input id="prodCno" name="prodC_cno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prodC_cno" name="prodC_cno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="">PWS No.</th>
-            <td class=""><input id="prodPwsno" name="prod_pwsno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_pwsno" name="prod_pwsno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
           </tr>
           <tr>
             <th class="">공정</th>
-            <td class=""><input id="techTe" name="tech_te" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="tech_te" name="tech_te" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="left">도면/공정도</th>
-            <td class=""><input id="prodDo" name="prod_do" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_do" name="prod_do" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="left">Ref No.</th>
-            <td class=""><input id="prodRefno" name="prod_refno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_refno" name="prod_refno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
             <th class="left">검사규격</th>
-            <td class=""><input id="prodGyu" name="prod_gyu" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_gyu" name="prod_gyu" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
           </tr>
           <tr>
             <!-- <th class="">ECD</th>
@@ -254,11 +314,11 @@ body{
             <th class="left">Ra%</th>
             <td class=""><input id="prodRa" name="prodRa" class="basic" type="text" style="width:100%;" value="" readonly/></td> -->
             <th class="left">기종</th>
-            <td class=""><input id="prodKijong" name="prod_kijong" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <td class=""><input id="prodAppear" name="prod_appear" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
-            <td class=""><input id="prodTransform" name="prod_transform" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_kijong" name="prod_kijong" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_appear" name="prod_appear" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
+            <td class=""><input id="prod_transform" name="prod_transform" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
             <th class="left" hidden="">기종</th>
-            <td class="" hidden="">&gt;<input id="prodCd" name="prod_cd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+            <td class="" hidden="">&gt;<input id="prod_cd" name="prod_cd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
           </tr>
         </tbody></table>
         </fieldset>
@@ -286,13 +346,13 @@ body{
                   </colgroup>
                   <tbody><tr>
                     <th class="">표면경도</th>
-                    <td class=""><input id="prodPg" name="prod_pg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_pg" name="prod_pg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     <th class="">심부경도</th>
-                    <td class=""><input id="prodSg" name="prod_sg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_sg" name="prod_sg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     <th class="">금속조직</th>
-                    <td class=""><input id="prodE1" name="prod_e1" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_e1" name="prod_e1" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     <th class="">변형량</th>
-                    <td class=""><input id="prodE3" name="prod_e3" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_e3" name="prod_e3" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                   </tr>
                   <tr>
                     <th class="" hidden="">표면경도 비고</th>
@@ -302,14 +362,14 @@ body{
                     <!-- <th class="">표면경도 (실측치)</th>
                     <td class=""><input id="prodPgs" name="prodPgs" class="basic" type="text" style="width:100%;" value="" readonly/></td> -->
                     <th class="">경화거리(ECD)</th>
-                    <td class=""><input id="ProdKhEcd" name="Prod_khecd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_khecd" name="prod_khecd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     <th class="">경화거리(TCD)</th>
-                    <td class=""><input id="ProdKhTcd" name="Prod_khtcd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_khtcd" name="prod_khtcd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                   </tr>
                     <tr>
                     <th class="">경화깊이</th>
-                    <td class=""><input id="prodGD1" name="prod_gd1" class="basic" type="text" style="width:90%;" value="" readonly=""></td><td class="" align="center">기준</td><td class=""><input id="prodGD2" name="prod_gd2" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <td class="" align="center">~</td><td class=""><input id="prodGD5" name="prod_gd5" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_gd1" name="prod_gd1" class="basic" type="text" style="width:90%;" value="" readonly=""></td><td class="" align="center">기준</td><td class=""><input id="prod_gd2" name="prod_gd2" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class="" align="center">~</td><td class=""><input id="prod_gd5" name="prod_gd5" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     </tr>
                     <tr>
                     <input id="ProdCd" name="Prod_cd" class="basic" type="hidden" value="" readonly="">
@@ -690,7 +750,7 @@ body{
                 <input type="hidden" name="type" value="standard">
                   <input type="file" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId1')">
                   <!--<input type="button" value="X" title="삭제" class="btnFT" /> -->
-                <div class="imgArea" id="previewId1" style="height:90px;border:1px solid #ddd;"><img id="prev_previewId1" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
+                <div class="imgArea" id="previewId1" style="height:90px;border:1px solid #ddd;"><img id="prev_previewId1"  width="100%" height="100%"></div>
               </div>
             </fieldset>
             <fieldset class="popField">
@@ -703,7 +763,7 @@ body{
               <div class="findImage">
               <input type="hidden" name="type" value="standard">
                   <input type="file" name="imageFile3" title="이미지 찾기" onchange="previewImage(this,'previewId3')"><!-- <input type="button" value="X" title="삭제" class="btnFT" /> -->
-                <div class="imgArea" id="previewId3" style="height:91px;border:1px solid #ddd;"><img id="prev_previewId3" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
+                <div class="imgArea" id="previewId3" style="height:91px;border:1px solid #ddd;"><img id="prev_previewId3"  width="100%" height="100%"></div>
               </div>
             </fieldset>
 
@@ -886,9 +946,20 @@ body{
             <button class="close" type="button" onclick="window.close();">닫기</button>
     	</div>
      </div>
-    </form>    
   </div>    
-    
+ </form>   
+ 
+ 
+ 
+ <!-- (검색버튼) 팝업창 -->
+	<div id="productListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">제품 리스트</span> <span class="modal-close" onclick="closeProductListModal()">&times;</span>
+			</div>
+			<div id="productListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
 	    
 	    
 	    
@@ -929,10 +1000,10 @@ body{
 		    ajaxURL:"/tkheat/management/chimStandardInsert/getChimStandardList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
-		    	"corp_name": $("#corp_name").val(),
+		    	/* "corp_name": $("#corp_name").val(),
                 "prod_name": $("#prod_name").val(),
                 "prod_no": $("#prod_no").val(),
-                "fac_name": $("#fac_name").val(),
+                "fac_name": $("#fac_name").val(), */
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -1032,6 +1103,109 @@ body{
 	closeButton.addEventListener('click', function() {
 		chimStandardModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+
+
+
+
+	//제품검색버튼 리스트 모달
+    function openProductListModal() {
+        document.getElementById('productListModal').style.display = 'flex';
+
+        
+        let productListTable = new Tabulator("#productListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/management/productInsert/productList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+                "corp_name": "",
+                "prod_code": "",
+                   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+                {title:"NO", field:"idx", width:80, hozAlign:"center"},
+                {title:"거래처", field:"corp_name", width:120, hozAlign:"center"},
+                {title:"품명", field:"prod_name", width:120, hozAlign:"center",visible:false},
+                {title:"품번", field:"prod_no", width:150, hozAlign:"center"},
+                {title:"규격", field:"prod_gyu", width:100, hozAlign:"center"},
+                {title:"재질", field:"prod_jai", width:200, hozAlign:"center"},
+                {title:"공정", field:"tech_te", width:200, hozAlign:"center"},
+                {title:"표면경도", field:"prod_pg", width:200, hozAlign:"center"},
+                {title:"심부경도", field:"prod_sg", width:200, hozAlign:"center"},
+                {title:"경화깊이", field:"prod_gd2", width:200, hozAlign:"center"},
+                {title:"경화깊이1", field:"prod_gd1", width:200, hozAlign:"center"},
+                {title:"경화깊이2", field:"prod_gd3", width:200, hozAlign:"center"},
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                document.getElementById('corp_name').value = data.corp_name;
+                document.getElementById('prod_code').value = data.prod_code;
+                document.getElementById('prod_danj').value = data.prod_danj;
+                document.getElementById('prod_no').value = data.prod_no;
+                document.getElementById('prod_name').value = data.prod_name;
+                document.getElementById('prod_jai').value = data.prod_jai;
+                document.getElementById('prod_dang').value = data.prod_dang;
+                document.getElementById('prod_pwsno').value = data.prod_pwsno;
+                document.getElementById('tech_te').value = data.tech_te;
+                document.getElementById('prod_do').value = data.prod_do;
+                document.getElementById('prod_refno').value = data.prod_refno;
+                document.getElementById('prod_gyu').value = data.prod_gyu;
+                document.getElementById('prod_kijong').value = data.prod_kijong;
+                document.getElementById('prod_pg').value = data.prod_pg;
+                document.getElementById('prod_sg').value = data.prod_sg;
+                document.getElementById('prod_e1').value = data.prod_e1;
+                document.getElementById('prod_e3').value = data.prod_e3;
+                document.getElementById('prod_khecd').value = data.prod_khecd;
+                document.getElementById('prod_khtcd').value = data.prod_khtcd;
+                document.getElementById('prod_gd1').value = data.prod_gd1;
+                document.getElementById('prod_gd2').value = data.prod_gd2;
+                document.getElementById('prod_gd5').value = data.prod_gd5;
+                document.getElementById('productListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeProductListModal() {
+        document.getElementById('productListModal').style.display = 'none';
+    }
+
+    
+  //침탄로작업표준 저장
+    function save() {
+        var formData = new FormData($("#chimStandardForm")[0]);  
+        $.ajax({
+            url: "/tkheat/management/chimStandardInsert/chimStandardSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".chimStandardModal").hide();
+                getBegaInsertList();
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+            }
+        });
+    }
+
+
+    
 		
 
 

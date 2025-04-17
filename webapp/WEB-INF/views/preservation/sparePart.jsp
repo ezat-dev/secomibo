@@ -17,6 +17,10 @@
 	display: flex;
 	justify-content: space-between;
 }
+.container2 {
+	display: flex;
+	justify-content: space-between;
+}
 .spareModal {
     position: fixed; /* 화면에 고정 */
     top: 50%; /* 수직 중앙 */
@@ -107,22 +111,47 @@ textarea {
     height: 100%; /* 이미지 높이 */
     object-fit: cover; /* 이미지 비율 유지 */
 }
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .btnSaveClose button:hover {
-        background: #0056b3; /* 호버 시 색상 변경 */
-    }
-    
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
     
     </style>
     
@@ -153,6 +182,9 @@ textarea {
     <main class="main">
 		<div class="container">
 			<div id="tab1" class="tabulator"></div>
+		</div>
+		<div class="container2">
+			<div id="sub" class="tabulator"></div>
 		</div>
 	</main>
 	
@@ -308,6 +340,7 @@ textarea {
 	$(function(){
 		//전체 거래처목록 조회
 		getSparePartList();
+		getSpareSubList();
 	});
 
 	//이벤트
@@ -330,7 +363,83 @@ textarea {
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+		        return response; //return the response data to tabulator
+		    },
+		    columns:[
+		        {title:"NO", field:"spp_idx", sorter:"int", width:80,
+		        	hozAlign:"center"},
+		        {title:"매입처", field:"spp_purchase", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"품번", field:"spp_no", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"품명", field:"spp_name", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"규격", field:"spp_gyu", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"교체주기", field:"spp_yong", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"적정재고", field:"spp_proper", sorter:"int", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"비고", field:"spp_bigo", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"입고", field:"sph_input", sorter:"int", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"수리출고", field:"sph_suriout", sorter:"int", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"자산출고", field:"sph_jasanout", sorter:"int", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"현재고", field:"spp_jaigo", sorter:"int", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+		    ],
+		    rowFormatter:function(row){
+			    var data = row.getData();
+			    
+			    row.getElement().style.fontWeight = "700";
+				row.getElement().style.backgroundColor = "#FFFFFF";
+			},
+			rowClick:function(e, row){
+
+				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
+						
+					if($(this).hasClass("row_select")){							
+						$(this).removeClass('row_select');
+						row.getElement().className += " row_select";
+					}else{
+						$("#tab1 div.row_select").removeClass("row_select");
+						row.getElement().className += " row_select";	
+					}
+				});
+
+				var rowData = row.getData();
+				
+			},
+		});		
+	}
+
+
+
+
+
+	function getSpareSubList(){
+		
+		subTable = new Tabulator("#sub", {
+		    height:"330px",
+		    layout:"fitColumns",
+		    selectable:true,	//로우 선택설정
+		    tooltips:true,
+		    selectableRangeMode:"click",
+		    reactiveData:true,
+		    headerHozAlign:"center",
+		    ajaxConfig:"POST",
+		    ajaxLoader:false,
+		    ajaxURL:"/tkheat/preservation/sparePart/getSparePartList",
+		    ajaxProgressiveLoad:"scroll",
+		    ajaxParams:{},
+		    placeholder:"조회된 데이터가 없습니다.",
+		    paginationSize:20,
+		    ajaxResponse:function(url, params, response){
+				$("#sub .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[

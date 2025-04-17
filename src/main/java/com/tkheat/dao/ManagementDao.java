@@ -33,6 +33,8 @@ public interface ManagementDao {
 	
 	List<Standard> getChimStandardList(Standard standard);
 	
+	void chimStandardSave(Standard standard);
+	
 	List<Standard> getGoStandardList(Standard standard);
 	
 	void insertUser(Users users);

@@ -25,108 +25,88 @@
     
     <body>
     
-    <div class="tab">
-    
-    <div class="button-container">
-        <button class="select-button">
-            <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
-           
-        </button>
-        <button class="insert-button">
-            <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
-          
-        </button>
-        <button class="excel-button">
-            <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
-            
-        </button>
-        <button class="printer-button">
-            <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
-            
-        </button>
-    </div>
-</div>
+   
     <main class="main">
-        <div class="rectangle-2"></div>
-	    <div class="rectangle-12"></div>
-	    <div class="rectangle-3"></div>
-	    <div class="rectangle-4"></div>
-	    <div class="rectangle-6"></div>
-	    <div class="rectangle-7"></div>
-	    <div class="chim-1-heat"></div>
-	    <div class="chim-1-bon"></div>
-	    <div class="rectangle-35"></div>
-	    <div class="rectangle-36"></div>
-	    <div class="rectangle-37"></div>
-	    <div class="chim-2-heat"></div>
-	    <div class="chim-2-bon"></div>
-	    <div class="rectangle-40"></div>
-	    <div class="rectangle-41"></div>
-	    <div class="rectangle-42"></div>
-	    <div class="chim-3-heat"></div>
-	    <div class="chim-3-bon"></div>
-	    <div class="rectangle-45"></div>
-	    <div class="rectangle-46"></div>
-	    <div class="rectangle-47"></div>
-	    <div class="chim-4-heat"></div>
-	    <div class="chim-4-bon"></div>
-	    <div class="rectangle-50"></div>
-	    <div class="rectangle-51"></div>
-	    <div class="rectangle-52"></div>
-	    <div class="chim-5-heat"></div>
-	    <div class="chim-5-bon"></div>
-	    <div class="rectangle-55"></div>
-	    <div class="rectangle-56"></div>
-	    <div class="rectangle-57"></div>
-	    <div class="rectangle-59"></div>
-	    <div class="rectangle-8"></div>
-	    <div class="rectangle-9"></div>
-	    <div class="rectangle-10"></div>
-	    <div class="rectangle-11"></div>
-	    <div class="rectangle-13"></div>
-	    <div class="rectangle-14"></div>
-	    <div class="rectangle-15"></div>
-	    <div class="rectangle-16"></div>
-	    <div class="rectangle-17"></div>
-	    <div class="rectangle-58"></div>
-	    <div class="chim-1-cutum"></div>
-	    <div class="chim-1-pum"></div>
-	    <div class="chim-1-lot"></div>
-	    <div class="chim-2-cutum"></div>
-	    <div class="chim-2-pum"></div>
-	    <div class="chim-2-lot"></div>
-	    <div class="chim-3-cutum"></div>
-	    <div class="chim-3-pum"></div>
-	    <div class="chim-3-lot"></div>
-	    <div class="chim-4-cutum"></div>
-	    <div class="chim-4-pum"></div>
-	    <div class="chim-4-lot"></div>
-	    <div class="chim-5-cutum"></div>
-	    <div class="chim-5-pum"></div>
-	    <div class="chim-5-lot"></div>
-	    <div class="chim-tem-cutum"></div>
-	    <div class="chim-tem-pum"></div>
-	    <div class="chim-tem-lot"></div>
-	    <div class="div">설 비 명</div>
-	    <div class="_1">침탄 1호기</div>
-	    <div class="_2">침탄 2호기</div>
-	    <div class="_3">침탄 3호기</div>
-	    <div class="_4">침탄 4호기</div>
-	    <div class="_5">침탄 5호기</div>
-	    <div class="div2">템 퍼 링</div>
-	    <div class="div3">고 객 사</div>
-	    <div class="div4">품 명</div>
-	    <div class="lot-no">LOT NO</div>
-	    <div class="div5">공정 현황</div>
-	    <div class="div6">승온</div>
-	    <div class="div7">강온</div>
-	    <div class="div8">냉각</div>
-	    <div class="div9">공로</div>
-	    <div class="div10">본처리</div>
-		<div class="container">
-			<!-- <div id="tab1" class="tabulator"></div> -->
-		
-		</div>
+    <div class="rectangle-12" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">설비명</div>
+    <div class="rectangle-2" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">고객사</div>
+    <div class="rectangle-3" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">품명</div>
+    <div class="rectangle-4" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">LOT NO</div>
+    <div class="rectangle-6" style="font-size:25px; font-weight:550; display: flex; align-items: center; justify-content: center;">공정현황</div>
+    <div class="rectangle-7" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">승온</div>
+    <div class="rectangle-8" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">본처리</div>
+    <div class="rectangle-9" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">강온</div>
+    <div class="rectangle-10" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">냉각</div>
+    <div class="rectangle-11" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">공로</div>
+    <div class="rectangle-13" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄1호기</div>
+    <div class="rectangle-14" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄2호기</div>
+    <div class="rectangle-15" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄3호기</div>
+    <div class="rectangle-16" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄4호기</div>
+    <div class="rectangle-17" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄5호기</div>
+    <div class="rectangle-58" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 1호기</div>
+    <div class="rectangle-61" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 2호기</div>
+    <div class="rectangle-63" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 1호기</div>
+    <div class="rectangle-65" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 2호기</div>
+    <div class="rectangle-67" style="font-size:45px; font-weight:550; display: flex; align-items: center; justify-content: center;">세정기</div>
+    <div class="chim-1-heat"></div>
+    <div class="chim-1-bon"></div>
+    <div class="rectangle-35"></div>
+    <div class="rectangle-36"></div>
+    <div class="rectangle-37"></div>
+    <div class="chim-2-heat"></div>
+    <div class="chim-2-bon"></div>
+    <div class="rectangle-40"></div>
+    <div class="rectangle-41"></div>
+    <div class="rectangle-42"></div>
+    <div class="chim-3-heat"></div>
+    <div class="chim-3-bon"></div>
+    <div class="rectangle-45"></div>
+    <div class="rectangle-46"></div>
+    <div class="rectangle-47"></div>
+    <div class="chim-4-heat"></div>
+    <div class="chim-4-bon"></div>
+    <div class="rectangle-50"></div>
+    <div class="rectangle-51"></div>
+    <div class="rectangle-52"></div>
+    <div class="chim-5-heat"></div>
+    <div class="chim-5-bon"></div>
+    <div class="rectangle-55"></div>
+    <div class="rectangle-56"></div>
+    <div class="rectangle-57"></div>
+    <div class="tem-1-gong"></div>
+    <div class="chim-1-cutum"></div>
+    <div class="chim-1-pum"></div>
+    <div class="chim-1-lot"></div>
+    <div class="chim-2-cutum"></div>
+    <div class="chim-2-pum"></div>
+    <div class="chim-2-lot"></div>
+    <div class="chim-3-cutum"></div>
+    <div class="chim-3-pum"></div>
+    <div class="chim-3-lot"></div>
+    <div class="chim-4-cutum"></div>
+    <div class="chim-4-pum"></div>
+    <div class="chim-4-lot"></div>
+    <div class="chim-5-cutum"></div>
+    <div class="chim-5-pum"></div>
+    <div class="chim-5-lot"></div>
+    <div class="tem-1-cutum"></div>
+    <div class="tem-1-pum"></div>
+    <div class="tem-1-lot"></div>
+    <div class="tem-2-gong"></div>
+    <div class="tem-2-cutum"></div>
+    <div class="tem-2-pum"></div>
+    <div class="tem-2-lot"></div>
+    <div class="byun-1-gong"></div>
+    <div class="byun-1-cutum"></div>
+    <div class="byun-1-pum"></div>
+    <div class="byun-1-lot"></div>
+    <div class="byun-2-gong"></div>
+    <div class="byun-2-cutum"></div>
+    <div class="byun-2-pum"></div>
+    <div class="byun-2-lot"></div>
+    <div class="clean-gong"></div>
+    <div class="clean-cutum"></div>
+    <div class="clean-pum"></div>
+    <div class="clean-lot"></div>
 	</main>
 	    
 	    

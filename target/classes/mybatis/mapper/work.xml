@@ -3,240 +3,583 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="work">
-	
+
 	<!-- 작업지시 조회 -->
-	<select id="getWorkInstructionList" parameterType="work" resultType="work">
-		SELECT PLANP_D.PLNP_CODE, 
-		       PLANP_D.PLNP_NO, 
-		       LEFT(CONVERT(VARCHAR, PLANP_D.PLNP_DATE, 120), 10) PLNP_DATE, 
-		       FACILITY.FAC_NAME, 
-		       PLANP_D.PLNP_SEQ, 
-		       CORP.CORP_NAME, 
-		       PRODUCT.PROD_NAME, 
-		       PRODUCT.PROD_NO, 
-		       PRODUCT.PROD_GYU, 
-		       PRODUCT.PROD_JAI, 
-		       PLANP_D.PLNP_DSU, 
-		       PLANP_D.PLNP_TMP1, 
-		       PLANP_D.PLNP_TIME1,
-		       PLANP_D.PLNP_TMP2, 
-		       PLANP_D.PLNP_TIME2, 
-		       PLANP_D.PLNP_TTMP,
-		       PLANP_D.PLNP_TTIME,
-		       PLANP_D.PLNP_STRT,
-		       PLANP_D.PLNP_END,
-		       PLANP_D.PLNP_NOTE,
-			   PRODUCT.PROD_CODE,
-				PRODUCT.PROD_GD1+' '+
-				CASE WHEN ISNULL(PRODUCT.PROD_GD2,'') = '' THEN ''
-				ELSE PRODUCT.PROD_GD2+'기준 ' END
-				+PRODUCT.PROD_GD3+' '+
-				CASE WHEN ISNULL(PRODUCT.PROD_GD4,'') = '' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_GD5,'') = '' THEN ''
-					WHEN ISNULL(PRODUCT.PROD_GD5,'')!='' THEN PRODUCT.PROD_GD5+'이하' END
-				WHEN ISNULL(PRODUCT.PROD_GD4,'') !='' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_GD5,'')=''  THEN PRODUCT.PROD_GD4+'이상'
-					WHEN  ISNULL(PRODUCT.PROD_GD5,'')!='' THEN PRODUCT.PROD_GD4+'~'+PRODUCT.PROD_GD5 END
-				END AS Prod_cd,
-				PRODUCT.PROD_PG + ' '+
-				CASE WHEN ISNULL(PRODUCT.PROD_PG1,'') = '' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_PG2,'') = '' THEN ''
-					WHEN ISNULL(PRODUCT.PROD_PG2,'')!='' THEN PRODUCT.PROD_PG2+'이하' END
-				WHEN ISNULL(PRODUCT.PROD_PG1,'') !='' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_PG2,'')='' THEN PRODUCT.PROD_PG1+'이상'
-					WHEN  ISNULL(PRODUCT.PROD_PG2,'')!='' THEN PRODUCT.PROD_PG1+'~'+PRODUCT.PROD_PG2 END
-				END AS Prod_pg,
-				PRODUCT.PROD_SG + ' '+
-				CASE WHEN ISNULL(PRODUCT.PROD_SG1,'') = '' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_SG2,'') = '' THEN ''
-					WHEN ISNULL(PRODUCT.PROD_SG2,'')!='' THEN PRODUCT.PROD_SG2+'이하' END
-				WHEN ISNULL(PRODUCT.PROD_SG1,'') !='' THEN
-					CASE WHEN ISNULL(PRODUCT.PROD_SG2,'')='' THEN PRODUCT.PROD_SG1+'이상'
-					WHEN  ISNULL(PRODUCT.PROD_SG2,'')!='' THEN PRODUCT.PROD_SG1+'~'+PRODUCT.PROD_SG2 END
-				END AS Prod_sg
-		  FROM PLANP_D WITH(NOLOCK)
-		   INNER JOIN PRODUCT WITH(NOLOCK)
-		       ON PLANP_D.PROD_CODE = PRODUCT.PROD_CODE 
-		   INNER JOIN CORP
-		       ON PRODUCT.CORP_CODE = CORP.CORP_CODE 
-		   INNER JOIN FACILITY
-		       ON PLANP_D.FAC_CODE = FACILITY.FAC_CODE
-		<!-- 
-		<where>
-			<if test="plnpDate == ''">
-				AND PLANP_D.PLNP_DATE = LEFT(CONVERT(VARCHAR, GETDATE(), 120), 10)
-			</if>
-			<if test="plnpDate != ''">
-				AND PLANP_D.PLNP_DATE = #{plnpDate} 
-			</if>
-			<if test="corpName != ''">
-				AND CORP.CORP_NAME LIKE +'%'+ #{corpName} +'%' 
-			</if>
-			<if test="prodName != ''">
-				AND PRODUCT.PROD_NAME LIKE +'%'+ #{prodName} +'%' 
-			</if>
-			<if test="prodNo != ''">
-				AND PRODUCT.PROD_NO LIKE +'%'+ #{prodNo} +'%' 
-			</if>
-			<if test="facName != '' and facName != null">
-				AND FACILITY.FAC_NAME LIKE +'%'+ #{facName} +'%'
-			</if>
-			<if test="prodGubn != ''">
-				AND PRODUCT.PROD_GUBN LIKE + '%' + 
-				CASE #{prodGubn} 
-				    WHEN '양산' 
-				    THEN '양산' 
-				    WHEN '개발' 
-				    THEN '개발' 
-				    ELSE '' 
-				END + '%' 
-			</if>
-		</where>
-		 -->
-		ORDER BY PLANP_D.PLNP_DATE, 
-		       FACILITY.FAC_NAME, 
-		       PLANP_D.PLNP_SEQ
+	<select id="getWorkInstructionList" parameterType="work"
+		resultType="work">
+		SELECT PLANP_D.PLNP_CODE,
+		PLANP_D.PLNP_NO,
+		LEFT(CONVERT(VARCHAR,
+		PLANP_D.PLNP_DATE, 120), 10) PLNP_DATE,
+		FACILITY.FAC_NAME,
+		PLANP_D.PLNP_SEQ,
+		CORP.CORP_NAME,
+		PRODUCT.PROD_NAME,
+		PRODUCT.PROD_NO,
+		PRODUCT.PROD_GYU,
+		PRODUCT.PROD_JAI,
+		PLANP_D.PLNP_DSU,
+		PLANP_D.PLNP_TMP1,
+		PLANP_D.PLNP_TIME1,
+		PLANP_D.PLNP_TMP2,
+		PLANP_D.PLNP_TIME2,
+		PLANP_D.PLNP_TTMP,
+		PLANP_D.PLNP_TTIME,
+		PLANP_D.PLNP_STRT,
+		PLANP_D.PLNP_END,
+		PLANP_D.PLNP_NOTE,
+		PRODUCT.PROD_CODE,
+		PRODUCT.PROD_GD1+' '+
+		CASE WHEN ISNULL(PRODUCT.PROD_GD2,'') = '' THEN
+		''
+		ELSE PRODUCT.PROD_GD2+'기준 ' END
+		+PRODUCT.PROD_GD3+' '+
+		CASE WHEN
+		ISNULL(PRODUCT.PROD_GD4,'') = '' THEN
+		CASE WHEN
+		ISNULL(PRODUCT.PROD_GD5,'') = '' THEN ''
+		WHEN
+		ISNULL(PRODUCT.PROD_GD5,'')!='' THEN PRODUCT.PROD_GD5+'이하' END
+		WHEN
+		ISNULL(PRODUCT.PROD_GD4,'') !='' THEN
+		CASE WHEN
+		ISNULL(PRODUCT.PROD_GD5,'')='' THEN PRODUCT.PROD_GD4+'이상'
+		WHEN
+		ISNULL(PRODUCT.PROD_GD5,'')!='' THEN
+		PRODUCT.PROD_GD4+'~'+PRODUCT.PROD_GD5 END
+		END AS Prod_cd,
+		PRODUCT.PROD_PG + ' '+
+		CASE WHEN ISNULL(PRODUCT.PROD_PG1,'') = '' THEN
+		CASE WHEN ISNULL(PRODUCT.PROD_PG2,'') = '' THEN ''
+		WHEN
+		ISNULL(PRODUCT.PROD_PG2,'')!='' THEN PRODUCT.PROD_PG2+'이하' END
+		WHEN
+		ISNULL(PRODUCT.PROD_PG1,'') !='' THEN
+		CASE WHEN
+		ISNULL(PRODUCT.PROD_PG2,'')='' THEN PRODUCT.PROD_PG1+'이상'
+		WHEN
+		ISNULL(PRODUCT.PROD_PG2,'')!='' THEN
+		PRODUCT.PROD_PG1+'~'+PRODUCT.PROD_PG2 END
+		END AS Prod_pg,
+		PRODUCT.PROD_SG + ' '+
+		CASE WHEN ISNULL(PRODUCT.PROD_SG1,'') = '' THEN
+		CASE WHEN ISNULL(PRODUCT.PROD_SG2,'') = '' THEN ''
+		WHEN
+		ISNULL(PRODUCT.PROD_SG2,'')!='' THEN PRODUCT.PROD_SG2+'이하' END
+		WHEN
+		ISNULL(PRODUCT.PROD_SG1,'') !='' THEN
+		CASE WHEN
+		ISNULL(PRODUCT.PROD_SG2,'')='' THEN PRODUCT.PROD_SG1+'이상'
+		WHEN
+		ISNULL(PRODUCT.PROD_SG2,'')!='' THEN
+		PRODUCT.PROD_SG1+'~'+PRODUCT.PROD_SG2 END
+		END AS Prod_sg
+		FROM PLANP_D
+		WITH(NOLOCK)
+		INNER JOIN PRODUCT WITH(NOLOCK)
+		ON PLANP_D.PROD_CODE =
+		PRODUCT.PROD_CODE
+		INNER JOIN CORP
+		ON PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN FACILITY
+		ON PLANP_D.FAC_CODE = FACILITY.FAC_CODE
+		<!-- <where> <if test="plnpDate == ''"> AND PLANP_D.PLNP_DATE = LEFT(CONVERT(VARCHAR, 
+			GETDATE(), 120), 10) </if> <if test="plnpDate != ''"> AND PLANP_D.PLNP_DATE 
+			= #{plnpDate} </if> <if test="corpName != ''"> AND CORP.CORP_NAME LIKE +'%'+ 
+			#{corpName} +'%' </if> <if test="prodName != ''"> AND PRODUCT.PROD_NAME LIKE 
+			+'%'+ #{prodName} +'%' </if> <if test="prodNo != ''"> AND PRODUCT.PROD_NO 
+			LIKE +'%'+ #{prodNo} +'%' </if> <if test="facName != '' and facName != null"> 
+			AND FACILITY.FAC_NAME LIKE +'%'+ #{facName} +'%' </if> <if test="prodGubn 
+			!= ''"> AND PRODUCT.PROD_GUBN LIKE + '%' + CASE #{prodGubn} WHEN '양산' THEN 
+			'양산' WHEN '개발' THEN '개발' ELSE '' END + '%' </if> </where> -->
+		ORDER BY PLANP_D.PLNP_DATE,
+		FACILITY.FAC_NAME,
+		PLANP_D.PLNP_SEQ
 	</select>
-	
+
+
+	<!-- 작업지시 - 작업지시대기 조회(팝업) -->
+	<select id="getWorkWaitList" parameterType="work"
+		resultType="work">
+		SELECT LEFT(CONVERT(nvarchar, dbo.ORDERT.ORD_DATE, 120), 10) as
+		ORD_DATE, dbo.CORP.CORP_NAME, dbo.PRODUCT.PROD_NAME,
+		dbo.PRODUCT.PROD_NO, dbo.PRODUCT.PROD_GYU, dbo.PRODUCT.PROD_JAI,
+		dbo.TECHIN.TECH_TE, dbo.PRODUCT.PROD_PG, dbo.PRODUCT.PROD_PG1,
+		dbo.PRODUCT.PROD_PG2, dbo.ORDERT.ORD_AMNT, dbo.ORDERT.ORD_SU,
+		dbo.ORDERT.ORD_BIGO, dbo.ORDERT.ORD_SU -
+		ISNULL(SUM(dbo.WORKILBO.ILBO_SU), 0) AS Work_Su, dbo.ORDERT.ORD_AMNT -
+		ISNULL(SUM(dbo.WORKILBO.ILBO_JUNG), 0) AS Work_Jung,
+		dbo.ORDERT.ORD_CODE, dbo.TECHIN.TECH_HT,
+		dbo.ORDERT.PROD_CODE,dbo.WORKSTD.WSTD_N06,dbo.WORKSTD.WSTD_N07,dbo.WORKSTD.WSTD_N11,
+		dbo.WORKSTD.WSTD_N12,dbo.WORKSTD.WSTD_READY,
+		dbo.WORKSTD.WSTD_WORKTIME, CORP.CORP_NAME,
+		CONCAT(dbo.PRODUCT.PROD_GD1,' ', CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD2,'') = '' THEN '' ELSE
+		CONCAT(dbo.PRODUCT.PROD_GD2,'기준 ') END ,dbo.PRODUCT.PROD_GD3,' ', CASE
+		WHEN ISNULL(dbo.PRODUCT.PROD_GD4,'') = '' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD5,'') = '' THEN '' WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD5,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_GD5,'이하') END WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD4,'') !='' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD5,'')='' THEN
+		CONCAT(dbo.PRODUCT.PROD_GD4,'이상') WHEN
+		ISNULL(dbo.PRODUCT.PROD_GD5,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_GD4,'~',dbo.PRODUCT.PROD_GD5) END END) AS
+		Prod_Cd, CONCAT(dbo.PRODUCT.PROD_PG,' ', CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG1,'') = '' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG2,'') = '' THEN '' WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG2,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_PG2,'이하') END WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG1,'') !='' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG2,'')='' THEN
+		CONCAT(dbo.PRODUCT.PROD_PG1,'이상') WHEN
+		ISNULL(dbo.PRODUCT.PROD_PG2,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_PG1,'~',PRODUCT.PROD_PG2) END END) AS Prod_PG,
+		CONCAT(dbo.PRODUCT.PROD_SG,' ', CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG1,'') = '' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG2,'') = '' THEN '' WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG2,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_SG2,'이하') END WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG1,'') !='' THEN CASE WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG2,'')='' THEN
+		CONCAT(dbo.PRODUCT.PROD_SG1,'이상') WHEN
+		ISNULL(dbo.PRODUCT.PROD_SG2,'')!='' THEN
+		CONCAT(dbo.PRODUCT.PROD_SG1,'~'+PRODUCT.PROD_SG2) END END) AS Prod_SG
+		FROM dbo.ORDERT WITH(NOLOCK) INNER JOIN dbo.PRODUCT WITH(NOLOCK) ON
+		dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE INNER JOIN dbo.CORP
+		WITH(NOLOCK) ON dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE INNER JOIN
+		dbo.TECHIN WITH(NOLOCK) ON dbo.PRODUCT.TECH_NO = dbo.TECHIN.TECH_NO
+		LEFT MERGE JOIN dbo.WORKILBO WITH(NOLOCK) ON dbo.ORDERT.ORD_CODE =
+		dbo.WORKILBO.ORD_CODE LEFT OUTER JOIN dbo.WORKSTD WITH(NOLOCK) ON
+		WORKSTD.PROD_CODE = PRODUCT.PROD_CODE WHERE ORD_DATE BETWEEN
+		#{sdate}+' 00:00:00' AND #{edate}+' 23:59:59'
+		<!-- <where> <if test="ordDateS != null"> <if test="ordDateS != ''"> </if> 
+			</if> <if test="corpName != null"> AND CORP_NAME like + '%' + #{corpName} 
+			+ '%' </if> <if test="prodName != null"> AND PROD_NAME like + '%' + #{prodName} 
+			+ '%' </if> <if test="prodNo != null"> AND PROD_NO like + '%' + #{prodNo} 
+			+ '%' </if> <if test="prodGyu != null"> AND PROD_GYU like + '%' + #{prodGyu} 
+			+ '%' </if> <if test="prodJal != null"> AND PROD_JAI like + '%' + #{prodJal} 
+			+ '%' </if> </where> -->
+		GROUP BY dbo.ORDERT.ORD_DATE, dbo.CORP.CORP_NAME,
+		dbo.PRODUCT.PROD_NAME, dbo.PRODUCT.PROD_NO, dbo.PRODUCT.PROD_GYU,
+		dbo.PRODUCT.PROD_JAI, dbo.TECHIN.TECH_TE, dbo.PRODUCT.PROD_PG,
+		dbo.PRODUCT.PROD_PG1, dbo.PRODUCT.PROD_PG2, dbo.ORDERT.ORD_AMNT,
+		dbo.ORDERT.ORD_SU, dbo.ORDERT.ORD_BIGO, dbo.ORDERT.ORD_CODE,
+		dbo.TECHIN.TECH_HT,
+		dbo.ORDERT.PROD_CODE,dbo.WORKSTD.WSTD_N06,dbo.WORKSTD.WSTD_N07,dbo.WORKSTD.WSTD_N11,dbo.WORKSTD.WSTD_N12,dbo.WORKSTD.WSTD_READY,
+		dbo.WORKSTD.WSTD_WORKTIME , dbo.PRODUCT.PROD_GD1,
+		dbo.PRODUCT.PROD_GD2, dbo.PRODUCT.PROD_GD3, dbo.PRODUCT.PROD_GD4,
+		dbo.PRODUCT.PROD_GD5,
+		dbo.PRODUCT.PROD_PG,dbo.PRODUCT.PROD_PG1,dbo.PRODUCT.PROD_PG2,
+		dbo.PRODUCT.PROD_SG,dbo.PRODUCT.PROD_SG1,dbo.PRODUCT.PROD_SG2 HAVING
+		(dbo.ORDERT.ORD_AMNT - ISNULL(SUM(dbo.WORKILBO.ILBO_JUNG), 0) > 0) OR
+		(dbo.ORDERT.ORD_SU - ISNULL(SUM(dbo.WORKILBO.ILBO_SU), 0) > 0) ORDER
+		BY dbo.ORDERT.ORD_DATE DESC, dbo.CORP.CORP_NAME, dbo.PRODUCT.PROD_NAME
+	</select>
+
 	<!-- 작업현황 조회 -->
-	<select id="getWorkStatusList" parameterType="work" resultType="work">
-	  SELECT ROW_NUMBER() OVER(
-        ORDER BY 
-            LEFT(CONVERT(nvarchar, WORKILBO.ILBO_STRT, 120), 10), 
-            WORKILBO.ILBO_GUBN, 
-            FACILITY.FAC_NAME, 
-            WORKILBO.ILBO_STRT
-    ) AS ROW_NUM, 
-    CORP.CORP_NAME, 
-    PRODUCT.PROD_NAME, 
-    PRODUCT.PROD_NO, 
-    PRODUCT.PROD_GYU, 
-    PRODUCT.PROD_JAI, 
-    LEFT(CONVERT(nvarchar, WORKILBO.ILBO_STRT, 120), 10) AS ILBO_DATE, 
-    FACILITY.FAC_NAME, 
-    WORKILBO.ILBO_SU, 
-    TECH_TE,
-    ORDERT.ORD_CODE,
-    ILBO_LOT
-    FROM PRODUCT 
-    INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE 
-    INNER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO 
-    INNER JOIN ORDERT ON PRODUCT.PROD_CODE = ORDERT.PROD_CODE 
-    INNER JOIN WORKILBO ON ORDERT.ORD_CODE = WORKILBO.ORD_CODE 
-    LEFT OUTER JOIN FACILITY ON WORKILBO.FAC_CODE = FACILITY.FAC_CODE
-    WHERE WORKILBO.ILBO_STRT BETWEEN 
-        #{sdate} + ' 00:00' AND #{edate} + ' 23:59'
-    
-    <if test="corp_name != null and corp_name != ''">
-        AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
-    </if>
-    <if test="prod_name != null and prod_name != ''">
-        AND PRODUCT.PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
-    </if>
-    <if test="prod_no != null and prod_no != ''">
-        AND PRODUCT.PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
-    </if>
-    <if test="tech_te != null and tech_te != ''">
-        AND TECHIN.TECH_TE LIKE CONCAT('%', #{tech_te}, '%')
-    </if>
-    <if test="prod_gubn != null and prod_gubn != ''">
-        AND PRODUCT.PROD_GUBN LIKE 
-        CASE 
-            WHEN #{prod_gubn} = '양산' THEN '양산' 
-            WHEN #{prod_gubn} = '개발' THEN '개발' 
-            ELSE '%' 
-        END
-    </if>
-</select>
-	
+	<select id="getWorkStatusList" parameterType="work"
+		resultType="work">
+		SELECT ROW_NUMBER() OVER(
+		ORDER BY
+		LEFT(CONVERT(nvarchar,
+		WORKILBO.ILBO_STRT, 120), 10),
+		WORKILBO.ILBO_GUBN,
+		FACILITY.FAC_NAME,
+		WORKILBO.ILBO_STRT
+		) AS ROW_NUM,
+		CORP.CORP_NAME,
+		PRODUCT.PROD_NAME,
+		PRODUCT.PROD_NO,
+		PRODUCT.PROD_GYU,
+		PRODUCT.PROD_JAI,
+		LEFT(CONVERT(nvarchar, WORKILBO.ILBO_STRT, 120), 10) AS ILBO_DATE,
+		FACILITY.FAC_NAME,
+		WORKILBO.ILBO_SU,
+		TECH_TE,
+		ORDERT.ORD_CODE,
+		ILBO_LOT
+		FROM PRODUCT
+		INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO
+		INNER JOIN ORDERT
+		ON PRODUCT.PROD_CODE = ORDERT.PROD_CODE
+		INNER JOIN WORKILBO ON
+		ORDERT.ORD_CODE = WORKILBO.ORD_CODE
+		LEFT OUTER JOIN FACILITY ON
+		WORKILBO.FAC_CODE = FACILITY.FAC_CODE
+		WHERE WORKILBO.ILBO_STRT BETWEEN
+		#{sdate} + ' 00:00' AND #{edate} + ' 23:59'
+
+		<if test="corp_name != null and corp_name != ''">
+			AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
+		</if>
+		<if test="prod_name != null and prod_name != ''">
+			AND PRODUCT.PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
+		</if>
+		<if test="prod_no != null and prod_no != ''">
+			AND PRODUCT.PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
+		</if>
+		<if test="tech_te != null and tech_te != ''">
+			AND TECHIN.TECH_TE LIKE CONCAT('%', #{tech_te}, '%')
+		</if>
+		<if test="prod_gubn != null and prod_gubn != ''">
+			AND PRODUCT.PROD_GUBN LIKE
+			CASE
+			WHEN #{prod_gubn} = '양산'
+			THEN '양산'
+			WHEN #{prod_gubn} = '개발' THEN '개발'
+			ELSE '%'
+			END
+		</if>
+	</select>
+
 	<!-- 부적합보고서 조회 -->
-	<select id="getNonReportList" parameterType="work" resultType="work">
-	  SELECT ROW_NUMBER() OVER(ORDER BY WORKERR.WERR_DATE, CORP.CORP_NAME, PRODUCT.PROD_NAME) AS ROW_NUM,  
-           LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120), 120), 10) AS WERR_WDATE,
-           LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120), 10) AS WERR_DATE,
-           dbo.CORP.CORP_NAME, 
-           dbo.PRODUCT.PROD_NAME, 
-           dbo.PRODUCT.PROD_NO, 
-           LEFT(CONVERT(VARCHAR, CONVERT(datetime, dbo.ORDERT.ORD_DATE, 120), 120), 10) AS ORD_DATE,
-           dbo.FACILITY.FAC_NAME, 
-           dbo.WORKERR.WERR_AMNT, 
-           dbo.WORKERR.WERR_GUBN, 
-           WERR_CODE,
-           CASE WORKILBO.ILBO_GUBN
-               WHEN 'A' THEN '침탄' 
-               WHEN 'P' THEN '전세정' 
-               WHEN 'B' THEN '방탄' 
-               WHEN 'H' THEN '고주파' 
-               WHEN 'F' THEN '후세정' 
-               WHEN 'S' THEN '쇼트' 
-               WHEN 'V' THEN '진공' 
-           END AS ILBO_GUBN,
-           WERR_FAC
-    FROM dbo.WORKERR
-    INNER JOIN dbo.WORKILBO ON dbo.WORKERR.ILBO_CODE = dbo.WORKILBO.ILBO_CODE AND dbo.WORKERR.ILBO_NO = dbo.WORKILBO.ILBO_NO
-    INNER JOIN dbo.ORDERT ON dbo.WORKILBO.ORD_CODE = dbo.ORDERT.ORD_CODE 
-    INNER JOIN dbo.PRODUCT ON dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE
-    INNER JOIN dbo.CORP ON dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE 
-    LEFT OUTER JOIN dbo.FACILITY ON dbo.WORKILBO.FAC_CODE = dbo.FACILITY.FAC_CODE
-    WHERE WORKERR.WERR_DATE BETWEEN #{sdate} AND #{edate}
-    
-    <if test="corp_name != null and corp_name != ''">
-        AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
-    </if>
-    <if test="prod_name != null and prod_name != ''">
-        AND PRODUCT.PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
-    </if>
-    <if test="prod_no != null and prod_no != ''">
-        AND PRODUCT.PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
-    </if>
-    <if test="prod_gyu != null and prod_gyu != ''">
-        AND PRODUCT.PROD_GYU LIKE CONCAT('%', #{prod_gyu}, '%')
-    </if>
-    <if test="prod_gubn != null and prod_gubn != ''">
-        AND PRODUCT.PROD_GUBN LIKE 
-        CONCAT('%',CASE 
-            WHEN #{prod_gubn} = '양산' THEN '양산' 
-            WHEN #{prod_gubn} = '개발' THEN '개발' 
-            ELSE '' 
-        END,'%')
-    </if>
-</select>
+	<select id="getNonReportList" parameterType="work"
+		resultType="work">
+		SELECT ROW_NUMBER() OVER(ORDER BY WORKERR.WERR_DATE, CORP.CORP_NAME,
+		PRODUCT.PROD_NAME) AS ROW_NUM,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime,
+		WORKERR.WERR_WDATE, 120), 120), 10) AS WERR_WDATE,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120),
+		10) AS WERR_DATE,
+		dbo.CORP.CORP_NAME,
+		dbo.PRODUCT.PROD_NAME,
+		dbo.PRODUCT.PROD_NO,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime,
+		dbo.ORDERT.ORD_DATE, 120), 120), 10) AS ORD_DATE,
+		dbo.FACILITY.FAC_NAME,
+		dbo.WORKERR.WERR_AMNT,
+		dbo.WORKERR.WERR_GUBN,
+		WERR_CODE,
+		CASE WORKILBO.ILBO_GUBN
+		WHEN 'A' THEN '침탄'
+		WHEN 'P' THEN '전세정'
+		WHEN 'B' THEN '방탄'
+		WHEN 'H' THEN '고주파'
+		WHEN 'F' THEN '후세정'
+		WHEN 'S' THEN
+		'쇼트'
+		WHEN 'V' THEN '진공'
+		END AS ILBO_GUBN,
+		WERR_FAC
+		FROM dbo.WORKERR
+		INNER
+		JOIN dbo.WORKILBO ON dbo.WORKERR.ILBO_CODE = dbo.WORKILBO.ILBO_CODE
+		AND dbo.WORKERR.ILBO_NO = dbo.WORKILBO.ILBO_NO
+		INNER JOIN dbo.ORDERT ON
+		dbo.WORKILBO.ORD_CODE = dbo.ORDERT.ORD_CODE
+		INNER JOIN dbo.PRODUCT ON
+		dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE
+		INNER JOIN dbo.CORP ON
+		dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE
+		LEFT OUTER JOIN dbo.FACILITY
+		ON dbo.WORKILBO.FAC_CODE =
+		dbo.FACILITY.FAC_CODE
+		WHERE WORKERR.WERR_DATE
+		BETWEEN #{sdate} AND #{edate}
+
+		<if test="corp_name != null and corp_name != ''">
+			AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
+		</if>
+		<if test="prod_name != null and prod_name != ''">
+			AND PRODUCT.PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
+		</if>
+		<if test="prod_no != null and prod_no != ''">
+			AND PRODUCT.PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
+		</if>
+		<if test="prod_gyu != null and prod_gyu != ''">
+			AND PRODUCT.PROD_GYU LIKE CONCAT('%', #{prod_gyu}, '%')
+		</if>
+		<if test="prod_gubn != null and prod_gubn != ''">
+			AND PRODUCT.PROD_GUBN LIKE
+			CONCAT('%',CASE
+			WHEN #{prod_gubn}
+			= '양산' THEN '양산'
+			WHEN #{prod_gubn} = '개발' THEN '개발'
+			ELSE ''
+			END,'%')
+		</if>
+	</select>
+
+
+
+	<!-- 부적합등록(품질관리) -->
+	<select id="getNonIsertList" parameterType="work"
+		resultType="work">
+		SELECT ROW_NUMBER()OVER(ORDER BY
+		WORKERR.WERR_DATE,CORP.CORP_NAME, PRODUCT.PROD_NAME ) AS ROW_NUM ,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120),
+		120), 10) as WERR_WDATE,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120), 10) as WERR_DATE,
+		CORP.CORP_NAME,
+		PRODUCT.PROD_NAME,
+		PRODUCT.PROD_NO,
+		LEFT(CONVERT(VARCHAR, CONVERT(datetime, ORDERT.ORD_DATE, 120), 120), 10) as ORD_DATE,
+		FACILITY.FAC_NAME,
+		WORKERR.WERR_AMNT,
+		WORKERR.WERR_GUBN,
+		WORKERR.WERR_MON,
+		WORKERR.WERR_CODE,
+		WORKILBO.ILBO_LOT,
+		CASE WORKILBO.ILBO_GUBN
+		WHEN 'A'
+		THEN '침탄'
+		WHEN 'P'
+		THEN '전세정'
+		WHEN 'B'
+		THEN '방탄'
+		WHEN 'H'
+		THEN '고주파'
+		WHEN 'F'
+		THEN '후세정'
+		WHEN 'S'
+		THEN '쇼트'
+		WHEN 'V'
+		THEN '진공'
+		END as ILBO_GUBN,
+		WORKERR.WERR_FAC
+		FROM WORKERR
+		INNER JOIN WORKILBO ON WORKERR.ILBO_CODE =
+		WORKILBO.ILBO_CODE AND WORKERR.ILBO_NO = WORKILBO.ILBO_NO
+		INNER JOIN
+		ORDERT ON WORKILBO.ORD_CODE = ORDERT.ORD_CODE INNER JOIN PRODUCT ON
+		ORDERT.PROD_CODE = PRODUCT.PROD_CODE
+		INNER JOIN CORP ON
+		PRODUCT.CORP_CODE = CORP.CORP_CODE LEFT OUTER JOIN FACILITY ON
+		WORKILBO.FAC_CODE = FACILITY.FAC_CODE
+		where WERR_DATE between #{sdate} and #{edate}
+	</select>
 
 
 
 
 	<!-- 생산대기현황 조회 -->
-	<select id="getProdWaitingStatusList" parameterType="work" resultType="work">
-	  SELECT ROW_NUMBER()OVER(ORDER BY ORD_DATE, CORP_NAME, PROD_NAME ) AS ROW_NUM,
-		       ORD_CODE, ORD_DATE, CORP_NAME, PROD_NAME, PROD_NO, PROD_GYU, PROD_JAI, Jan, LotSu,
-		       ITST_WP, ORD_SU, ORD_AMNT, ILBOSU, ILBOJUNG
-		FROM   vJanSetting
-		WHERE  (Jan > 0)
-		and ORD_DATE BETWEEN #{sdate} AND #{edate}
-		<!-- and CORP_NAME like + '%' + #{corp_name} + '%'
-		and PROD_NAME like + '%' + #{prod_name} + '%'
-		and PROD_NO like + '%' + #{prod_no} + '%'
-		and ORD_CODE like + '%' + #{ord_code} + '%'
-		and PROD_GYU like + '%' + #{prod_gyu} + '%' -->
+	<select id="getProdWaitingStatusList" parameterType="work"
+		resultType="work">
+		SELECT ROW_NUMBER()OVER(ORDER BY ORD_DATE, CORP_NAME, PROD_NAME ) AS
+		ROW_NUM,
+		ORD_CODE, ORD_DATE, CORP_NAME, PROD_NAME, PROD_NO, PROD_GYU,
+		PROD_JAI, Jan,
+		LotSu,
+		ITST_WP, ORD_SU, ORD_AMNT, ILBOSU, ILBOJUNG
+		FROM
+		vJanSetting
+		WHERE (Jan > 0)
+		and
+		ORD_DATE BETWEEN #{sdate} AND #{edate}
+		<!-- and CORP_NAME like + '%' + #{corp_name} + '%' and PROD_NAME like + 
+			'%' + #{prod_name} + '%' and PROD_NO like + '%' + #{prod_no} + '%' and ORD_CODE 
+			like + '%' + #{ord_code} + '%' and PROD_GYU like + '%' + #{prod_gyu} + '%' -->
 
-</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	</select>
+
+
+
+	<!-- 소입경도현황 조회 -->
+	<select id="getQueHardList" parameterType="work"
+		resultType="work">
+		select ILBO_STRT, ILBO_END, ILBO_LOT , USER_NAME, PROD_NAME , PROD_NO,
+		PROD_GYU , PROD_JAI,
+		ILBO_PG1 , ILBO_PG2, ILBO_PG3, ILBO_PG4, ILBO_PG5,
+		'J' + RIGHT('000000000' + CAST(dbo.WORKILBO.ILBO_PC AS nvarchar), 9)
+		AS
+		JuckJaeCode,
+		CASE
+		WHEN PROD_PG1 = '' and PROD_PG2 = ''
+		THEN ''
+		WHEN
+		PROD_PG2 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 +' 이상'
+		WHEN
+		PROD_PG1 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG2 +' 이하'
+		ELSE
+		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
+		END
+		AS PYO,
+		ILBO_OKNG
+		from WORKILBO
+		INNER JOIN ORDERT ON ORDERT.ORD_CODE =
+		WORKILBO.ORD_CODE
+		INNER JOIN PRODUCT ON ORDERT.PROD_CODE =
+		PRODUCT.PROD_CODE
+		INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN USERT ON USERT.USER_CODE = WORKILBO.USER_CODE
+		WHERE
+		ILBO_GUBN =
+		'A'
+		and WORKILBO.ILBO_STRT BETWEEN #{sdate} AND #{edate}
+		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
+			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
+			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
+			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
+			+ '%' + #{prodJai} + '%' </if> -->
+	</select>
+
+
+	<!-- 템퍼링경도현황 조회 -->
+	<select id="getTemHardList" parameterType="work"
+		resultType="work">
+		select ILBO_STRT, ILBO_END, ILBO_LOT , USER_NAME, PROD_NAME , PROD_NO,
+		PROD_GYU , PROD_JAI,
+		ILBO_PG1 , ILBO_PG2, ILBO_PG3, ILBO_PG4, ILBO_PG5,
+		'J' + RIGHT('000000000' + CAST(dbo.WORKILBO.ILBO_PC AS nvarchar), 9)
+		AS
+		JuckJaeCode,
+		CASE
+		WHEN PROD_PG1 = '' and PROD_PG2 = ''
+		THEN ''
+		WHEN
+		PROD_PG2 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 +' 이상'
+		WHEN
+		PROD_PG1 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG2 +' 이하'
+		ELSE
+		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
+		END
+		AS PYO,
+		ILBO_OKNG
+		from WORKILBO
+		INNER JOIN ORDERT ON ORDERT.ORD_CODE =
+		WORKILBO.ORD_CODE
+		INNER JOIN PRODUCT ON ORDERT.PROD_CODE =
+		PRODUCT.PROD_CODE
+		INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN USERT ON USERT.USER_CODE = WORKILBO.USER_CODE
+		WHERE
+		ILBO_GUBN =
+		'R'
+		and WORKILBO.ILBO_STRT BETWEEN #{sdate} AND #{edate}
+		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
+			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
+			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
+			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
+			+ '%' + #{prodJai} + '%' </if> -->
+		GROUP BY ILBO_OKNG, ILBO_STRT, ILBO_END, ILBO_LOT, PROD_NAME ,
+		PROD_NO, PROD_GYU , PROD_JAI, PRODUCT.PROD_PG,
+		ILBO_PG1 , ILBO_PG2,
+		ILBO_PG3, ILBO_PG4, ILBO_PG5, WORKILBO.ILBO_PC, PRODUCT.PROD_PG1,
+		PRODUCT.PROD_PG2, USER_NAME
+	</select>
+
+
+
+
+
+	<!-- 자주검사현황 조회 -->
+	<select id="getJajuStatusList" parameterType="work"
+		resultType="work">
+		select ILBO_STRT, ILBO_END, ILBO_LOT , USER_NAME, PROD_NAME , PROD_NO,
+		PROD_GYU , PROD_JAI,
+		ILBO_PG1 , ILBO_PG2, ILBO_PG3, ILBO_PG4, ILBO_PG5,
+		'J' + RIGHT('000000000' + CAST(dbo.WORKILBO.ILBO_PC AS nvarchar), 9)
+		AS JuckJaeCode,
+		CASE
+		WHEN PROD_PG1 = '' and PROD_PG2 = ''
+		THEN ''
+		WHEN
+		PROD_PG2 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 +' 이상'
+		WHEN
+		PROD_PG1 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG2 +' 이하'
+		ELSE
+		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
+		END
+		AS PYO,
+		ILBO_OKNG,
+		CASE WHEN ILBO_GUBN = 'A'
+		THEN '소입'
+		WHEN ILBO_GUBN =
+		'R'
+		THEN '템퍼링'
+		END AS GUBN
+		from WORKILBO
+		INNER JOIN ORDERT ON
+		ORDERT.ORD_CODE =
+		WORKILBO.ORD_CODE
+		INNER JOIN PRODUCT ON
+		ORDERT.PROD_CODE =
+		PRODUCT.PROD_CODE
+		INNER JOIN CORP ON
+		PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN USERT ON USERT.USER_CODE
+		= WORKILBO.USER_CODE
+		WHERE
+		ILBO_GUBN IN ('A','R')
+		and ILBO_OKNG = '불합격'
+		and WORKILBO.ILBO_STRT
+		BETWEEN #{sdate} AND #{edate}
+		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
+			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
+			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
+			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
+			+ '%' + #{prodJai} + '%' </if> -->
+	</select>
+
+
+	<!-- 자주검사조치 조회 -->
+	<select id="getJajuJochiList" parameterType="work"
+		resultType="work">
+		select ILBO_STRT, ILBO_END, ILBO_LOT , USER_NAME, PROD_NAME , PROD_NO,
+		PROD_GYU , PROD_JAI,
+		ILBO_PG1 , ILBO_PG2, ILBO_PG3, ILBO_PG4, ILBO_PG5,
+		'J' + RIGHT('000000000' + CAST(dbo.WORKILBO.ILBO_PC AS nvarchar), 9)
+		AS JuckJaeCode,
+		CASE
+		WHEN PROD_PG1 = '' and PROD_PG2 = ''
+		THEN ''
+		WHEN
+		PROD_PG2 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 +' 이상'
+		WHEN
+		PROD_PG1 = ''
+		THEN PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG2 +' 이하'
+		ELSE
+		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
+		END
+		AS PYO,
+		ILBO_OKNG,
+		CASE WHEN ILBO_GUBN = 'A'
+		THEN '소입'
+		WHEN ILBO_GUBN =
+		'R'
+		THEN '템퍼링'
+		END AS GUBN
+		from WORKILBO
+		INNER JOIN ORDERT ON
+		ORDERT.ORD_CODE =
+		WORKILBO.ORD_CODE
+		INNER JOIN PRODUCT ON
+		ORDERT.PROD_CODE =
+		PRODUCT.PROD_CODE
+		INNER JOIN CORP ON
+		PRODUCT.CORP_CODE = CORP.CORP_CODE
+		INNER JOIN USERT ON USERT.USER_CODE
+		= WORKILBO.USER_CODE
+		WHERE
+		ILBO_GUBN IN ('A','R')
+		and ILBO_OKNG = '불합격'
+		and WORKILBO.ILBO_STRT
+		BETWEEN #{sdate} AND #{edate}
+		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
+			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
+			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
+			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
+			+ '%' + #{prodJai} + '%' </if> -->
+	</select>
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

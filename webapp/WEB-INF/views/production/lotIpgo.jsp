@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>lot추적 관리(입고)</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -48,7 +48,7 @@
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
-        <button class="insert-button">
+        <button class="insert-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
           
         </button>

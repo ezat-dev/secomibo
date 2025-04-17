@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bega">
+
+
+	<select id="getBegaInsertList" parameterType="bega" resultType="bega">
+		SELECT ROW_NUMBER()OVER(ORDER BY FACSTOP.FSTP_CODE) AS ROW_NUM, 
+		       FACILITY.FAC_NAME, 
+		       FACSTOP.FSTP_PLAN, 
+		       FACSTOP.FSTP_TU, 
+		       FACSTOP.FSTP_STBY, 
+		       FACSTOP.FSTP_01, 
+		       FACSTOP.FSTP_02, 
+		       FACSTOP.FSTP_03, 
+		       FACSTOP.FSTP_04, 
+		       FACSTOP.FSTP_05, 
+		       FACSTOP.FSTP_06, 
+		       FACSTOP.FSTP_07, 
+		       FACSTOP.FSTP_08, 
+		       FACSTOP.FSTP_09, 
+		       FACSTOP.FSTP_10, 
+		       FSTP_BIGO, 
+		       FSTP_CODE, 
+		       LEFT(CONVERT(NVARCHAR, FACSTOP.FSTP_DATE, 120), 10) AS FSTP_DATE 
+		  FROM FACSTOP 
+		   INNER JOIN FACILITY 
+		       ON FACSTOP.FAC_CODE = FACILITY.FAC_CODE 
+		   WHERE FACSTOP.FSTP_DATE between #{sdate} and #{edate}
+		ORDER BY FACSTOP.FSTP_DATE, 
+		       FACILITY.FAC_NAME
+	</select>
+	
+	
+	<insert id="begaInsertSave" parameterType="bega">
+	INSERT
+	INTO FACSTOP
+	(
+	FSTP_CODE,
+	FAC_CODE,
+	FSTP_DATE,
+	FSTP_PLAN,
+	FSTP_TU,
+	FSTP_STBY,
+	FSTP_SIL,
+	FSTP_MAN,
+	FSTP_MHR,
+	FSTP_01,
+	FSTP_02,
+	FSTP_03,
+	FSTP_04,
+	FSTP_05,
+	FSTP_06,
+	FSTP_07,
+	FSTP_08,
+	FSTP_09,
+	FSTP_10,
+	FSTP_BIGO
+	)
+	VALUES
+	(
+	(SELECT ISNULL(MAX(FSTP_CODE), 0) + 1 FROM FACSTOP),
+	#{fac_code},
+	#{fstp_date},
+	#{fstp_plan},
+	#{fstp_tu},
+	#{fstp_stby},
+	#{fstp_sil},
+	#{fstp_man},
+	#{fstp_mhr} ,
+	#{fstp_01},
+	#{fstp_02},
+	#{fstp_03},
+	#{fstp_04},
+	#{fstp_05},
+	#{fstp_06},
+	#{fstp_07},
+	#{fstp_08},
+	#{fstp_09},
+	#{fstp_10},
+	#{fstp_bigo}
+	)
+	</insert>
+
+	
+
+</mapper>

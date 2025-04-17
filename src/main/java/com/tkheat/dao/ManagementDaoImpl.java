@@ -47,7 +47,7 @@ public class ManagementDaoImpl implements ManagementDao {
 	
 	@Override
 	public void productInsertSave(Product product) {
-		sqlSession.insert("product.insertProduct", product);
+		sqlSession.insert("product.productInsertSave", product);
 	}
 	
 	@Override
@@ -74,6 +74,11 @@ public class ManagementDaoImpl implements ManagementDao {
 	 public List<Standard> getChimStandardList(Standard standard) {
 		 return sqlSession.selectList("standard.getChimStandardList",standard);
 	 }
+	
+	@Override
+	public void chimStandardSave(Standard standard) {
+		sqlSession.insert("standard.chimStandardSave", standard);
+	}
 	
 	// gubn으로 구분하기 때문에 같은 쿼리 사용
 	@Override

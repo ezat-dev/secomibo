@@ -22,4 +22,6 @@ public interface ProductDao {
 	List<Gongjung> getIpChulDeleteList(Gongjung gongjung);
 	
 	List<Gongjung> getWorkStatusList(Gongjung gongjung);
+
+	List<Ipgo> getIpgoAddList(Ipgo ipgo);
 }

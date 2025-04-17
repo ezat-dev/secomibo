@@ -21,5 +21,8 @@
   	<mapper resource="mybatis/mapper/siljuk.xml"/>
   	<mapper resource="mybatis/mapper/sparePart.xml"/>
   	<mapper resource="mybatis/mapper/suip.xml"/>
+  	<mapper resource="mybatis/mapper/bega.xml"/>
+  	<mapper resource="mybatis/mapper/suri.xml"/>
+  	<mapper resource="mybatis/mapper/jeomgeom.xml"/>
   </mappers>
 </configuration>

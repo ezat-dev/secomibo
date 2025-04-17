@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="suri">
+
+
+	<select id="getSuriHistoryList" parameterType="suri" resultType="suri">
+		SELECT ROW_NUMBER()OVER(ORDER BY  LEFT(CONVERT(VARCHAR, CONVERT(DATETIME, FAC_FIX.FFX_DATE, 120), 120), 10)) AS ROW_NUM, 
+		       FACILITY.FAC_NO, 
+		       FAC_FIX.FFX_NO, 
+		       FACILITY.FAC_NO, 
+		       FACILITY.FAC_NAME, 
+		       LEFT(CONVERT(VARCHAR, CONVERT(DATETIME, FAC_FIX.FFX_DATE, 120), 120), 10) AS FFX_DATE, 
+		       FAC_FIX.FFX_PRT, 
+		       FAC_FIX.FFX_MAN, 
+		       FAC_FIX.FFX_WRK, 
+		       REPLACE(CONVERT(VARCHAR,CONVERT(MONEY,FAC_FIX.FFX_COST),1),'.00','') AS FFX_COST, 
+		       FAC_FIX.FFX_NOTE , 
+		       SPR_NAME 
+		  FROM FAC_FIX 
+		   INNER JOIN FACILITY 
+		       ON FAC_FIX.FAC_CODE = FACILITY.FAC_CODE 
+		   LEFT JOIN SPRPART
+		       ON FAC_FIX.FFX_PRT = CONVERT(NVARCHAR, SPRPART.SPR_CODE) 
+		 WHERE FAC_FIX.FFX_DATE BETWEEN #{sdate} AND #{edate} 
+		ORDER BY ROW_NUM
+	</select>
+
+	
+
+</mapper>

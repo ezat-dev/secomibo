@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>측정기기점검관리</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -42,10 +42,10 @@
             <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
             
         </button>
-        <button class="printer-button">
+        <!-- <button class="printer-button">
             <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
             
-        </button>
+        </button> -->
     </div>
 </div>
     <main class="main">

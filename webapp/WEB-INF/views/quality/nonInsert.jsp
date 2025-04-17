@@ -128,7 +128,7 @@ textarea {
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -310px;
+	margin-left: -1200px;
 }
 
 .box1 input[type="text"]{

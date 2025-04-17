@@ -48,7 +48,7 @@
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
-        <button class="insert-button">
+        <button class="insert-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
           
         </button>
@@ -56,7 +56,7 @@
             <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
             
         </button>
-        <button class="printer-button">
+        <button class="printer-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
             
         </button>

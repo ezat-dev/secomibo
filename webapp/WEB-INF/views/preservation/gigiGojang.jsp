@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>측정기기고장이력</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -30,7 +30,6 @@
     display: flex; /* 플렉스 박스 사용 */
     justify-content: center; /* 중앙 정렬 */
     align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px; /* 상단 여백 */
     background-color: #33363d; /* 배경색 */
     height: 50px; /* 높이 */
     color: white; /* 글자색 */
@@ -40,13 +39,15 @@
 #editPop {
     background: #ffffff;
     border: 1px solid #000000;
-    width: 700px; /* 가로 길이 고정 */
-    height: 630px; /* 세로 길이 고정 */
+    width: 800px; /* 가로 길이 고정 */
+    height: 670px; /* 세로 길이 고정 */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
     margin: 20px auto; /* 중앙 정렬 */
     padding: 20px;
     border-radius: 5px; /* 모서리 둥글게 */
     overflow-y: auto; /* 세로 스크롤 추가 */
+    position: relative;
+    margin-top: 0;
 }
 
 .insideTable {
@@ -108,6 +109,69 @@ textarea {
     height: 100%; /* 이미지 높이 */
     object-fit: cover; /* 이미지 비율 유지 */
 }
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1190px;
+}
+
+.box1 input[type="text"] {
+	width: 5%;
+}
+
+.box1 input[type="date"] {
+	width: 7%;
+}
+
+.box1 select {
+	width: 5%
+}
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
+.btnSaveClose button {
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
+th{
+	font-size : 14px;
+}
     
     </style>
     
@@ -115,9 +179,14 @@ textarea {
     <body>
     
     <div class="tab">
-    
+    <div class="box1">
+       <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>        
+	   <label class="daylabel">기간 : </label>
+	   <input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+	   <input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getGigiGojangList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -129,10 +198,10 @@ textarea {
             <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
             
         </button>
-        <button class="printer-button">
+        <!-- <button class="printer-button">
             <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
             
-        </button>
+        </button> -->
     </div>
 </div>
     <main class="main">
@@ -143,8 +212,7 @@ textarea {
 	
 	
 	<div class="gojangModal">
-	<div class="header">측정기기고장이력</div>    
-	 <form name="searchForm" method="post" enctype="multipart/form-data">
+	<div class="header">측정기기고장이력</div> 
         <div id="editPop">
     
             <!-- Article List -->
@@ -164,7 +232,7 @@ textarea {
                                 <tbody><tr>
                                     <th class="left">측정기기</th>
                                     <td>
-                                        <select id="TER_CODE" name="ter_code" class="form-control rp-input" style="width:102%;">
+                                        <select id="TER_CODE" name="ter_code" class="form-control rp-input" style="width:90%;">
                                             
                                                 <option value="1">로크웰경도기</option>
                                             
@@ -174,7 +242,7 @@ textarea {
                                     </td>
                                     <th class="left">수리시작시간</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="TERR_STRT" name="terr_strt" value="" placeholder="0000-00-00" style="width:50%;">
+                                        <input type="date" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="TERR_STRT" name="terr_strt" value="" placeholder="0000-00-00" style="width:30%;">
     
                                         
                                             
@@ -189,7 +257,7 @@ textarea {
                                 <tr>
                                     <th class="left">확인자</th>
                                     <td>
-                                        <select id="TERR_CHKMAN" name="terr_chkman" class="basic rp-input" style="width:102%;">
+                                        <select id="TERR_CHKMAN" name="terr_chkman" class="basic rp-input" style="width:90%;">
                                             
                                                 <option value="0">admin</option>
                                             
@@ -232,7 +300,7 @@ textarea {
                                     <th class="left">수리종료시간</th>
                                     <td>
     
-                                        <input type="text" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="TERR_END" name="terr_end" value="" placeholder="0000-00-00" style="width:50%;">
+                                        <input type="date" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="TERR_END" name="terr_end" value="" placeholder="0000-00-00" style="width:30%;">
                                         
                                             
                                             
@@ -246,35 +314,35 @@ textarea {
                                 <tr>
                                     <th class="left">고장일시</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_DATE" name="terr_date" value="" placeholder="0000-00-00" style="width:101%;">
+                                        <input type="text" class="form-control rp-input" id="TERR_DATE" name="terr_date" value="" placeholder="0000-00-00" style="width:90%;">
                                     </td>
                                     <th class="left">수리시간</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_TIME" name="terr_time" value="" style="width:101%;" disabled="">
-                                        <input type="text" class="form-control rp-input hidden" id="TERR_CODE" name="terr_code" value="-1" style="width:101%;">
+                                        <input type="text" class="form-control rp-input" id="TERR_TIME" name="terr_time" value="" style="width:90%;" disabled="">
+                                        <input type="text" class="form-control rp-input hidden" id="TERR_CODE" name="terr_code" value="-1" style="width:90%;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">상태</th>
                                     <td>
-                                        <select id="TERR_CONDI" name="terr_condi" class="basic rp-input" style="width:102%;">
+                                        <select id="TERR_CONDI" name="terr_condi" class="basic rp-input" style="width:90%;">
                                             <option>가동</option>
                                             <option>비가동</option>
                                         </select>
                                     </td>
                                     <th class="left">수리자</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_MAN" name="terr_man" value="" style="width:101%;">
+                                        <input type="text" class="form-control rp-input" id="TERR_MAN" name="terr_man" value="" style="width:90%;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">소요비용</th>
                                     <td>
-                                        <input type="text" class="basic rp-input" onchange="getNumber(this);" onkeyup="getNumber(this);" id="TERR_COST" name="terr_cost" value="" style="text-align:right; width:100%;">
+                                        <input type="text" class="basic rp-input" onchange="getNumber(this);" onkeyup="getNumber(this);" id="TERR_COST" name="terr_cost" value="" style="text-align:right; width:90%;">
                                     </td>
                                     <th class="left">수리</th>
                                     <td>
-                                        <select id="TERR_SURI" name="terr_suri" class="basic rp-input" style="width:102%;">
+                                        <select id="TERR_SURI" name="terr_suri" class="basic rp-input" style="width:90%;">
                                             <option>수리</option>
                                             <option>완료</option>
                                         </select>
@@ -283,16 +351,16 @@ textarea {
                                 <tr>
                                     <th class="left">고장현상</th>
                                     <td>
-                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_REWARD" name="terr_reward" style="width:100%;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_REWARD" name="terr_reward" style="width:90%;"></textarea>
                                     </td>
                                     <th class="left">수리내용</th>
                                     <td>
-                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_CONTENT" name="terr_content" style="width:100%;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_CONTENT" name="terr_content" style="width:90%;"></textarea>
                                     </td>
                                 </tr><tr>
                                     <th class="left">비고</th>
                                     <td colspan="4">
-                                        <textarea type="text" class="basic rp-input" rows="5" id="TERR_BIGO" name="terr_bigo" style="width:100%; height: 100px;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="5" id="TERR_BIGO" name="terr_bigo" style="width:90%; height: 100px;"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -300,14 +368,14 @@ textarea {
                                     <td>
                                                 <input id="TERR_BPHOTO" name="terr_bphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="TERR_BPHOTO_BEFORE" name="terr_bphoto_before" height="220" width="100%" align="center" src="files/facstd/?" style="display: none;">
+                                                <img id="TERR_BPHOTO_BEFORE" name="terr_bphoto_before" height="220" width="100%" align="center"  style="display: none;">
                                             
                                     </td>
                                     <th class="left">수리후사진</th>
                                     <td>
                                                 <input id="TERR_APHOTO" name="terr_aphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="TERR_APHOTO_AFTER" name="terr_aphoto_after" height="220" width="100%" align="center" src="files/facstd/?" style="display: none;">
+                                                <img id="TERR_APHOTO_AFTER" name="terr_aphoto_after" height="220" width="100%" align="center"  style="display: none;">
                                             
                                     </td>
                                 </tr>
@@ -321,10 +389,7 @@ textarea {
 					 <button class="close" type="button" onclick="window.close();">닫기</button>
     	  		</div>
             </div>
-    
         </div>
-    
-    </form>
    </div>
    
    
@@ -338,12 +403,12 @@ textarea {
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getGigiGojangList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getGigiGojangList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -353,50 +418,39 @@ textarea {
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/preservation/gigiGojang/getGigiGojangList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+                "edate": $("#edate").val(),
+			    },
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"측정기기", field:"terr_name", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"고장일시", field:"terr_date", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"고장현상", field:"terr_reward", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"수리시작시간", field:"terr_strt", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"수리종료시간", field:"terr_end", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"수리시간", field:"terr_time", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"수리내용", field:"terr_content", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"수리자", field:"terr_man", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"소요비용", field:"terr_cost", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
 				    
 		    ],
 		    rowFormatter:function(row){

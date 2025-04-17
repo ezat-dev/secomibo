@@ -216,6 +216,7 @@
 		    ajaxParams:{
 		    	"fac_no": $("#fac_no").val(),
                 "fac_name": $("#fac_name").val(),
+                "fac_code":"",
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,

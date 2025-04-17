@@ -26,6 +26,23 @@ public class Users {
 	private String user_ip;
 	
 	
+	
+	
+	//공지사항
+	private int notice_code;
+	private String notice_name;
+	private String notice_memo;
+	private String notice_user;
+	private String notice_date;
+	private int notice_views;
+	private String notice_dates;
+	private String notice_datee;
+	
+	
+	
+	
+	
+	
 	public int getUser_code() {
 		return user_code;
 	}
@@ -151,5 +168,53 @@ public class Users {
 	}
 	public void setUser_ip(String user_ip) {
 		this.user_ip = user_ip;
+	}
+	public int getNotice_code() {
+		return notice_code;
+	}
+	public void setNotice_code(int notice_code) {
+		this.notice_code = notice_code;
+	}
+	public String getNotice_name() {
+		return notice_name;
+	}
+	public void setNotice_name(String notice_name) {
+		this.notice_name = notice_name;
+	}
+	public String getNotice_memo() {
+		return notice_memo;
+	}
+	public void setNotice_memo(String notice_memo) {
+		this.notice_memo = notice_memo;
+	}
+	public String getNotice_user() {
+		return notice_user;
+	}
+	public void setNotice_user(String notice_user) {
+		this.notice_user = notice_user;
+	}
+	public String getNotice_date() {
+		return notice_date;
+	}
+	public void setNotice_date(String notice_date) {
+		this.notice_date = notice_date;
+	}
+	public int getNotice_views() {
+		return notice_views;
+	}
+	public void setNotice_views(int notice_views) {
+		this.notice_views = notice_views;
+	}
+	public String getNotice_dates() {
+		return notice_dates;
+	}
+	public void setNotice_dates(String notice_dates) {
+		this.notice_dates = notice_dates;
+	}
+	public String getNotice_datee() {
+		return notice_datee;
+	}
+	public void setNotice_datee(String notice_datee) {
+		this.notice_datee = notice_datee;
 	}
 }

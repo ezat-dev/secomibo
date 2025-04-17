@@ -14,4 +14,10 @@ public interface ProductionService {
 	
 	List<Work> getProdWaitingStatusList(Work work);
 
+	List<Work> getWorkWaitList(Work work);
+
+	void setWorkSetSave(Work work);
+
+	Work getPlnpNo(Work works);
+
 }

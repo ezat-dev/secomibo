@@ -34,4 +34,19 @@ public class ProductionServiceImpl implements ProductionService{
 		return productionDao.getProdWaitingStatusList(work);
 	}
 
+	@Override
+	public List<Work> getWorkWaitList(Work work) {
+		return productionDao.getWorkWaitList(work);
+	}
+
+	@Override
+	public void setWorkSetSave(Work work) {
+		productionDao.setWorkSetSave(work);
+	}
+
+	@Override
+	public Work getPlnpNo(Work works) {
+		return productionDao.getPlnpNo(works);
+	}
+
 }

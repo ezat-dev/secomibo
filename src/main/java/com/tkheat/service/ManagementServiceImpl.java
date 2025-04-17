@@ -73,6 +73,11 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public void chimStandardSave(Standard standard) {
+		managementDao.chimStandardSave(standard);
+	}
+	
+	@Override
 	public List<Standard> getGoStandardList(Standard standard){
 		return managementDao.getGoStandardList(standard);
 	}

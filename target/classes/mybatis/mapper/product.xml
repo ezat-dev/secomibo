@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
 
-	<insert id="insertProduct" parameterType="product">
+	<insert id="productInsertSave" parameterType="product">
     	INSERT 
 		  INTO PRODUCT 
 		       ( 
@@ -93,7 +93,7 @@
 		              #{prod_realjai},
 		              #{tech_seq}, 
 		              #{tech_pattern}, 
-		              #{prod_gJ}, 
+		              #{prod_gj}, 
 		              #{prod_bh} 
 		          )
 	</insert>

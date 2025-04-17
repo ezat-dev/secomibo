@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>설비수리이력관리</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -119,6 +119,25 @@ textarea {
 
 .btnSaveClose button:hover {
      background: #0056b3; /* 호버 시 색상 변경 */
+}
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1190px;
+}
+
+.box1 input[type="text"] {
+	width: 5%;
+}
+
+.box1 input[type="date"] {
+	width: 7%;
+}
+
+.box1 select {
+	width: 5%
 }    
     
     </style>
@@ -127,9 +146,17 @@ textarea {
     <body>
     
     <div class="tab">
-    
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+        
+		<label class="daylabel">기간 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
+		
+			
+	</div>
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getSuriHistoryList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -328,12 +355,12 @@ textarea {
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getSuriHistoryList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getSuriHistoryList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -343,50 +370,39 @@ textarea {
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/preservation/suriHistory/getSuriHistoryList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{
+		    	"sdate": $("#sdate").val(),
+                "edate": $("#edate").val(),
+			},
+			placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"설비명", field:"fac_name", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"점검일", field:"ffx_date", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"소요부품", field:"ffx_prt", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"담당자", field:"ffx_man", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"수리처", field:"ffx_wrk", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"금액", field:"ffx_cost", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"내용", field:"ffx_note", sorter:"string", width:600,
+			        hozAlign:"center", headerFilter:"input"},
 				    
 		    ],
 		    rowFormatter:function(row){

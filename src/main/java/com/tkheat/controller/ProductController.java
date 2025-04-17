@@ -82,6 +82,58 @@ public class ProductController {
 
 		return rtnMap; 
 	}
+	
+	//입고관리 - 입고등록리스트
+		@RequestMapping(value = "/product/ipgo/getIpgoAddList", method = RequestMethod.POST) 
+		@ResponseBody 
+		public Map<String, Object> getIpgoAddList(
+				@RequestParam String sdate,
+				@RequestParam String edate
+				) {
+			Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+			Ipgo ipgo = new Ipgo();
+			ipgo.setSdate(sdate);
+			ipgo.setEdate(edate);
+			
+			List<Ipgo> ipgoList = productService.getIpgoAddList(ipgo);
+
+			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+			for(int i=0; i<ipgoList.size(); i++) {
+				HashMap<String, Object> rowMap = new HashMap<String, Object>();
+				rowMap.put("idx", (i+1));
+				rowMap.put("prod_code", ipgoList.get(i).getProd_code());
+				rowMap.put("corp_name", ipgoList.get(i).getCorp_name());
+				rowMap.put("prod_name", ipgoList.get(i).getProd_name());
+				rowMap.put("prod_no", ipgoList.get(i).getProd_no());
+				rowMap.put("prod_gyu", ipgoList.get(i).getProd_gyu());
+				rowMap.put("prod_jai", ipgoList.get(i).getProd_jai());
+				rowMap.put("tech_te", ipgoList.get(i).getTech_te());
+				rowMap.put("prod_pg", ipgoList.get(i).getProd_pg());
+				rowMap.put("prod_sg", ipgoList.get(i).getProd_sg());
+				rowMap.put("prod_cd", ipgoList.get(i).getProd_cd());
+				rowMap.put("prod_e1", ipgoList.get(i).getProd_e1());
+				rowMap.put("prod_gubn", ipgoList.get(i).getProd_gubn());
+				rowMap.put("prod_e3", ipgoList.get(i).getProd_e3());
+				rowMap.put("prod_danw", ipgoList.get(i).getProd_danw());
+				rowMap.put("prod_danj", ipgoList.get(i).getProd_danj());
+				rowMap.put("prod_dang", ipgoList.get(i).getProd_dang());
+				rowMap.put("prod_cno", ipgoList.get(i).getProd_cno());
+				rowMap.put("prod_gd1", ipgoList.get(i).getProd_gd1());
+				rowMap.put("prod_gd2", ipgoList.get(i).getProd_gd2());
+				rowMap.put("prod_gd3", ipgoList.get(i).getProd_gd3());
+				rowMap.put("ord_row", 1);
+				rowMap.put("prod_boxsu", 1);
+				rowMap.put("ord_su", 1);
+
+				rtnList.add(rowMap);
+			}
+
+			rtnMap.put("last_page",1);
+			rtnMap.put("data",rtnList);
+
+			return rtnMap; 
+		}
 
 
 

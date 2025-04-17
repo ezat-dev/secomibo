@@ -203,13 +203,14 @@
 		    headerHozAlign:"center",
 		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/cutumInsert/list",
+		    ajaxURL:"/tkheat/management/cutumInsert/cutumInsertList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
 		    	"corp_name": $("#corp_name").val(),
                 "corp_plc": $("#corp_plc").val(),
                 "corp_gubn": $("#corp_gubn").val(),
                 "corp_mast": $("#corp_mast").val(),
+                "corp_code":"",
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -237,7 +238,8 @@
 				{title:"담당자", field:"corp_mast", sorter:"int", width:150,
 					hozAlign:"center", headerFilter:"input"},
 				{title:"지역", field:"corp_plc", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},      		
+					hozAlign:"center", headerFilter:"input"},    
+					{title:"거래처코드", field:"corp_code", width:120, hozAlign:"center",visible:false},  		
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();

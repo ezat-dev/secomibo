@@ -34,4 +34,19 @@ public class ProductionDaoImpl implements ProductionDao{
 		return sqlSession.selectList("work.getProdWaitingStatusList",work);
 	}
 
+	@Override
+	public List<Work> getWorkWaitList(Work work) {
+		return sqlSession.selectList("work.getWorkWaitList", work);
+	}
+
+	@Override
+	public void setWorkSetSave(Work work) {
+		sqlSession.insert("work.setWorkSetSave",work);
+	}
+
+	@Override
+	public Work getPlnpNo(Work works) {
+		return sqlSession.selectOne("work.getPlnpNo", works);
+	}
+
 }

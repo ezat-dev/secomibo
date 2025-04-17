@@ -50,5 +50,10 @@ public class ProductDaoImpl implements ProductDao {
 	 public List<Gongjung> getWorkStatusList(Gongjung gongjung) {
 		 return sqlSession.selectList("gongjung.getWorkStatusList", gongjung);
 	 }
+
+	@Override
+	public List<Ipgo> getIpgoAddList(Ipgo ipgo) {
+		return sqlSession.selectList("ipgo.getIpgoAddList", ipgo);
+	}
 }
 

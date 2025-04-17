@@ -243,5 +243,13 @@
 		)
 		
 	</insert>
+	
+	<!-- 공지사항 조회 -->
+	<select id="getNoticeList" parameterType="users" resultType="users">
+		SELECT *
+		FROM NOTICE
+	</select>
+	
+	
 
 </mapper>

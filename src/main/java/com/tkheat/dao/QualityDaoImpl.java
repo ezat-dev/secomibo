@@ -19,9 +19,30 @@ public class QualityDaoImpl implements QualityDao{
 		return sqlSession.selectList("suip.getSuipList",suip);
 	}
 	
-	/*
-	 * @Override public List<Work> getNonInsertList(Work work) { return
-	 * sqlSession.selectList("nonInsert.getNonInsertList",work); }
-	 */
+	
+	@Override public List<Work> getNonInsertList(Work work) { 
+		return sqlSession.selectList("nonInsert.getNonInsertList",work); 
+	}
+	 
+	
+	@Override
+	public List<Work> getQueHardList(Work work) {
+		return sqlSession.selectList("work.getQueHardList",work);
+	}
+	
+	@Override
+	public List<Work> getTemHardList(Work work) {
+		return sqlSession.selectList("work.getTemHardList",work);
+	}
+	
+	@Override
+	public List<Work> getJajuStatusList(Work work) {
+		return sqlSession.selectList("work.getJajuStatusList",work);
+	}
+	
+	@Override
+	public List<Work> getJajuJochiList(Work work) {
+		return sqlSession.selectList("work.getJajuJochiList",work);
+	}
 
 }

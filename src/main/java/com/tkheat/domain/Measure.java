@@ -1,6 +1,11 @@
 package com.tkheat.domain;
 
 public class Measure {
+	
+	private String sdate;
+	private String edate;
+	
+	
 	private int ter_code;
 	private String ter_name;		//측정기기명
 	private String ter_no;			//측정기기번호
@@ -26,6 +31,41 @@ public class Measure {
 	private String ter_next_gum;	//차기검교정일
 	private String ter_end_gum;		//최종검교정일
 	private String ter_file;		//첨부파일(이미지)
+	
+	
+	//측정기기고장 및 점검
+	private String terr_name;
+	private String terr_chkman; //확인자
+	private String terr_date; //고장일시
+	private String terr_condi; //상태
+	private String terr_cost; //소요비용
+	private String terr_reward; //고장현상
+	private String terr_bigo; //비고
+	private String terr_bphoto; //수리전사진
+	private String terr_aphoto; //수리후사진
+	private String terr_strt; //수리시작시간
+	private String terr_strt_h; //시작 시
+	private String terr_strt_mm; //시작 분
+	private String terr_stst_ss; //시작 초
+	private String terr_end; //수리종료시간
+	private String terr_end_h; //종료 시
+	private String terr_end_mm; //종료 분
+	private String terr_end_ss; //종료 초
+	private String terr_time; //수리시간
+	private String terr_man; //수리자
+	private String terr_suri; //수리
+	private String terr_content; //수리내용
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int getTer_code() {
 		return ter_code;
 	}
@@ -175,5 +215,143 @@ public class Measure {
 	}
 	public void setTer_file(String ter_file) {
 		this.ter_file = ter_file;
+	}
+	public String getTerr_chkman() {
+		return terr_chkman;
+	}
+	public void setTerr_chkman(String terr_chkman) {
+		this.terr_chkman = terr_chkman;
+	}
+	public String getTerr_date() {
+		return terr_date;
+	}
+	public void setTerr_date(String terr_date) {
+		this.terr_date = terr_date;
+	}
+	public String getTerr_condi() {
+		return terr_condi;
+	}
+	public void setTerr_condi(String terr_condi) {
+		this.terr_condi = terr_condi;
+	}
+	public String getTerr_cost() {
+		return terr_cost;
+	}
+	public void setTerr_cost(String terr_cost) {
+		this.terr_cost = terr_cost;
+	}
+	public String getTerr_reward() {
+		return terr_reward;
+	}
+	public void setTerr_reward(String terr_reward) {
+		this.terr_reward = terr_reward;
+	}
+	public String getTerr_bigo() {
+		return terr_bigo;
+	}
+	public void setTerr_bigo(String terr_bigo) {
+		this.terr_bigo = terr_bigo;
+	}
+	public String getTerr_bphoto() {
+		return terr_bphoto;
+	}
+	public void setTerr_bphoto(String terr_bphoto) {
+		this.terr_bphoto = terr_bphoto;
+	}
+	public String getTerr_aphoto() {
+		return terr_aphoto;
+	}
+	public void setTerr_aphoto(String terr_aphoto) {
+		this.terr_aphoto = terr_aphoto;
+	}
+	public String getTerr_strt() {
+		return terr_strt;
+	}
+	public void setTerr_strt(String terr_strt) {
+		this.terr_strt = terr_strt;
+	}
+	public String getTerr_strt_h() {
+		return terr_strt_h;
+	}
+	public void setTerr_strt_h(String terr_strt_h) {
+		this.terr_strt_h = terr_strt_h;
+	}
+	public String getTerr_strt_mm() {
+		return terr_strt_mm;
+	}
+	public void setTerr_strt_mm(String terr_strt_mm) {
+		this.terr_strt_mm = terr_strt_mm;
+	}
+	public String getTerr_stst_ss() {
+		return terr_stst_ss;
+	}
+	public void setTerr_stst_ss(String terr_stst_ss) {
+		this.terr_stst_ss = terr_stst_ss;
+	}
+	public String getTerr_end() {
+		return terr_end;
+	}
+	public void setTerr_end(String terr_end) {
+		this.terr_end = terr_end;
+	}
+	public String getTerr_end_h() {
+		return terr_end_h;
+	}
+	public void setTerr_end_h(String terr_end_h) {
+		this.terr_end_h = terr_end_h;
+	}
+	public String getTerr_end_mm() {
+		return terr_end_mm;
+	}
+	public void setTerr_end_mm(String terr_end_mm) {
+		this.terr_end_mm = terr_end_mm;
+	}
+	public String getTerr_end_ss() {
+		return terr_end_ss;
+	}
+	public void setTerr_end_ss(String terr_end_ss) {
+		this.terr_end_ss = terr_end_ss;
+	}
+	public String getTerr_time() {
+		return terr_time;
+	}
+	public void setTerr_time(String terr_time) {
+		this.terr_time = terr_time;
+	}
+	public String getTerr_man() {
+		return terr_man;
+	}
+	public void setTerr_man(String terr_man) {
+		this.terr_man = terr_man;
+	}
+	public String getTerr_suri() {
+		return terr_suri;
+	}
+	public void setTerr_suri(String terr_suri) {
+		this.terr_suri = terr_suri;
+	}
+	public String getTerr_content() {
+		return terr_content;
+	}
+	public void setTerr_content(String terr_content) {
+		this.terr_content = terr_content;
+	}
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+	public String getTerr_name() {
+		return terr_name;
+	}
+	public void setTerr_name(String terr_name) {
+		this.terr_name = terr_name;
 	}
 }

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>설비점검기준등록</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -108,21 +108,48 @@ textarea {
     height: 100%; /* 이미지 높이 */
     object-fit: cover; /* 이미지 비율 유지 */
 }
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-.btnSaveClose button:hover {
-     background: #0056b3; /* 호버 시 색상 변경 */
-}     
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
+    
     
     </style>
     
@@ -132,10 +159,10 @@ textarea {
     <div class="tab">
     
     <div class="button-container">
-        <button class="select-button">
+        <!-- <button class="select-button">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
-        </button>
+        </button> -->
         <button class="insert-button">
             <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
           
@@ -263,28 +290,11 @@ textarea {
                     </tr>
                 </tbody></table>
             </div>
-    
-            <div class="clear"></div>
-            <!-- Article List.end -->
-    
-            <div class="popBottomSec">
-    
-                        
-                            
-                            <div class="btnPopBottom" style="width:410px;">
-                                <ul>
-    
-                                    <li><input class="btnPopSave" type="button" title="저장" onclick="requestAjax('fa_facstd_insert');"></li>
-                                    <li><input class="btnPopCancel" type="button" title="취소" onclick="window.close();"></li>
-                                </ul>
-                            </div>
-    
-            </div>
             <div class="btnSaveClose">
 				<button class="save" type="button" onclick="save();">저장</button>
 				<button class="close" type="button" onclick="window.close();">닫기</button>
     		</div>
-        </div>    
+        </div> 
         </div>
 	    
 <script>
@@ -294,12 +304,12 @@ textarea {
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getJeomgeomInsertList();
 	});
 
 	//이벤트
 	//함수
-	function getCutumList(){
+	function getJeomgeomInsertList(){
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"750px",
@@ -309,50 +319,75 @@ textarea {
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/preservation/jeomgeomInsert/getJeomgeomInsertList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"설비그룹", field:"chs_no", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},	
+				    {
+				        title: "설비공정종류",
+				        field: "tech_ht",
+				        editor: "list",
+				        editorParams: {
+				            values: {
+				                "이온질화": "이온질화",
+				                "진공로": "진공로",
+				                "템퍼링로": "템퍼링로",
+				                "Box Type": "Box Type",
+				                "PIT로": "PIT로",
+				                "PQ": "PQ",
+				                "Salt로": "Salt로"
+				            },
+				            clearable: true
+				        },
+				        headerFilter: true,
+				        headerFilterParams: {
+				            values: {
+				                "이온질화": "이온질화",
+				                "진공로": "진공로",
+				                "템퍼링로": "템퍼링로",
+				                "Box Type": "Box Type",
+				                "PIT로": "PIT로",
+				                "PQ": "PQ",
+				                "Salt로": "Salt로",
+				                "": ""
+				            },
+				            clearable: true
+				        }
+				    },	
+			    {title:"설비", field:"fac_name", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"점검주기", field:"chs_gubn", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"순번", field:"chs_sort", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"점검항목", field:"chs_hang", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"기준방법", field:"chs_kijun", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"점검방법", field:"chs_chkmethod", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"조치방법", field:"chs_stepmethod", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"하한", field:"chs_min", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"상한", field:"chs_max", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"단위", field:"chs_danw", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+				{title:"사진", field:"chs_img", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},
 				    
 		    ],
 		    rowFormatter:function(row){

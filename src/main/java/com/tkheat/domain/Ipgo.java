@@ -57,6 +57,15 @@ public class Ipgo {
 	private String prod_gd5;		//기준값2
 	private String prod_cd;			//기준값1 ~ 기준값2
 	private String prod_e1;			//금속조직
+	private String prod_e3;			//
+	private String prod_danw;			//
+	private String prod_danj;			//
+	private String prod_dang;			//
+	private String prod_cno;			//
+	private String prod_gd1;			//
+	private String prod_gd2;			//
+	private String prod_gd3;			//
+	private String prod_boxsu;			//
 	
 	
 	//CORP 테이블(거래처)
@@ -410,6 +419,58 @@ public class Ipgo {
 	public void setEdate(String edate) {
 		this.edate = edate;
 	}
-	
-	
+	public String getProd_e3() {
+		return prod_e3;
+	}
+	public void setProd_e3(String prod_e3) {
+		this.prod_e3 = prod_e3;
+	}
+	public String getProd_danw() {
+		return prod_danw;
+	}
+	public void setProd_danw(String prod_danw) {
+		this.prod_danw = prod_danw;
+	}
+	public String getProd_danj() {
+		return prod_danj;
+	}
+	public void setProd_danj(String prod_danj) {
+		this.prod_danj = prod_danj;
+	}
+	public String getProd_cno() {
+		return prod_cno;
+	}
+	public void setProd_cno(String prod_cno) {
+		this.prod_cno = prod_cno;
+	}
+	public String getProd_gd1() {
+		return prod_gd1;
+	}
+	public void setProd_gd1(String prod_gd1) {
+		this.prod_gd1 = prod_gd1;
+	}
+	public String getProd_gd2() {
+		return prod_gd2;
+	}
+	public void setProd_gd2(String prod_gd2) {
+		this.prod_gd2 = prod_gd2;
+	}
+	public String getProd_gd3() {
+		return prod_gd3;
+	}
+	public void setProd_gd3(String prod_gd3) {
+		this.prod_gd3 = prod_gd3;
+	}
+	public String getProd_boxsu() {
+		return prod_boxsu;
+	}
+	public void setProd_boxsu(String prod_boxsu) {
+		this.prod_boxsu = prod_boxsu;
+	}
+	public String getProd_dang() {
+		return prod_dang;
+	}
+	public void setProd_dang(String prod_dang) {
+		this.prod_dang = prod_dang;
+	}
 }

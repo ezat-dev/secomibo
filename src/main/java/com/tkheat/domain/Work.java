@@ -1,5 +1,7 @@
 package com.tkheat.domain;
 
+import java.util.ArrayList;
+
 public class Work {
 
 	//검색조건
@@ -22,6 +24,7 @@ public class Work {
 	private String plnp_strt;			//시작 시간
 	private String plnp_end;			//종료 시간
 	private String plnp_note;
+	private String plnp_bno;
 	
 	//PRODUCT 테이블
 	private int prod_code;
@@ -36,16 +39,30 @@ public class Work {
 	private String prod_gd5;			//경화깊이 수치 종료값
 	private String prod_cd;
 	private String prod_pg;             //표면경도
+	private String prod_pg1;
+	private String prod_pg2;
 	private String prod_sg;
 	private String prod_gubn;
 	private String prod_date;
 	
 	//CORP 테이블
 	private String corp_name;
+	private int corp_code;
 	
 	//FACILITY 테이블
 	private String fac_name;
+	private int fac_code;
 
+	private int work_su;
+	private String wstd_n06;
+	private String wstd_n07;
+	private String wstd_n11;
+	private String wstd_n12;
+	private String wstd_ready;
+	private String wstd_worktime;
+	
+	//고유구분값 (TK-년월일-설비-순번)
+	private String tk_primary;
 	
 	//작업스케줄
 	//컬럼은 작업지시와 비슷
@@ -66,10 +83,12 @@ public class Work {
 	private int ilbo_pg3;
 	private int ilbo_pg4;
 	private int ilbo_pg5;
+	private String ilbo_okng; //판정
 	
 	
 	//ORDERT 테이블
 	private int ord_code;				//수주NO
+	private String ord_lot;
 	
 	//TECHIN 테이블
 	private String tech_te;				//공정
@@ -105,7 +124,23 @@ public class Work {
 	private String werr_user3;      // 유효성 점검 3차 사용자
 	private String werr_note3;      // 유효성 점검 3차 내용
 	private String werr_bigo3;      // 유효성 점검 3차 비고
-
+	
+	
+	
+	//자주검사
+	private int jerr_su;
+	private int jerr_id;
+	private String jerr_sdate;
+	private String jerr_rdate;
+	private String jerr_gubn;
+	private String jerr_jgubn;
+	private String jerr_sbuso;
+	private String jerr_sman;
+	private String jerr_rman;
+	private String jerr_acontents;
+	private String jerr_bcontents;
+	private String jerr_dcontents;
+	private String jerr_econtents;
 	
 	//LOT추적관리(입고)
 	//입고 그리드
@@ -207,6 +242,9 @@ public class Work {
 	
 	//출고 그리드
 	
+	
+	//2025-04-11 리스트 테스트
+	ArrayList<Work> rWorkList;
 	
 	public int getPlnp_code() {
 		return plnp_code;
@@ -1070,5 +1108,237 @@ public class Work {
 
 	public void setIlbo_pg5(int ilbo_pg5) {
 		this.ilbo_pg5 = ilbo_pg5;
+	}
+
+	public int getCorp_code() {
+		return corp_code;
+	}
+
+	public void setCorp_code(int corp_code) {
+		this.corp_code = corp_code;
+	}
+
+	public int getWork_su() {
+		return work_su;
+	}
+
+	public void setWork_su(int work_su) {
+		this.work_su = work_su;
+	}
+
+	public String getWstd_n06() {
+		return wstd_n06;
+	}
+
+	public void setWstd_n06(String wstd_n06) {
+		this.wstd_n06 = wstd_n06;
+	}
+
+	public String getWstd_n07() {
+		return wstd_n07;
+	}
+
+	public void setWstd_n07(String wstd_n07) {
+		this.wstd_n07 = wstd_n07;
+	}
+
+	public String getWstd_n11() {
+		return wstd_n11;
+	}
+
+	public void setWstd_n11(String wstd_n11) {
+		this.wstd_n11 = wstd_n11;
+	}
+
+	public String getWstd_n12() {
+		return wstd_n12;
+	}
+
+	public void setWstd_n12(String wstd_n12) {
+		this.wstd_n12 = wstd_n12;
+	}
+
+	public String getWstd_ready() {
+		return wstd_ready;
+	}
+
+	public void setWstd_ready(String wstd_ready) {
+		this.wstd_ready = wstd_ready;
+	}
+
+	public String getWstd_worktime() {
+		return wstd_worktime;
+	}
+
+	public void setWstd_worktime(String wstd_worktime) {
+		this.wstd_worktime = wstd_worktime;
+	}
+
+	public String getOrd_lot() {
+		return ord_lot;
+	}
+
+	public void setOrd_lot(String ord_lot) {
+		this.ord_lot = ord_lot;
+	}
+
+	public String getTk_primary() {
+		return tk_primary;
+	}
+
+	public void setTk_primary(String tk_primary) {
+		this.tk_primary = tk_primary;
+	}
+
+	public ArrayList<Work> getrWorkList() {
+		return rWorkList;
+	}
+
+	public void setrWorkList(ArrayList<Work> rWorkList) {
+		this.rWorkList = rWorkList;
+	}
+
+	public String getPlnp_bno() {
+		return plnp_bno;
+	}
+
+	public void setPlnp_bno(String plnp_bno) {
+		this.plnp_bno = plnp_bno;
+	}
+
+	public int getFac_code() {
+		return fac_code;
+	}
+
+	public void setFac_code(int fac_code) {
+		this.fac_code = fac_code;
+	}
+
+	public String getIlbo_okng() {
+		return ilbo_okng;
+	}
+
+	public void setIlbo_okng(String ilbo_okng) {
+		this.ilbo_okng = ilbo_okng;
+	}
+
+	public int getJerr_su() {
+		return jerr_su;
+	}
+
+	public void setJerr_su(int jerr_su) {
+		this.jerr_su = jerr_su;
+	}
+
+	public int getJerr_id() {
+		return jerr_id;
+	}
+
+	public void setJerr_id(int jerr_id) {
+		this.jerr_id = jerr_id;
+	}
+
+	public String getJerr_sdate() {
+		return jerr_sdate;
+	}
+
+	public void setJerr_sdate(String jerr_sdate) {
+		this.jerr_sdate = jerr_sdate;
+	}
+
+	public String getJerr_rdate() {
+		return jerr_rdate;
+	}
+
+	public void setJerr_rdate(String jerr_rdate) {
+		this.jerr_rdate = jerr_rdate;
+	}
+
+	public String getJerr_gubn() {
+		return jerr_gubn;
+	}
+
+	public void setJerr_gubn(String jerr_gubn) {
+		this.jerr_gubn = jerr_gubn;
+	}
+
+	public String getJerr_jgubn() {
+		return jerr_jgubn;
+	}
+
+	public void setJerr_jgubn(String jerr_jgubn) {
+		this.jerr_jgubn = jerr_jgubn;
+	}
+
+	public String getJerr_sbuso() {
+		return jerr_sbuso;
+	}
+
+	public void setJerr_sbuso(String jerr_sbuso) {
+		this.jerr_sbuso = jerr_sbuso;
+	}
+
+	public String getJerr_sman() {
+		return jerr_sman;
+	}
+
+	public void setJerr_sman(String jerr_sman) {
+		this.jerr_sman = jerr_sman;
+	}
+
+	public String getJerr_rman() {
+		return jerr_rman;
+	}
+
+	public void setJerr_rman(String jerr_rman) {
+		this.jerr_rman = jerr_rman;
+	}
+
+	public String getJerr_acontents() {
+		return jerr_acontents;
+	}
+
+	public void setJerr_acontents(String jerr_acontents) {
+		this.jerr_acontents = jerr_acontents;
+	}
+
+	public String getJerr_bcontents() {
+		return jerr_bcontents;
+	}
+
+	public void setJerr_bcontents(String jerr_bcontents) {
+		this.jerr_bcontents = jerr_bcontents;
+	}
+
+	public String getJerr_dcontents() {
+		return jerr_dcontents;
+	}
+
+	public void setJerr_dcontents(String jerr_dcontents) {
+		this.jerr_dcontents = jerr_dcontents;
+	}
+
+	public String getJerr_econtents() {
+		return jerr_econtents;
+	}
+
+	public void setJerr_econtents(String jerr_econtents) {
+		this.jerr_econtents = jerr_econtents;
+	}
+
+	public String getProd_pg1() {
+		return prod_pg1;
+	}
+
+	public void setProd_pg1(String prod_pg1) {
+		this.prod_pg1 = prod_pg1;
+	}
+
+	public String getProd_pg2() {
+		return prod_pg2;
+	}
+
+	public void setProd_pg2(String prod_pg2) {
+		this.prod_pg2 = prod_pg2;
 	}
 }

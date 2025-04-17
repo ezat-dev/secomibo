@@ -3,8 +3,8 @@ package com.tkheat.domain;
 public class Product {
 	
 	//PRODUCT 테이블
-	private int prod_code = 0;
-	private int corp_code = 0;
+	private int prod_code;
+	private int corp_code;
 	private String corp_name;           //거래처명
 	private String prod_name;			//품명
 	private String prod_no;				//품번
@@ -15,7 +15,8 @@ public class Product {
 	private String prod_dang;			//단가
 	private String prod_cno;			//주문번호
 	private String prod_gubn;			//구분[양산/개발]
-	private String prod_pg;				//표면경도[HRC/HV/HS/HRA/HRB/HB/HR15N/HR30N/HR45N]
+	private String prod_pg
+	;				//표면경도[HRC/HV/HS/HRA/HRB/HB/HR15N/HR30N/HR45N]
 	private String prod_pg1;			//표면경도수치 시작값
 	private String prod_pg2;			//표면경도수치 종료값
 	private String prod_sg;				//심부경도[HRC/HV/HRA/HRB/HB]
@@ -84,6 +85,8 @@ public class Product {
 	private String prod_sr1;				//소려경도수치 시작값
 	private String prod_sr2;				//소려경도수치 종료값
 	private String prod_boxsu;				//박스당 수량
+	private String prod_khecd;
+	private String prod_khtcd;
 
 	//TECH 테이블
 	private String tech_no;					//공정
@@ -624,6 +627,18 @@ public class Product {
 	}
 	public void setTech_te(String tech_te) {
 		this.tech_te = tech_te;
+	}
+	public String getProd_khecd() {
+		return prod_khecd;
+	}
+	public void setProd_khecd(String prod_khecd) {
+		this.prod_khecd = prod_khecd;
+	}
+	public String getProd_khtcd() {
+		return prod_khtcd;
+	}
+	public void setProd_khtcd(String prod_khtcd) {
+		this.prod_khtcd = prod_khtcd;
 	}
 	
 }

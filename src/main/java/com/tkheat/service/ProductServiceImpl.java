@@ -50,4 +50,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Gongjung> getWorkStatusList(Gongjung gongjung){
 		return productDao.getWorkStatusList(gongjung);
 	}
+
+	@Override
+	public List<Ipgo> getIpgoAddList(Ipgo ipgo) {
+		return productDao.getIpgoAddList(ipgo);
+	}
 }

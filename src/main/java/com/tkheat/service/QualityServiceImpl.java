@@ -21,9 +21,29 @@ public class QualityServiceImpl implements QualityService {
 		return qualityDao.getSuipList(suip);
 	}
 	
-	/*
-	 * @Override public List<Work> getNonInsertList(Work work){ return
-	 * qualityDao.getNonInsertList(work); }
-	 */
+	
+	  @Override public List<Work> getNonInsertList(Work work){ return
+	 qualityDao.getNonInsertList(work); }
+	 
+	
+	@Override
+	public List<Work> getQueHardList(Work work){
+		return qualityDao.getQueHardList(work);
+	}
+	
+	@Override
+	public List<Work> getTemHardList(Work work){
+		return qualityDao.getTemHardList(work);
+	}
+	
+	@Override
+	public List<Work> getJajuStatusList(Work work){
+		return qualityDao.getJajuStatusList(work);
+	}
+	
+	@Override
+	public List<Work> getJajuJochiList(Work work){
+		return qualityDao.getJajuJochiList(work);
+	}
 
 }

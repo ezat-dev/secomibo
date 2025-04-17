@@ -137,21 +137,46 @@ textarea {
 	font-size: 20px; /* 글자 크기 */
 	text-align: center; /* 텍스트 정렬 */
 }
-
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
 .btnSaveClose button {
-	background: #007bff; /* 버튼 배경색 */
-	color: white; /* 버튼 글자색 */
-	border: none; /* 경계선 없음 */
-	padding: 8px 15px; /* 내부 여백 */
-	cursor: pointer; /* 커서 변경 */
-	border-radius: 3px; /* 모서리 둥글게 */
-	margin: 0 10px; /* 버튼 간격 */
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
 	margin-top: 10px;
-	align-items: center; /* 수직 중앙 정렬 */
+	transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btnSaveClose button:hover {
-	background: #0056b3; /* 호버 시 색상 변경 */
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
 }
 
 .box1 {
@@ -168,6 +193,40 @@ textarea {
 .box1 select{
 	width: 5%
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
 </style>
     
     
@@ -179,7 +238,7 @@ textarea {
            <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
         
         
-			<label class="daylabel">업체명 :</label>
+			<!-- <label class="daylabel">업체명 :</label>
 			<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 			<label class="daylabel">품명 :</label>
@@ -251,7 +310,7 @@ textarea {
                     <option value="B38">VT침탄</option>
                   
                 </select>
-			
+			 -->
 			
 			
 			</div>
@@ -283,7 +342,7 @@ textarea {
 	</main>
 
 
-<form method="post" id="productForm" name="productForm">	    
+<form method="post" id="productInsertForm" name="productInsertForm">	    
 <div class="productModal">    
  <div class="detail">
  <div class="header">
@@ -313,9 +372,9 @@ textarea {
             <tr>
               <th class="left">거래처</th>
               <td>
-                  <input id="CORP_NAME" name="corp_name"class="basic valClean" type="text" style="width:60%;" value="다산테크" readonly="">
-                  <input id="CORP_CODE" name="corp_code" class="basic valPost valClean" type="hidden" style="width:50%;" value="0" readonly="">
-                <input class="btnSearchCorp" name="" type="button" title="거래처선택" value="검색">
+                  <input id="corp_name" name="corp_name"class="basic valClean" type="text" style="width:60%;"  readonly="readonly">
+                  <input id="corp_code" name="corp_code" class="basic valPost valClean" type="hidden" style="width:50%;"  readonly="readonly">
+                <input class="btnSearchCorp" name="" type="button" title="거래처선택" onclick="openCutumModal();"  >
               </td>
               <th>관리번호</th>
               <td><input id="PROD_CNO" name="prod_cno" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
@@ -842,6 +901,17 @@ textarea {
 	</div>
 </form>
 	    
+	    
+	    
+	    <!-- 거래처(검색버튼) 팝업창 -->
+	<div id="cutumListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">거래처 리스트</span> <span class="modal-close" onclick="closeCutumListModal()">&times;</span>
+			</div>
+			<div id="cutumListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
     
 	    
 
@@ -872,7 +942,7 @@ textarea {
 		    ajaxURL:"/tkheat/management/productInsert/productList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
-		    	"corp_name": $("#corp_name").val(),
+		    	/* "corp_name": $("#corp_name").val(),
                 "prod_name": $("#prod_name").val(),
                 "prod_no": $("#prod_no").val(),
                 "prod_gyu": $("#prod_gyu").val(),
@@ -880,7 +950,7 @@ textarea {
                 "prod_pg": $("#prod_pg").val(),
                 "prod_gd3": $("#prod_gd3").val(),
                 "prod_sg": $("#prod_sg").val(),
-                "tech_te": $("#tech_te").val(),
+                "tech_te": $("#tech_te").val(), */
 			    },
      	    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -947,7 +1017,7 @@ textarea {
 		});		
 	}
 
-	function techNoSelect(){
+	/* function techNoSelect(){
 		var obj = {
 				"":"전체",
 				"A08":"가스산질화",
@@ -959,56 +1029,27 @@ textarea {
 	}
 
 
-	function save(){
 	
-		var productData = new FormData($("#productForm")[0]);
+	function save() {
 
-	console.log($("#productForm")[0]);
-		
+		var productData = new FormData($("#productInsertForm")[0]);
+
+		console.log($("#productForm")[0]);
+
 		$.ajax({
-			url:"/tkheat/management/productInsert/productInsertSave",
-			type:"post",
-			contentType: false,
-			processData: false,
-			dataType: "json",
-			data:productData,
-			success:function(result){
+			url : "/tkheat/management/productInsert/productInsertSave",
+			type : "post",
+			contentType : false,
+			processData : false,
+			dataType : "json",
+			data : productData,
+			success : function(result) {
 				alert("제품이 등록되었습니다.");
-				 getProductList();
+				getProductList();
 			}
-		});	
-
-/*
-		$.ajax({
-			url:"/tkheat/management/productInsert/productInsertSave",
-			type:"post",
-			dataType:"json",
-			data:{
-				"test":"test"
-			},
-			success:function(result){
-				console.log(result);
-			}
-		})
-*/
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-    </script>
+		});
+	} */
+</script>
     
     
     <script>
@@ -1059,10 +1100,78 @@ textarea {
 
 
 
+	//설비검색버튼 리스트 모달
+    function openCutumModal() {
+        document.getElementById('cutumListModal').style.display = 'flex';
+
+        
+        let cutumListTable = new Tabulator("#cutumListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/management/cutumInsert/cutumInsertList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+            	"corp_name": "",
+                "corp_plc": "",
+                "corp_gubn": "",
+                "corp_mast": "",
+                "corp_code": "",   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+            	{title:"구분ID", field:"corp_gubn", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"거래처명", field:"corp_name", sorter:"string", width:150,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"사업자번호", field:"corp_no", sorter:"string", width:200,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"거래처코드", field:"corp_code", width:120, hozAlign:"center",visible:false},	
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+               
+                document.getElementById('corp_name').value = data.corp_name;
+                document.getElementById('corp_code').value = data.corp_code;
+                
+                document.getElementById('cutumListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeCutumListModal() {
+        document.getElementById('cutumListModal').style.display = 'none';
+    }
 
 
-
-
+  //제품등록 저장
+    function save() {
+        var formData = new FormData($("#productInsertForm")[0]);  
+        $.ajax({
+            url: "/tkheat/management/productInsert/productInsertSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".productModal").hide();
+                getProductList();
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+            }
+        });
+    }
 
 	
 

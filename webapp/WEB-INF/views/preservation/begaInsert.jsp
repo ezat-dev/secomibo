@@ -9,129 +9,218 @@
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
-    
-.main{
-	width:98%;
+.main {
+	width: 98%;
 }
+
 .container {
 	display: flex;
 	justify-content: space-between;
 }
+
 .begaInsertModal {
-    position: fixed; /* 화면에 고정 */
-    top: 50%; /* 수직 중앙 */
-    left: 50%; /* 수평 중앙 */
-    display : none;
-    transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-.header {
-    display: flex; /* 플렉스 박스 사용 */
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px; /* 상단 여백 */
-    background-color: #33363d; /* 배경색 */
-    height: 50px; /* 높이 */
-    color: white; /* 글자색 */
-    font-size: 20px; /* 글자 크기 */
-    text-align: center; /* 텍스트 정렬 */
-}
-.detail {
-    background: #ffffff;
-    border: 1px solid #000000;
-    width: 800px; /* 가로 길이 고정 */
-    height: 630px; /* 세로 길이 고정 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-    margin: 20px auto; /* 중앙 정렬 */
-    padding: 20px;
-    border-radius: 5px; /* 모서리 둥글게 */
-    overflow-y: auto; /* 세로 스크롤 추가 */
+	position: fixed; /* 화면에 고정 */
+	top: 50%; /* 수직 중앙 */
+	left: 50%; /* 수평 중앙 */
+	display: none;
+	transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+	z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
+.header {
+	display: flex; /* 플렉스 박스 사용 */
+	justify-content: center; /* 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: 10px; /* 상단 여백 */
+	background-color: #33363d; /* 배경색 */
+	height: 50px; /* 높이 */
+	color: white; /* 글자색 */
+	font-size: 20px; /* 글자 크기 */
+	text-align: center; /* 텍스트 정렬 */
+}
+
+.detail {
+	background: #ffffff;
+	border: 1px solid #000000;
+	width: 800px; /* 가로 길이 고정 */
+	height: 630px; /* 세로 길이 고정 */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+	margin: 20px auto; /* 중앙 정렬 */
+	padding: 20px;
+	border-radius: 5px; /* 모서리 둥글게 */
+	overflow-y: auto; /* 세로 스크롤 추가 */
+}
 
 .insideTable {
-    width: 100%; /* 테이블 너비 100% */
-    border-collapse: collapse; /* 테두리 겹침 제거 */
+	width: 100%; /* 테이블 너비 100% */
+	border-collapse: collapse; /* 테두리 겹침 제거 */
 }
 
-.insideTable th,
-.insideTable td {
-    padding: 8px; /* 셀 패딩 */
-    border: 1px solid #ccc; /* 셀 경계선 */
-    vertical-align: middle; /* 수직 정렬 */
+.insideTable th, .insideTable td {
+	padding: 8px; /* 셀 패딩 */
+	border: 1px solid #ccc; /* 셀 경계선 */
+	vertical-align: middle; /* 수직 정렬 */
 }
 
 .insideTable th {
-    background: #f0f0f0; /* 헤더 배경색 */
+	background: #f0f0f0; /* 헤더 배경색 */
 }
 
 .basic, .rp-input, .form-control {
-    width: calc(100% - 12px); /* 너비 조정 */
-    padding: 5px; /* 내부 여백 */
-    border: 1px solid #949494; /* 경계선 색상 */
-    border-radius: 3px; /* 둥근 모서리 */
+	width: calc(100% - 12px); /* 너비 조정 */
+	padding: 5px; /* 내부 여백 */
+	border: 1px solid #949494; /* 경계선 색상 */
+	border-radius: 3px; /* 둥근 모서리 */
 }
 
 .basic[readonly] {
-    background-color: #f9f9f9; /* 읽기 전용 필드 색상 */
+	background-color: #f9f9f9; /* 읽기 전용 필드 색상 */
 }
 
 textarea {
-    width: 100%; /* 너비 100% */
-    padding: 5px; /* 내부 여백 */
-    border: 1px solid #949494; /* 경계선 색상 */
-    border-radius: 3px; /* 둥근 모서리 */
+	width: 100%; /* 너비 100% */
+	padding: 5px; /* 내부 여백 */
+	border: 1px solid #949494; /* 경계선 색상 */
+	border-radius: 3px; /* 둥근 모서리 */
 }
 
 .findImage {
-    display: flex; /* 플렉스 박스 사용 */
-    align-items: center; /* 수직 정렬 */
+	display: flex; /* 플렉스 박스 사용 */
+	align-items: center; /* 수직 정렬 */
 }
 
 .findImage input[type="file"] {
-    margin-right: 10px; /* 오른쪽 여백 */
+	margin-right: 10px; /* 오른쪽 여백 */
 }
 
 .imgArea {
-    width: 200px; /* 이미지 영역 너비 */
-    height: 150px; /* 이미지 영역 높이 */
-    border: 1px solid #ddd; /* 경계선 */
-    margin-bottom: 10px; /* 하단 여백 */
+	width: 200px; /* 이미지 영역 너비 */
+	height: 150px; /* 이미지 영역 높이 */
+	border: 1px solid #ddd; /* 경계선 */
+	margin-bottom: 10px; /* 하단 여백 */
 }
 
 .imgArea img {
-    width: 100%; /* 이미지 너비 */
-    height: 100%; /* 이미지 높이 */
-    object-fit: cover; /* 이미지 비율 유지 */
+	width: 100%; /* 이미지 너비 */
+	height: 100%; /* 이미지 높이 */
+	object-fit: cover; /* 이미지 비율 유지 */
 }
 
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .btnSaveClose button:hover {
-        background: #0056b3; /* 호버 시 색상 변경 */
-    }
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
 
- 
-    
-    </style>
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
+
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1190px;
+}
+
+.box1 input[type="text"] {
+	width: 5%;
+}
+
+.box1 input[type="date"] {
+	width: 7%;
+}
+
+.box1 select {
+	width: 5%
+}
+th{
+	font-size:14px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
+</style>
     
     
     <body>
     
     <div class="tab">
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>        
+		<label class="daylabel">기간 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">		
+	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getBegaInsertList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -156,6 +245,7 @@ textarea {
 	</main>
 	    
 	    
+<form method="post" id="begaInsertForm" name="begaInsertForm">	    
   <div class="begaInsertModal">	
 	<div class="detail">
 			<div class="header">
@@ -174,70 +264,70 @@ textarea {
                                 <tbody><tr>
                                     <th class="left">설비</th>
                                     <td class="">
-                                        <input id="facCode" name="fac_code" class="basic" type="hidden" style="width:50%;" value="" readonly="readonly"> 
-                                        <input id="facName" name="fac_name" class="basic" type="text" style="width:50%;" value="" readonly="readonly">
-                                        <input type="button" title="검색" class="btnSearchSmall" onclick="MM_openBrWindow('etcSub_popup_10','Srch','width=800,height=630,scrollbars=yes')"></td>
+                                        <input id="fac_code" name="fac_code" class="basic" type="hidden" style="width:50%;" readonly="readonly"> 
+                                        <input id="fac_name" name="fac_name" class="basic" type="text" style="width:50%;" readonly="readonly">
+                                        <input type="button" title="검색" class="btnSearchSmall" value="설비검색" onclick="openFacListModal();"></td>
                                     <th rowspan="7" class=""><span class="left">설비중지시간(분)</span></th>
                                     <td rowspan="7" class="">
                                         <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                                             <tbody><tr>
                                                 <th class="thSub">ITEM변경</th>
-                                                <td class="tdRight"><input id="fstp01" name="fstp_01" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp01" name="fstp_01" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">물량부족</th>
-                                                <td class="tdRight"><input id="fstp02" name="fstp_02" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp02" name="fstp_02" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">설비이상(기계)</th>
-                                                <td class="tdRight"><input id="fstp03" name="fstp_03" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp03" name="fstp_03" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">설비이상(전기)</th>
-                                                <td class="tdRight"><input id="fstp04" name="fstp_04" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp04" name="fstp_04" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">교육</th>
-                                                <td class="tdRight"><input id="fstp05" name="fstp_05" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp05" name="fstp_05" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">교대</th>
-                                                <td class="tdRight"><input id="fstp06" name="fstp_06" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp06" name="fstp_06" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">식사</th>
-                                                <td class="tdRight"><input id="fstp07" name="fstp_07" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp07" name="fstp_07" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">휴식</th>
-                                                <td class="tdRight"><input id="fstp08" name="fstp_08" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp08" name="fstp_08" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">기타</th>
-                                                <td class="tdRight"><input id="fstp09" name="fstp_09" class="basic" type="text" style="width:100%;" value="0" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstp09" name="fstp_09" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">계</th>
-                                                <td class="tdRight"><input id="fstp10" name="fstp_10" class="basic" type="text" style="width:100%;" value="0" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstp10" name="fstp_10" class="basic" type="text" style="width:90%;" value="0" readonly="readonly"></td>
                                             </tr>
                                         </tbody></table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">일자</th>
-                                    <td class=""><input id="fstpDate" name="fstp_date" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20" readonly="readonly"></td>
+                                    <td class=""><input id="fstpDate" name="fstp_date" class="date js-datepicker hasDatepicker" type="date" style="width:100px;"  maxlength="20" size="20" ></td>
                                     </tr>
                                 <tr>
-                                    <th class="">계힉시간(분)</th>
-                                    <td class=""><input id="fstpPlan" name="fstp_plan" class="basic" type="text" style="width:100%;" value="1440"></td>
+                                    <th class="">계획시간(분)</th>
+                                    <td class=""><input id="fstpPlan" name="fstp_plan" class="basic" type="text" style="width:90%;" value="1440"></td>
                                     </tr>
                                 <tr>
                                     <th class="">투입시간(분)</th>
-                                    <td class=""><input id="fstpTu" name="fstp_tu" class="basic" type="text" style="width:100%;" value="1440"></td>
+                                    <td class=""><input id="fstpTu" name="fstp_tu" class="basic" type="text" style="width:90%;" value="1440"></td>
                                     </tr>
                                 <tr>
                                     <th class="">준비시간(분)</th>
-                                    <td class=""><input id="fstpStby" name="fstp_stby" class="basic" type="text" style="width:100%;" value="" onchange="calcSum()"></td>
+                                    <td class=""><input id="fstpStby" name="fstp_stby" class="basic" type="text" style="width:90%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th class="left">TOTAL현황</th>
@@ -245,22 +335,22 @@ textarea {
                                         <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                                             <tbody><tr>
                                                 <th class="thSub">실가동시간(분)</th>
-                                                <td class="tdRight"><input id="fstpSil" name="fstp_sil" class="basic" type="text" style="width:100%;" value="" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstpSil" name="fstp_sil" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">인원</th>
-                                                <td class="tdRight"><input id="fstpMan" name="fstp_man" class="basic" type="text" style="width:100%;" value="" onchange="calcSum()"></td>
+                                                <td class="tdRight"><input id="fstpMan" name="fstp_man" class="basic" type="text" style="width:90%;" value=""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">M-Hr</th>
-                                                <td class="tdRight"><input id="fstpMhr" name="fstp_mhr" class="basic" type="text" style="width:100%;" value="" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstpMhr" name="fstp_mhr" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
                                             </tr>
                                         </tbody></table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">비고</th>
-                                    <td valign="top" class=""><textarea name="fstp_bigo" class="basic" style="width:100%; height:40px;"></textarea></td>
+                                    <td valign="top" class=""><textarea name="fstp_bigo" class="basic" style="width:90%; height:40px;"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class=""></td>
@@ -278,104 +368,187 @@ textarea {
     	  		</div>
             </div>
          </div>   
-                
-	    
-	    
-<script>
-	//전역변수
-    var cutumTable;	
+        </form>
 
-	//로드
-	$(function(){
-		//전체 거래처목록 조회
-		getCutumList();
-	});
 
-	//이벤트
-	//함수
-	function getCutumList(){
-		
-		userTable = new Tabulator("#tab1", {
-		    height:"750px",
-		    layout:"fitColumns",
-		    selectable:true,	//로우 선택설정
-		    tooltips:true,
-		    selectableRangeMode:"click",
-		    reactiveData:true,
-		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
-		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
-		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
-		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
-		        return response; //return the response data to tabulator
-		    },
-		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-				    
-		    ],
-		    rowFormatter:function(row){
-			    var data = row.getData();
-			    
-			    row.getElement().style.fontWeight = "700";
-				row.getElement().style.backgroundColor = "#FFFFFF";
-			},
-			rowClick:function(e, row){
+	<!-- 설비목록(검색버튼) 팝업창 -->
+	<div id="facListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">설비 리스트</span> <span class="modal-close" onclick="closeFacListModal()">&times;</span>
+			</div>
+			<div id="facListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
 
-				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
-						
-					if($(this).hasClass("row_select")){							
-						$(this).removeClass('row_select');
-						row.getElement().className += " row_select";
-					}else{
-						$("#tab1 div.row_select").removeClass("row_select");
-						row.getElement().className += " row_select";	
-					}
-				});
 
-				var rowData = row.getData();
-				
-			},
-		});		
-	}
-	
+	<script>
+		//전역변수
+		var cutumTable;
 
-    </script>
+		//로드
+		$(function() {
+			//전체 거래처목록 조회
+			getBegaInsertList();
+		});
+
+		//이벤트
+		//함수
+		function getBegaInsertList() {
+
+			
+			$("#edate").val("2025-05-01");
+
+			userTable = new Tabulator(
+					"#tab1",
+					{
+						height : "750px",
+						layout : "fitColumns",
+						selectable : true, //로우 선택설정
+						tooltips : true,
+						selectableRangeMode : "click",
+						reactiveData : true,
+						headerHozAlign : "center",
+						ajaxConfig : "POST",
+						ajaxLoader : false,
+						ajaxURL : "/tkheat/preservation/bagaInsert/getBegaInsertList",
+						ajaxProgressiveLoad : "scroll",
+						ajaxParams : {
+							"sdate" : $("#sdate").val(),
+							"edate" : $("#edate").val(),
+						},
+						placeholder : "조회된 데이터가 없습니다.",
+						paginationSize : 20,
+						ajaxResponse : function(url, params, response) {
+							$("#tab1 .tabulator-col.tabulator-sortable").css(
+									"height", "29px");
+							return response; //return the response data to tabulator
+						},
+						columns : [ {
+							title : "NO",
+							field : "idx",
+							sorter : "int",
+							width : 80,
+							hozAlign : "center"
+						}, {
+							title : "일자",
+							field : "fstp_date",
+							sorter : "string",
+							width : 120,
+							hozAlign : "center"
+						}, {
+							title : "설비명",
+							field : "fac_name",
+							sorter : "string",
+							width : 120,
+							hozAlign : "center"
+						}, {
+							title : "계획시간(분)",
+							field : "fstp_plan",
+							sorter : "string",
+							width : 120,
+							hozAlign : "center"
+						}, {
+							title : "투입시간(분)",
+							field : "fstp_tu",
+							sorter : "string",
+							width : 150,
+							hozAlign : "center"
+						}, {
+							title : "준비시간(분)",
+							field : "fstp_stby",
+							sorter : "string",
+							width : 120,
+							hozAlign : "center"
+						}, {
+							title : "ITEM변경",
+							field : "fstp_01",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "물량부족",
+							field : "fstp_02",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "설비이상(기계)",
+							field : "fstp_03",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "설비이상(전기)",
+							field : "fstp_04",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "교육",
+							field : "fstp_05",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "교대",
+							field : "fstp_06",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "식사",
+							field : "fstp_07",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "휴식",
+							field : "fstp_08",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						}, {
+							title : "기타",
+							field : "fstp_09",
+							sorter : "string",
+							width : 100,
+							hozAlign : "center"
+						},
+
+						],
+						rowFormatter : function(row) {
+							var data = row.getData();
+
+							row.getElement().style.fontWeight = "700";
+							row.getElement().style.backgroundColor = "#FFFFFF";
+						},
+						rowClick : function(e, row) {
+
+							$(
+									"#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row")
+									.each(
+											function(index, item) {
+
+												if ($(this).hasClass(
+														"row_select")) {
+													$(this).removeClass(
+															'row_select');
+													row.getElement().className += " row_select";
+												} else {
+													$("#tab1 div.row_select")
+															.removeClass(
+																	"row_select");
+													row.getElement().className += " row_select";
+												}
+											});
+
+							var rowData = row.getData();
+
+						},
+					});
+		}
+	</script>
     
     
     <script>
@@ -425,6 +598,116 @@ textarea {
 
 
     </script>
+    
+    
+    <script>
+
+	//설비검색버튼 리스트 모달
+    function openFacListModal() {
+        document.getElementById('facListModal').style.display = 'flex';
+
+        
+        let facListTable = new Tabulator("#facListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/management/facInsert/getFacList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+                "fac_code": "",
+                "fac_name": "",
+                "fac_no":"",
+                   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+                {title:"NO", field:"idx", width:80, hozAlign:"center"},
+                {title:"설비NO", field:"fac_no", width:120, hozAlign:"center"},
+                {title:"설비NO", field:"fac_code", width:120, hozAlign:"center",visible:false},
+                {title:"설비명", field:"fac_name", width:150, hozAlign:"center"},
+                {title:"규격", field:"fac_gyu", width:100, hozAlign:"center"},
+                {title:"형식", field:"fac_hyun", width:200, hozAlign:"center"},
+                {title:"용도", field:"fac_yong", width:200, hozAlign:"center"},
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                console.log("선택된 설비:", data);
+                document.getElementById('fac_code').value = data.fac_code;
+                document.getElementById('fac_name').value = data.fac_name;
+                
+                document.getElementById('facListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeFacListModal() {
+        document.getElementById('facListModal').style.display = 'none';
+    }
+
+
+
+	//비가동등록 저장
+    function save() {
+        var formData = new FormData($("#begaInsertForm")[0]);  
+        $.ajax({
+            url: "/tkheat/preservation/begaInsert/begaInsertSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".begaInsertModal").hide();
+                getBegaInsertList();
+                console.log($("#fac_code").val());
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+                console.log($("#fac_code").val());
+            }
+        });
+    }
+
+    
+
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 	</body>
 </html>

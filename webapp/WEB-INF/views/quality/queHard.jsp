@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>소입경도현황</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
@@ -23,7 +23,7 @@
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -310px;
+	margin-left: -1200px;
 }
 
 .box1 input[type="text"]{
@@ -51,11 +51,11 @@
 	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getQueHardList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
-        <button class="insert-button">
+        <button class="insert-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
           
         </button>
@@ -63,7 +63,7 @@
             <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
             
         </button>
-        <button class="printer-button">
+        <button class="printer-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
             <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
             
         </button>
@@ -83,7 +83,7 @@
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
-		getCutumList();
+		getQueHardList();
 	});
 
 	//이벤트
@@ -109,44 +109,44 @@
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
+				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
 		        {title:"준비코드", field:"juckjaecode", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"작업일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"시작", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"종료", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"LOTNO", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"작업자", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"품명", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"품번", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"규격", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"재질", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"판정", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"x1", field:"ilbo_pg1", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"x2", field:"ilbo_pg2", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"x3", field:"ilbo_pg3", sorter:"int", width:100,
-					hozAlign:"center"},
-				{title:"x4", field:"ilbo_pg4", sorter:"int", width:100,
-					hozAlign:"center"},
-	 			{title:"x5", field:"ilbo_pg5", sorter:"int", width:100,
-				    hozAlign:"center"},	
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"작업일", field:"ilbo_strt", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"시작", field:"ilbo_strt", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"종료", field:"ilbo_end", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"LOTNO", field:"ilbo_lot", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"작업자", field:"user_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품번", field:"prod_no", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"표면경도", field:"prod_pg", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+				{title:"판정", field:"ilbo_okng", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},
+				{title:"x1", field:"ilbo_pg1", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+			    {title:"x2", field:"ilbo_pg2", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+ 			    {title:"x3", field:"ilbo_pg3", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+				{title:"x4", field:"ilbo_pg4", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+	 			{title:"x5", field:"ilbo_pg5", sorter:"String", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
 				    
 		    ],
 		    rowFormatter:function(row){

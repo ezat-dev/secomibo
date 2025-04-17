@@ -164,7 +164,7 @@ function pageObject(paramKey){
 			"g03":["/tkheat/operation/prodSiljuk","제품별작업실적"],
 			"g04":["/tkheat/operation/cuIpgoStatus","거래처별입고현황"],
 			"g05":["/tkheat/operation/cuChulgoStatus","거래처별출고현황"],
-			"g06":["/tkheat/process/facSiljuk","설비별 작업실적"],
+			"g06":["/tkheat/operation/facSiljuk","설비별 작업실적"],
 			"g07":["/tkheat/operation/monthSale","월매출현황(마감)"],
 			"g08":"",//기존 : 없음
 			"g09":"",//기존 : 입고현황(종합)
