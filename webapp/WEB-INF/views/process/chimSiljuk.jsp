@@ -65,7 +65,7 @@
 		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
 		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
 		
-		<label class="daylabel">거래처 : </label>
+		<!-- <label class="daylabel">거래처 : </label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">품명 : </label>
@@ -80,14 +80,14 @@
 		<label class="daylabel">품번 : </label>
 		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
 		
-		<!-- <label class="daylabel">규격 : </label>
+		<label class="daylabel">규격 : </label>
 		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">제품구분 : </label>
-		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off"> -->
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">담당자 : </label>
-		<input type="text" class="ord_name" id="ord_name" style="font-size: 16px; autocomplete="off">
+		<input type="text" class="ord_name" id="ord_name" style="font-size: 16px; autocomplete="off"> -->
 			
 	</div>
     
@@ -146,14 +146,6 @@
 		    ajaxParams:{
 		    	"sdate": $("#sdate").val(),
                 "edate": $("#edate").val(),
-                "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_jai": $("#prod_jai").val(),
-                "fac_name": $("#fac_name").val(),
-                "prod_no": $("#prod_no").val(),
-                "prod_gyu": $("#prod_gyu").val(),
-                "prod_gubn": $("#prod_gubn").val(),
-                "ord_name": $("#ord_name").val(),
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -162,13 +154,13 @@
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"idx", sorter:"number", width:80,
 		        	hozAlign:"center"},
 		        {title:"작업일", field:"ilbo_strt", sorter:"string", width:120,
 			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"준비코드", field:"ilbo_code", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},     
-				{title:"수주NO", field:"ord_code", sorter:"string", width:120,
+				{title:"수주NO", field:"ord_code", sorter:"number", width:120,
 				    hozAlign:"center", headerFilter:"input"}, 
 				{title:"설비", field:"fac_name", sorter:"string", width:150,
 				    hozAlign:"center", headerFilter:"input"}, 

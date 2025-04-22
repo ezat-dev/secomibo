@@ -56,6 +56,11 @@ public class ManagementDaoImpl implements ManagementDao {
 	 }
 	
 	@Override
+	public void cutumInsertSave(Corp corp) {
+		sqlSession.insert("corp.cutumInsertSave", corp);
+	}
+	
+	@Override
 	 public List<Fac> getFacList(Fac fac) {
 		 return sqlSession.selectList("fac.getFacList", fac);
 	 }

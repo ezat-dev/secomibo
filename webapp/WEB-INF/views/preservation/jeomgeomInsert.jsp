@@ -149,6 +149,40 @@ textarea {
 	background-color: #808080;
 	transform: scale(1.05);
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 40%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
     
     
     </style>
@@ -183,6 +217,8 @@ textarea {
 		</div>
 	</main>
 	
+	
+<form method="post" id="jeomgeomInsertForm" name="jeomgeomInsertForm">	
 	<div class="jgInsertModal">
 	   <div id="editPop">
 	   	<div class="header">설비점검기준등록</div>
@@ -206,20 +242,20 @@ textarea {
                                     <td>
                                         
                                             
-                                                <input id="FAC_CODE" name="fac_code" class="basic" type="hidden" style="width:83%;" value="">
-                                                <input id="FAC_NAME" name="fac_name" class="basic" type="text" style="width:83%;" value="" disabled="">
+                                                <input id="fac_code" name="fac_code" class="basic" type="hidden" style="width:83%;" value="">
+                                                <input id="fac_name" name="fac_name" class="basic" type="text" style="width:83%;" value="" disabled="">
                                             
                                             
                                         
     
-                                        <input type="button" title="검색" class="btnSearchSmall" onclick="MM_openBrWindow2('fa_facstd_faclityList','Srch','width=680,height=350,scrollbars=yes')">
+                                        <input type="button" title="검색" class="btnSearchSmall" onclick="openFacListModal();">
                                     </td>
                                 </tr>
     
                                 <tr>
                                     <th>설비번호</th>
                                     <td>
-                                        <input id="FAC_NO" name="fac_no" class="basic" type="text" style="width:96%;" value="" disabled="">
+                                        <input id="fac_no" name="fac_no" class="basic" type="text" style="width:96%;" value="" disabled="">
                                     </td>
                                 </tr>
                                 <tr>
@@ -296,6 +332,18 @@ textarea {
     		</div>
         </div> 
         </div>
+       </form> 
+        
+        
+        <!-- 설비목록(검색버튼) 팝업창 -->
+	<div id="facListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">설비 리스트</span> <span class="modal-close" onclick="closeFacListModal()">&times;</span>
+			</div>
+			<div id="facListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
 	    
 <script>
 	//전역변수
@@ -463,6 +511,80 @@ textarea {
 	});
 		
 
+
+
+	//설비검색버튼 리스트 모달
+    function openFacListModal() {
+        document.getElementById('facListModal').style.display = 'flex';
+
+        
+        let facListTable = new Tabulator("#facListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/management/facInsert/getFacList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+                "fac_code": "",
+                "fac_name": "",
+                "fac_no":"",
+                   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+                {title:"설비NO", field:"fac_code", width:120, hozAlign:"center",visible:false},
+                {title:"설비명", field:"fac_name", width:150, hozAlign:"center"},
+                {title:"설비번호", field:"fac_no", width:120, hozAlign:"center"},
+                {title:"용도", field:"fac_yong", width:200, hozAlign:"center"},
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                console.log("선택된 설비:", data);
+                document.getElementById('fac_code').value = data.fac_code;
+                document.getElementById('fac_name').value = data.fac_name;
+                document.getElementById('fac_no').value = data.fac_no;
+                
+                document.getElementById('facListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeFacListModal() {
+        document.getElementById('facListModal').style.display = 'none';
+    }
+
+
+
+  //설비점검기준등록 저장
+    function save() {
+        var formData = new FormData($("#jeomgeomInsertForm")[0]);  
+        $.ajax({
+            url: "/tkheat/preservation/jeomgeomInsert/jeomgeomInsertSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".jgInsertModal").hide();
+                getJeomgeomInsertList();
+                console.log($("#fac_code").val());
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+                console.log($("#fac_code").val());
+            }
+        });
+    }
 
     </script>
 

@@ -10,7 +10,7 @@
 		SELECT *
 		FROM CORP
 		WHERE 1=1
-		<if test="corp_name != null and corp_name != ''">
+		<!-- <if test="corp_name != null and corp_name != ''">
 			AND corp_name LIKE CONCAT('%', #{corp_name}, '%')
 		</if>
 		<if test="corp_plc != null and corp_plc != ''">
@@ -21,7 +21,22 @@
 		</if>
 		<if test="corp_mast != null and corp_mast != ''">
 			AND corp_mast = #{corp_mast}
-		</if>
+		</if> -->
     </select>
+    
+    <insert id="cutumInsertSave" parameterType="corp">
+	insert into CORP (
+	CORP_CODE, CORP_NAME, CORP_NO, CORP_TEL, CORP_FAX, CORP_BOSS, CORP_MAST,
+	CORP_HP, CORP_UPTE, CORP_UPJO, CORP_ADD, CORP_PLC, CORP_STRT, CORP_GYUL1,
+	CORP_JAN, CORP_GYUL2, CORP_GUBN, CORP_CNO, CORP_PWD, CORP_BIGO,
+	CORP_MAIL, CORP_BUSINESS, CORP_NAME2
+	)
+	values ((select isnull(max(CORP_CODE), 0)+1 from CORP), #{corp_name},
+	#{corp_no}, #{corp_tel}, #{corp_fax}, #{corp_boss}, #{corp_mast}, #{corp_hp},
+	#{corp_upte}, #{corp_upjo}, #{corp_add}
+	, #{corp_plc}, #{corp_strt}, #{corp_gyul1}, #{corp_jan}, #{corp_gyul2},
+	#{corp_gubn}, #{corp_cno}, #{corp_pwd}, #{corp_bigo},#{corp_mail},
+	#{corp_business}, #{corp_name2})
+    </insert>
     
 </mapper>

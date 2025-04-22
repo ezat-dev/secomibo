@@ -210,7 +210,8 @@ th{
 		</div>
 	</main>
 	
-	
+
+<form method="post" id="gigiGojangForm" name="gigiGojangForm">		
 	<div class="gojangModal">
 	<div class="header">측정기기고장이력</div> 
         <div id="editPop">
@@ -391,7 +392,7 @@ th{
             </div>
         </div>
    </div>
-   
+</form>   
    
    
    
@@ -525,6 +526,32 @@ th{
 	closeButton.addEventListener('click', function() {
 		gojangModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+	//측정기기고장이력 저장
+    function save() {
+        var formData = new FormData($("#gigiGojangForm")[0]);  
+        $.ajax({
+            url: "/tkheat/preservation/gigiGojang/gigiGojangSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".gojangModal").hide();
+                getGigiGojangList();
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+            }
+        });
+    }
 		
 
 

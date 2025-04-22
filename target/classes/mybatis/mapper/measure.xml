@@ -47,5 +47,83 @@
         ORDER BY TESTER_ERR_LIST.TERR_DATE
 	</select>
 	
+	
+	<insert id="gigiGojangSave" parameterType="measure">
+		SET LOCK_TIMEOUT 10000;
+        INSERT INTO TESTER_ERR_LIST
+        (TER_CODE
+        ,TERR_NAME
+        ,TERR_CHKMAN
+        ,TERR_DATE
+        ,TERR_CONDI
+        ,TERR_COST
+        ,TERR_BIGO
+        ,TERR_REWARD
+        ,TERR_STRT
+        ,TERR_END
+        ,TERR_TIME
+        ,TERR_MAN
+        ,TERR_SURI
+        ,TERR_CONTENT
+        )
+        VALUES
+        
+        (#{ter_code}
+        ,#{terr_name}
+        ,#{terr_chkman}
+        ,#{terr_date}
+        ,#{terr_condi}
+        ,#{terr_cost}
+        ,#{terr_bigo}
+        ,#{terr_reward}
+        ,#{terr_strt_edit}
+        ,#{terr_end_edit}
+        ,#{terr_time}
+        ,#{terr_man}
+        ,#{terr_suri}
+        ,#{terr_content}
+        )
+	
+	
+	</insert>
+	
+	
+	
+	<!-- 측정기기점검관리 -->
+	<select id="getGigiJeomgeomList" parameterType="measure" resultType="measure">
+		select MCD.MCD_CD                                         as MCD_CD
+        , MCD.TER_CODE                                       as TER_CODE
+        , TT.TER_NAME                                        as TER_NAME
+        , MCD.MCD_CORRECTION_CYCLE                           as MCD_CORRECTION_CYCLE_NM
+        , convert(varchar(10), MCD.MCD_INSPECTION_DATE, 120) as MCD_INSPECTION_DATE
+        , MCD.MCD_NO                                         as MCD_NO
+        , MCD.MCD_MAN_NO                                     as MCD_MAN_NO
+        , MCD.MCD_CORRECTION_CYCLE                           as MCD_CORRECTION_CYCLE
+        , convert(varchar(10), MCD.MCD_NEXT_DATE, 120)       as MCD_NEXT_DATE
+        , MCD.MCD_REPAIR_COMP                                as MCD_REPAIR_COMP
+        , MCD.MCD_AVAILABLE_TERM                             as MCD_AVAILABLE_TERM
+        , MCD.MCD_REPAIR_HISTORY                             as MCD_REPAIR_HISTORY
+        , MCD.MCD_MANAGER_USER_CD                            as MCD_MANAGER_USER_CD
+        , tu.USER_NAME                                       as MCD_MANAGER_USER_NM
+        , convert(varchar(10), MCD.MCD_REG_DT, 120)          as MCD_REG_DT
+        , MCD.MCD_REG_CD                                     as MCD_REG_CD
+        , rtu.USER_NAME                                      as MCD_REG_NM
+        , convert(varchar(10), MCD.MCD_MOD_DT, 120)          as MCD_MOD_DT
+        , MCD.MCD_MOD_CD                                     as MCD_MOD_CD
+        , mtu.USER_NAME                                      as MCD_MOD_NM
+        , MCD.MCD_FILE                                       as MCD_FILE
+        from MEASUREMENT_DEVICE_CEHCK MCD
+        inner join TESTER TT on MCD.TER_CODE = TT.TER_CODE
+        inner join USERT TU on MCD.MCD_MANAGER_USER_CD = TU.USER_CODE
+        left outer join USERT RTU on RTU.USER_CODE = MCD.MCD_REG_CD
+        left outer join USERT MTU on MTU.USER_CODE = MCD.MCD_MOD_CD
+        where 1 = 1
+        order by MCD_INSPECTION_DATE
+	</select>
+	
+	
+	
+	
+	
 
 </mapper>

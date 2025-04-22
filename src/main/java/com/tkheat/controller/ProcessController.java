@@ -32,27 +32,13 @@ public class ProcessController {
 		@ResponseBody 
 		public Map<String, Object> getReadySiljukList(
 				@RequestParam String sdate,
-				@RequestParam String edate,
-				@RequestParam String corp_name,
-				@RequestParam String prod_name,
-				@RequestParam String prod_jai,
-				@RequestParam String prod_no,
-				@RequestParam String prod_gyu,
-				@RequestParam String prod_gubn,
-				@RequestParam String ord_name) {
+				@RequestParam String edate) {
 			Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 			Siljuk siljuk = new Siljuk();
 
 			siljuk.setSdate(sdate);
 			siljuk.setEdate(edate);
-			siljuk.setCorp_name(corp_name);
-			siljuk.setProd_name(prod_name);
-			siljuk.setProd_jai(prod_jai);
-			siljuk.setProd_no(prod_no);
-			siljuk.setProd_gyu(prod_gyu);
-			siljuk.setProd_gubn(prod_gubn);
-			siljuk.setOrd_name(ord_name);
 
 
 			List<Siljuk> readySiljukList = processService.getReadySiljukList(siljuk);
@@ -97,27 +83,13 @@ public class ProcessController {
 	@ResponseBody 
 	public Map<String, Object> getCleanSiljukList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_jai,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gyu,
-			@RequestParam String prod_gubn,
-			@RequestParam String ord_name) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Siljuk siljuk = new Siljuk();
 
 		siljuk.setSdate(sdate);
 		siljuk.setEdate(edate);
-		siljuk.setCorp_name(corp_name);
-		siljuk.setProd_name(prod_name);
-		siljuk.setProd_jai(prod_jai);
-		siljuk.setProd_no(prod_no);
-		siljuk.setProd_gyu(prod_gyu);
-		siljuk.setProd_gubn(prod_gubn);
-		siljuk.setOrd_name(ord_name);
 
 
 		List<Siljuk> cleanSiljukList = processService.getCleanSiljukList(siljuk);
@@ -162,28 +134,13 @@ public class ProcessController {
 		@ResponseBody 
 		public Map<String, Object> getCleanRwSiljukList(
 				@RequestParam String sdate,
-				@RequestParam String edate,
-				@RequestParam String corp_name,
-				@RequestParam String prod_name,
-				@RequestParam String prod_jai,
-				@RequestParam String prod_no,
-				@RequestParam String prod_gyu,
-				@RequestParam String prod_gubn,
-				@RequestParam String ord_name) {
+				@RequestParam String edate) {
 			Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 			Siljuk siljuk = new Siljuk();
 
 			siljuk.setSdate(sdate);
 			siljuk.setEdate(edate);
-			siljuk.setCorp_name(corp_name);
-			siljuk.setProd_name(prod_name);
-			siljuk.setProd_jai(prod_jai);
-			siljuk.setProd_no(prod_no);
-			siljuk.setProd_gyu(prod_gyu);
-			siljuk.setProd_gubn(prod_gubn);
-			siljuk.setOrd_name(ord_name);
-
 
 			List<Siljuk> cleanRwSiljukList = processService.getCleanRwSiljukList(siljuk);
 
@@ -227,29 +184,13 @@ public class ProcessController {
 	@ResponseBody 
 	public Map<String, Object> getChimSiljukList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_jai,
-			@RequestParam String fac_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gyu,
-			@RequestParam String prod_gubn,
-			@RequestParam String ord_name) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Siljuk siljuk = new Siljuk();
 
 		siljuk.setSdate(sdate);
 		siljuk.setEdate(edate);
-		siljuk.setCorp_name(corp_name);
-		siljuk.setProd_name(prod_name);
-		siljuk.setProd_jai(prod_jai);
-		siljuk.setFac_name(fac_name);
-		siljuk.setProd_no(prod_no);
-		siljuk.setProd_gyu(prod_gyu);
-		siljuk.setProd_gubn(prod_gubn);
-		siljuk.setOrd_name(ord_name);
 
 
 		List<Siljuk> chimSiljukList = processService.getChimSiljukList(siljuk);
@@ -298,29 +239,13 @@ public class ProcessController {
 	@ResponseBody 
 	public Map<String, Object> getTemSiljukList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_jai,
-			@RequestParam String fac_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gyu,
-			@RequestParam String prod_gubn,
-			@RequestParam String ord_name) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Siljuk siljuk = new Siljuk();
 
 		siljuk.setSdate(sdate);
 		siljuk.setEdate(edate);
-		siljuk.setCorp_name(corp_name);
-		siljuk.setProd_name(prod_name);
-		siljuk.setProd_jai(prod_jai);
-		siljuk.setFac_name(fac_name);
-		siljuk.setProd_no(prod_no);
-		siljuk.setProd_gyu(prod_gyu);
-		siljuk.setProd_gubn(prod_gubn);
-		siljuk.setOrd_name(ord_name);
 
 
 		List<Siljuk> temSiljukList = processService.getTemSiljukList(siljuk);
@@ -366,27 +291,13 @@ public class ProcessController {
 		@ResponseBody 
 		public Map<String, Object> getShortSiljukList(
 				@RequestParam String sdate,
-				@RequestParam String edate,
-				@RequestParam String corp_name,
-				@RequestParam String prod_name,
-				@RequestParam String prod_jai,
-				@RequestParam String prod_no,
-				@RequestParam String prod_gyu,
-				@RequestParam String prod_gubn,
-				@RequestParam String ord_name) {
+				@RequestParam String edate) {
 			Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 			Siljuk siljuk = new Siljuk();
 
 			siljuk.setSdate(sdate);
 			siljuk.setEdate(edate);
-			siljuk.setCorp_name(corp_name);
-			siljuk.setProd_name(prod_name);
-			siljuk.setProd_jai(prod_jai);
-			siljuk.setProd_no(prod_no);
-			siljuk.setProd_gyu(prod_gyu);
-			siljuk.setProd_gubn(prod_gubn);
-			siljuk.setOrd_name(ord_name);
 
 
 			List<Siljuk> shortSiljukList = processService.getShortSiljukList(siljuk);

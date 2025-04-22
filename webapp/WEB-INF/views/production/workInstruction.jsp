@@ -113,9 +113,9 @@
         
         
 		<label class="daylabel">지시일 :</label>
-		<input type="date" class="plnp_date" id="plnp_date" style="font-size: 16px;" autocomplete="off">
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off">
 			
-		<label class="daylabel">거래처명 :</label>
+		<!-- <label class="daylabel">거래처명 :</label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">품명 :</label>
@@ -128,7 +128,7 @@
 		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px;" autocomplete="off">
 		
 		<label class="daylabel">설비선택 :</label>
-		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px;" autocomplete="off">
+		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px;" autocomplete="off"> -->
 			
 	</div>
     <div class="button-container">
@@ -227,12 +227,7 @@
 		    ajaxURL:"/tkheat/production/workInstruction/getWorkInstructionList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
-		    	"plnp_date": $("#plnp_date").val(),
-                "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_no": $("#prod_no").val(),
-                "prod_gubn": $("#prod_gubn").val(),
-                "fac_name": $("#fac_name").val(),
+		    	"sdate": $("#sdate").val(),
 			},
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,

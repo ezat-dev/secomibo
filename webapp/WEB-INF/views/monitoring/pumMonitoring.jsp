@@ -18,6 +18,9 @@
 	display: flex;
 	justify-content: space-between;
 }
+div{
+	text-align : center;
+}
     
     
     </style>
@@ -27,181 +30,144 @@
     
    
     <main class="main">
-    <div class="rectangle-12" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">설비명</div>
-    <div class="rectangle-2" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">고객사</div>
-    <div class="rectangle-3" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">품명</div>
-    <div class="rectangle-4" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">LOT NO</div>
-    <div class="rectangle-6" style="font-size:25px; font-weight:550; display: flex; align-items: center; justify-content: center;">공정현황</div>
-    <div class="rectangle-7" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">승온</div>
-    <div class="rectangle-8" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">본처리</div>
-    <div class="rectangle-9" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">강온</div>
-    <div class="rectangle-10" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">냉각</div>
-    <div class="rectangle-11" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">공로</div>
-    <div class="rectangle-13" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄1호기</div>
-    <div class="rectangle-14" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄2호기</div>
-    <div class="rectangle-15" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄3호기</div>
-    <div class="rectangle-16" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄4호기</div>
-    <div class="rectangle-17" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄5호기</div>
-    <div class="rectangle-58" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 1호기</div>
-    <div class="rectangle-61" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 2호기</div>
-    <div class="rectangle-63" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 1호기</div>
-    <div class="rectangle-65" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 2호기</div>
-    <div class="rectangle-67" style="font-size:45px; font-weight:550; display: flex; align-items: center; justify-content: center;">세정기</div>
-    <div class="chim-1-heat"></div>
-    <div class="chim-1-bon"></div>
-    <div class="rectangle-35"></div>
-    <div class="rectangle-36"></div>
-    <div class="rectangle-37"></div>
-    <div class="chim-2-heat"></div>
-    <div class="chim-2-bon"></div>
-    <div class="rectangle-40"></div>
-    <div class="rectangle-41"></div>
-    <div class="rectangle-42"></div>
-    <div class="chim-3-heat"></div>
-    <div class="chim-3-bon"></div>
-    <div class="rectangle-45"></div>
-    <div class="rectangle-46"></div>
-    <div class="rectangle-47"></div>
-    <div class="chim-4-heat"></div>
-    <div class="chim-4-bon"></div>
-    <div class="rectangle-50"></div>
-    <div class="rectangle-51"></div>
-    <div class="rectangle-52"></div>
-    <div class="chim-5-heat"></div>
-    <div class="chim-5-bon"></div>
-    <div class="rectangle-55"></div>
-    <div class="rectangle-56"></div>
-    <div class="rectangle-57"></div>
-    <div class="tem-1-gong"></div>
-    <div class="chim-1-cutum"></div>
-    <div class="chim-1-pum"></div>
-    <div class="chim-1-lot"></div>
-    <div class="chim-2-cutum"></div>
-    <div class="chim-2-pum"></div>
-    <div class="chim-2-lot"></div>
-    <div class="chim-3-cutum"></div>
-    <div class="chim-3-pum"></div>
-    <div class="chim-3-lot"></div>
-    <div class="chim-4-cutum"></div>
-    <div class="chim-4-pum"></div>
-    <div class="chim-4-lot"></div>
-    <div class="chim-5-cutum"></div>
-    <div class="chim-5-pum"></div>
-    <div class="chim-5-lot"></div>
-    <div class="tem-1-cutum"></div>
-    <div class="tem-1-pum"></div>
-    <div class="tem-1-lot"></div>
-    <div class="tem-2-gong"></div>
-    <div class="tem-2-cutum"></div>
-    <div class="tem-2-pum"></div>
-    <div class="tem-2-lot"></div>
-    <div class="byun-1-gong"></div>
-    <div class="byun-1-cutum"></div>
-    <div class="byun-1-pum"></div>
-    <div class="byun-1-lot"></div>
-    <div class="byun-2-gong"></div>
-    <div class="byun-2-cutum"></div>
-    <div class="byun-2-pum"></div>
-    <div class="byun-2-lot"></div>
-    <div class="clean-gong"></div>
-    <div class="clean-cutum"></div>
-    <div class="clean-pum"></div>
-    <div class="clean-lot"></div>
+    <div class="rectangle_12" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">설비명</div>
+    <div class="rectangle_2" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center; ">고객사</div>
+    <div class="rectangle_3" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">품명</div>
+    <div class="rectangle_4" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">LOT NO</div>
+    <div class="rectangle_6" style="font-size:25px; font-weight:550; display: flex; align-items: center; justify-content: center;">공정현황</div>
+    <div class="rectangle_7" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">승온</div>
+    <div class="rectangle_8" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">본처리</div>
+    <div class="rectangle_9" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">강온</div>
+    <div class="rectangle_10" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">냉각</div>
+    <div class="rectangle_11" style="font-size:20px; font-weight:550; display: flex; align-items: center; justify-content: center;">공로</div>
+    <div class="rectangle_13" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄1호기</div>
+    <div class="rectangle_14" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄2호기</div>
+    <div class="rectangle_15" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄3호기</div>
+    <div class="rectangle_16" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄4호기</div>
+    <div class="rectangle_17" style="font-size:40px; font-weight:550; display: flex; align-items: center; justify-content: center;">침탄5호기</div>
+    <div class="rectangle_58" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 1호기</div>
+    <div class="rectangle_61" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">템퍼링 2호기</div>
+    <div class="rectangle_63" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 1호기</div>
+    <div class="rectangle_65" style="font-size:35px; font-weight:550; display: flex; align-items: center; justify-content: center;">변성로 2호기</div>
+    <div class="rectangle_67" style="font-size:45px; font-weight:550; display: flex; align-items: center; justify-content: center;">세정기</div>
+    <div class="chim_1_heat"></div>
+    <div class="chim_1_bon"></div>
+    <div class="chim_1_gangon"></div>
+    <div class="chim_1_cool"></div>
+    <div class="chim_1_gonglo"></div>
+    <div class="chim_2_heat"></div>
+    <div class="chim_2_bon"></div>
+    <div class="chim_2_gangon"></div>
+    <div class="chim_2_cool"></div>
+    <div class="chim_2_gonglo"></div>
+    <div class="chim_3_heat"></div>
+    <div class="chim_3_bon"></div>
+    <div class="chim_3_gangon"></div>
+    <div class="chim_3_cool"></div>
+    <div class="chim_3_gonglo"></div>
+    <div class="chim_4_heat"></div>
+    <div class="chim_4_bon"></div>
+    <div class="chim_4_gangon"></div>
+    <div class="chim_4_cool"></div>
+    <div class="chim_4_gonglo"></div>
+    <div class="chim_5_heat"></div>
+    <div class="chim_5_bon"></div>
+    <div class="chim_5_gangon"></div>
+    <div class="chim_5_cool"></div>
+    <div class="chim_5_gonglo"></div>
+    <div class="tem_1_gong"></div>
+    <div class="chim_1_cutum"></div>
+    <div class="chim_1_pum"></div>
+    <div class="chim_1_lot"></div>
+    <div class="chim_2_cutum"></div>
+    <div class="chim_2_pum"></div>
+    <div class="chim_2_lot"></div>
+    <div class="chim_3_cutum"></div>
+    <div class="chim_3_pum"></div>
+    <div class="chim_3_lot"></div>
+    <div class="chim_4_cutum"></div>
+    <div class="chim_4_pum"></div>
+    <div class="chim_4_lot"></div>
+    <div class="chim_5_cutum"></div>
+    <div class="chim_5_pum"></div>
+    <div class="chim_5_lot"></div>
+    <div class="tem_1_cutum"></div>
+    <div class="tem_1_pum"></div>
+    <div class="tem_1_lot"></div>
+    <div class="tem_2_gong"></div>
+    <div class="tem_2_cutum"></div>
+    <div class="tem_2_pum"></div>
+    <div class="tem_2_lot"></div>
+    <div class="byun_1_gong"></div>
+    <div class="byun_1_cutum"></div>
+    <div class="byun_1_pum"></div>
+    <div class="byun_1_lot"></div>
+    <div class="byun_2_gong"></div>
+    <div class="byun_2_cutum"></div>
+    <div class="byun_2_pum"></div>
+    <div class="byun_2_lot"></div>
+    <div class="clean_gong"></div>
+    <div class="clean_cutum"></div>
+    <div class="clean_pum"></div>
+    <div class="clean_lot"></div>
 	</main>
 	    
 	    
 <script>
-	//전역변수
-    var cutumTable;	
 
 	//로드
 	$(function(){
-		//전체 거래처목록 조회
-		getCutumList();
-	});
-
-	//이벤트
-	//함수
-	function getCutumList(){
+		getMonitoringList();
 		
-		userTable = new Tabulator("#tab1", {
-		    height:"750px",
-		    layout:"fitColumns",
-		    selectable:true,	//로우 선택설정
-		    tooltips:true,
-		    selectableRangeMode:"click",
-		    reactiveData:true,
-		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
-		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
-		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
-		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
-		        return response; //return the response data to tabulator
-		    },
-		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-				    
-		    ],
-		    rowFormatter:function(row){
-			    var data = row.getData();
-			    
-			    row.getElement().style.fontWeight = "700";
-				row.getElement().style.backgroundColor = "#FFFFFF";
-			},
-			rowClick:function(e, row){
+	});
+	
 
-				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
-						
-					if($(this).hasClass("row_select")){							
-						$(this).removeClass('row_select');
-						row.getElement().className += " row_select";
-					}else{
-						$("#tab1 div.row_select").removeClass("row_select");
-						row.getElement().className += " row_select";	
+
+	function getMonitoringList(){
+		$.ajax({
+			url: "/tkheat/monitoring/getMonitoringList",
+			type: "post",
+			dataType: "json",
+			success: function(result){
+				var data = result.data;
+				
+				data.forEach(function(monitoring){
+					let gb = monitoring.gb;
+					console.log(monitoring);
+					if(monitoring.pum) {
+						$("." +gb+"pum").html(monitoring.pum);
+					}
+					if(monitoring.heat) {
+						$("." +gb+"heat").html(monitoring.heat);
+					}
+					if(monitoring.cutum) {
+						$("." +gb+"cutum").html(monitoring.cutum);
+					}
+					if(monitoring.lot) {
+						$("." +gb+"lot").html(monitoring.lot);
+					}
+					if(monitoring.bon) {
+						$("." +gb+"bon").html(monitoring.bon);
+					}
+					if(monitoring.gangon) {
+						$("." +gb+"gangon").html(monitoring.gangon);
+					}
+					if(monitoring.cool) {
+						$("." +gb+"cool").html(monitoring.cool);
+					}
+					if(monitoring.gonglo) {
+						$("." +gb+"gonglo").html(monitoring.gonglo);
+					}
+					if(monitoring.gong) {
+						$("." +gb+"gong").html(monitoring.gong);
 					}
 				});
-
-				var rowData = row.getData();
-				
-			},
-		});		
+			}
+		});
 	}
+
+	
+
 	
 
     </script>

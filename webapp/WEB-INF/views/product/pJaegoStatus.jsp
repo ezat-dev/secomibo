@@ -39,15 +39,33 @@
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1200px;
+	margin-left: -1050px;
 }
 
-.box1 input{
-	width : 7%;
-}
 .box1 select{
 	width: 5%
-}         
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
+}
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}
+     
     
     </style>
     
@@ -57,13 +75,9 @@
     <div class="tab">
     <div class="box1">
          <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
-        
-        
 		<label class="daylabel">일자 : </label>
-		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off">~ 
 		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
-		
-			
 	</div>
     
     <div class="button-container">
@@ -93,6 +107,10 @@
 	    
 	    
 <script>
+
+
+	
+
 	//전역변수
     var cutumTable;	
 
@@ -147,7 +165,7 @@
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"단가", field:"prod_dang", sorter:"string", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
+		        {title:"단중", field:"prod_danj", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"전월재고", field:"pjai_pre", sorter:"int", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
@@ -203,6 +221,19 @@
 	}
 	
 
+    </script>
+    <script>
+	    window.addEventListener('DOMContentLoaded', () => {
+		    const today = new Date();
+		    const year = today.getFullYear();
+		    const month = String(today.getMonth() + 1).padStart(2, '0');
+		    const day = String(today.getDate()).padStart(2, '0');
+		    const formattedToday = `${year}-${month}-${day}`;
+		
+		   
+		    document.getElementById('sdate').value = formattedToday;
+		    document.getElementById('edate').value = formattedToday;
+		});
     </script>
 
 	</body>

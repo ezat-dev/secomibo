@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 import com.tkheat.service.ProductionService;
 
@@ -36,21 +37,11 @@ public class ProductionController {
 	@RequestMapping(value = "/production/workInstruction/getWorkInstructionList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getWorkInstructionList(
-			@RequestParam String plnp_date,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gubn,
-			@RequestParam String fac_name) {
+			@RequestParam String sdate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
-		work.setCorp_name(plnp_date);
-		work.setProd_name(corp_name);
-		work.setProd_no(prod_name);
-		work.setProd_gyu(prod_no);
-		work.setProd_jai(prod_gubn);
-		work.setProd_pg(fac_name);
+		work.setSdate(sdate);
 
 
 		List<Work> workInstructionList = productionService.getWorkInstructionList(work);
@@ -95,24 +86,12 @@ public class ProductionController {
 	@ResponseBody 
 	public Map<String, Object> getWorkWaitList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String plnp_date,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gubn,
-			@RequestParam String fac_name) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
 		work.setSdate(sdate);
 		work.setEdate(edate);
-		work.setCorp_name(plnp_date);
-		work.setProd_name(corp_name);
-		work.setProd_no(prod_name);
-		work.setProd_gyu(prod_no);
-		work.setProd_jai(prod_gubn);
-		work.setProd_pg(fac_name);
 
 
 		List<Work> workInstructionList = productionService.getWorkWaitList(work);
@@ -224,66 +203,66 @@ public class ProductionController {
 		return "/production/workSchedule.jsp";
 	}	 
 
-	/*
-	 * //작업스케줄 조회
-	 * 
-	 * @RequestMapping(value = "/production/workSchedule/getWorkScheduleList",
-	 * method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public Map<String, Object> getWorkScheduleList(
-	 * 
-	 * @RequestParam String plnp_date,
-	 * 
-	 * @RequestParam String corp_name,
-	 * 
-	 * @RequestParam String prod_name,
-	 * 
-	 * @RequestParam String prod_no,
-	 * 
-	 * @RequestParam String prod_gubn,
-	 * 
-	 * @RequestParam String fac_name) { Map<String, Object> rtnMap = new
-	 * HashMap<String, Object>();
-	 * 
-	 * Work work = new Work(); work.setCorp_name(plnp_date);
-	 * work.setProd_name(corp_name); work.setProd_no(prod_name);
-	 * work.setProd_gyu(prod_no); work.setProd_jai(prod_gubn);
-	 * work.setProd_pg(fac_name);
-	 * 
-	 * 
-	 * List<Work> workScheduleList = productionService.getWorkScheduleList(work);
-	 * 
-	 * List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String,
-	 * Object>>(); for(int i=0; i<workScheduleList.size(); i++) { HashMap<String,
-	 * Object> rowMap = new HashMap<String, Object>(); rowMap.put("plnp_no",
-	 * workScheduleList.get(i).getPlnp_no()); rowMap.put("plnp_date",
-	 * workScheduleList.get(i).getPlnp_date()); rowMap.put("prod_date",
-	 * workScheduleList.get(i).getProd_date()); rowMap.put("fac_name",
-	 * workScheduleList.get(i).getFac_name()); rowMap.put("plnp_seq",
-	 * workScheduleList.get(i).getPlnp_seq()); rowMap.put("corp_name",
-	 * workScheduleList.get(i).getCorp_name()); rowMap.put("prod_name",
-	 * workScheduleList.get(i).getProd_name()); rowMap.put("prod_no",
-	 * workScheduleList.get(i).getProd_no()); rowMap.put("prod_gyu",
-	 * workScheduleList.get(i).getProd_gyu()); rowMap.put("prod_jai",
-	 * workScheduleList.get(i).getProd_jai()); rowMap.put("plnp_dsu",
-	 * workScheduleList.get(i).getPlnp_dsu()); rowMap.put("plnp_tmp1",
-	 * workScheduleList.get(i).getPlnp_tmp1()); rowMap.put("plnp_time1",
-	 * workScheduleList.get(i).getPlnp_time1()); rowMap.put("plnp_tmp2",
-	 * workScheduleList.get(i).getPlnp_tmp2()); rowMap.put("plnp_time2",
-	 * workScheduleList.get(i).getPlnp_time2()); rowMap.put("plnp_ttmp",
-	 * workScheduleList.get(i).getPlnp_ttmp()); rowMap.put("plnp_ttime",
-	 * workScheduleList.get(i).getPlnp_ttime()); rowMap.put("plnp_note",
-	 * workScheduleList.get(i).getPlnp_note()); rowMap.put("prod_cd",
-	 * workScheduleList.get(i).getProd_cd()); rowMap.put("prod_pg",
-	 * workScheduleList.get(i).getProd_pg()); rowMap.put("prod_sg",
-	 * workScheduleList.get(i).getProd_sg());
-	 * 
-	 * rtnList.add(rowMap); }
-	 * 
-	 * rtnMap.put("last_page",1); rtnMap.put("data",rtnList);
-	 * 
-	 * return rtnMap; }
-	 */
+	
+	//작업스케줄 조회
+	  
+//	  @RequestMapping(value = "/production/workSchedule/getWorkScheduleList",
+//	  method = RequestMethod.POST)
+//	  
+//	  @ResponseBody public Map<String, Object> getWorkScheduleList(
+//	  
+//	  @RequestParam String plnp_date,
+//	  
+//	  @RequestParam String corp_name,
+//	  
+//	  @RequestParam String prod_name,
+//	 
+//	  @RequestParam String prod_no,
+//	  
+//	  @RequestParam String prod_gubn,
+//	  
+//	  @RequestParam String fac_name) { Map<String, Object> rtnMap = new
+//	  HashMap<String, Object>();
+//	  
+//	  Work work = new Work(); work.setCorp_name(plnp_date);
+//	  work.setProd_name(corp_name); work.setProd_no(prod_name);
+//	  work.setProd_gyu(prod_no); work.setProd_jai(prod_gubn);
+//	  work.setProd_pg(fac_name);
+//	  
+//	  
+//	  List<Work> workScheduleList = productionService.getWorkScheduleList(work);
+//	  
+//	  List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String,
+//	  Object>>(); for(int i=0; i<workScheduleList.size(); i++) { HashMap<String,
+//	  Object> rowMap = new HashMap<String, Object>(); rowMap.put("plnp_no",
+//	  workScheduleList.get(i).getPlnp_no()); rowMap.put("plnp_date",
+//	  workScheduleList.get(i).getPlnp_date()); rowMap.put("prod_date",
+//	  workScheduleList.get(i).getProd_date()); rowMap.put("fac_name",
+//	  workScheduleList.get(i).getFac_name()); rowMap.put("plnp_seq",
+//	  workScheduleList.get(i).getPlnp_seq()); rowMap.put("corp_name",
+//	  workScheduleList.get(i).getCorp_name()); rowMap.put("prod_name",
+//	  workScheduleList.get(i).getProd_name()); rowMap.put("prod_no",
+//	  workScheduleList.get(i).getProd_no()); rowMap.put("prod_gyu",
+//	  workScheduleList.get(i).getProd_gyu()); rowMap.put("prod_jai",
+//	  workScheduleList.get(i).getProd_jai()); rowMap.put("plnp_dsu",
+//	  workScheduleList.get(i).getPlnp_dsu()); rowMap.put("plnp_tmp1",
+//	  workScheduleList.get(i).getPlnp_tmp1()); rowMap.put("plnp_time1",
+//	  workScheduleList.get(i).getPlnp_time1()); rowMap.put("plnp_tmp2",
+//	  workScheduleList.get(i).getPlnp_tmp2()); rowMap.put("plnp_time2",
+//	  workScheduleList.get(i).getPlnp_time2()); rowMap.put("plnp_ttmp",
+//	  workScheduleList.get(i).getPlnp_ttmp()); rowMap.put("plnp_ttime",
+//	  workScheduleList.get(i).getPlnp_ttime()); rowMap.put("plnp_note",
+//	  workScheduleList.get(i).getPlnp_note()); rowMap.put("prod_cd",
+//	  workScheduleList.get(i).getProd_cd()); rowMap.put("prod_pg",
+//	  workScheduleList.get(i).getProd_pg()); rowMap.put("prod_sg",
+//	  workScheduleList.get(i).getProd_sg());
+//	  
+//	  rtnList.add(rowMap); }
+//	 
+//	  rtnMap.put("last_page",1); rtnMap.put("data",rtnList);
+//	 
+//	  return rtnMap; }
+	
 
 	//작업현황 - 화면로드
 	@RequestMapping(value = "/production/workStatus", method = RequestMethod.GET)
@@ -296,22 +275,12 @@ public class ProductionController {
 	@ResponseBody 
 	public Map<String, Object> getWorkStatusList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gubn,
-			@RequestParam String tech_te) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
 		work.setSdate(sdate);
 		work.setEdate(edate);
-		work.setCorp_name(corp_name);
-		work.setProd_name(prod_name);
-		work.setProd_no(prod_no);
-		work.setProd_gubn(prod_gubn);
-		work.setTech_te(tech_te);
 
 
 		List<Work> WorkStatusList = productionService.getWorkStatusList(work);
@@ -352,22 +321,12 @@ public class ProductionController {
 	@ResponseBody 
 	public Map<String, Object> getNonReportList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_no,
-			@RequestParam String prod_gubn,
-			@RequestParam String prod_gyu) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
 		work.setSdate(sdate);
 		work.setEdate(edate);
-		work.setCorp_name(corp_name);
-		work.setProd_name(prod_name);
-		work.setProd_no(prod_no);
-		work.setProd_gubn(prod_gubn);
-		work.setProd_gyu(prod_gyu);
 
 
 		List<Work> nonReportList = productionService.getNonReportList(work);
@@ -394,6 +353,59 @@ public class ProductionController {
 
 		return rtnMap; 
 	}
+	
+	
+	//부적합보고서(검색) 입고 조회
+		@RequestMapping(value = "/production/nonReport/getNonReportIpgoList", method = RequestMethod.POST) 
+		@ResponseBody 
+		public Map<String, Object> getNonReportIpgoList(
+				) {
+			Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+			Ipgo ipgo = new Ipgo();
+			
+			List<Ipgo> nonReportIpgoList = productionService.getNonReportIpgoList(ipgo);
+
+			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+			for(int i=0; i<nonReportIpgoList.size(); i++) {
+				HashMap<String, Object> rowMap = new HashMap<String, Object>();
+				rowMap.put("idx", (i+1));
+				rowMap.put("ord_prn", nonReportIpgoList.get(i).getOrd_prn());
+				rowMap.put("ord_code", nonReportIpgoList.get(i).getOrd_code());
+				rowMap.put("ord_date", nonReportIpgoList.get(i).getOrd_date());
+				rowMap.put("ord_nap", nonReportIpgoList.get(i).getOrd_nap());
+				rowMap.put("corp_name", nonReportIpgoList.get(i).getCorp_name());
+				rowMap.put("prod_name", nonReportIpgoList.get(i).getProd_name());
+				rowMap.put("prod_no", nonReportIpgoList.get(i).getProd_no());
+				rowMap.put("prod_gyu", nonReportIpgoList.get(i).getProd_gyu());
+				rowMap.put("prod_jai", nonReportIpgoList.get(i).getProd_jai());
+				rowMap.put("tech_te", nonReportIpgoList.get(i).getTech_te());
+				rowMap.put("ord_danw", nonReportIpgoList.get(i).getOrd_danw());
+				rowMap.put("ord_boxsu", nonReportIpgoList.get(i).getOrd_boxsu());
+				rowMap.put("ord_su", nonReportIpgoList.get(i).getOrd_su());
+				rowMap.put("ord_amnt", nonReportIpgoList.get(i).getOrd_amnt());
+				rowMap.put("ord_lot", nonReportIpgoList.get(i).getOrd_lot());
+				rowMap.put("itst_wp", nonReportIpgoList.get(i).getItst_wp());
+				rowMap.put("ord_name", nonReportIpgoList.get(i).getOrd_name());
+				rowMap.put("ord_sunip", nonReportIpgoList.get(i).getOrd_sunip());
+				rowMap.put("ord_bigo", nonReportIpgoList.get(i).getOrd_bigo());
+				rowMap.put("prod_pg", nonReportIpgoList.get(i).getProd_pg());
+				rowMap.put("prod_cd", nonReportIpgoList.get(i).getProd_cd());
+				rowMap.put("prod_sg", nonReportIpgoList.get(i).getProd_sg());
+				rowMap.put("prod_e1", nonReportIpgoList.get(i).getProd_e1());
+
+
+				rtnList.add(rowMap);
+			}
+
+			rtnMap.put("last_page",1);
+			rtnMap.put("data",rtnList);
+
+			return rtnMap; 
+		}
+		
+		
+		
 
 	//생산대기현황 - 화면로드
 	@RequestMapping(value = "/production/prodWaitingStatus", method = RequestMethod.GET)
@@ -407,24 +419,12 @@ public class ProductionController {
 	@ResponseBody 
 	public Map<String, Object> getProdWaitingStatusList(
 			@RequestParam String sdate,
-			@RequestParam String edate,
-			@RequestParam String corp_name,
-			@RequestParam String prod_name,
-			@RequestParam String prod_no,
-			@RequestParam String ord_code,
-			@RequestParam String prod_gyu,
-			@RequestParam String corp_business) {
+			@RequestParam String edate) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
 		work.setSdate(sdate);
 		work.setEdate(edate);
-		work.setCorp_name(corp_name);
-		work.setProd_name(prod_name);
-		work.setProd_no(prod_no);
-		work.setProd_gubn(ord_code);
-		work.setProd_gyu(prod_gyu);
-		work.setCorp_business(corp_business);
 
 
 		List<Work> prodWaitingStatusList = productionService.getProdWaitingStatusList(work);

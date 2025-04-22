@@ -53,6 +53,11 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public void cutumInsertSave(Corp corp) {
+		managementDao.cutumInsertSave(corp);
+	}
+	
+	@Override
 	public List<Fac> getFacList(Fac fac){
 		return managementDao.getFacList(fac);
 	}

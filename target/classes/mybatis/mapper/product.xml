@@ -106,7 +106,7 @@
 
 		SET ARITHABORT OFF
 		;with selectProdList as (
-			SELECT top(100)
+			SELECT top(1000)
 				PROD_CNO,
 				PROD_GUBN, PROD_E1, PROD_E2, PROD_NOTE, PROD_MODEL, PROD_DANCH, PROD_PLT, PROD_BOX,
 				PROD_SNP, PROD_BANGCH, PROD_VNYL, PROD_PAD, PROD_REALJAI, TECH_PATTERN, TECH_SEQ, PROD_CD, PROD_KIJONG, PROD_E3,
@@ -247,7 +247,7 @@
 					<if test="tech_te!='' and tech_te != null">
 						AND TECHIN.TECH_TE		LIKE + '%' + #{tech_te} + '%'
 					</if>
-				ORDER BY PROD_CODE ASC
+				ORDER BY PROD_CODE DESC
 		)
 		select * from selectProdList
 		where 1=1

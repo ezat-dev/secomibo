@@ -250,31 +250,31 @@ textarea {
 							<tr>
 								<th class="left">품명</th>
 								<td>
-									<input id="SPP_NAME" name="spp_name" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="SPP_NAME" name="spp_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">규격</th>
 								<td>
-									<input id="SPP_GYU" name="spp_gyu" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="SPP_GYU" name="spp_gyu" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">교체주기</th>
 								<td>
-									<input id="SPP_YONG" name="spp_yong" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="SPP_YONG" name="spp_yong" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">적정재고</th>
 								<td>
-									<input id="SPP_PROPER" name="spp_proper" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="SPP_PROPER" name="spp_proper" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">비고</th>
 								<td>
-									<input id="SPP_BIGO" name="spp_bigo" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="SPP_BIGO" name="spp_bigo" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 	

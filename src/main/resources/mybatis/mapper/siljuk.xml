@@ -21,7 +21,7 @@
 		vWrkBang.PROD_CODE = PRODUCT.PROD_CODE
 		where
 		ILBO_STRT between #{sdate} and #{edate}
-		and vWrkBang.CORP_NAME like +
+		<!-- and vWrkBang.CORP_NAME like +
 		'%' + #{corp_name} + '%'
 		and vWrkBang.PROD_NAME like + '%' +
 		#{prod_name} + '%'
@@ -33,7 +33,7 @@
 		like + '%' + case #{prod_gubn} when '양산' then '양산'
 		when '개발' then '개발'
 		else '' end + '%'
-		and vWrkBang.ORD_NAME like + '%' + #{ord_name} + '%'
+		and vWrkBang.ORD_NAME like + '%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 
@@ -54,7 +54,7 @@
 		vWrkPrepare.PROD_CODE = PRODUCT.PROD_CODE
 		where ILBO_STRT between
 		#{sdate} and #{edate}
-		and vWrkPrepare.CORP_NAME like + '%' +
+		<!-- and vWrkPrepare.CORP_NAME like + '%' +
 		#{corp_name} + '%'
 		and vWrkPrepare.PROD_NAME like + '%' + #{prod_name}
 		+ '%'
@@ -67,7 +67,7 @@
 		PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
 		when '개발' then '개발' else '' end + '%'
 		and vWrkPrepare.ord_NAME like +
-		'%' + #{ord_name} + '%'
+		'%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 	
@@ -88,7 +88,7 @@
 		vWrkPrepare.PROD_CODE = PRODUCT.PROD_CODE
 		where ILBO_STRT between
 		#{sdate} and #{edate}
-		and vWrkPrepare.CORP_NAME like + '%' +
+		<!-- and vWrkPrepare.CORP_NAME like + '%' +
 		#{corp_name} + '%'
 		and vWrkPrepare.PROD_NAME like + '%' + #{prod_name}
 		+ '%'
@@ -101,7 +101,7 @@
 		PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
 		when '개발' then '개발' else '' end + '%'
 		and vWrkPrepare.ord_NAME like +
-		'%' + #{ord_name} + '%'
+		'%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 	
@@ -121,7 +121,7 @@
 		PRODUCT ON vWrkTemper.PROD_CODE = PRODUCT.PROD_CODE
 		WHERE TMP_STRT
 		BETWEEN #{sdate} AND #{edate}
-		AND vWrkTemper.CORP_NAME LIKE '%' +
+		<!-- AND vWrkTemper.CORP_NAME LIKE '%' +
 		ISNULL(#{corp_name}, '') + '%'
 		AND vWrkTemper.PROD_NAME LIKE '%' +
 		ISNULL(#{prod_name}, '') + '%'
@@ -136,7 +136,7 @@
 		= ''
 		OR PRODUCT.PROD_GUBN LIKE
 		'%' + #{prod_gubn} + '%'
-		)
+		) -->
 		ORDER BY
 		TMP_STRT
 	</select>
@@ -156,14 +156,14 @@
 		INNER JOIN PRODUCT ON
 		vWrkShot.PROD_CODE = PRODUCT.PROD_CODE
 		where ILBO_STRT between #{sdate} and #{edate}
-		and vWrkShot.CORP_NAME like + '%' + #{corp_name} + '%'
+		<!-- and vWrkShot.CORP_NAME like + '%' + #{corp_name} + '%'
 		and vWrkShot.PROD_NAME like + '%' + #{prod_name} + '%'
 		and vWrkShot.PROD_NO like + '%' + #{prod_no} + '%'
 		and vWrkShot.PROD_GYU like + '%' + #{prod_gyu} + '%'
 		and vWrkShot.PROD_JAI like + '%' + #{prod_jai} + '%'
 		and PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
 		when '개발' then '개발' else '' end + '%'
-		and vWrkShot.ORD_NAME like + '%' + #{ord_name} + '%'
+		and vWrkShot.ORD_NAME like + '%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 	

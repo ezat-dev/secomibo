@@ -24,5 +24,6 @@
   	<mapper resource="mybatis/mapper/bega.xml"/>
   	<mapper resource="mybatis/mapper/suri.xml"/>
   	<mapper resource="mybatis/mapper/jeomgeom.xml"/>
+  	<mapper resource="mybatis/mapper/monitoring.xml"/>
   </mappers>
 </configuration>

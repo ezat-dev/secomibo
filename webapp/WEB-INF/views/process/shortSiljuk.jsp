@@ -65,7 +65,7 @@
 		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
 		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
 		
-		<label class="daylabel">거래처 : </label>
+		<!-- <label class="daylabel">거래처 : </label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">품명 : </label>
@@ -80,10 +80,10 @@
 		<label class="daylabel">품번 : </label>
 		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px; autocomplete="off">
 		
-		<!-- <label class="daylabel">규격 : </label>
-		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off"> -->
+		<label class="daylabel">규격 : </label>
+		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
 				
-		<!-- <label class="daylabel">담당자 : </label>
+		<label class="daylabel">담당자 : </label>
 		<input type="text" class="ord_name" id="ord_name" style="font-size: 16px; autocomplete="off"> -->
 			
 	</div>
@@ -143,13 +143,6 @@
 		    ajaxParams:{
 		    	"sdate": $("#sdate").val(),
                 "edate": $("#edate").val(),
-                "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_jai": $("#prod_jai").val(),
-                "prod_no": $("#prod_no").val(),
-                "prod_gyu": $("#prod_gyu").val(),
-                "prod_gubn": $("#prod_gubn").val(),
-                "ord_name": $("#ord_name").val(),
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -158,38 +151,40 @@
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		    	{title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
-				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
-				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
-				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
-		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
-		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"작업일", field:"ilbo_strt", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"준비코드", field:"ilbo_code", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"수주NO", field:"ord_code", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"설비", field:"fac_name", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"생산LOT", field:"ilbo_lot", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"시작", field:"ilbo_strt", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"완료", field:"ilbo_end", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"입고LOT", field:"ord_lot", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"거래처", field:"corp_name", sorter:"int", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"픔명", field:"prod_name", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"품번", field:"prod_no", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+				{title:"규격", field:"prod_gyu", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},
+				{title:"재질", field:"prod_jai", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},
+			    {title:"작업량", field:"ilbo_su", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},
+ 			    {title:"작업자", field:"user_name", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},
+				{title:"담당자", field:"ord_name", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},	
 				    
 		    ],
 		    rowFormatter:function(row){

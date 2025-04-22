@@ -203,7 +203,7 @@ public class PreservationController {
 		return "/preservation/jeomgeomInsert.jsp";
 	}
 
-	//설비수리이력관리 조회
+	//설비점검기준등록 조회
 	@RequestMapping(value = "/preservation/jeomgeomInsert/getJeomgeomInsertList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getJeomgeomInsertList(
@@ -238,6 +238,30 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
+	
+	//설비 점검기준등록 - insert
+		@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> saveJeomgeom(@ModelAttribute Jeomgeom jeomgeom) {
+		    Map<String, Object> result = new HashMap<>();
+
+		    try {
+		    	preservationService.jeomgeomInsertSave(jeomgeom);
+		        result.put("status", "success");
+		        result.put("message", "OK");
+		        
+		    } catch (Exception e) {
+		        result.put("status", "error");
+		        result.put("message", e.getMessage());
+		    }
+		    
+		    System.out.println(result.get("status"));
+		    System.out.println(result.get("message"));
+
+		    return result;
+		}
+	
+	
 
 	//설비별점검현황(일별) - 화면로드
 	@RequestMapping(value = "/preservation/dayJeomgeom", method = RequestMethod.GET)
@@ -295,11 +319,77 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
+	
+	
+	//측정기기고장이력 - insert
+		@RequestMapping(value = "/preservation/gigiGojang/gigiGojangSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> saveGigiGojang(@ModelAttribute Measure measure) {
+			   Map<String, Object> result = new HashMap<>();
+
+			try {
+			    preservationService.gigiGojangSave(measure);
+			       result.put("status", "success");
+			       result.put("message", "OK");
+			        
+			    } catch (Exception e) {
+			        result.put("status", "error");
+			        result.put("message", e.getMessage());
+			    }
+			    
+			    System.out.println(result.get("status"));
+			    System.out.println(result.get("message"));
+
+			    return result;
+			}
+	
+	
 
 	//측정기기점검관리 - 화면로드
 	@RequestMapping(value = "/preservation/gigiJeomgeom", method = RequestMethod.GET)
 	public String gigiJeomgeom() {
 		return "/preservation/gigiJeomgeom.jsp";
 	}	 
+	
+	
+	//측정기기점검관리 조회
+		@RequestMapping(value = "/preservation/gigiJeomgeom/getGigiJeomgeomList", method = RequestMethod.POST) 
+		@ResponseBody 
+		public Map<String, Object> getGigiJeomgeomList(
+				@RequestParam String sdate,
+				@RequestParam String edate
+				) {
+			Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+			Measure measure = new Measure();
+
+			measure.setSdate(sdate);
+			measure.setEdate(edate);
+
+
+			List<Measure> gigiJeomgeomList = preservationService.getGigiJeomgeomList(measure);
+
+			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+			for(int i=0; i<gigiJeomgeomList.size(); i++) {
+				HashMap<String, Object> rowMap = new HashMap<String, Object>();
+				rowMap.put("mcd_inspection_date", gigiJeomgeomList.get(i).getMcd_inspection_date());
+				rowMap.put("ter_name", gigiJeomgeomList.get(i).getTer_name());
+				rowMap.put("mcd_no", gigiJeomgeomList.get(i).getMcd_no());
+				rowMap.put("mcd_correction_cycle", gigiJeomgeomList.get(i).getMcd_correction_cycle());
+				rowMap.put("mcd_next_date", gigiJeomgeomList.get(i).getMcd_next_date());
+				rowMap.put("mcd_manager_user_cd", gigiJeomgeomList.get(i).getMcd_manager_user_cd());
+				rowMap.put("mcd_reg_dt", gigiJeomgeomList.get(i).getMcd_reg_dt());
+				rowMap.put("mcd_reg_cd", gigiJeomgeomList.get(i).getMcd_reg_cd());
+				rowMap.put("mcd_mod_dt", gigiJeomgeomList.get(i).getMcd_mod_dt());
+				rowMap.put("mcd_mod_cd", gigiJeomgeomList.get(i).getMcd_mod_cd());
+
+				rtnList.add(rowMap);
+			}
+
+			rtnMap.put("last_page",1);
+			rtnMap.put("data",rtnList);
+
+			return rtnMap; 
+		}
 
 }

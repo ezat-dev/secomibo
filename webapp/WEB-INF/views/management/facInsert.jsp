@@ -10,54 +10,192 @@
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 	<%@include file="../include/pluginpage.jsp" %>    
 <style>
-    
-	
-	.container {
-		display: flex;
-		justify-content: space-between;
-/*		margin-left:1008px;
-		margin-top:200px;*/
-	}
+.main {
+	width: 98%;
+}
 
-        #tab1, #tab2, #tab3, #tab4 {
-            visibility: hidden;
-        }
+.container {
+	display: flex;
+	justify-content: space-between;
+}
 
-        #tab1 {
-            visibility: visible;
-        }
+.detail {
+	background: #ffffff;
+	border: 1px solid #000000;
+	width: 1000px; /* 가로 길이 고정 */
+	height: 600px; /* 세로 길이 고정 */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+	margin: 20px auto; /* 중앙 정렬 */
+	padding: 20px;
+	border-radius: 5px; /* 모서리 둥글게 */
+	overflow-y: auto; /* 세로 스크롤 추가 */
+	position: relative; /* 자식 요소의 절대 위치 설정을 위한 기준 */
+}
 
-        .tabulator {
-            width: 90%;
-            max-width: 100%;
-            max-height: 900px;
-            overflow-x: hidden !important;  
-        }
-        
-        .tabulator .tabulator-cell {
-            white-space: normal !important;
-            word-break: break-word; 
-            text-align: center;
-        }
-        
-		.row_select{
-			background-color:#9ABCEA !important;
-		}
-		.box1 {
-			display: flex;
-			justify-content: right;
-			align-items: center;
-			width: 1500px;
-			margin-left: -1020px;
-		}
-		
-		.box1 input{
-			width : 5%;
-		}
-		.box1 select{
-			width: 5%
-		}    
-      
+.insideTable {
+	width: 100%; /* 내부 테이블 너비 100% */
+	border-collapse: collapse;
+}
+
+.insideTable th, .insideTable td {
+	padding: 5px; /* 셀 패딩을 줄여 세로 길이 감소 */
+	border: 1px solid #ccc; /* 셀 경계선 */
+	text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.insideTable th {
+	background: #f0f0f0; /* 헤더 배경색 */
+	font-weight: bold; /* 굵은 글씨 */
+}
+
+.basic {
+	background: #ffffff;
+	border: 1px solid #949494; /* 경계선 색상 */
+	width: calc(50% - 10px); /* 입력 박스 너비 조정 */
+	padding: 5px; /* 내부 여백 */
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
+	border-radius: 3px; /* 둥근 모서리 */
+	display: inline-block; /* 인라인 블록으로 설정하여 가로 정렬 */
+	margin-right: 5px; /* 입력 박스 간격 조정 */
+}
+
+.basic:last-child {
+	margin-right: 0; /* 마지막 입력 박스의 여백 제거 */
+}
+
+.btnSearchCorp, .btn1T {
+	background: #007bff; /* 버튼 배경색 */
+	color: white; /* 버튼 글자색 */
+	border: none; /* 경계선 없음 */
+	padding: 5px 10px; /* 내부 여백 */
+	cursor: pointer; /* 커서 변경 */
+	border-radius: 3px; /* 모서리 둥글게 */
+	margin-top: 5px; /* 위쪽 여백 */
+}
+
+.btnSearchCorp:hover, .btn1T:hover {
+	background: #0056b3; /* 호버 시 색상 변경 */
+}
+
+.resultArea2 {
+	background: #f9f9f9; /* 결과 영역 배경색 */
+	padding: 10px; /* 내부 여백 */
+	border: 1px solid #ddd; /* 경계선 */
+	border-radius: 5px; /* 모서리 둥글게 */
+}
+
+.imgArea {
+	width: 200px; /* 이미지 영역 너비 */
+	height: 150px; /* 이미지 영역 높이 */
+	border: 1px solid #ddd; /* 경계선 */
+	margin-bottom: 10px; /* 하단 여백 */
+}
+
+.imgClass {
+	width: 100%; /* 이미지 너비 */
+	height: 100%; /* 이미지 높이 */
+	object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.tdRight {
+	text-align: right; /* 오른쪽 정렬 */
+}
+
+.thSub2 {
+	width: 150px; /* 서브 헤더 너비 */
+}
+
+.valClean {
+	margin-left: 5px; /* 여백 */
+}
+
+textarea {
+	border: 1px solid #949494; /* 경계선 색상 */
+	padding: 5px; /* 내부 여백 */
+	width: calc(100% - 10px); /* 너비 100%에서 여백 제외 */
+	height: 100px; /* 높이 */
+	border-radius: 3px; /* 둥근 모서리 */
+}
+
+.facModal {
+	position: fixed; /* 화면에 고정 */
+	top: 50%; /* 수직 중앙 */
+	left: 50%; /* 수평 중앙 */
+	display: none;
+	transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+	z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.header {
+	display: flex; /* 플렉스 박스 사용 */
+	justify-content: center; /* 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: -20px; /* 상단 여백 */
+	background-color: #33363d; /* 배경색 */
+	height: 50px; /* 높이 */
+	color: white; /* 글자색 */
+	font-size: 20px; /* 글자 크기 */
+	text-align: center; /* 텍스트 정렬 */
+}
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
+.btnSaveClose button {
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
+
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -250px;
+}
+
+.box1 input{
+	width : 5%;
+}
+.box1 select{
+	width: 5%
+}
+th{
+	font-size : 14px;
+}
     
     </style>
     
@@ -105,82 +243,276 @@
 	</main>
 	    
 	    
-	<div class="facModal">
-      <div class="fac-main"></div>
-      <div class="fac-header">설비등록</div>
-      <div class="_1">설비번호</div>
-      <div class="_2">설비명</div>
-      <div class="_3">규격</div>
-      <div class="_4">형식</div>
-      <div class="_5">용도</div>
-      <div class="_6">설비종류</div>
-      <div class="_7">관리자(정)</div>
-      <div class="_8">관리자(부)</div>
-      <div class="_9">사용부서</div>
-      <div class="_10">제조번호</div>
-      <div class="_11">설치장소</div>
-      <div class="_12">제조사국적</div>
-      <div class="_13">제조회사</div>
-      <div class="_14">구입처</div>
-      <div class="_15">유지보수업체</div>
-      <div class="_16">도입시기</div>
-      <div class="_17">제조일자</div>
-      <div class="_18">구입가격</div>
-      <div class="_19">실적및현황 출력</div>
-      <div class="_20">처리용량</div>
-      <div class="_21">가동기준시간</div>
-      <div class="_22">점검주기</div>
-      <div class="_23">주변설비 및 관련사항</div>
-      <div class="_24">비고</div>
-      <div class="_25">설비점검주의사항</div>
-      <div class="_26">이미지</div>
-      <div class="_27">특이사항</div>
-      <input type="text" class="fac-no">
-	  <input type="text" class="fac-name">
-	  <select class="fac-gyu">
-	    <option value="가스질화">가스질화</option>
-	    <option value="이온질화">이온질화</option>
-	    <option value="침탄">침탄</option>
-	    <option value="VC">VC</option>
-	    <option value="PQ">PQ</option>
-	    <option value="TEMPERING">TEMPERING</option>
-	    <option value="진공">진공</option>
-	    <option value="세척기">세척기</option>
-	    <option value="후처리">후처리</option>
-	    <option value="기타">기타</option>
-	  </select>
-	  <input type="text" class="fac-hyun">
-	  <input type="text" class="fac-yong">
-	  <input type="text" class="fac-man-1">
-	  <select class="tech-no">
-	    <option value=""></option> <!-- 내용 비워둠 -->
-	  </select>
-	  <input type="text" class="fac-man-1">
-	  <input type="text" class="fac-man-2">
-	  <input type="text" class="fac-lot">
-	  <input type="text" class="fac-e-1">
-	  <input type="text" class="fac-plc">
-	  <input type="text" class="fac-e-2">
-	  <input type="text" class="fac-make">
-	  <input type="text" class="fac-cbuy">
-	  <input type="date" class="fac-e-3">
-	  <input type="text" class="fac-buy">
-	  <input type="date" class="fac-mday">
-	  <input type="text" class="fac-mon">
-	  <input type="text" class="fac-dan">
-	  <input type="text" class="fac-able">
-	  <input type="text" class="fac-time">
-	  <input type="text" class="fac-test">
-	  <input type="text" class="fac-e-4">
-	  <input type="text" class="fac-bigo">
-	  <input type="text" class="fac-cau">
-	  <input type="file" class="file-upload">
-	  <div class="image-preview"></div> <!-- 이미지 미리보기 박스 -->
-	  <input type="text" class="fac-unus">
-      <div class="save">저장</div>
-      <div class="close">닫기</div>
-
-    </div>    
+	<form method="post" id="facInsertForm" name="facInsertForm">
+			<div class="facModal">
+				<div class="header">설비등록</div>
+				<div class="detail">
+					<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+						<colgroup span="4">
+							<col width="*" />
+							<col width="40%" />
+							<col width="*" />
+							<col width="40%" />
+						</colgroup>
+						<tr>
+							<th class="">설비번호</th>
+							<td class="">
+								<input id="facNo" name="fac_no" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+							<th class="">설비명</th>
+							<td class="">
+								<input id="facName" name="fac_name" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+						</tr>
+						<tr>
+							<th class="">규격</th>
+							<td class="">
+<!-- 								<input id="facGyu" name="facGyu" class="basic" type="text" style="width:100%;" value="" /> -->
+								<select id="facGyu" name="fac_gyu" class="basic" style="width:90%;">
+									<option>가스질화</option>
+									<option>이온질화</option>
+									<option>침탄</option>
+									<option>VC</option>
+									<option>PQ</option>
+									<option>TEMPERING</option>
+									<option>진공</option>
+									<option>세척기</option>
+									<option>후처리</option>
+									<option>기타</option>
+								</select>
+							</td>
+							<th class="">형식</th>
+							<td class="">
+								<input id="facHyun" name="fac_hyun" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+						</tr>
+						<tr>
+							<th class="">용도</th>
+							<td class="">
+								<input id="facYong" name="fac_yong" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+							<th class="">설비종류</th>
+							<td class="">
+								<select id="techNo" name="tech_no" class="basic">									
+									
+										<option value="A08">PIT로(A08)</option>
+									
+										<option value="A11">PIT로(A11)</option>
+									
+										<option value="A12">PIT로(A12)</option>
+									
+										<option value="A13">PIT로(A13)</option>
+									
+										<option value="A14">PIT로(A14)</option>
+									
+										<option value="A15">PIT로(A15)</option>
+									
+										<option value="A16">Box Type(A16)</option>
+									
+										<option value="A17">Box Type(A17)</option>
+									
+										<option value="A18">Box Type(A18)</option>
+									
+										<option value="A20">Box Type(A20)</option>
+									
+										<option value="A21">Box Type(A21)</option>
+									
+										<option value="A27">이온질화(A27)</option>
+									
+										<option value="A30">Salt로(A30)</option>
+									
+										<option value="A31">Box Type(A31)</option>
+									
+										<option value="A32">PIT로(A32)</option>
+									
+										<option value="A33">Box Type(A33)</option>
+									
+										<option value="A34">Box Type(A34)</option>
+									
+										<option value="A35">PIT로(A35)</option>
+									
+										<option value="B16">템퍼링로(B16)</option>
+									
+										<option value="B17">템퍼링로(B17)</option>
+									
+										<option value="B38">진공로(B38)</option>
+									
+										<option value="B39">이온질화(B39)</option>
+									
+										<option value="B40">진공로(B40)</option>
+									
+										<option value="B41">진공로(B41)</option>
+									
+										<option value="B42">진공로(B42)</option>
+									
+										<option value="C01">PQ(C01)</option>
+									
+										<option value="C02">PQ(C02)</option>
+									
+										<option value="C03">PQ(C03)</option>
+									
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th class="">관리자(정)</th>
+							<td class="">
+								<input id="facMan1" name="fac_man1" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+							<th class="">관리자(부)</th>
+							<td class="">
+								<input id="facMan2" name="fac_man2" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+						</tr>
+						<tr>
+							<th class="">사용부서</th>
+							<td class="">
+								<input id="facLot" name="fac_lot" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+							<th class="">제조번호</th>
+							<td class="">
+								<input id="facE1" name="fac_e1" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+						</tr>
+						<tr>
+							<th class="">설치장소</th>
+							<td colspan="3" class="">
+								<input id="facPlc" name="fac_plc" class="basic" type="text" style="width:90%;" value="" />
+							</td>
+						</tr>
+					</table>
+													
+					<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
+								
+					<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+						<tr>
+							<td class="leftSide">
+								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+									<tr>
+										<th class="">제조사국적</th>
+										<td class="">
+											<input id="facE2" name="fac_e2" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+										<th class="">제조회사</th>
+										<td class="">
+											<input id="facMake" name="fac_make" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+									</tr>
+									<tr>
+										<th class="">구입처</th>
+										<td class="">
+											<input id="facCBuy" name="fac_cBuy" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+										<th class="">유지보수업체</th>
+										<td class="">
+											<input id="facE3" name="fac_e3" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+									</tr>
+									<tr>
+										<th class="">도입시기</th>
+										<td class="">
+											<input id="facBuy" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_buy" />
+										</td>
+										<th class="">제조일자</th>
+										<td class="">
+											<input id="facMday" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_mday" />
+										</td>
+									</tr>
+									<tr>
+										<th class="">구입가격</th>
+										<td class="">
+											<input id="facMon" name="fac_mon" class="basic" type="text" style="width:90;" value="0"/> 만원</td>
+										<th class="">실적및현황 출력</th>
+										<td class="">
+										 <input type="checkbox" id="facDan" name="fac_dan" checked="checked" class="">
+										</td>
+									</tr>
+									<tr>
+										<td class=""></td>
+										<td class=""></td>
+										<td class=""></td>
+										<td class=""></td>
+									</tr>
+								</table>
+								
+								<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
+								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+									<tr>
+										<th class="">처리용량</th>
+										<td colspan="3" class="">
+											<input id="facAble" name="fac_able" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+										</tr>
+									<tr>
+										<th class="">가동기준시간</th>
+										<td class="">
+											<input id="facTime" name="fac_time" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+										<th class="">점검주기</th>
+										<td class="">
+											<input id="facTest" name="fac_test" class="basic" type="text" style="width:90%;" value=""/>
+										</td>
+									</tr>
+									<tr>
+										<td class=""></td>
+										<td class=""></td>
+										<td class=""></td>
+										<td class=""></td>
+									</tr>
+								</table>
+								
+								<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
+								
+								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+									<tr>
+										<th class="">주변설비 및<br />관련사항</th>
+										<td class="">
+											<textarea id="facE4" name="fac_e4" class="basic" style="width:90%;"></textarea></td>
+									</tr>
+									<tr>
+										<th class="">비고</th>
+										<td class="">
+											<textarea id="facBigo" name="fac_bigo" class="basic" style="width:90%;"></textarea></td>
+									</tr>
+									<tr>
+										<th class="left">설비점검주의사항</td>
+										<td class=""><textarea id="facCau" name="fac_cau" class="basic" style="width:90%;  height: 70px;"></textarea></td>
+									</tr>
+								</table>
+							</td>
+							<td class="rightSide">
+								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+									<tr>
+										<th class="">이미지</th>
+										<td class="findImage">
+											<input type="hidden" name="type" value="facility" />
+											<input type="file" name="imageFile" title="이미지 찾기" onchange="previewImage(this,'previewId')">
+											<div class="imgArea" id='previewId' style="height:200px;border:1px solid #ddd;">
+												<img id="prev_previewId" src="/resources/images/noimage_01.gif" width="100%" height="100%" />
+											</div>
+										</td>
+									</tr>
+								</table>
+									<table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable2">
+										<colgroup span="3">
+											<col width="" />
+											<col width="" />
+										</colgroup>
+										<tr>
+											<th class="left" style="height: 70px;">특이사항</th>
+											<td class=""><textarea id="facUnus" name="fac_unus" class="basic" style="width:90%;  height: 70px;"></textarea></td>
+										</tr>
+									</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="btnSaveClose">
+		            <button class="save" type="button" onclick="save();">저장</button>
+		            <button class="close" type="button" onclick="window.close();">닫기</button>
+	    		</div>
+				</div>
+			</form>
 	    
 	    
 	    
@@ -275,24 +607,30 @@
 
 	// 드래그 기능 추가
 	const modal = document.querySelector('.facModal');
-	const header = document.querySelector('.fac-header'); // 헤더를 드래그할 요소로 사용
+	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
 	header.addEventListener('mousedown', function(e) {
-	    let offsetX = e.clientX - modal.getBoundingClientRect().left; // 마우스와 모달의 x 위치 차이
-	    let offsetY = e.clientY - modal.getBoundingClientRect().top; // 마우스와 모달의 y 위치 차이
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
 
-	    function moveModal(e) {
-	        modal.style.left = (e.clientX - offsetX) + 'px';
-	        modal.style.top = (e.clientY - offsetY) + 'px';
-	    }
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
 
-	    function stopMove() {
-	        window.removeEventListener('mousemove', moveModal); // 이동 중지
-	        window.removeEventListener('mouseup', stopMove); // 마우스 업 이벤트 제거
-	    }
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
 
-	    window.addEventListener('mousemove', moveModal); // 마우스 이동 이벤트
-	    window.addEventListener('mouseup', stopMove); // 마우스 업 이벤트
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
 	});
 		
 

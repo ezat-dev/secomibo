@@ -18,7 +18,105 @@
 	display: flex;
 	justify-content: space-between;
 }
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
+.btnSaveClose button {
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
+}
+.box1 {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	width: 1500px;
+	margin-left: -1190px;
+}
+
+.box1 input[type="text"] {
+	width: 5%;
+}
+
+.box1 input[type="date"] {
+	width: 7%;
+}
+
+.box1 select {
+	width: 5%
+}
+th{
+	font-size:14px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}    
 
 
     
@@ -28,7 +126,12 @@
     <body>
     
     <div class="tab">
-    
+    <div class="box1">
+         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>        
+		<label class="daylabel">기간 : </label>
+		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
+		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">		
+	</div>
     <div class="button-container">
         <button class="select-button">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
@@ -77,12 +180,13 @@
 		    selectableRangeMode:"click",
 		    reactiveData:true,
 		    headerHozAlign:"center",
-		    /*		    ajaxConfig:"POST",
+		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/authority/productList",
+		    ajaxURL:"/tkheat/preservation/gigiJeomgeom/getGigiJeomgeomList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
-*/		    placeholder:"조회된 데이터가 없습니다.",
+		    ajaxParams:{"sdate" : $("#sdate").val(),
+				"edate" : $("#edate").val(),},
+		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
@@ -91,36 +195,26 @@
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
+		        {title:"점검일", field:"mcd_inspection_date", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
+			    {title:"장비명", field:"ter_name", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"장비번호", field:"mcd_no", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
+				{title:"교정주기명", field:"mcd_correction_cycle", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
+		        {title:"차기교정일", field:"mcd_next_date", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"담당자", field:"mcd_manager_user_cd", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        {title:"최초등록일시", field:"mcd_reg_dt", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
+		        {title:"최초등록자명", field:"mcd_reg_cd", sorter:"string", width:100,
 			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
+		        {title:"최종수정일시", field:"mcd_mod_dt", sorter:"int", width:100,
 		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
-			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
-				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
-					hozAlign:"center"},
+		        {title:"최종수정자명", field:"mcd_mod_cd", sorter:"int", width:100,
+			        hozAlign:"center"},
 				    
 		    ],
 		    rowFormatter:function(row){

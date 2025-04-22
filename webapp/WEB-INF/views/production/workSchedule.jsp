@@ -55,7 +55,7 @@
     <body>
     
     <div class="tab">
-    <div class="box1">
+    <!-- <div class="box1">
          <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
         
         
@@ -79,7 +79,7 @@
 		
 		
 			
-	</div>
+	</div> -->
     
     <div class="button-container">
         <button class="select-button">
@@ -102,7 +102,7 @@
 </div>
     <main class="main">
 		<div class="container">
-			<div id="tab1" class="tabulator"></div>
+			<!-- <div id="tab1" class="tabulator"></div> -->
 		</div>
 	</main>
 	    

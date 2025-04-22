@@ -22,5 +22,11 @@ public interface PreservationDao {
 	
 	List<Jeomgeom> getJeomgeomInsertList();
 	
+	void jeomgeomInsertSave(Jeomgeom jeomgeom);
+	
 	List<Measure> getGigiGojangList(Measure measure);
+	
+	void gigiGojangSave(Measure measure);
+	
+	List<Measure> getGigiJeomgeomList(Measure measure);
 }

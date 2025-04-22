@@ -45,8 +45,23 @@ public class PreservationServiceImpl implements PreservationService{
 	}
 	
 	@Override
+	public void jeomgeomInsertSave(Jeomgeom jeomgeom) {
+		preservationDao.jeomgeomInsertSave(jeomgeom);
+	}
+	
+	@Override
 	public List<Measure> getGigiGojangList(Measure measure){
 		return preservationDao.getGigiGojangList(measure);
+	}
+	
+	@Override
+	public void gigiGojangSave(Measure measure) {
+		preservationDao.gigiGojangSave(measure);
+	}
+	
+	@Override
+	public List<Measure> getGigiJeomgeomList(Measure measure){
+		return preservationDao.getGigiJeomgeomList(measure);
 	}
 	
 

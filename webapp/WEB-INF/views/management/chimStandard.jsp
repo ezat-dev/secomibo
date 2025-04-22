@@ -1016,11 +1016,11 @@ body{
 		        	hozAlign:"center"},
 		        {title:"고객명", field:"corp_name", sorter:"string", width:120,
 		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"품명", field:"prod_name", sorter:"string", width:150,
+		        {title:"품명", field:"prod_name", sorter:"string", width:220,
 		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"도번/품번", field:"prod_no", sorter:"string", width:100,
+		        {title:"도번/품번", field:"prod_no", sorter:"string", width:200,
 		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"기종", field:"prod_kijong", sorter:"string", width:200,
+		        {title:"기종", field:"prod_kijong", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"재질", field:"prod_jai", sorter:"int", width:200,
 		        	hozAlign:"center", headerFilter:"input"},
@@ -1195,7 +1195,7 @@ body{
                 
                 alert("저장 되었습니다.");
                 $(".chimStandardModal").hide();
-                getBegaInsertList();
+                getChimStandardList();
                 
             },
             error: function(xhr, status, error) {

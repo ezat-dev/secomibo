@@ -2,6 +2,7 @@ package com.tkheat.dao;
 
 import java.util.List;
 
+import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 
 public interface ProductionDao {
@@ -11,6 +12,8 @@ public interface ProductionDao {
 	List<Work> getWorkStatusList(Work work);
 	
 	List<Work> getNonReportList(Work work);
+	
+	List<Ipgo> getNonReportIpgoList(Ipgo ipgo);
 	
 	List<Work> getProdWaitingStatusList(Work work);
 

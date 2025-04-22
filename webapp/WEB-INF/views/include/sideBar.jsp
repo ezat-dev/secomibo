@@ -362,6 +362,9 @@
 				var idx = 0;
 				for(let key in data){
 //					console.log(key);
+//					console.log(data[key]);
+					
+					
 					if(key != "perm_code" && key != "user_code"){
 						if(data[key] != null && data[key] != "N"){
 							

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tkheat.domain.Bega;
+
 import com.tkheat.domain.Corp;
 import com.tkheat.domain.Fac;
 import com.tkheat.domain.Measure;
@@ -206,6 +206,31 @@ public class ManagementController {
 
 		return rtnMap; 
 	}
+	
+	
+	//거래처등록 - insert
+		@RequestMapping(value = "/management/cutumInsert/cutumInsertSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> cutumInsertSave(
+				@ModelAttribute Corp corp){
+			Map<String, Object> result = new HashMap<>();
+
+			
+			try {
+				managementService.cutumInsertSave(corp);
+				result.put("status", "success");
+				result.put("message", "OK");
+
+			} catch (Exception e) {
+				result.put("status", "error");
+				result.put("message", e.getMessage());
+			}
+
+			System.out.println(result.get("status"));
+			System.out.println(result.get("message"));
+
+			return result;
+		}
 
 
 	//설비등록 - 화면로드
@@ -301,6 +326,8 @@ public class ManagementController {
 			rowMap.put("fac_code", chimStandardList.get(i).getFac_code());
 			rowMap.put("tech_te", chimStandardList.get(i).getTech_te());
 			rowMap.put("prod_code", chimStandardList.get(i).getProd_code());
+			rowMap.put("fac_name", chimStandardList.get(i).getFac_name());
+			
 
 			rtnList.add(rowMap);
 		}

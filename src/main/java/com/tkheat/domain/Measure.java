@@ -58,9 +58,24 @@ public class Measure {
 	
 	
 	
-	
-	
-	
+	//측정기기점검관리
+	private int mcd_cd;
+	private String mcd_inspection_date; //점검일
+	private String mcd_no; //장비번호
+	private String mcd_man_no;
+	private String mcd_correction_cycle; //교정주기명
+	private String mcd_next_date; //차기교정일
+	private String repair_comp;
+	private int mcd_manager_user_cd;
+	private String mcd_available_term;
+	private String repair_history;
+	private String mcd_file;
+	private String mcd_reg_dt; //최초등록일시
+	private String mcd_reg_cd; //최초등록자명
+	private String mcd_mod_dt; //최종수정일시
+	private String mcd_mod_cd; //최종수정자명
+	private int site_seq;
+	private String device_location_cd;
 	
 	
 	
@@ -353,5 +368,111 @@ public class Measure {
 	}
 	public void setTerr_name(String terr_name) {
 		this.terr_name = terr_name;
+	}
+	public String getMcd_inspection_date() {
+		return mcd_inspection_date;
+	}
+	public void setMcd_inspection_date(String mcd_inspection_date) {
+		this.mcd_inspection_date = mcd_inspection_date;
+	}
+	public String getMcd_no() {
+		return mcd_no;
+	}
+	public void setMcd_no(String mcd_no) {
+		this.mcd_no = mcd_no;
+	}
+
+	public String getMcd_next_date() {
+		return mcd_next_date;
+	}
+	public void setMcd_next_date(String mcd_next_date) {
+		this.mcd_next_date = mcd_next_date;
+	}
+
+	public String getMcd_reg_dt() {
+		return mcd_reg_dt;
+	}
+	public void setMcd_reg_dt(String mcd_reg_dt) {
+		this.mcd_reg_dt = mcd_reg_dt;
+	}
+
+	public String getMcd_mod_dt() {
+		return mcd_mod_dt;
+	}
+	public void setMcd_mod_dt(String mcd_mod_dt) {
+		this.mcd_mod_dt = mcd_mod_dt;
+	}
+
+	public int getMcd_cd() {
+		return mcd_cd;
+	}
+	public void setMcd_cd(int mcd_cd) {
+		this.mcd_cd = mcd_cd;
+	}
+	public String getMcd_man_no() {
+		return mcd_man_no;
+	}
+	public void setMcd_man_no(String mcd_man_no) {
+		this.mcd_man_no = mcd_man_no;
+	}
+	public String getMcd_correction_cycle() {
+		return mcd_correction_cycle;
+	}
+	public void setMcd_correction_cycle(String mcd_correction_cycle) {
+		this.mcd_correction_cycle = mcd_correction_cycle;
+	}
+	public String getRepair_comp() {
+		return repair_comp;
+	}
+	public void setRepair_comp(String repair_comp) {
+		this.repair_comp = repair_comp;
+	}
+	public int getMcd_manager_user_cd() {
+		return mcd_manager_user_cd;
+	}
+	public void setMcd_manager_user_cd(int mcd_manager_user_cd) {
+		this.mcd_manager_user_cd = mcd_manager_user_cd;
+	}
+	public String getMcd_available_term() {
+		return mcd_available_term;
+	}
+	public void setMcd_available_term(String mcd_available_term) {
+		this.mcd_available_term = mcd_available_term;
+	}
+	public String getRepair_history() {
+		return repair_history;
+	}
+	public void setRepair_history(String repair_history) {
+		this.repair_history = repair_history;
+	}
+	public String getMcd_file() {
+		return mcd_file;
+	}
+	public void setMcd_file(String mcd_file) {
+		this.mcd_file = mcd_file;
+	}
+	public String getMcd_reg_cd() {
+		return mcd_reg_cd;
+	}
+	public void setMcd_reg_cd(String mcd_reg_cd) {
+		this.mcd_reg_cd = mcd_reg_cd;
+	}
+	public String getMcd_mod_cd() {
+		return mcd_mod_cd;
+	}
+	public void setMcd_mod_cd(String mcd_mod_cd) {
+		this.mcd_mod_cd = mcd_mod_cd;
+	}
+	public int getSite_seq() {
+		return site_seq;
+	}
+	public void setSite_seq(int site_seq) {
+		this.site_seq = site_seq;
+	}
+	public String getDevice_location_cd() {
+		return device_location_cd;
+	}
+	public void setDevice_location_cd(String device_location_cd) {
+		this.device_location_cd = device_location_cd;
 	}
 }

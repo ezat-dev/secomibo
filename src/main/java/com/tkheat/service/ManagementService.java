@@ -25,6 +25,8 @@ public interface ManagementService {
 	
 	List<Corp> getCorpList(Corp corp);
 	
+	void cutumInsertSave(Corp corp);
+	
 	List<Fac> getFacList(Fac fac);
 	
 	List<Product> getProductList(Product product);

@@ -209,9 +209,9 @@
 		LEFT OUTER JOIN FACILITY ON
 		WORKILBO.FAC_CODE = FACILITY.FAC_CODE
 		WHERE WORKILBO.ILBO_STRT BETWEEN
-		#{sdate} + ' 00:00' AND #{edate} + ' 23:59'
+		#{sdate}  AND #{edate} 
 
-		<if test="corp_name != null and corp_name != ''">
+		<!-- <if test="corp_name != null and corp_name != ''">
 			AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
 		</if>
 		<if test="prod_name != null and prod_name != ''">
@@ -231,7 +231,7 @@
 			WHEN #{prod_gubn} = '개발' THEN '개발'
 			ELSE '%'
 			END
-		</if>
+		</if> -->
 	</select>
 
 	<!-- 부적합보고서 조회 -->
@@ -279,7 +279,7 @@
 		WHERE WORKERR.WERR_DATE
 		BETWEEN #{sdate} AND #{edate}
 
-		<if test="corp_name != null and corp_name != ''">
+		<!-- <if test="corp_name != null and corp_name != ''">
 			AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
 		</if>
 		<if test="prod_name != null and prod_name != ''">
@@ -299,8 +299,12 @@
 			WHEN #{prod_gubn} = '개발' THEN '개발'
 			ELSE ''
 			END,'%')
-		</if>
+		</if> -->
 	</select>
+	
+	
+	
+	
 
 
 

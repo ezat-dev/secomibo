@@ -5,8 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
-	<link rel="stylesheet" href="/tkheat/css/management/cutumInsert2.css">    
+    <title>거래처등록</title> 
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %>
 
@@ -16,29 +15,143 @@
 		justify-content: space-between;
 	}
 
-        #tab1, #tab2, #tab3, #tab4 {
-            visibility: hidden;
-        }
+.main {
+	width: 98%;
+}
 
-        #tab1 {
-            visibility: visible;
-        }
+.container {
+	display: flex;
+	justify-content: space-between;
+}
 
-        .tabulator {
-            width: 120%;
-            max-width: 100%;
-            max-height: 900px;
-            overflow-x: hidden !important;  
-        }
-        
-        .tabulator .tabulator-cell {
-            white-space: normal !important;
-            word-break: break-word; 
-            text-align: center;
-        }
-        
-.row_select{
-	background-color:#9ABCEA !important;
+.cutumModal {
+	position: fixed; /* 화면에 고정 */
+	top: 50%; /* 수직 중앙 */
+	left: 50%; /* 수평 중앙 */
+	display: none;
+	transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+	z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.header {
+	display: flex; /* 플렉스 박스 사용 */
+	justify-content: center; /* 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: -25px; /* 상단 여백 */
+	background-color: #33363d; /* 배경색 */
+	height: 50px; /* 높이 */
+	color: white; /* 글자색 */
+	font-size: 20px; /* 글자 크기 */
+	text-align: center; /* 텍스트 정렬 */
+}
+
+.detail {
+	background: #ffffff;
+	border: 1px solid #000000;
+	width: 850px; /* 가로 길이 고정 */
+	height: 630px; /* 세로 길이 고정 */
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+	margin: 20px auto; /* 중앙 정렬 */
+	padding: 20px;
+	border-radius: 5px; /* 모서리 둥글게 */
+	overflow-y: auto; /* 세로 스크롤 추가 */
+}
+
+.insideTable {
+	width: 100%; /* 테이블 너비 100% */
+	border-collapse: collapse; /* 테두리 겹침 제거 */
+}
+
+.insideTable th, .insideTable td {
+	padding: 8px; /* 셀 패딩 */
+	border: 1px solid #ccc; /* 셀 경계선 */
+	vertical-align: middle; /* 수직 정렬 */
+}
+
+.insideTable th {
+	background: #f0f0f0; /* 헤더 배경색 */
+}
+
+.basic, .rp-input, .form-control {
+	width: calc(100% - 12px); /* 너비 조정 */
+	padding: 5px; /* 내부 여백 */
+	border: 1px solid #949494; /* 경계선 색상 */
+	border-radius: 3px; /* 둥근 모서리 */
+}
+
+.basic[readonly] {
+	background-color: #f9f9f9; /* 읽기 전용 필드 색상 */
+}
+
+textarea {
+	width: 100%; /* 너비 100% */
+	padding: 5px; /* 내부 여백 */
+	border: 1px solid #949494; /* 경계선 색상 */
+	border-radius: 3px; /* 둥근 모서리 */
+}
+
+.findImage {
+	display: flex; /* 플렉스 박스 사용 */
+	align-items: center; /* 수직 정렬 */
+}
+
+.findImage input[type="file"] {
+	margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.imgArea {
+	width: 200px; /* 이미지 영역 너비 */
+	height: 150px; /* 이미지 영역 높이 */
+	border: 1px solid #ddd; /* 경계선 */
+	margin-bottom: 10px; /* 하단 여백 */
+}
+
+.imgArea img {
+	width: 100%; /* 이미지 너비 */
+	height: 100%; /* 이미지 높이 */
+	object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: -80px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
+}
+.btnSaveClose button {
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
 }
 
 .box1 {
@@ -46,15 +159,23 @@
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -900px;
+	margin-left: -1190px;
 }
 
-.box1 input{
-	width : 5%;
+.box1 input[type="text"] {
+	width: 5%;
 }
-.box1 select{
+
+.box1 input[type="date"] {
+	width: 7%;
+}
+
+.box1 select {
 	width: 5%
-}  
+}
+th{
+	font-size:14px;
+}
     
     
     </style>
@@ -67,7 +188,7 @@
          <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
         
         
-		<label class="daylabel">거래처명 :</label>
+		<!-- <label class="daylabel">거래처명 :</label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">지역 :</label>
@@ -77,7 +198,7 @@
 		<input type="text" class="corp_gubn" id="corp_gubn" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">영업담당자 :</label>
-		<input type="text" class="corp_mast" id="corp_mast" style="font-size: 16px; autocomplete="off">
+		<input type="text" class="corp_mast" id="corp_mast" style="font-size: 16px; autocomplete="off"> -->
 			
 	</div>
     
@@ -110,60 +231,112 @@
 	    
 	    
 	    
-	<div class="cutumModal">
-      <div class="cutum-main"></div>
-      <div class="cutum-header">거래처등록</div>
-      <div class="_1">거래처</div>
-      <div class="_2">사업자번호</div>
-      <div class="_3">전화번호</div>
-      <div class="_4">팩스번호</div>
-      <div class="_5">대표자</div>
-      <div class="_6">담당자</div>
-      <div class="_7">담당자 휴대폰</div>
-      <div class="_8">메일주소</div>
-      <div class="_9">업태</div>
-      <div class="_10">종목</div>
-      <div class="_11">주소</div>
-      <div class="_12">지역</div>
-      <div class="_13">거래게시일</div>
-      <div class="_14">기초잔액</div>
-      <div class="_15">마감일</div>
-      <div class="_16">구분</div>
-      <div class="_17">입금통장</div>
-      <div class="_18">비밀번호</div>
-      <div class="_19"></div>
-      <div class="_20">거래처명2</div>
-      <div class="_21">비고</div>
-      <div class="_22">영업담당자</div>
-      <input type="text" class="corp-name">
-	  <input type="text" class="corp-no">
-	  <input type="text" class="corp-tel">
-	  <input type="text" class="corp-fax">
-	  <input type="text" class="corp-boss">
-	  <input type="text" class="corp-mast">
-	  <input type="text" class="corp-hp">
-	  <input type="text" class="corp-mail">
-	  <input type="text" class="corp-upte">
-	  <input type="text" class="corp-upjo">
-	  <input type="text" class="corp-add">
-	  <input type="text" class="corp-plc">
-	  <input type="date" class="corp-strt">
-	  <input type="checkbox" class="corp-gyul-1">
-	  <input type="text" class="corp-jan">
-	  <input type="text" class="corp-gyul-2">
-	  <select class="corp-gubn">
-	    <option value="매입처">매입처</option>
-	    <option value="매출처">매출처</option>
-	  </select>
-	  <input type="text" class="corp-cno">
-	  <input type="text" class="corp-pwd">
-	  <input type="text" class="corp-name-2">
-	  <input type="text" class="corp-bigo">
-	  <input type="text" class="corp-business">
-	  <div class="save">저장</div>
-	  <div class="close">닫기</div>
-
-    </div>    
+	<form method="post" id="cutumInsertForm" name="cutumInsertForm">
+			<div class="cutumModal">
+				<div class="header">거래처등록</div>	
+				<div class="detail">
+					<table cellspacing="0" cellpadding="0" width="100%">
+						<tr>
+							<td class="">
+								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
+									<colgroup span="4">
+										<col width="*" />
+										<col width="40%" />
+										<col width="*" />
+										<col width="40%" />
+									</colgroup>
+									<tr>
+										<th class="">거래처</th>
+										<td class=""><input id="corpName" name="corp_name" class="basic" type="text" style="width:90%;" value="" />										
+										</td>
+										<th class="">사업자번호</th>
+										<td class=""><input id="corpNo" name="corp_no" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">전화번호</th>
+										<td class=""><input id="corpTel" name="corp_tel" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">팩스번호</th>
+										<td class=""><input id="corpFax" name="corp_fax" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">대표자</th>
+										<td class=""><input id="corpBoss" name="corp_boss" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">담당자</th>
+										<td class=""><input id="corpMast" name="corp_mast" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">담당자 휴대폰</th>
+										<td class=""><input id="corpHp" name="corp_hp" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">메일주소</th>
+										<td class=""><input id="corpMail" name="corp_mail" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">업태</th>
+										<td class=""><input id="corpUpte" name="corp_upte" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">종목</th>
+										<td class=""><input id="corpUpjo" name="corp_upjo" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">주소</th>
+										<td class=""><input id="corpAdd" name="corp_add" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">지역</th>
+										<td class=""><input id="corpPlc" name="corp_plc" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">거래게시일</th>
+										<td class="">
+											<input id="corpStrt" name="corp_strt" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" readonly="readonly" /> 
+											<input type="checkbox" id="corpGyul1" name="corp_gyul1" checked="checked" class="" />매월 말일
+										</td>
+										<th class="">기초잔액</th>
+										<td class=""><input id="corpJan" name="corp_jan" class="basic" type="text" style="width:100%;" value="0" /></td>
+										</tr>
+									<tr>
+										<th class="">마감일</th>
+										<td class="">
+											<input id="corpGyul2" name="corp_gyul2" class="basic" type="number" style="width:100px;IME-MODE:disabled;" value="" min="1" max="31" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"/>
+										</td>
+										<th class="">구분</th>
+										<td class=""><select id="corpGubn" name="corp_gubn"class="basic" style="width:85px;">
+														<option>매출처</option>
+														<option>매입처</option>
+													</select></td>
+									</tr>
+									<tr>
+										<th class="">입금통장</th>
+										<td class=""><input id="corpCno" name="corp_Cno" class="basic" type="text" style="width:90%;" value="" /></td>
+										<th class="">비밀번호</th>
+										<td class=""><input id="corpPwd" name="corp_pwd" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class=""></th>
+										<td class=""></td>
+										<th class="">거래처명2</th>
+										<td class=""><input id="corpName2" name="corp_name2" class="basic" type="text" style="width:90%;" value="" /></td>
+									</tr>
+									<tr>
+										<th class="">비고</th>
+										<td colspan="3" class=""><textarea id="corpBigo" name="corp_bigo" class="basic" style="width:90%;"></textarea></td>
+										
+									</tr>
+									<tr>
+										<th class="">영업담당자</th>
+										<td class="">
+											<select id='corpBusiness' name="corp_business" class='basic js-username-select'></select>
+										</td>
+										<td class=""></td>
+									</tr>
+								</table>
+							</td>
+							</tr>
+					</table>
+			</div>
+			<div class="btnSaveClose">
+	            <button class="save" type="button" onclick="save();">저장</button>
+	            <button class="close" type="button" onclick="window.close();">닫기</button>
+	    	</div>
+			</div>
+			</form>
 	    
 	    
 	    
@@ -272,24 +445,30 @@
 
 	// 드래그 기능 추가
 	const modal = document.querySelector('.cutumModal');
-	const header = document.querySelector('.cutum-header'); // 헤더를 드래그할 요소로 사용
+	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
 	header.addEventListener('mousedown', function(e) {
-	    let offsetX = e.clientX - modal.getBoundingClientRect().left; // 마우스와 모달의 x 위치 차이
-	    let offsetY = e.clientY - modal.getBoundingClientRect().top; // 마우스와 모달의 y 위치 차이
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
 
-	    function moveModal(e) {
-	        modal.style.left = (e.clientX - offsetX) + 'px';
-	        modal.style.top = (e.clientY - offsetY) + 'px';
-	    }
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
 
-	    function stopMove() {
-	        window.removeEventListener('mousemove', moveModal); // 이동 중지
-	        window.removeEventListener('mouseup', stopMove); // 마우스 업 이벤트 제거
-	    }
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
 
-	    window.addEventListener('mousemove', moveModal); // 마우스 이동 이벤트
-	    window.addEventListener('mouseup', stopMove); // 마우스 업 이벤트
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
 	});
 		
 
@@ -305,6 +484,32 @@
 	closeButton.addEventListener('click', function() {
 	    cutumModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+	//비가동등록 저장
+    function save() {
+        var formData = new FormData($("#cutumInsertForm")[0]);  
+        $.ajax({
+            url: "/tkheat/management/cutumInsert/cutumInsertSave",
+            type: "POST",
+            data: formData,
+            contentType: false,    
+            processData: false,   
+            dataType: "json",      
+            success: function(result) {
+                console.log(result);
+                
+                alert("저장 되었습니다.");
+                $(".cutumModal").hide();
+                getCutumList();
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("저장 오류:", error);
+            }
+        });
+    }
 	
 
     </script>

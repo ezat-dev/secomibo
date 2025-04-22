@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tkheat.dao.ProductionDao;
+import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 
 @Service
@@ -27,6 +28,11 @@ public class ProductionServiceImpl implements ProductionService{
 	@Override
 	public List<Work> getNonReportList(Work work) {
 		return productionDao.getNonReportList(work);
+	}
+	
+	@Override
+	public List<Ipgo> getNonReportIpgoList(Ipgo ipgo){
+		return productionDao.getNonReportIpgoList(ipgo);
 	}
 	
 	@Override

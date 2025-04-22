@@ -43,8 +43,23 @@ public class PreverationDaoImpl implements PreservationDao {
 	 }
 	
 	@Override
+	 public void jeomgeomInsertSave(Jeomgeom jeomgeom) {
+		 sqlSession.insert("jeomgeom.jeomgeomInsertSave", jeomgeom);
+	 }
+	
+	@Override
 	 public List<Measure> getGigiGojangList(Measure measure) {
 		 return sqlSession.selectList("measure.getGigiGojangList", measure);
+	 }
+	
+	@Override
+	 public void gigiGojangSave(Measure measure) {
+		 sqlSession.insert("measure.gigiGojangSave", measure);
+	 }
+	
+	@Override
+	 public List<Measure> getGigiJeomgeomList(Measure measure) {
+		 return sqlSession.selectList("measure.getGigiJeomgeomList", measure);
 	 }
 	
 	

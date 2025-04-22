@@ -117,7 +117,7 @@ textarea {
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1190px;
+	margin-left: -500px;
 }
 
 .box1 input[type="text"] {
@@ -175,7 +175,40 @@ textarea {
 th{
 	font-size : 14px;
 }
-    
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}    
     
     
     </style>
@@ -192,7 +225,7 @@ th{
 		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
 		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
 			
-		<label class="daylabel">고객명 : </label>
+		<!-- <label class="daylabel">고객명 : </label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">품명 : </label>
@@ -205,7 +238,7 @@ th{
 		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">제품구분 : </label>
-		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off">
+		<input type="text" class="prod_gubn" id="prod_gubn" style="font-size: 16px; autocomplete="off"> -->
 			
 	</div>
     
@@ -234,45 +267,47 @@ th{
 		</div>
 	</main>
 	    
+	    
+	   <form method="post" id="nonReportForm" name="nonReportForm"> 
 	    <div class="nonReportModal">
 			<div class="header">부적합보고서</div>
 	    		<div class="detail">
 					<div class="subTitle">
-						<div style=" position:absolute; width:40px; left:110px;"><input type="button" id="" name="" title="검색" class="btnSearchSmall" style="margin-top:2px;" onclick="" /></div>
+						<div style=" position:absolute; width:40px; left:110px;"><input type="button" id="" name="" title="검색" class="btnSearchSmall" style="margin-top:2px;" onclick="ipgoListModal();" /></div>
 						<div class="h3">수주정보</div>
 					</div>
 					<table cellspacing="0" cellpadding="0" width="100%" class="">									
 						<tr>
 							<th class="">수주NO</th>
-							<td class=""><input id="ordCode" name="ord_code" class="basic" type="text" style="width:90%;" value=""/></td>
+							<td class=""><input id="ord_code" name="ord_code" class="basic" type="text" style="width:90%;" value=""/></td>
 							<th class="">고객명</th>
-							<td class=""><input id="corpName" name="corp_name" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="corp_name" name="corp_name" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">품명</th>
-							<td class=""><input id="prodName" name="prod_name" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_name" name="prod_name" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">품번</th>
-							<td class=""><input id="prodNo" name="prod_no" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_no" name="prod_no" class="basic" type="text" style="width:90%;" value="" /></td>
 						</tr>
 						<tr>
 							<th class="">규격</th>
-							<td class=""><input id="prodGyu" name="prod_gyu" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_gyu" name="prod_gyu" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">재질</th>
-							<td class=""><input id="prodJai" name="prod_jai" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_jai" name="prod_jai" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">공정</th>
-							<td class=""><input id="techTe" name="tech_te" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="tech_te" name="tech_te" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">표면경도</th>
-							<td class=""><input id="prodPG" name="prod_pg" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_pg" name="prod_pg" class="basic" type="text" style="width:90%;" value="" /></td>
 						</tr>
 						<tr>
 							<th class="">경화깊이</th>
-							<td class=""><input id="prodCd" name="prod_cd" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_cd" name="prod_cd" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">심부경도</th>
-							<td class=""><input id="prodSG" name="prod_sg" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="prod_sg" name="prod_sg" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">수주일</th>
-							<td class=""><input id="ordDate" name="ord_date" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="ord_date" name="ord_date" class="basic" type="text" style="width:90%;" value="" /></td>
 							<th class="">입고LOT</th>
-							<td class=""><input id="ordLot" name="ord_lot" class="basic" type="text" style="width:90%;" value="" /></td>
-							<td class="" hidden=''><input id="ilboCode" name="ilbo_code" class="basic" type="text" style="width:90%;" value="" /></td>
-							<td class="" hidden=''><input id="ilboNo" name="ilbo_no" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class=""><input id="ord_lot" name="ord_lot" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class="" hidden=''><input id="ilbo_code" name="ilbo_code" class="basic" type="text" style="width:90%;" value="" /></td>
+							<td class="" hidden=''><input id="ilbo_no" name="ilbo_no" class="basic" type="text" style="width:90%;" value="" /></td>
 						</tr>
 					</table>
 								
@@ -439,15 +474,24 @@ th{
     	  			</div>
 				</div>
 			</div>	
-				
+			</form>
+			
+			
+			<!-- 수주정보(검색버튼) 팝업창 -->
+			<div id="ipgoListModal" class="modal-overlay" style="display: none;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="modal-title">설비 리스트</span> <span class="modal-close" onclick="closeIpgoListModal()">&times;</span>
+					</div>
+					<div id="ipgoListTabulator" style="height: 500px;"></div>
+				</div>
+			</div>
+						
 	    
 <script>
 	//전역변수
     var cutumTable;	
 
-    $(function() {
-    	  $("#tabs").tabs();
-    });
 
 	//로드
 	$(function(){
@@ -474,11 +518,6 @@ th{
 		    ajaxParams:{
 		    	"sdate": $("#sdate").val(),
 		    	"edate": $("#edate").val(),
-                "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_no": $("#prod_no").val(),
-                "prod_gyu": $("#prod_gyu").val(),
-                "prod_gubn": $("#prod_gubn").val(),
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -571,6 +610,83 @@ th{
 	closeButton.addEventListener('click', function() {
 		nonReportModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+	//설비검색버튼 리스트 모달
+    function ipgoListModal() {
+        document.getElementById('ipgoListModal').style.display = 'flex';
+
+        
+        let ipgoListTable = new Tabulator("#ipgoListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/production/nonReport/getNonReportIpgoList",
+            ajaxConfig:"POST",
+            ajaxParams:{},
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+            	{title:"수주NO", field:"ord_code", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"거래처", field:"corp_name", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품번", field:"prod_no", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"공정", field:"tech_te", sorter:"string", width:80,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"표면경도", field:"prod_pg", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+				{title:"심부경도", field:"prod_sg", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},
+				{title:"경화깊이", field:"prod_cd", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},
+				{title:"수주일", field:"ord_date", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},	
+				{title:"입고LOT", field:"ord_lot", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input"},
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                document.getElementById('ord_code').value = data.ord_code;
+                document.getElementById('corp_name').value = data.corp_name;
+                document.getElementById('prod_name').value = data.prod_name;
+                document.getElementById('prod_no').value = data.prod_no;
+                document.getElementById('prod_gyu').value = data.prod_gyu;
+                document.getElementById('prod_jai').value = data.prod_jai;
+                document.getElementById('tech_te').value = data.tech_te;
+                document.getElementById('prod_pg').value = data.prod_pg;
+                document.getElementById('prod_sg').value = data.prod_sg;
+                document.getElementById('prod_cd').value = data.prod_cd;
+                document.getElementById('ord_date').value = data.ord_date;
+                document.getElementById('ord_lot').value = data.ord_lot;
+                
+                document.getElementById('ipgoListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeIpgoListModal() {
+        document.getElementById('ipgoListModal').style.display = 'none';
+    }
+
+
+
+
+
+
+				    
 
     </script>
 

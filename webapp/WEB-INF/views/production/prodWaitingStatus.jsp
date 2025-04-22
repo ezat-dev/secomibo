@@ -64,7 +64,7 @@
 		<input type="date" class="sdate" id="sdate" style="font-size: 16px;" autocomplete="off"> ~ 
 		<input type="date" class="edate" id="edate" style="font-size: 16px;" autocomplete="off">
 			
-		<label class="daylabel">거래처 : </label>
+		<!-- <label class="daylabel">거래처 : </label>
 		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">품명 : </label>
@@ -80,7 +80,7 @@
 		<input type="text" class="corp_business" id="corp_business" style="font-size: 16px; autocomplete="off">
 		
 		<label class="daylabel">규격 : </label>
-		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off">
+		<input type="text" class="prod_gyu" id="prod_gyu" style="font-size: 16px; autocomplete="off"> -->
 		
 		
 		
@@ -143,12 +143,6 @@
 		    ajaxParams:{
 		    	"sdate": $("#sdate").val(),
 		    	"edate": $("#edate").val(),
-                "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_no": $("#prod_no").val(),
-                "prod_gyu": $("#prod_gyu").val(),
-                "corp_business": $("#corp_business").val(),
-                "ord_code": $("#ord_code").val(),
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 
 @Repository
@@ -27,6 +28,11 @@ public class ProductionDaoImpl implements ProductionDao{
 	@Override
 	public List<Work> getNonReportList(Work work) {
 		return sqlSession.selectList("work.getNonReportList",work);
+	}
+	
+	@Override
+	public List<Ipgo> getNonReportIpgoList(Ipgo ipgo) {
+		return sqlSession.selectList("ipgo.getNonReportIpgoList",ipgo);
 	}
 	
 	@Override

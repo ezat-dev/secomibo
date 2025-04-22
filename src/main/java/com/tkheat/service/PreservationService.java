@@ -5,7 +5,6 @@ import java.util.List;
 import com.tkheat.domain.Bega;
 import com.tkheat.domain.Jeomgeom;
 import com.tkheat.domain.Measure;
-import com.tkheat.domain.Product;
 import com.tkheat.domain.SparePart;
 import com.tkheat.domain.Suri;
 
@@ -21,6 +20,12 @@ public interface PreservationService {
 	
 	List<Jeomgeom> getJeomgeomInsertList();
 	
+	void jeomgeomInsertSave(Jeomgeom jeomgeom);
+	
 	List<Measure> getGigiGojangList(Measure measure);
+	
+	void gigiGojangSave(Measure measure);
+	
+	List<Measure> getGigiJeomgeomList(Measure measure);
 
 }

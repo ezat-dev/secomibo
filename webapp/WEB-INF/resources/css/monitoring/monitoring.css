@@ -1,5 +1,5 @@
 
-.rectangle-2 {
+.rectangle_2 {
     border : 1px solid black;
   background: #bde295;
   width: 160.62px;
@@ -8,7 +8,7 @@
   left: 241.78px;
   top: 0px;
 }
-.rectangle-12 {
+.rectangle_12 {
     border : 1px solid black;
   background: #fac090;
   width: 236.81px;
@@ -17,7 +17,7 @@
   left: 6px;
   top: 0px;
 }
-.rectangle-3 {
+.rectangle_3 {
     border : 1px solid black;
   background: #bde295;
   width: 160.62px;
@@ -26,7 +26,7 @@
   left: 402.4px;
   top: 0px;
 }
-.rectangle-4 {
+.rectangle_4 {
     border : 1px solid black;
   background: #bde295;
   width: 161.65px;
@@ -35,7 +35,7 @@
   left: 563.02px;
   top: 0px;
 }
-.rectangle-6 {
+.rectangle_6 {
     border : 1px solid black;
   background: #bde295;
   width: 950.33px;
@@ -44,7 +44,7 @@
   left: 724.67px;
   top: 0px;
 }
-.rectangle-7 {
+.rectangle_7 {
     border : 1px solid black;
   background: #bde295;
   width: 190.48px;
@@ -53,7 +53,7 @@
   left: 724.67px;
   top: 35.33px;
 }
-.chim-1-heat {
+.chim_1_heat {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -62,7 +62,7 @@
   left: 724.67px;
   top: 74.37px;
 }
-.chim-1-bon {
+.chim_1_bon {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -71,7 +71,7 @@
   left: 915.15px;
   top: 74.37px;
 }
-.rectangle-35 {
+.chim_1_gangon {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -80,7 +80,7 @@
   left: 1104.6px;
   top: 74.37px;
 }
-.rectangle-36 {
+.chim_1_cool {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -89,7 +89,7 @@
   left: 1295.07px;
   top: 74.37px;
 }
-.rectangle-37 {
+.chim_1_gonglo {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -98,7 +98,7 @@
   left: 1484.52px;
   top: 74.37px;
 }
-.chim-2-heat {
+.chim_2_heat {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -107,7 +107,7 @@
   left: 724.67px;
   top: 151.54px;
 }
-.chim-2-bon {
+.chim_2_bon {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -116,7 +116,7 @@
   left: 915.15px;
   top: 151.54px;
 }
-.rectangle-40 {
+.chim_2_gangon {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -125,7 +125,7 @@
   left: 1104.6px;
   top: 151.54px;
 }
-.rectangle-41 {
+.chim_2_cool {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -134,7 +134,7 @@
   left: 1295.07px;
   top: 151.54px;
 }
-.rectangle-42 {
+.chim_2_gonglo {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -143,7 +143,7 @@
   left: 1484.52px;
   top: 151.54px;
 }
-.chim-3-heat {
+.chim_3_heat {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -152,7 +152,7 @@
   left: 724.67px;
   top: 228.7px;
 }
-.chim-3-bon {
+.chim_3_bon {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -161,7 +161,7 @@
   left: 915.15px;
   top: 228.7px;
 }
-.rectangle-45 {
+.chim_3_gangon {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -170,7 +170,7 @@
   left: 1104.6px;
   top: 228.7px;
 }
-.rectangle-46 {
+.chim_3_cool {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -179,7 +179,7 @@
   left: 1295.07px;
   top: 228.7px;
 }
-.rectangle-47 {
+.chim_3_gonglo {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -188,7 +188,7 @@
   left: 1484.52px;
   top: 228.7px;
 }
-.chim-4-heat {
+.chim_4_heat {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -197,7 +197,7 @@
   left: 724.67px;
   top: 305.86px;
 }
-.chim-4-bon {
+.chim_4_bon {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -206,7 +206,7 @@
   left: 915.15px;
   top: 305.86px;
 }
-.rectangle-50 {
+.chim_4_gangon {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -215,7 +215,7 @@
   left: 1104.6px;
   top: 305.86px;
 }
-.rectangle-51 {
+.chim_4_cool {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -224,7 +224,7 @@
   left: 1295.07px;
   top: 305.86px;
 }
-.rectangle-52 {
+.chim_4_gonglo {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -233,7 +233,7 @@
   left: 1484.52px;
   top: 305.86px;
 }
-.chim-5-heat {
+.chim_5_heat {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -242,7 +242,7 @@
   left: 724.67px;
   top: 383.02px;
 }
-.chim-5-bon {
+.chim_5_bon {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -251,7 +251,7 @@
   left: 915.15px;
   top: 383.02px;
 }
-.rectangle-55 {
+.chim_5_gangon {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -260,7 +260,7 @@
   left: 1104.6px;
   top: 383.02px;
 }
-.rectangle-56 {
+.chim_5_cool {
     border : 1px solid black;
   background: #cbeffc;
   width: 189.45px;
@@ -269,7 +269,7 @@
   left: 1295.07px;
   top: 383.02px;
 }
-.rectangle-57 {
+.chim_5_gonglo {
     border : 1px solid black;
   background: #cbeffc;
   width: 190.48px;
@@ -278,7 +278,7 @@
   left: 1484.52px;
   top: 383.02px;
 }
-.tem-1-gong {
+.tem_1_gong {
     border : 1px solid black;
   background: #cbeffc;
   width: 950.33px;
@@ -287,7 +287,7 @@
   left: 724.67px;
   top: 460.19px;
 }
-.rectangle-8 {
+.rectangle_8 {
     border : 1px solid black;
   background: #bde295;
   width: 189.45px;
@@ -296,7 +296,7 @@
   left: 915.15px;
   top: 35.33px;
 }
-.rectangle-9 {
+.rectangle_9 {
     border : 1px solid black;
   background: #bde295;
   width: 190.48px;
@@ -305,7 +305,7 @@
   left: 1104.6px;
   top: 35.33px;
 }
-.rectangle-10 {
+.rectangle_10 {
     border : 1px solid black;
   background: #bde295;
   width: 189.45px;
@@ -314,7 +314,7 @@
   left: 1295.07px;
   top: 35.33px;
 }
-.rectangle-11 {
+.rectangle_11 {
     border : 1px solid black;
   background: #bde295;
   width: 190.48px;
@@ -323,7 +323,7 @@
   left: 1484.52px;
   top: 35.33px;
 }
-.rectangle-13 {
+.rectangle_13 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -332,7 +332,7 @@
   left: 6px;
   top: 74.37px;
 }
-.rectangle-14 {
+.rectangle_14 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -341,7 +341,7 @@
   left: 6px;
   top: 151.54px;
 }
-.rectangle-15 {
+.rectangle_15 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -350,7 +350,7 @@
   left: 6px;
   top: 228.7px;
 }
-.rectangle-16 {
+.rectangle_16 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -359,7 +359,7 @@
   left: 6px;
   top: 305.86px;
 }
-.rectangle-17 {
+.rectangle_17 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -368,7 +368,7 @@
   left: 6px;
   top: 383.02px;
 }
-.rectangle-58 {
+.rectangle_58 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -377,7 +377,7 @@
   left: 6px;
   top: 460.19px;
 }
-.chim-1-cutum {
+.chim_1_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -386,7 +386,7 @@
   left: 242.81px;
   top: 74.37px;
 }
-.chim-1-pum {
+.chim_1_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -395,7 +395,7 @@
   left: 403.43px;
   top: 74.37px;
 }
-.chim-1-lot {
+.chim_1_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -404,7 +404,7 @@
   left: 564.05px;
   top: 74.37px;
 }
-.chim-2-cutum {
+.chim_2_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -413,7 +413,7 @@
   left: 242.81px;
   top: 151.54px;
 }
-.chim-2-pum {
+.chim_2_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -422,7 +422,7 @@
   left: 403.43px;
   top: 151.54px;
 }
-.chim-2-lot {
+.chim_2_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -431,7 +431,7 @@
   left: 564.05px;
   top: 151.54px;
 }
-.chim-3-cutum {
+.chim_3_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -440,7 +440,7 @@
   left: 242.81px;
   top: 228.7px;
 }
-.chim-3-pum {
+.chim_3_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -449,7 +449,7 @@
   left: 403.43px;
   top: 228.7px;
 }
-.chim-3-lot {
+.chim_3_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -458,7 +458,7 @@
   left: 564.05px;
   top: 228.7px;
 }
-.chim-4-cutum {
+.chim_4_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -467,7 +467,7 @@
   left: 242.81px;
   top: 305.86px;
 }
-.chim-4-pum {
+.chim_4_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -476,7 +476,7 @@
   left: 403.43px;
   top: 305.86px;
 }
-.chim-4-lot {
+.chim_4_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -485,7 +485,7 @@
   left: 564.05px;
   top: 305.86px;
 }
-.chim-5-cutum {
+.chim_5_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -494,7 +494,7 @@
   left: 242.81px;
   top: 383.02px;
 }
-.chim-5-pum {
+.chim_5_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -503,7 +503,7 @@
   left: 403.43px;
   top: 383.02px;
 }
-.chim-5-lot {
+.chim_5_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -512,7 +512,7 @@
   left: 564.05px;
   top: 383.02px;
 }
-.tem-1-cutum {
+.tem_1_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -521,7 +521,7 @@
   left: 242.81px;
   top: 460.19px;
 }
-.tem-1-pum {
+.tem_1_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -530,7 +530,7 @@
   left: 403.43px;
   top: 460.19px;
 }
-.tem-1-lot {
+.tem_1_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -539,7 +539,7 @@
   left: 564.05px;
   top: 460.19px;
 }
-.tem-2-gong {
+.tem_2_gong {
     border : 1px solid black;
   background: #cbeffc;
   width: 950.33px;
@@ -548,7 +548,7 @@
   left: 724.67px;
   top: 537.35px;
 }
-.rectangle-61 {
+.rectangle_61 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -557,7 +557,7 @@
   left: 6px;
   top: 537.35px;
 }
-.tem-2-cutum {
+.tem_2_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -566,7 +566,7 @@
   left: 242.81px;
   top: 537.35px;
 }
-.tem-2-pum {
+.tem_2_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -575,7 +575,7 @@
   left: 403.43px;
   top: 537.35px;
 }
-.tem-2-lot {
+.tem_2_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -584,7 +584,7 @@
   left: 564.05px;
   top: 537.35px;
 }
-.byun-1-gong {
+.byun_1_gong {
     border : 1px solid black;
   background: #cbeffc;
   width: 950.33px;
@@ -593,7 +593,7 @@
   left: 724.67px;
   top: 614.51px;
 }
-.rectangle-63 {
+.rectangle_63 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -602,7 +602,7 @@
   left: 6px;
   top: 614.51px;
 }
-.byun-1-cutum {
+.byun_1_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -611,7 +611,7 @@
   left: 242.81px;
   top: 614.51px;
 }
-.byun-1-pum {
+.byun_1_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -620,7 +620,7 @@
   left: 403.43px;
   top: 614.51px;
 }
-.byun-1-lot {
+.byun_1_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -629,7 +629,7 @@
   left: 564.05px;
   top: 614.51px;
 }
-.byun-2-gong {
+.byun_2_gong {
     border : 1px solid black;
   background: #cbeffc;
   width: 950.33px;
@@ -638,7 +638,7 @@
   left: 724.67px;
   top: 691.67px;
 }
-.rectangle-65 {
+.rectangle_65 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -647,7 +647,7 @@
   left: 6px;
   top: 691.67px;
 }
-.byun-2-cutum {
+.byun_2_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -656,7 +656,7 @@
   left: 242.81px;
   top: 691.67px;
 }
-.byun-2-pum {
+.byun_2_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -665,7 +665,7 @@
   left: 403.43px;
   top: 691.67px;
 }
-.byun-2-lot {
+.byun_2_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -674,7 +674,7 @@
   left: 564.05px;
   top: 691.67px;
 }
-.clean-gong {
+.clean_gong {
     border : 1px solid black;
   background: #cbeffc;
   width: 950.33px;
@@ -683,7 +683,7 @@
   left: 724.67px;
   top: 768.84px;
 }
-.rectangle-67 {
+.rectangle_67 {
     border : 1px solid black;
   background: #bde295;
   width: 236.81px;
@@ -692,7 +692,7 @@
   left: 6px;
   top: 768.84px;
 }
-.clean-cutum {
+.clean_cutum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -701,7 +701,7 @@
   left: 242.81px;
   top: 768.84px;
 }
-.clean-pum {
+.clean_pum {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
@@ -710,7 +710,7 @@
   left: 403.43px;
   top: 768.84px;
 }
-.clean-lot {
+.clean_lot {
     border : 1px solid black;
   background: #e9f5dd;
   width: 160.62px;
