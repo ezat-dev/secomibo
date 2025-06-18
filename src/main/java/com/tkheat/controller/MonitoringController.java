@@ -25,10 +25,34 @@ public class MonitoringController {
 	private MonitoringService monitoringService;
 	
 
-	 //품질관리모니터링 - 화면로드
+	 //통합모니터링 - 화면로드
 	 @RequestMapping(value = "/monitoring/pumMonitoring", method = RequestMethod.GET)
 	 public String pumMonitoring() {
 		 return "/monitoring/pumMonitoring.jsp";
+	 }
+	 
+	//통합모니터링 - 화면로드
+	@RequestMapping(value = "/monitoring/monitoring", method = RequestMethod.GET)
+	public String monitoring() {
+		return "/monitoring/monitoring.jsp";
+	}
+	 
+	 //알람1 - 화면로드
+	 @RequestMapping(value = "/monitoring/alarm1", method = RequestMethod.GET)
+	 public String alarm1() {
+		 return "/monitoring/alarm1.jsp";
+	 }
+
+	 //알람2 - 화면로드
+	 @RequestMapping(value = "/monitoring/alarm2", method = RequestMethod.GET)
+	 public String alarm2() {
+		 return "/monitoring/alarm2.jsp";
+	 }
+
+	 //트렌드 - 화면로드
+	 @RequestMapping(value = "/monitoring/trend", method = RequestMethod.GET)
+	 public String trend() {
+		 return "/monitoring/trend.jsp";
 	 }
 	 
 	 

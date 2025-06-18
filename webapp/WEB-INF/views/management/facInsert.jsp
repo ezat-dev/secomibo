@@ -207,14 +207,14 @@ th{
            <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
         
         
-		<label class="daylabel">설비NO :</label>
+		<!-- <label class="daylabel">설비NO :</label>
 		<input type="text" class="fac_no" id="fac_no" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">설비명 :</label>
 		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px;" autocomplete="off">
 			
 		<label class="daylabel">설비현황표 :</label>
-		<input type="text" class="" id="" style="font-size: 16px;" autocomplete="off">
+		<input type="text" class="" id="" style="font-size: 16px;" autocomplete="off"> -->
 			
 	</div>
     <div class="button-container">
@@ -243,7 +243,7 @@ th{
 	</main>
 	    
 	    
-	<form method="post" id="facInsertForm" name="facInsertForm">
+	<form method="post" class="corrForm" id="facInsertForm" name="facInsertForm">
 			<div class="facModal">
 				<div class="header">설비등록</div>
 				<div class="detail">
@@ -257,18 +257,18 @@ th{
 						<tr>
 							<th class="">설비번호</th>
 							<td class="">
-								<input id="facNo" name="fac_no" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_no" name="fac_no" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 							<th class="">설비명</th>
 							<td class="">
-								<input id="facName" name="fac_name" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_name" name="fac_name" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 						</tr>
 						<tr>
 							<th class="">규격</th>
 							<td class="">
 <!-- 								<input id="facGyu" name="facGyu" class="basic" type="text" style="width:100%;" value="" /> -->
-								<select id="facGyu" name="fac_gyu" class="basic" style="width:90%;">
+								<select id="fac_gyu" name="fac_gyu" class="basic" style="width:90%;">
 									<option>가스질화</option>
 									<option>이온질화</option>
 									<option>침탄</option>
@@ -283,17 +283,17 @@ th{
 							</td>
 							<th class="">형식</th>
 							<td class="">
-								<input id="facHyun" name="fac_hyun" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_hyun" name="fac_hyun" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 						</tr>
 						<tr>
 							<th class="">용도</th>
 							<td class="">
-								<input id="facYong" name="fac_yong" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_yong" name="fac_yong" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 							<th class="">설비종류</th>
 							<td class="">
-								<select id="techNo" name="tech_no" class="basic">									
+								<select id="tech_no" name="tech_no" class="basic">									
 									
 										<option value="A08">PIT로(A08)</option>
 									
@@ -357,27 +357,27 @@ th{
 						<tr>
 							<th class="">관리자(정)</th>
 							<td class="">
-								<input id="facMan1" name="fac_man1" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_man1" name="fac_man1" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 							<th class="">관리자(부)</th>
 							<td class="">
-								<input id="facMan2" name="fac_man2" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_man2" name="fac_man2" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 						</tr>
 						<tr>
 							<th class="">사용부서</th>
 							<td class="">
-								<input id="facLot" name="fac_lot" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_lot" name="fac_lot" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 							<th class="">제조번호</th>
 							<td class="">
-								<input id="facE1" name="fac_e1" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_e1" name="fac_e1" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 						</tr>
 						<tr>
 							<th class="">설치장소</th>
 							<td colspan="3" class="">
-								<input id="facPlc" name="fac_plc" class="basic" type="text" style="width:90%;" value="" />
+								<input id="fac_plc" name="fac_plc" class="basic" type="text" style="width:90%;" value="" />
 							</td>
 						</tr>
 					</table>
@@ -391,40 +391,40 @@ th{
 									<tr>
 										<th class="">제조사국적</th>
 										<td class="">
-											<input id="facE2" name="fac_e2" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_e2" name="fac_e2" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 										<th class="">제조회사</th>
 										<td class="">
-											<input id="facMake" name="fac_make" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_make" name="fac_make" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 									</tr>
 									<tr>
 										<th class="">구입처</th>
 										<td class="">
-											<input id="facCBuy" name="fac_cBuy" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_cBuy" name="fac_cBuy" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 										<th class="">유지보수업체</th>
 										<td class="">
-											<input id="facE3" name="fac_e3" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_e3" name="fac_e3" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 									</tr>
 									<tr>
 										<th class="">도입시기</th>
 										<td class="">
-											<input id="facBuy" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_buy" />
+											<input id="fac_buy" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_buy" />
 										</td>
 										<th class="">제조일자</th>
 										<td class="">
-											<input id="facMday" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_mday" />
+											<input id="fac_mday" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_mday" />
 										</td>
 									</tr>
 									<tr>
 										<th class="">구입가격</th>
 										<td class="">
-											<input id="facMon" name="fac_mon" class="basic" type="text" style="width:90;" value="0"/> 만원</td>
+											<input id="fac_mon" name="fac_mon" class="basic" type="text" style="width:90;" value="0"/> 만원</td>
 										<th class="">실적및현황 출력</th>
 										<td class="">
-										 <input type="checkbox" id="facDan" name="fac_dan" checked="checked" class="">
+										 <input type="checkbox" id="fac_dan" name="fac_dan" checked="checked" class="">
 										</td>
 									</tr>
 									<tr>
@@ -440,17 +440,17 @@ th{
 									<tr>
 										<th class="">처리용량</th>
 										<td colspan="3" class="">
-											<input id="facAble" name="fac_able" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_able" name="fac_able" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 										</tr>
 									<tr>
 										<th class="">가동기준시간</th>
 										<td class="">
-											<input id="facTime" name="fac_time" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_time" name="fac_time" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 										<th class="">점검주기</th>
 										<td class="">
-											<input id="facTest" name="fac_test" class="basic" type="text" style="width:90%;" value=""/>
+											<input id="fac_test" name="fac_test" class="basic" type="text" style="width:90%;" value=""/>
 										</td>
 									</tr>
 									<tr>
@@ -467,16 +467,16 @@ th{
 									<tr>
 										<th class="">주변설비 및<br />관련사항</th>
 										<td class="">
-											<textarea id="facE4" name="fac_e4" class="basic" style="width:90%;"></textarea></td>
+											<textarea id="fac_e4" name="fac_e4" class="basic" style="width:90%;"></textarea></td>
 									</tr>
 									<tr>
 										<th class="">비고</th>
 										<td class="">
-											<textarea id="facBigo" name="fac_bigo" class="basic" style="width:90%;"></textarea></td>
+											<textarea id="fac_bigo" name="fac_bigo" class="basic" style="width:90%;"></textarea></td>
 									</tr>
 									<tr>
 										<th class="left">설비점검주의사항</td>
-										<td class=""><textarea id="facCau" name="fac_cau" class="basic" style="width:90%;  height: 70px;"></textarea></td>
+										<td class=""><textarea id="fac_cau" name="fac_cau" class="basic" style="width:90%;  height: 70px;"></textarea></td>
 									</tr>
 								</table>
 							</td>
@@ -500,7 +500,7 @@ th{
 										</colgroup>
 										<tr>
 											<th class="left" style="height: 70px;">특이사항</th>
-											<td class=""><textarea id="facUnus" name="fac_unus" class="basic" style="width:90%;  height: 70px;"></textarea></td>
+											<td class=""><textarea id="fac_unus" name="fac_unus" class="basic" style="width:90%;  height: 70px;"></textarea></td>
 										</tr>
 									</table>
 							</td>
@@ -508,6 +508,7 @@ th{
 					</table>
 				</div>
 				<div class="btnSaveClose">
+					<button class="delete" type="button" onclick="deleteFac();"  style="display: none;">삭제</button>
 		            <button class="save" type="button" onclick="save();">저장</button>
 		            <button class="close" type="button" onclick="window.close();">닫기</button>
 	    		</div>
@@ -521,6 +522,7 @@ th{
 <script>
 	//전역변수
     var cutumTable;	
+    var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -557,7 +559,7 @@ th{
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"fac_code", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
 		        	hozAlign:"center", headerFilter:"input"},
@@ -600,8 +602,28 @@ th{
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#facInsertForm')[0].reset();
+				$('.facModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#facInsertForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
+			},
+			
 		});		
 	}
+
 	
 
 
@@ -640,12 +662,88 @@ th{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
+		isEditMode = false;  // 추가 모드
+	    $('#facInsertForm')[0].reset(); // 폼 초기화
 		facModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
 	    facModal.style.display = 'none'; // 모달 숨김
 	});
+
+	
+	// 저장 and 수정
+	function save() {
+	    var formData = new FormData($("#facInsertForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.fac_code) {
+	        formData.append("mode", "update");
+	        formData.append("fac_code", selectedRowData.fac_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/facInsert/facInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".facModal").hide();
+	            getFacList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteFac() {
+	    if (!selectedRowData || !selectedRowData.fac_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/facInsert/facDelete",
+	        type: "POST",
+	        data: {
+	        	fac_code: selectedRowData.fac_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".facModal").hide();
+	                getFacList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 
 
 

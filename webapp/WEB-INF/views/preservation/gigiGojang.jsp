@@ -114,20 +114,32 @@ textarea {
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1190px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"] {
-	width: 5%;
-}
-
-.box1 input[type="date"] {
-	width: 7%;
-}
-
-.box1 select {
+.box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 .btnSaveClose {
 	display: flex;
 	justify-content: center; /* 가운데 정렬 */
@@ -233,7 +245,7 @@ th{
                                 <tbody><tr>
                                     <th class="left">측정기기</th>
                                     <td>
-                                        <select id="TER_CODE" name="ter_code" class="form-control rp-input" style="width:90%;">
+                                        <select id="ter_code" name="ter_code" class="form-control rp-input" style="width:90%;">
                                             
                                                 <option value="1">로크웰경도기</option>
                                             
@@ -243,14 +255,14 @@ th{
                                     </td>
                                     <th class="left">수리시작시간</th>
                                     <td>
-                                        <input type="date" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="TERR_STRT" name="terr_strt" value="" placeholder="0000-00-00" style="width:30%;">
+                                        <input type="date" class="form-control rp-input js-datepicker js-date-now hasDatepicker" id="terr_strt" name="terr_strt" value="" placeholder="0000-00-00" style="width:30%;">
     
                                         
                                             
                                             
-                                                <input type="text" class="form-control rp-input" id="TERR_STRT_h" name="terr_strt_h" placeholder="00" value="0" style="width:10%; text-align: center;">시
-                                                <input type="text" class="form-control rp-input" id="TERR_STRT_mm" name="terr_strt_mm" placeholder="00" value="0" style="width:10%; text-align: center;">분
-                                                <input type="text" class="form-control rp-input" id="TERR_STRT_ss" name="terr_strt_ss" placeholder="00" value="0" style="width:10%; text-align: center;">초
+                                                <input type="text" class="form-control rp-input" id="terr_strt_h" name="terr_strt_h" placeholder="00" value="0" style="width:10%; text-align: center;">시
+                                                <input type="text" class="form-control rp-input" id="terr_strt_mm" name="terr_strt_mm" placeholder="00" value="0" style="width:10%; text-align: center;">분
+                                                <input type="text" class="form-control rp-input" id="terr_strt_ss" name="terr_strt_ss" placeholder="00" value="0" style="width:10%; text-align: center;">초
                                             
                                             
                                         </td>
@@ -258,7 +270,7 @@ th{
                                 <tr>
                                     <th class="left">확인자</th>
                                     <td>
-                                        <select id="TERR_CHKMAN" name="terr_chkman" class="basic rp-input" style="width:90%;">
+                                        <select id="terr_chkman" name="terr_chkman" class="basic rp-input" style="width:90%;">
                                             
                                                 <option value="0">admin</option>
                                             
@@ -305,9 +317,9 @@ th{
                                         
                                             
                                             
-                                                <input type="text" class="form-control rp-input" id="TERR_END_h" name="terr_end_h" placeholder="00" value="0" style="width:10%; text-align: center;">시
-                                                <input type="text" class="form-control rp-input" id="TERR_END_mm" name="terr_end_mm" placeholder="00" value="0" style="width:10%; text-align: center;">분
-                                                <input type="text" class="form-control rp-input" id="TERR_END_ss" name="terr_end_ss" placeholder="00" value="0" style="width:10%; text-align: center;">초
+                                                <input type="text" class="form-control rp-input" id="terr_end_h" name="terr_end_h" placeholder="00" value="0" style="width:10%; text-align: center;">시
+                                                <input type="text" class="form-control rp-input" id="terr_end_mm" name="terr_end_mm" placeholder="00" value="0" style="width:10%; text-align: center;">분
+                                                <input type="text" class="form-control rp-input" id="terr_end_ss" name="terr_end_ss" placeholder="00" value="0" style="width:10%; text-align: center;">초
     
                                     </td>
                                 </tr>
@@ -315,35 +327,35 @@ th{
                                 <tr>
                                     <th class="left">고장일시</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_DATE" name="terr_date" value="" placeholder="0000-00-00" style="width:90%;">
+                                        <input type="text" class="form-control rp-input" id="terr_date" name="terr_date" value="" placeholder="0000-00-00" style="width:90%;">
                                     </td>
                                     <th class="left">수리시간</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_TIME" name="terr_time" value="" style="width:90%;" disabled="">
-                                        <input type="text" class="form-control rp-input hidden" id="TERR_CODE" name="terr_code" value="-1" style="width:90%;">
+                                        <input type="text" class="form-control rp-input" id="terr_time" name="terr_time" value="" style="width:90%;" disabled="">
+                                        <input type="text" class="form-control rp-input hidden" id="terr_code" name="terr_code" value="-1" style="width:90%;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">상태</th>
                                     <td>
-                                        <select id="TERR_CONDI" name="terr_condi" class="basic rp-input" style="width:90%;">
+                                        <select id="terr_condi" name="terr_condi" class="basic rp-input" style="width:90%;">
                                             <option>가동</option>
                                             <option>비가동</option>
                                         </select>
                                     </td>
                                     <th class="left">수리자</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="TERR_MAN" name="terr_man" value="" style="width:90%;">
+                                        <input type="text" class="form-control rp-input" id="terr_man" name="terr_man" value="" style="width:90%;">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">소요비용</th>
                                     <td>
-                                        <input type="text" class="basic rp-input" onchange="getNumber(this);" onkeyup="getNumber(this);" id="TERR_COST" name="terr_cost" value="" style="text-align:right; width:90%;">
+                                        <input type="text" class="basic rp-input" onchange="getNumber(this);" onkeyup="getNumber(this);" id="terr_cost" name="terr_cost" value="" style="text-align:right; width:90%;">
                                     </td>
                                     <th class="left">수리</th>
                                     <td>
-                                        <select id="TERR_SURI" name="terr_suri" class="basic rp-input" style="width:90%;">
+                                        <select id="terr_suri" name="terr_suri" class="basic rp-input" style="width:90%;">
                                             <option>수리</option>
                                             <option>완료</option>
                                         </select>
@@ -352,31 +364,31 @@ th{
                                 <tr>
                                     <th class="left">고장현상</th>
                                     <td>
-                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_REWARD" name="terr_reward" style="width:90%;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="2" id="terr_reward" name="terr_reward" style="width:90%;"></textarea>
                                     </td>
                                     <th class="left">수리내용</th>
                                     <td>
-                                        <textarea type="text" class="basic rp-input" rows="2" id="TERR_CONTENT" name="terr_content" style="width:90%;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="2" id="terr_content" name="terr_content" style="width:90%;"></textarea>
                                     </td>
                                 </tr><tr>
                                     <th class="left">비고</th>
                                     <td colspan="4">
-                                        <textarea type="text" class="basic rp-input" rows="5" id="TERR_BIGO" name="terr_bigo" style="width:90%; height: 100px;"></textarea>
+                                        <textarea type="text" class="basic rp-input" rows="5" id="terr_bigo" name="terr_bigo" style="width:90%; height: 100px;"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">수리전사진</th>
                                     <td>
-                                                <input id="TERR_BPHOTO" name="terr_bphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
+                                                <input id="terr_bphoto" name="terr_bphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="TERR_BPHOTO_BEFORE" name="terr_bphoto_before" height="220" width="100%" align="center"  style="display: none;">
+                                                <img id="terr_bphoto_before" name="terr_bphoto_before" height="220" width="100%" align="center"  style="display: none;">
                                             
                                     </td>
                                     <th class="left">수리후사진</th>
                                     <td>
-                                                <input id="TERR_APHOTO" name="terr_aphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
+                                                <input id="terr_aphoto" name="terr_aphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="TERR_APHOTO_AFTER" name="terr_aphoto_after" height="220" width="100%" align="center"  style="display: none;">
+                                                <img id="terr_aphoto_after" name="terr_aphoto_after" height="220" width="100%" align="center"  style="display: none;">
                                             
                                     </td>
                                 </tr>

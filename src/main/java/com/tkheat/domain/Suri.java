@@ -5,16 +5,22 @@ public class Suri {
 	private String sdate;
 	private String edate;
 	
+	private int fac_code;
 	private String fac_no; //설비코드
 	private String fac_name; //설비명
 	private String ffx_date; //수리일자
 	private String ffx_note; //수리내용
 	private String ffx_prt; //소요부품
 	private String ffx_wrk; //수리처
-	private String ffx_cost; //수리비용
+	private int ffx_cost; //수리비용
 	private String ffx_man; //담당자
 	private String ffx_next_date; //차기점검일
 	private float ffx_check; //수리완료여부
+	private int ffx_no;
+	private String ffx_evt;
+	private String ffx_time;
+	private String ffx_next;
+	private String ffx_end;
 	
 	
 	
@@ -65,10 +71,10 @@ public class Suri {
 	public void setFfx_prt(String ffx_prt) {
 		this.ffx_prt = ffx_prt;
 	}
-	public String getFfx_cost() {
+	public int getFfx_cost() {
 		return ffx_cost;
 	}
-	public void setFfx_cost(String ffx_cost) {
+	public void setFfx_cost(int ffx_cost) {
 		this.ffx_cost = ffx_cost;
 	}
 	public String getFfx_man() {
@@ -100,6 +106,42 @@ public class Suri {
 	}
 	public void setEdate(String edate) {
 		this.edate = edate;
+	}
+	public int getFfx_no() {
+		return ffx_no;
+	}
+	public void setFfx_no(int ffx_no) {
+		this.ffx_no = ffx_no;
+	}
+	public int getFac_code() {
+		return fac_code;
+	}
+	public void setFac_code(int fac_code) {
+		this.fac_code = fac_code;
+	}
+	public String getFfx_evt() {
+		return ffx_evt;
+	}
+	public void setFfx_evt(String ffx_evt) {
+		this.ffx_evt = ffx_evt;
+	}
+	public String getFfx_time() {
+		return ffx_time;
+	}
+	public void setFfx_time(String ffx_time) {
+		this.ffx_time = ffx_time;
+	}
+	public String getFfx_next() {
+		return ffx_next;
+	}
+	public void setFfx_next(String ffx_next) {
+		this.ffx_next = ffx_next;
+	}
+	public String getFfx_end() {
+		return ffx_end;
+	}
+	public void setFfx_end(String ffx_end) {
+		this.ffx_end = ffx_end;
 	}
 	
 

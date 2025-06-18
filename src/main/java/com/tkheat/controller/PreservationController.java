@@ -120,29 +120,60 @@ public class PreservationController {
 		return rtnMap; 
 	}
 	
-	//설비 비가동등록 - insert
-	@RequestMapping(value = "/preservation/begaInsert/begaInsertSave", method = RequestMethod.POST)
+	//설비 비가동등록 - insert,update
+	@RequestMapping(value = "/production/begaInsert/begaInsertSave", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> saveFac(@ModelAttribute Bega bega) {
-	    Map<String, Object> result = new HashMap<>();
-	    
-	    System.out.println("bega: " + bega.getFstp_date());
+	public Map<String, Object> begaInsertSave(
+			@ModelAttribute Bega bega,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
 
-	    try {
-	    	preservationService.begaInsertSave(bega);
-	        result.put("status", "success");
-	        result.put("message", "OK");
-	        
-	    } catch (Exception e) {
-	        result.put("status", "error");
-	        result.put("message", e.getMessage());
-	    }
-	    
-	    System.out.println(result.get("status"));
-	    System.out.println(result.get("message"));
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				preservationService.begaInsertSave(bega);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				preservationService.begaUpdateSave(bega);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
 
-	    return result;
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
 	}
+	
+	//부적합보고서 삭제 - delete
+	@RequestMapping(value = "/preservation/begaInsert/begaDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> begaDelete(@RequestParam("fstp_code") int fstp_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			preservationService.begaDelete(fstp_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}	
+	
+	
+	
 
 
 	//설비비가동율분석 - 화면로드
@@ -150,6 +181,8 @@ public class PreservationController {
 	public String begaAnaly() {
 		return "/preservation/begaAnaly.jsp";
 	}	 
+	
+	
 
 	//설비수리이력관리 - 화면로드
 	@RequestMapping(value = "/preservation/suriHistory", method = RequestMethod.GET)
@@ -187,6 +220,7 @@ public class PreservationController {
 			rowMap.put("ffx_wrk", suriHistoryList.get(i).getFfx_wrk());
 			rowMap.put("ffx_cost", suriHistoryList.get(i).getFfx_cost());
 			rowMap.put("ffx_note", suriHistoryList.get(i).getFfx_note());
+			rowMap.put("ffx_no", suriHistoryList.get(i).getFfx_no());
 
 			rtnList.add(rowMap);
 		}
@@ -196,6 +230,66 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
+	
+	//설비 수리이력 - insert, update
+	@RequestMapping(value = "/preservation/suriHistory/suriHistorySave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> suriHistorySave(
+			@ModelAttribute Suri suri,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				preservationService.suriHistoryInsertSave(suri);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				preservationService.suriHistoryUpdateSave(suri);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
+
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+		
+		
+	//설비 수리이력 삭제 - delete
+	@RequestMapping(value = "/preservation/suriHistory/suriHistoryDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> suriHistoryDelete(@RequestParam("ffx_no") int ffx_no) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			preservationService.suriHistoryDelete(ffx_no);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}	
+
+	
+	
+	
+	
+	
+	
 
 	//설비점검기준등록 - 화면로드
 	@RequestMapping(value = "/preservation/jeomgeomInsert", method = RequestMethod.GET)
@@ -216,6 +310,7 @@ public class PreservationController {
 		for(int i=0; i<jeomgeomInsertList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();
 			rowMap.put("idx", (i+1));
+			rowMap.put("chs_code", jeomgeomInsertList.get(i).getChs_code());
 			rowMap.put("chs_no", jeomgeomInsertList.get(i).getChs_no());
 			rowMap.put("tech_ht", jeomgeomInsertList.get(i).getTech_ht());
 			rowMap.put("fac_name", jeomgeomInsertList.get(i).getFac_name());
@@ -239,27 +334,65 @@ public class PreservationController {
 		return rtnMap; 
 	}
 	
-	//설비 점검기준등록 - insert
-		@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertSave", method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> saveJeomgeom(@ModelAttribute Jeomgeom jeomgeom) {
-		    Map<String, Object> result = new HashMap<>();
+	//설비 점검기준등록 - insert, update
+	@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> jeomgeomInsertSave(
+			@ModelAttribute Jeomgeom jeomgeom,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
 
-		    try {
-		    	preservationService.jeomgeomInsertSave(jeomgeom);
-		        result.put("status", "success");
-		        result.put("message", "OK");
-		        
-		    } catch (Exception e) {
-		        result.put("status", "error");
-		        result.put("message", e.getMessage());
-		    }
-		    
-		    System.out.println(result.get("status"));
-		    System.out.println(result.get("message"));
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				preservationService.jeomgeomInsertSave(jeomgeom);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				preservationService.jeomgeomUpdateSave(jeomgeom);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
 
-		    return result;
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
 		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+	
+	
+	//설비 점검기준등록 삭제 - delete
+	@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> jeomgeomDelete(@RequestParam("chs_code") int chs_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			preservationService.jeomgeomDelete(chs_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -310,6 +443,7 @@ public class PreservationController {
 			rowMap.put("terr_content", gigiGojangList.get(i).getTerr_content());
 			rowMap.put("terr_man", gigiGojangList.get(i).getTerr_man());
 			rowMap.put("terr_cost", gigiGojangList.get(i).getTerr_cost());
+			rowMap.put("terr_code", gigiGojangList.get(i).getTerr_code());
 
 			rtnList.add(rowMap);
 		}
@@ -391,5 +525,59 @@ public class PreservationController {
 
 			return rtnMap; 
 		}
+		
+		
+		//측정기기점검관리 - insert, update
+		@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> gigiJeomgeomSave(
+				@ModelAttribute Measure measure,
+				@RequestParam("mode") String mode) { 
+			Map<String, Object> result = new HashMap<>();
+
+			try {
+				if ("insert".equalsIgnoreCase(mode)) {
+					preservationService.gigiJeomgeomInsertSave(measure);
+				} else if ("update".equalsIgnoreCase(mode)) {
+					preservationService.gigiJeomgeomUpdateSave(measure);  
+				} else {
+					throw new IllegalArgumentException("Invalid mode: " + mode);
+				}
+
+				result.put("status", "success");
+				result.put("message", "OK");
+
+			} catch (Exception e) {
+				result.put("status", "error");
+				result.put("message", e.getMessage());
+			}
+
+			System.out.println(result.get("status"));
+			System.out.println(result.get("message"));
+
+			return result;
+		}
+
+
+		//측정기기점검관리 삭제 - delete
+		@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomDelete", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> gigiJeomgeomDelete(@RequestParam("ter_code") int ter_code) {
+			Map<String, Object> result = new HashMap<>();
+
+			try {
+				preservationService.jeomgeomDelete(ter_code);
+				result.put("status", "success");
+				result.put("message", "삭제 완료");
+			} catch (Exception e) {
+				result.put("status", "error");
+				result.put("message", e.getMessage());
+			}
+
+			System.out.println(result.get("status"));
+			System.out.println(result.get("message"));
+
+			return result;
+		}	
 
 }

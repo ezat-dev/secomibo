@@ -128,19 +128,32 @@ textarea {
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1200px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"]{
-	width : 5%;
-}
-.box1 input[type="date"]{
-	width : 7%;
-}
 .box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
 
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 
     
     </style>
@@ -160,7 +173,7 @@ textarea {
 	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getNonInsertList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>

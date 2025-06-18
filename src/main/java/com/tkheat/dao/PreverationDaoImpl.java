@@ -22,6 +22,11 @@ public class PreverationDaoImpl implements PreservationDao {
 		 return sqlSession.selectList("sparePart.getSparePartList");
 	 }
 	
+	
+	
+	
+	
+	
 	@Override
 	 public List<Bega> getBegaInsertList(Bega bega) {
 		 return sqlSession.selectList("bega.getBegaInsertList", bega);
@@ -33,9 +38,44 @@ public class PreverationDaoImpl implements PreservationDao {
 	 }
 	
 	@Override
+	 public void begaUpdateSave(Bega bega) {
+		 sqlSession.update("bega.begaUpdateSave", bega);
+	 }
+	
+	@Override
+	 public void begaDelete(int fstp_code) {
+		 sqlSession.delete("bega.begaDelete", fstp_code);
+	 }
+	
+	
+	
+	
+	
+	@Override
 	 public List<Suri> getSuriHistoryList(Suri suri) {
 		 return sqlSession.selectList("suri.getSuriHistoryList", suri);
 	 }
+	
+	@Override
+	 public void suriHistoryInsertSave(Suri suri) {
+		 sqlSession.insert("suri.suriHistoryInsertSave", suri);
+	 }
+	
+	@Override
+	 public void suriHistoryUpdateSave(Suri suri) {
+		 sqlSession.update("suri.suriHistoryUpdateSave", suri);
+	 }
+	
+	@Override
+	 public void suriHistoryDelete(int ffx_no) {
+		 sqlSession.delete("suri.suriHistoryDelete", ffx_no);
+	 }
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	 public List<Jeomgeom> getJeomgeomInsertList() {
@@ -48,6 +88,21 @@ public class PreverationDaoImpl implements PreservationDao {
 	 }
 	
 	@Override
+	 public void jeomgeomUpdateSave(Jeomgeom jeomgeom) {
+		 sqlSession.update("jeomgeom.jeomgeomUpdateSave", jeomgeom);
+	 }
+	
+	@Override
+	 public void jeomgeomDelete(int chs_code) {
+		 sqlSession.delete("jeomgeom.jeomgeomDelete", chs_code);
+	 }
+	
+	
+	
+	
+	
+	
+	@Override
 	 public List<Measure> getGigiGojangList(Measure measure) {
 		 return sqlSession.selectList("measure.getGigiGojangList", measure);
 	 }
@@ -57,9 +112,29 @@ public class PreverationDaoImpl implements PreservationDao {
 		 sqlSession.insert("measure.gigiGojangSave", measure);
 	 }
 	
+	
+	
+	
+	
+	
 	@Override
 	 public List<Measure> getGigiJeomgeomList(Measure measure) {
 		 return sqlSession.selectList("measure.getGigiJeomgeomList", measure);
+	 }
+	
+	@Override
+	 public void gigiJeomgeomInsertSave(Measure measure) {
+		 sqlSession.insert("measure.gigiJeomgeomInsertSave", measure);
+	 }
+	
+	@Override
+	 public void gigiJeomgeomUpdateSave(Measure measure) {
+		 sqlSession.update("measure.gigiJeomgeomUpdateSave", measure);
+	 }
+	
+	@Override
+	 public void gigiJeomgeomDelete(int ter_code) {
+		 sqlSession.delete("measure.gigiJeomgeomDelete", ter_code);
 	 }
 	
 	

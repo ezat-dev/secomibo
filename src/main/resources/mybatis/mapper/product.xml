@@ -262,5 +262,76 @@
 			</if>
 	</select>
 	
+	
+	
+	
+	<update id="productUpdateSave" parameterType="product">
+		UPDATE PRODUCT 
+		       SET PROD_DATE = #{prod_date}, 
+		       PROD_GUBN = #{prod_gubn}, 
+		       CORP_CODE =#{corp_code}, 
+		       PROD_CNO = #{prod_cno}, 
+		       PROD_NAME = #{prod_name}, 
+		       PROD_NO = #{prod_no}, 
+		       PROD_GYU = #{prod_gyu}, 
+		       PROD_JAI = #{prod_jai}, 
+		       PROD_DANW = #{prod_danw}, 
+		       PROD_DANJ = #{prod_danj}, 
+		       PROD_DANG = #{prod_dang}, 
+		       TECH_NO = #{tech_no}, 
+		       PROD_PG = #{prod_pg}, 
+		       PROD_PG1 = #{prod_pg1}, 
+		       PROD_PG2 = #{prod_pg2}, 
+		       PROD_SG = #{prod_sg}, 
+		       PROD_SG1 = #{prod_sg1}, 
+		       PROD_SG2 = #{prod_sg2}, 
+		       PROD_GD1 = #{prod_gd1}, 
+		       PROD_GD2 = #{prod_gd2}, 
+		       PROD_GD3 = #{prod_gd3}, 
+		       PROD_GD4 = #{prod_gd4}, 
+		       PROD_GD5 = #{prod_gd5}, 
+		       PROD_E1 = #{prod_e1}, 
+		       PROD_E2 = #{prod_e2}, 
+		       PROD_NOTE = #{prod_note}, 
+		       PROD_MODEL = #{prod_model}, 
+		       PROD_DANCH = #{prod_danch}, 
+		       PROD_PLT = #{prod_plt}, 
+		       PROD_BOX = #{prod_box}, 
+		       PROD_SNP = #{prod_snp}, 
+		       PROD_BANGCH = #{prod_bangch}, 
+		       PROD_VNYL = #{prod_vnyl}, 
+		       PROD_PAD = #{prod_pad}, 
+		       PROD_UPJONG = #{prod_upjong}, 
+		       PROD_REALJAI = #{prod_realjai},
+		       TECH_PATTERN = #{tech_pattern},
+		       TECH_SEQ = #{tech_seq} 
+		 WHERE PROD_CODE = #{prod_code}
+	</update>
+	
+	
+	<delete id="productDelete" parameterType="int">
+    DELETE FROM PRODUCT
+    WHERE PROD_CODE = #{prod_code}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

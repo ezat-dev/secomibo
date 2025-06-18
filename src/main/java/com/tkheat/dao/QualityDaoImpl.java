@@ -21,7 +21,7 @@ public class QualityDaoImpl implements QualityDao{
 	
 	
 	@Override public List<Work> getNonInsertList(Work work) { 
-		return sqlSession.selectList("nonInsert.getNonInsertList",work); 
+		return sqlSession.selectList("work.getNonInsertList",work); 
 	}
 	 
 	

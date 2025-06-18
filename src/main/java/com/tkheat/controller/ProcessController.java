@@ -48,6 +48,7 @@ public class ProcessController {
 				HashMap<String, Object> rowMap = new HashMap<String, Object>();
 				rowMap.put("idx", (i+1));
 				rowMap.put("ilbo_strt", readySiljukList.get(i).getIlbo_strt());
+				rowMap.put("ilbo_date", readySiljukList.get(i).getIlbo_date());
 				rowMap.put("ilbo_code", readySiljukList.get(i).getIlbo_code());
 				rowMap.put("ord_code", readySiljukList.get(i).getOrd_code());
 				rowMap.put("ilbo_lot", readySiljukList.get(i).getIlbo_lot());

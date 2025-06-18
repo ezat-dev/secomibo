@@ -342,7 +342,7 @@ textarea {
 	</main>
 
 
-<form method="post" id="productInsertForm" name="productInsertForm">	    
+<form method="post" class="corrForm" id="productInsertForm" name="productInsertForm">	    
 <div class="productModal">    
  <div class="detail">
  <div class="header">
@@ -360,10 +360,10 @@ textarea {
             </colgroup>
             <tbody><tr>
               <th class="left">등록일</th>
-              <td><input id="PROD_DATE" name="prod_date" class="date valPost valClean hasDatepicker" type="date" style="width:100px;" maxlength="20" size="20"></td>
+              <td><input id="prod_date" name="prod_date" class="date valPost valClean hasDatepicker" type="date" style="width:100px;" maxlength="20" size="20"></td>
               <th>구분</th>
               <td>
-                <select id="PROD_GUBN" name="prod_gubn" class="basic valPost valClean" style="width:150px;">										
+                <select id="prod_gubn" name="prod_gubn" class="basic valPost valClean" style="width:150px;">										
                   <option>양산</option>
                   <option>개발</option>
                 </select>
@@ -377,40 +377,40 @@ textarea {
                 <input class="btnSearchCorp" name="" type="button" title="거래처선택" onclick="openCutumModal();"  >
               </td>
               <th>관리번호</th>
-              <td><input id="PROD_CNO" name="prod_cno" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_cno" name="prod_cno" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>
             <tr>
               <th class="left">품명</th>
               <td>
-                <input id="PROD_NAME" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
+                <input id="prod_name" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
 <!--                 <input id="PROD_CODE" name="prod_code" class="basic valPost valClean" type="hidden" value=""> -->
               </td>
               <th><span class="left">품번</span></th>
-              <td><input id="PROD_NO" name="prod_no" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_no" name="prod_no" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>
             <tr>
               <th class="left">모델명</th>
-              <td><input id="PROD_MODEL" name="prod_model" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_model" name="prod_model" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
               <th><span class="left">재질</span></th>
-              <td><input id="PROD_JAI" name="prod_jai" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_jai" name="prod_jai" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>									
             <tr>
               <th class="left">규격</th>
               <td>
-                <input id="PROD_GYU" name="prod_gyu" class="basic valPost valClean" type="text" style="width:200px;" value="">
-                <input type="button" value="Φ" class="btn1T" onclick="$('#PROD_GYU').val($('#PROD_GYU').val()+'Φ');">
-                <input type="button" value="X" class="btn1T" onclick="$('#PROD_GYU').val($('#PROD_GYU').val()+'X');">
-                <input type="button" value="L" class="btn1T" onclick="$('#PROD_GYU').val($('#PROD_GYU').val()+'L');">
+                <input id="prod_gyu" name="prod_gyu" class="basic valPost valClean" type="text" style="width:200px;" value="">
+                <input type="button" value="Φ" class="btn1T" onclick="$('#prod_gyu').val($('#prod_gyu').val()+'Φ');">
+                <input type="button" value="X" class="btn1T" onclick="$('#prod_gyu').val($('#prod_gyu').val()+'X');">
+                <input type="button" value="L" class="btn1T" onclick="$('#prod_gyu').val($('#prod_gyu').val()+'L');">
               </td>
               <th><span class="left">단중(kg)</span></th>
-              <td><input id="PROD_DANJ" name="prod_danj" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_danj" name="prod_danj" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>
             <tr>
               <th class="left">단가</th>
-              <td><input id="PROD_DANG" name="prod_dang" class="basic valPost valClean" type="text" style="width:90%;" value="0"></td>
+              <td><input id="prod_dang" name="prod_dang" class="basic valPost valClean" type="text" style="width:90%;" value="0"></td>
               <th class="left">단위</th>
               <td>
-                <select id="PROD_DANW" name="prod_dawn" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_dawn" name="prod_dawn" class="basic valPost valClean" style="width:150px;">
                   <option>EA</option>
                   <option>CH</option>
                   <option>KG</option>
@@ -423,23 +423,23 @@ textarea {
                 <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                   <tbody><tr>
                   <th>치수1</th>
-                  <td><input id="PROD_CHISU1N" name="prod_chisu1n" class="basic valPost valClean" type="text" value="">-<input id="PROD_CHISU1S" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu1n" name="prod_chisu1n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu1s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수2</th>
-                  <td><input id="PROD_CHISU2N" name="prod_chisu2n" class="basic valPost valClean" type="text" value="">-<input id="PROD_CHISU2S" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu2n" name="prod_chisu2n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu2s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수3</th>
-                  <td><input id="PROD_CHISU3N" name="prod_chisu3n" class="basic valPost valClean" type="text" value="">-<input id="PROD_CHISU3S" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu3n" name="prod_chisu3n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu3s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수4</th>
-                  <td><input id="PROD_CHISU4N" name="prod_chisu4n" class="basic valPost valClean" type="text" value="">-<input id="PROD_CHISU4S" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu4n" name="prod_chisu4n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu4s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수5</th>
-                  <td><input id="PROD_CHISU5N" name="prod_chisu5n" class="basic valPost valClean" type="text" value="">-<input id="PROD_CHISU5S" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu5n" name="prod_chisu5n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu5s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                 </tbody></table>
               </td>
@@ -448,16 +448,16 @@ textarea {
               <th class="left">연마여유(mm)</th>
               <td style="vertical-align: top;">
                 <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-                  <tbody><tr><td><input id="PROD_POLISH" name="prod_polish" class="basic valPost valClean" type="text" style="width:90%;" value="0"></td>
+                  <tbody><tr><td><input id="prod_polish" name="prod_polish" class="basic valPost valClean" type="text" style="width:90%;" value="0"></td>
                 </tr></tbody></table>
               </td>
               <th><span class="left">박스당수량</span></th>
-              <td><input id="PROD_BOXSU" name="prod_boxsu" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="prod_boxsu" name="prod_boxsu" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>
             <tr>
               <th><span class="left">공정</span></th>
               <td>
-                <select id="TECH_NO" name="tech_no" class="basic valPost valClean">
+                <select id="tech_no" name="tech_no" class="basic valPost valClean">
                   
                     <option value="A08">PIT로-가스산질화(A08)</option>
                   
@@ -518,7 +518,7 @@ textarea {
                 </select>
               </td>
               <th>공정순서</th>
-              <td><input id="TECH_SEQ" name="tech_seq" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+              <td><input id="tech_seq" name="tech_seq" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
             </tr>
             <tr>
               <th class="left changeDanga" style="display: none;">입고변경단가</th>
@@ -539,21 +539,21 @@ textarea {
             </tr>	
             <tr>
               <th>공정패턴</th>
-              <td><input id="TECH_PATTERN" name="tect_pattern" class="basic valPost valClean" type="number" value=""></td>
+              <td><input id="tech_pattern" name="tech_pattern" class="basic valPost valClean" type="number" value=""></td>
               <th>포장방법</th>
-              <td><input id="PROD_DANCH" name="prod_danch" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>	
+              <td><input id="prod_danch" name="prod_danch" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>	
             </tr>
             <tr>
               <th class="left">BOX TYPE</th>
               <td>
-                <select id="PROD_BOX" name="prod_box" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_box" name="prod_box" class="basic valPost valClean" style="width:150px;">
                   <option>A</option>
                   <option>B</option>
                 </select>
               </td>
               <th class="left">열처리곡선</th>
               <td>
-                <select id="PROD_SNP" name="prod_snp" class="basic valPost valClean" type="text" style="width:150px;" value="">
+                <select id="prod_snp" name="prod_snp" class="basic valPost valClean" type="text" style="width:150px;" value="">
                   <option>불요</option>
                   <option>필요</option>
                 </select>
@@ -562,7 +562,7 @@ textarea {
             <tr>
               <th class="left">방청유</th>
               <td>
-                <select id="PROD_BANGCH" name="prod_bangch" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_bangch" name="prod_bangch" class="basic valPost valClean" style="width:150px;">
                   <option>필요없음</option>
                   <option>수용성</option>
                   <option>유용성</option>
@@ -571,7 +571,7 @@ textarea {
               </td>
               <th class="left">후처리</th>
               <td>
-                <select id="PROD_VNYL" name="prod_vnyl" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_vnyl" name="prod_vnyl" class="basic valPost valClean" style="width:150px;">
                   <option>불요</option>
                   <option>쇼트SHOT-H</option>
                   <option>쇼트SHOT-T</option>
@@ -587,7 +587,7 @@ textarea {
             <tr>
               <th class="left">시편제목</th>
               <td>
-                <select id="PROD_PAD" name="prod_pad" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_pad" name="prod_pad" class="basic valPost valClean" style="width:150px;">
                   <option>본품</option>
                   <option>대체시편</option>
                   <option>시편절단(본품절단)</option>
@@ -596,13 +596,13 @@ textarea {
               </td>
               <th class="left">제품실재고 현황</th>
               <td>
-                <input id="PROD_REALJAI" name="prod_realjai" class="basic valPost valClean" type="text" style="width:90%;" value="">
+                <input id="prod_realjai" name="prod_realjai" class="basic valPost valClean" type="text" style="width:90%;" value="">
               </td>
             </tr>	
             <tr>
             <th class="left">업종</th>
               <td>
-                <select id="PROD_UPJONG" name="prod_upjong" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_upjong" name="prod_upjong" class="basic valPost valClean" style="width:150px;">
                   <option>자동차</option>
                   <option>선박</option>
                   <option>유압</option>
@@ -612,7 +612,7 @@ textarea {
               </td>
             <th class="left">성적서</th>
               <td>
-                <select id="PROD_PLT" name="prod_prod_plt" class="basic valPost valClean" style="width:150px;">
+                <select id="prod_plt" name="prod_plt" class="basic valPost valClean" style="width:150px;">
                   <option>필요</option>
                   <option>불필요</option>
                 </select>
@@ -625,7 +625,7 @@ textarea {
                   <tbody><tr>
                     <th class="thSub2">표면경도</th>
                     <th class="thSub">
-                      <select id="PROD_PG" name="prod_pg" class="basic valPost valClean">
+                      <select id="prod_pg" name="prod_pg" class="basic valPost valClean">
                         <option>HRC</option>
                         <option>HV</option>
                         <option>HS</option>
@@ -638,14 +638,14 @@ textarea {
                       </select>
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_PG1" name="prod_pg1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
-                      ~ <input id="PROD_PG2" name="prod_pg2" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_pg1" name="prod_pg1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
+                      ~ <input id="prod_pg2" name="prod_pg2" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>												
                   <tr>
                     <th class="thSub2">소입경도</th>
                     <th class="thSub">
-                      <select id="PROD_SI" name="prod_si" class="basic valPost valClean">
+                      <select id="prod_si" name="prod_si" class="basic valPost valClean">
                         <option>HRC</option>
                         <option>HV</option>
                         <option>HS</option>
@@ -658,14 +658,14 @@ textarea {
                       </select>
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_SI1" name="prod_si1" class="basic valPost valClean" type="text" style="width:70px;" value="">
-                      ~ <input id="PROD_SI2" name="prod_si2" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_si1" name="prod_si1" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      ~ <input id="prod_si2" name="prod_si2" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>
                   <tr>
                     <th class="thSub2">소려경도</th>
                     <th class="thSub">
-                      <select id="PROD_SR" name="prod_sr" class="basic valPost valClean">
+                      <select id="prod_sr" name="prod_sr" class="basic valPost valClean">
                         <option>HRC</option>
                         <option>HV</option>
                         <option>HS</option>
@@ -678,14 +678,14 @@ textarea {
                       </select>
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_SR1" name="prod_sr1" class="basic valPost valClean" type="text" style="width:70px;" value="">
-                      ~ <input id="PROD_SR2" name="prod_sr2" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_sr1" name="prod_sr1" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      ~ <input id="prod_sr2" name="prod_sr2" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>
                   <tr>
                     <th class="thSub2">심부경도</th>
                     <th class="thSub">
-                      <select id="PROD_SG" name="prod_sg" class="basic valPost valClean">
+                      <select id="prod_sg" name="prod_sg" class="basic valPost valClean">
                         <option>HRC</option>
                         <option>HV</option>
                         <option>HRA</option>
@@ -694,24 +694,24 @@ textarea {
                       </select>
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_SG1" name="prod_sg1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
-                      ~ <input id="PROD_SG2" name="prod_sg2" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_sg1" name="prod_sg1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
+                      ~ <input id="prod_sg2" name="prod_sg2" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>
                   <tr>
                     <th rowspan="2" class="thSub2">경화깊이</th>
                     <th class="thSub">
-                      <select id="PROD_GD1" name="prod_gd1" class="basic valPost valClean">
+                      <select id="prod_gd1" name="prod_gd1" class="basic valPost valClean">
                         <option>유효경화</option>
                         <option>전경화</option>
                       </select>
                     </th>
                     <td class="tdRight">
-                       <select id="PROD_GD3" name="prod_gd3"  class="basic valPost valClean">
+                       <select id="prod_gd3" name="prod_gd3"  class="basic valPost valClean">
                         <option>HV</option>
                         <option>HRC</option>
                       </select>
-                      <input id="PROD_GD2" name="prod_gd2" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
+                      <input id="prod_gd2" name="prod_gd2" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
                       기준
                     </td>
                   </tr>
@@ -719,36 +719,36 @@ textarea {
                     <th class="thSub">
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_GD4" name="prod_gd4" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
-                      ~ <input id="PROD_GD5" name="prod_gd5" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_gd4" name="prod_gd4" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
+                      ~ <input id="prod_gd5" name="prod_gd5" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>
                   <tr>
                     <th class="thSub2">화합물층 깊이</th>
                     <th class="thSub">
-                      <select id="PROD_WHADEEP" name="prod_whadeep" class="basic valPost valClean">
+                      <select id="prod_whadeep" name="prod_whadeep" class="basic valPost valClean">
                         <option>㎛</option>
                         <option>㎜</option>
                       </select>
                     </th>
                     <td class="tdRight">
-                      <input id="PROD_E1" name="prod_e1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
-                      ~ <input id="PROD_E2" name="prod_e2" class="basic valPost valClean" type="text" style="width:70px;" value="">
+                      <input id="prod_e1" name="prod_e1" class="basic valPost valClean" type="text" style="width:70px;" value=""> 
+                      ~ <input id="prod_e2" name="prod_e2" class="basic valPost valClean" type="text" style="width:70px;" value="">
                     </td>
                   </tr>
                   <tr>
                   </tr><tr>
                   <th>금속조직</th>
-                  <td><input id="PROD_GJ" name="prod_gj" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_gj" name="prod_gj" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>변형량</th>
-                  <td><input id="PROD_BH" name="prod_bh" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_bh" name="prod_bh" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                   <tr>
                     <th>비고</th>
                     <td colspan="3">
-                      <textarea id="PROD_NOTE" name="prod_note" class="basic valPost valClean" style="width:90%;"></textarea>
+                      <textarea id="prod_note" name="prod_note" class="basic valPost valClean" style="width:90%;"></textarea>
                     </td>
                   </tr>																								
                 </tbody></table>
@@ -852,35 +852,35 @@ textarea {
                       <tbody id="contentListTBody">									
                         <tr>
                           <td class="left seq" width="50%">전세정</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC1" name="prod_fac1" class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac1" name="prod_fac1" class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">방탄</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC2" name="prod_fac2" class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac2" name="prod_fac2" class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">침탄</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC3" name="prod_fac3"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac3" name="prod_fac3"class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">고주파</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC4" name="prod_fac4"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac4" name="prod_fac4"class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">후세정</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC5" name="prod_fac5"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac5" name="prod_fac5"class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">템퍼링</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC6" name="prod_fac6"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac6" name="prod_fac6"class="basic valPost valClean" value=""></td>
                         </tr>
                         <tr>
                           <td class="left seq" width="50%">쇼트</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC7" name="prod_fac7"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac7" name="prod_fac7"class="basic valPost valClean" value=""></td>
                         </tr>	
                         <tr>
                           <td class="left seq" width="50%">후처리</td>
-                          <td width="50%"><input type="checkbox" id="PROD_FAC8" name="prod_fac8"class="basic valPost valClean" value=""></td>
+                          <td width="50%"><input type="checkbox" id="prod_fac8" name="prod_fac8"class="basic valPost valClean" value=""></td>
                         </tr>										
                       </tbody>
                     </table>
@@ -894,6 +894,7 @@ textarea {
       </tr>
     </tbody></table>
 	    <div class="btnSaveClose">
+	    		<button class="delete" type="button" onclick="deleteProduct();"  style="display: none;">삭제</button>
 	            <button class="save" type="button" onclick="save();">저장</button>
 	            <button class="close" type="button" onclick="window.close();">닫기</button>
 	    </div>
@@ -919,7 +920,8 @@ textarea {
 <script>
 	//전역변수
     var productTable;	
-
+    var isEditMode = false; //수정,최초저장 구분값
+    
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
@@ -976,7 +978,8 @@ textarea {
 		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"공정", field:"tech_te", sorter:"string", width:100,
-			        hozAlign:"center", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}},	
+			        hozAlign:"center", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", clearable:true}}, 
+			        headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}, clearable:true}},	
 		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
 		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
@@ -1013,6 +1016,29 @@ textarea {
 
 				var rowData = row.getData();
 				
+			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#productInsertForm')[0].reset();
+				$('.productModal').show().addClass('show');
+
+				console.log(data);
+				
+				
+				Object.keys(data).forEach(function (key) {
+					console.log(key);
+					
+			        const field = $('#productInsertForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
 			},
 		});		
 	}
@@ -1090,7 +1116,11 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		productModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#productInsertForm')[0].reset(); // 폼 초기화
+	    productModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -1151,7 +1181,23 @@ textarea {
 
   //제품등록 저장
     function save() {
-        var formData = new FormData($("#productInsertForm")[0]);  
+        var formData = new FormData($("#productInsertForm")[0]); 
+
+        let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.prod_code) {
+	        formData.append("mode", "update");
+	        formData.append("prod_code", selectedRowData.prod_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+	     
         $.ajax({
             url: "/tkheat/management/productInsert/productInsertSave",
             type: "POST",
@@ -1161,7 +1207,6 @@ textarea {
             dataType: "json",      
             success: function(result) {
                 console.log(result);
-                
                 alert("저장 되었습니다.");
                 $(".productModal").hide();
                 getProductList();
@@ -1172,6 +1217,40 @@ textarea {
             }
         });
     }
+
+
+    function deleteProduct() {
+	    if (!selectedRowData || !selectedRowData.prod_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/productInsert/productDelete",
+	        type: "POST",
+	        data: {
+	        	prod_code: selectedRowData.prod_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".productModal").hide();
+	                getProductList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 
 	
 

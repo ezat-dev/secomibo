@@ -16,28 +16,73 @@ public interface ManagementService {
 	List<Users> getBigPageList(); 
 	
 	List<Users> getSmallPageList(String page_big);
+	
 
 	Permission authorityUserSelect(Permission permission);
 	
-	void productInsertSave(Product product);
-
 	void authorityUserSelectSave(Permission permission);
+	
+	
+	
+	
+	
+	List<Product> getProductList(Product product);
+	
+	void productInsertSave(Product product);
+	
+	void productUpdateSave(Product product);
+	
+	void productDelete(int prod_code);
+	
+
+	
+	
+	
 	
 	List<Corp> getCorpList(Corp corp);
 	
 	void cutumInsertSave(Corp corp);
 	
+	void cutumUpdateSave(Corp corp);
+	
+	void cutumDelete(int corp_code);
+	
+
+	
 	List<Fac> getFacList(Fac fac);
 	
-	List<Product> getProductList(Product product);
+	void facInsertSave(Fac fac);
+	
+	void facUpdateSave(Fac fac);
+	
+	void facDelete(int fac_code);
+	
+	
+	
 	
 	List<Measure> getMeasureList();
 	
+	void measureInsertSave(Measure measure);
+	
+	void measureUpdateSave(Measure measure);
+	
+	void measureDelete(int ter_code);
+	
+	
+	
 	List<Standard> getChimStandardList(Standard standard);
 	
-	void chimStandardSave(Standard standard);
+	void chimStandardInsertSave(Standard standard);
+	
+	void chimStandardUpdateSave(Standard standard);
+	
+	void chimStandardDelete(int wstd_code);
+	
+	
 	
 	List<Standard> getGoStandardList(Standard standard);
+	
+	
 	
 	
 	void insertUser(Users users);

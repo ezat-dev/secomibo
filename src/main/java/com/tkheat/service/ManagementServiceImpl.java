@@ -43,9 +43,28 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public List<Product> getProductList(Product product){
+		return managementDao.getProductList(product);
+	}
+	
+	@Override
 	public void productInsertSave(Product product) {
 		managementDao.productInsertSave(product);
 	}
+	
+	@Override
+	public void productUpdateSave(Product product) {
+		managementDao.productUpdateSave(product);
+	}
+	
+	@Override
+	public void productDelete(int prod_code) {
+		managementDao.productDelete(prod_code);
+	}
+	
+	
+	
+	
 	
 	@Override
 	public List<Corp> getCorpList(Corp corp){
@@ -58,14 +77,43 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public void cutumUpdateSave(Corp corp) {
+		managementDao.cutumUpdateSave(corp);
+	}
+	
+	@Override
+	public void cutumDelete(int corp_code) {
+		managementDao.cutumDelete(corp_code);
+	}
+	
+	
+	
+	
+	
+	@Override
 	public List<Fac> getFacList(Fac fac){
 		return managementDao.getFacList(fac);
 	}
 	
 	@Override
-	public List<Product> getProductList(Product product){
-		return managementDao.getProductList(product);
+	public void facInsertSave(Fac fac) {
+		managementDao.facInsertSave(fac);
 	}
+	
+	@Override
+	public void facUpdateSave(Fac fac) {
+		managementDao.facUpdateSave(fac);
+	}
+	
+	@Override
+	public void facDelete(int fac_code) {
+		managementDao.facDelete(fac_code);
+	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public List<Measure> getMeasureList(){
@@ -73,13 +121,40 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public void measureInsertSave(Measure measure) {
+		managementDao.measureInsertSave(measure);
+	}
+	
+	@Override
+	public void measureUpdateSave(Measure measure) {
+		managementDao.measureUpdateSave(measure);
+	}
+	
+	@Override
+	public void measureDelete(int ter_code) {
+		managementDao.measureDelete(ter_code);
+	}
+	
+	
+	
+	@Override
 	public List<Standard> getChimStandardList(Standard standard){
 		return managementDao.getChimStandardList(standard);
 	}
 	
 	@Override
-	public void chimStandardSave(Standard standard) {
-		managementDao.chimStandardSave(standard);
+	public void chimStandardInsertSave(Standard standard) {
+		managementDao.chimStandardInsertSave(standard);
+	}
+	
+	@Override
+	public void chimStandardUpdateSave(Standard standard) {
+		managementDao.chimStandardUpdateSave(standard);
+	}
+	
+	@Override
+	public void chimStandardDelete(int wstd_code) {
+		managementDao.chimStandardDelete(wstd_code);
 	}
 	
 	@Override

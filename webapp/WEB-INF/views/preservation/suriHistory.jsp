@@ -51,94 +51,151 @@
 
 
 .insideTable {
-    width: 100%; /* 테이블 너비 100% */
-    border-collapse: collapse; /* 테두리 겹침 제거 */
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 셀 크기 고정 */
 }
 
 .insideTable th,
 .insideTable td {
-    padding: 8px; /* 셀 패딩 */
-    border: 1px solid #ccc; /* 셀 경계선 */
-    vertical-align: middle; /* 수직 정렬 */
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .insideTable th {
-    background: #f0f0f0; /* 헤더 배경색 */
+    background-color: #f5f5f5;
+    text-align: left;
+    font-weight: 600;
+    width: 20%;
+    white-space: nowrap;
 }
 
-.basic, .rp-input {
-    width: calc(100% - 12px); /* 너비 조정 */
-    padding: 5px; /* 내부 여백 */
-    border: 1px solid #949494; /* 경계선 색상 */
-    border-radius: 3px; /* 둥근 모서리 */
+.insideTable td {
+    text-align: left;
+    width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.basic[readonly] {
-    background-color: #f9f9f9; /* 읽기 전용 필드 색상 */
+.basic,
+.rp-input,
+select,
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 textarea {
-    width: 100%; /* 너비 100% */
-    padding: 5px; /* 내부 여백 */
-    border: 1px solid #949494; /* 경계선 색상 */
-    border-radius: 3px; /* 둥근 모서리 */
+    resize: vertical;
+    min-height: 100px;
 }
 
 .findImage {
-    display: flex; /* 플렉스 박스 사용 */
-    align-items: center; /* 수직 정렬 */
-}
-
-.findImage input[type="file"] {
-    margin-right: 10px; /* 오른쪽 여백 */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
 }
 
 .imgArea {
-    width: 200px; /* 이미지 영역 너비 */
-    height: 150px; /* 이미지 영역 높이 */
-    border: 1px solid #ddd; /* 경계선 */
-    margin-bottom: 10px; /* 하단 여백 */
+    width: 100%;
+    max-width: 200px;
+    height: 130px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .imgArea img {
-    width: 100%; /* 이미지 너비 */
-    height: 100%; /* 이미지 높이 */
-    object-fit: cover; /* 이미지 비율 유지 */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.btnSaveClose {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 사이 여백 */
+	margin-top: 30px; /* 모달 내용과의 간격 */
+	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
 }
 .btnSaveClose button {
-        background: #007bff; /* 버튼 배경색 */
-        color: white; /* 버튼 글자색 */
-        border: none; /* 경계선 없음 */
-        padding: 8px 15px; /* 내부 여백 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 3px; /* 모서리 둥글게 */
-        margin: 0 10px; /* 버튼 간격 */
-        margin-top: 10px;
-        align-items: center; /* 수직 중앙 정렬 */
- }
+	width: 100px;
+	height: 35px;
+	background-color: #FFD700; /* 기본 배경 - 노란색 */
+	color: black;
+	border: 2px solid #FFC107; /* 노란 테두리 */
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	line-height: 35px;
+	margin: 0 10px;
+	margin-top: 10px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-.btnSaveClose button:hover {
-     background: #0056b3; /* 호버 시 색상 변경 */
+/* 저장 버튼 호버 시 */
+.btnSaveClose .save:hover {
+	background-color: #FFC107;
+	transform: scale(1.05);
+}
+
+/* 닫기 버튼 - 회색 톤 */
+.btnSaveClose .close {
+	background-color: #A9A9A9;
+	color: black;
+	border: 2px solid #808080;
+}
+
+/* 닫기 버튼 호버 시 */
+.btnSaveClose .close:hover {
+	background-color: #808080;
+	transform: scale(1.05);
 }
 .box1 {
 	display: flex;
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1190px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"] {
-	width: 5%;
-}
-
-.box1 input[type="date"] {
-	width: 7%;
-}
-
-.box1 select {
+.box1 select{
 	width: 5%
-}    
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
+}
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
     
     </style>
     
@@ -181,6 +238,9 @@ textarea {
 	</main>
 	    
 	    
+	    
+	    
+<form method="post" id="suriHistoryForm" name="suriHistoryForm">		    
  <div class="suriHistoryModal">    
   <div class="detail">
    <div class="header">
@@ -201,7 +261,7 @@ textarea {
                             <tr>
                                 <th class="left" style="width: 15%;">설비</th>
                                 <td class="">
-                                    <select id="facCode" name="fac_code" class="basic" style="width:80%;">
+                                    <select id="fac_code" name="fac_code" class="basic" style="width:80%;">
                                         <option value="5">고주파 1호기(폐기):(5)</option>
                                         <option value="6">고주파 2호기 (폐기):(6)</option>
                                         <option value="9">고주파 5호기:(9)</option>
@@ -233,18 +293,18 @@ textarea {
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">일자</th>
-                                <td class=""><input id="ffxDate" name="ffx_date" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20" readonly="readonly"></td>
+                                <td class=""><input id="ffx_date" name="ffx_date" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20" readonly="readonly"></td>
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">내용</th>
-                                <td class=""><textarea id="ffxNote" name="ffx_note" rows="8" class="basic" style="width:100%;"></textarea></td>
+                                <td class=""><textarea id="ffx_note" name="ffx_note" rows="8" class="basic" style="width:100%;"></textarea></td>
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">소요부품<input type="button" title="검색" class="btnSearchSmall" onclick="MM_openBrWindow('etcSub_popup_12','Srch','width=800,height=430,scrollbars=yes')"></th>
                                 <td>
-                                    <input id="ffxPrt" name="ffx_prt" class="basic" type="text" style="width:100%;" value="" readonly="readonly" placeholder="검색버튼을 눌러 선택해 주세요.">
-                                    <input id="sprCode" name="spr_code" class="basic" type="hidden">
-                                    <input id="sprTime" name="spr_time" class="basic" type="hidden">
+                                    <input id="ffx_prt" name="ffx_prt" class="basic" type="text" style="width:100%;" value="" readonly="readonly" placeholder="검색버튼을 눌러 선택해 주세요.">
+                                    <input id="spr_code" name="spr_code" class="basic" type="hidden">
+                                    <input id="spr_time" name="spr_time" class="basic" type="hidden">
                                 </td>
                                 <th rowspan="4" class="" style="width: 15%;">수리후 사진</th>
                                 <td rowspan="4" class="findImage">
@@ -255,21 +315,21 @@ textarea {
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">수리처</th>
-                                <td class=""><input id="ffxWrk" name="ffx_wrk" class="basic" type="text" style="width:100%;" value=""></td>
+                                <td class=""><input id="ffx_wrk" name="ffx_wrk" class="basic" type="text" style="width:100%;" value=""></td>
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">수리비용</th>
                                 <td class="">
-                                    <input id="ffxEvt" name="ffx_evt" class="basic" type="hidden" style="width:100%;" value="">
-                                    <input id="ffxTime" name="ffx_time" class="basic" type="hidden" style="width:100%;" value="">
-                                    <input id="ffxEnd" name="ffx_end" class="basic" type="hidden" style="width:100%;" value="">
-                                    <input id="ffxCost" name="ffx_cost" class="basic" type="text" style="width:100%;" value="">
+                                    <input id="ffx_evt" name="ffx_evt" class="basic" type="hidden" style="width:100%;" value="">
+                                    <input id="ffx_time" name="ffx_time" class="basic" type="hidden" style="width:100%;" value="">
+                                    <input id="ffx_end" name="ffx_end" class="basic" type="hidden" style="width:100%;" value="">
+                                    <input id="ffx_cost" name="ffx_cost" class="basic" type="text" style="width:100%;" value="">
                                 </td>
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">담당자</th>
                                 <td class="">
-                                    <select id="ffxMan" name="ffx_man" class="basic" style="width:100px;">
+                                    <select id="ffx_man" name="ffx_man" class="basic" style="width:100px;">
                                         <option value="admin">admin:(0)</option>
                                         <option value="정중환">정중환:(2)</option>
                                         <option value="김성우">김성우:(4)</option>
@@ -329,11 +389,11 @@ textarea {
                             </tr> -->
                             <tr>
                                 <th class="left">차기점검일</th>
-                                <td class=""><input id="ffxNext" name="ffx_next" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20"></td>
+                                <td class=""><input id="ffx_next" name="ffx_next" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20"></td>
                             </tr>
                             <tr>
                                 <th>완료</th>
-                                <td><input id="ffxCheck" name="ffx_check" class="basic" type="checkbox" value="" onchange="nextFfxDate(this);"></td>
+                                <td><input id="ffx_check" name="ffx_check" class="basic" type="checkbox" value="" onchange="nextFfxDate(this);"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -342,16 +402,22 @@ textarea {
         </tbody>
     </table>
     <div class="btnSaveClose">
+    	<button class="delete" type="button" onclick="deleteSuri();"  style="display: none;">삭제</button>
 		<button class="save" type="button" onclick="save();">저장</button>
 		<button class="close" type="button" onclick="window.close();">닫기</button>
     </div>
 </div>
 </div>
+</form>
+
+
+
+
 	    
 <script>
 	//전역변수
     var cutumTable;	
-
+    var isEditMode = false; //수정,최초저장 구분값
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
@@ -385,7 +451,7 @@ textarea {
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"ffx_no", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
 			        hozAlign:"center", headerFilter:"input"},	
@@ -399,7 +465,7 @@ textarea {
 		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"수리처", field:"ffx_wrk", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"금액", field:"ffx_cost", sorter:"string", width:100,
+		        {title:"금액", field:"ffx_cost", sorter:"int", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"내용", field:"ffx_note", sorter:"string", width:600,
 			        hozAlign:"center", headerFilter:"input"},
@@ -426,6 +492,24 @@ textarea {
 
 				var rowData = row.getData();
 				
+			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#suriHistoryForm')[0].reset();
+				$('.suriHistoryModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#suriHistoryForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
 			},
 		});		
 	}
@@ -471,12 +555,88 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		suriHistoryModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#suriHistoryForm')[0].reset(); // 폼 초기화
+	    suriHistoryModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
 		suriHistoryModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+	//설비수리이력 저장
+    function save() {
+	    var formData = new FormData($("#suriHistoryForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.ffx_no) {
+	        formData.append("mode", "update");
+	        formData.append("ffx_no", selectedRowData.ffx_no);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/suriHistory/suriHistorySave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".suriHistoryModal").hide();
+	            getSuriHistoryList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteSuri() {
+	    if (!selectedRowData || !selectedRowData.ffx_no) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/suriHistory/suriHistoryDelete",
+	        type: "POST",
+	        data: {
+	        	ffx_no: selectedRowData.ffx_no
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".suriHistoryModal").hide();
+	                getSuriHistoryList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 		
 
 

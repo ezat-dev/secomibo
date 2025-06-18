@@ -2,7 +2,7 @@ package com.tkheat.dao;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,8 @@ import com.tkheat.domain.Users;
 public class ManagementDaoImpl implements ManagementDao {
 	 @Autowired
 	 private SqlSession sqlSession;
-
+	 
+	 //사용자 리스트 조회
 	 @Override
 	 public List<Users> getUserList(Users user) {
 		 return sqlSession.selectList("users.getUserList", user);
@@ -35,45 +36,135 @@ public class ManagementDaoImpl implements ManagementDao {
 		 return sqlSession.selectList("users.getSmallPageList", page_big);  
 	 }
 	 
+	 //사용자 권한 리스트 조회
 	 @Override
 	 public Permission authorityUserSelect(Permission permission) {
 		 return sqlSession.selectOne("users.authorityUserSelect",permission);
 	 }
-
+	 
+	 //사용자 권한 저장
 	@Override
 	public void authorityUserSelectSave(Permission permission) {
 		sqlSession.update("users.authorityUserSelectSave", permission);
 	}
 	
-	@Override
-	public void productInsertSave(Product product) {
-		sqlSession.insert("product.productInsertSave", product);
-	}
 	
-	@Override
-	 public List<Corp> getCorpList(Corp corp) {
-		 return sqlSession.selectList("corp.getCorpList", corp);
-	 }
 	
-	@Override
-	public void cutumInsertSave(Corp corp) {
-		sqlSession.insert("corp.cutumInsertSave", corp);
-	}
-	
-	@Override
-	 public List<Fac> getFacList(Fac fac) {
-		 return sqlSession.selectList("fac.getFacList", fac);
-	 }
 	
 	@Override
 	 public List<Product> getProductList(Product product) {
 		 return sqlSession.selectList("product.getProductList",product);
 	 }
 	
+	//제품 등록 저장 - insert
+	@Override
+	public void productInsertSave(Product product) {
+		sqlSession.insert("product.productInsertSave", product);
+	}
+	
+	//제품 수정 - update
+	@Override
+	public void productUpdateSave(Product product) {
+		sqlSession.update("product.productUpdateSave", product);
+	}
+
+	//제품 삭제 - delete
+	@Override
+	public void productDelete(int prod_code) {
+		sqlSession.delete("product.productDelete", prod_code);
+	}
+	
+	
+	
+	
+	
+	
+	//거래처 리스트 조회
+	@Override
+	 public List<Corp> getCorpList(Corp corp) {
+		 return sqlSession.selectList("corp.getCorpList", corp);
+	 }
+	
+	//거래처 등록 저장 - insert
+	@Override
+	public void cutumInsertSave(Corp corp) {
+		sqlSession.insert("corp.cutumInsertSave", corp);
+	}
+	
+	//거래처 수정 - update
+	@Override
+	public void cutumUpdateSave(Corp corp) {
+		sqlSession.update("corp.cutumUpdateSave", corp);
+	}
+	
+	//거래처 삭제 - delete
+	@Override
+	public void cutumDelete(int corp_code) {
+		sqlSession.delete("corp.cutumDelete", corp_code);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	 public List<Fac> getFacList(Fac fac) {
+		 return sqlSession.selectList("fac.getFacList", fac);
+	 }
+	
+	//설비 등록 저장 - insert
+	@Override
+	public void facInsertSave(Fac fac) {
+		sqlSession.insert("fac.facInsertSave", fac);
+	}
+
+	//설비 수정 - update
+	@Override
+	public void facUpdateSave(Fac fac) {
+		sqlSession.update("fac.facUpdateSave", fac);
+	}
+	
+	//거래처 삭제 - delete
+	@Override
+	public void facDelete(int fac_code) {
+		sqlSession.delete("fac.facDelete", fac_code);
+	}
+	
+	
+	
+	
+	
+	
 	@Override
 	 public List<Measure> getMeasureList() {
 		 return sqlSession.selectList("measure.getMeasureList");
 	 }
+	
+	//측정기기 등록 저장 - insert
+	@Override
+	public void measureInsertSave(Measure measure) {
+		sqlSession.insert("measure.measureInsertSave", measure);
+	}
+
+	//측정기기 수정 - update
+	@Override
+	public void measureUpdateSave(Measure measure) {
+		sqlSession.update("measure.measureUpdateSave", measure);
+	}
+
+	//측정기기 삭제 - delete
+	@Override
+	public void measureDelete(int ter_code) {
+		sqlSession.delete("measure.measureDelete", ter_code);
+	}
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	 public List<Standard> getChimStandardList(Standard standard) {
@@ -81,9 +172,23 @@ public class ManagementDaoImpl implements ManagementDao {
 	 }
 	
 	@Override
-	public void chimStandardSave(Standard standard) {
-		sqlSession.insert("standard.chimStandardSave", standard);
+	public void chimStandardInsertSave(Standard standard) {
+		sqlSession.insert("standard.chimStandardInsertSave", standard);
 	}
+	
+	@Override
+	public void chimStandardUpdateSave(Standard standard) {
+		sqlSession.update("standard.chimStandardUpdateSave", standard);
+	}
+
+	@Override
+	public void chimStandardDelete(int wstd_code) {
+		sqlSession.delete("standard.chimStandardDelete", wstd_code);
+	}
+	
+	
+	
+	
 	
 	// gubn으로 구분하기 때문에 같은 쿼리 사용
 	@Override

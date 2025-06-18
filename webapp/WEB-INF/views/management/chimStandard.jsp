@@ -246,7 +246,7 @@ body{
 
 
 
-<form method="post" id="chimStandardForm" name="chimStandardForm">	    
+<form method="post" class="corrForm" id="chimStandardForm" name="chimStandardForm">	    
    <div class="chimStandardModal">    
 	
       <div id="editPop">
@@ -372,10 +372,10 @@ body{
                     <td class="" align="center">~</td><td class=""><input id="prod_gd5" name="prod_gd5" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     </tr>
                     <tr>
-                    <input id="ProdCd" name="Prod_cd" class="basic" type="hidden" value="" readonly="">
-                    <input id="prodE5" name="prod_e5" class="basic" type="hidden" value="" readonly="">
-                    <input id="prodRa" name="prod_ra" class="basic" type="hidden" value="" readonly="">
-                    <input id="prodPgs" name="prod_pgs" class="basic" type="hidden" value="" readonly="">
+                    <input id="Prod_cd" name="Prod_cd" class="basic" type="hidden" value="" readonly="">
+                    <input id="prod_e5" name="prod_e5" class="basic" type="hidden" value="" readonly="">
+                    <input id="prod_ra" name="prod_ra" class="basic" type="hidden" value="" readonly="">
+                    <input id="prod_pgs" name="prod_pgs" class="basic" type="hidden" value="" readonly="">
                     </tr>
                 </tbody></table>
               </fieldset>
@@ -395,11 +395,11 @@ body{
                   </colgroup>
                   <tbody><tr>
                     <th class="">0.28mm</th>
-                    <td class=""><input id="prodGd1" name="prod_gd1" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_gd1" name="prod_gd1" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
                     <th class="">0.68mm</th>
-                    <td class=""><input id="prodGd2" name="prod_gd2" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_gd2" name="prod_gd2" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
                     <th class="">1.18mm</th>
-                    <td class=""><input id="prodGd3" name="prod_gd3" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_gd3" name="prod_gd3" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
                   </tr>
                 </tbody></table>
               </fieldset>
@@ -411,7 +411,7 @@ body{
                 <legend>전세척</legend>
                 <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
                   <tbody><tr>
-                  <td class=""><select id="facCode1" name="fac_code1" class="basic" style="width: 100%">
+                  <td class=""><select id="fac_code1" name="fac_code1" class="basic" style="width: 100%">
                         
                           <option value="15">진공세정기 2호기</option>
                         
@@ -423,11 +423,11 @@ body{
                           <option>STEP3</option>
                          </select> -->
                     </td><th class="" style="width:5%;">온도</th>
-                    <td class=""><input id="wstdN01" name="wstd_n01" class="basic" type="text" style="width:80%;" value=""></td>
+                    <td class=""><input id="wstd_n01" name="wstd_n01" class="basic" type="text" style="width:80%;" value=""></td>
                     <th class="" style="width:5%;">시간</th>
-                    <td class=""><input id="wstdN02" name="wstd_n02" class="basic" type="text" style="width:80%;" value=""></td>
+                    <td class=""><input id="wstd_n02" name="wstd_n02" class="basic" type="text" style="width:80%;" value=""></td>
                     <th class="" style="width:5%;">농도</th>
-                    <td class=""><input id="wstdT66" name="wstd_t66" class="basic" type="text" style="width:80%;" value=""></td>
+                    <td class=""><input id="wstd_t66" name="wstd_t66" class="basic" type="text" style="width:80%;" value=""></td>
                       
                 </tr>
                 </tbody></table>
@@ -462,99 +462,99 @@ body{
                   </tr>
                   <tr>
                     <th>온도[℃]</th>
-                    <td><input id="wstdGJ11" name="wstd_gj11" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ12" name="wstd_gj12" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ13" name="wstd_gj13" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ14" name="wstd_gj14" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ15" name="wstd_gj15" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ16" name="wstd_gj16" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ17" name="wstd_gj17" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ18" name="wstd_gj18" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj11" name="wstd_gj11" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj12" name="wstd_gj12" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj13" name="wstd_gj13" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj14" name="wstd_gj14" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj15" name="wstd_gj15" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj16" name="wstd_gj16" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj17" name="wstd_gj17" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj18" name="wstd_gj18" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th>시간[분]</th>
-                    <td><input id="wstdGJ21" name="wstd_gj21" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ22" name="wstd_gj22" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ23" name="wstd_gj23" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ24" name="wstd_gj24" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ25" name="wstd_gj25" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ26" name="wstd_gj26" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ27" name="wstd_gj27" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ28" name="wstd_gj28" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj21" name="wstd_gj21" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj22" name="wstd_gj22" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj23" name="wstd_gj23" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj24" name="wstd_gj24" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj25" name="wstd_gj25" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj26" name="wstd_gj26" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj27" name="wstd_gj27" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj28" name="wstd_gj28" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th>cp%</th>
-                    <td><input id="wstdGJ31" name="wstd_gj31" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ32" name="wstd_gj32" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ33" name="wstd_gj33" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ34" name="wstd_gj34" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ35" name="wstd_gj35" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ36" name="wstd_gj36" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ37" name="wstd_gj37" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ38" name="wstd_gj38" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj31" name="wstd_gj31" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj32" name="wstd_gj32" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj33" name="wstd_gj33" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj34" name="wstd_gj34" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj35" name="wstd_gj35" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj36" name="wstd_gj36" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj37" name="wstd_gj37" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj38" name="wstd_gj38" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th>RX[㎥/Hr]</th>
-                    <td><input id="wstdGJ39" name="wstd_gj39" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ42" name="wstd_gj42" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ43" name="wstd_gj43" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ44" name="wstd_gj44" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ45" name="wstd_gj45" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj39" name="wstd_gj39" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj42" name="wstd_gj42" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj43" name="wstd_gj43" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj44" name="wstd_gj44" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj45" name="wstd_gj45" class="basic" type="text" style="width:90%;" value=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                   </tr>
                   <tr>
                     <th>LPG</th>
-                    <td><input id="wstdGJ49" name="wstd_gj49" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ52" name="wstd_gj52" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ53" name="wstd_gj53" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ54" name="wstd_gj54" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ55" name="wstd_gj55" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj49" name="wstd_gj49" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj52" name="wstd_gj52" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj53" name="wstd_gj53" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj54" name="wstd_gj54" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj55" name="wstd_gj55" class="basic" type="text" style="width:90%;" value=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                   </tr>
                   <tr>
                     <th>CH3OH[cc/Hr]</th>
-                    <td><input id="wstdGJ59" name="wstd_gj59" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ62" name="wstd_gj62" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ63" name="wstd_gj63" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ64" name="wstd_gj64" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ65" name="wstd_gj65" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj59" name="wstd_gj59" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj62" name="wstd_gj62" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj63" name="wstd_gj63" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj64" name="wstd_gj64" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj65" name="wstd_gj65" class="basic" type="text" style="width:90%;" value=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                   </tr>
                   <tr>
                     <th>N2[㎥/Hr]</th>
-                    <td><input id="wstdGJ69" name="wstd_gj69" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ72" name="wstd_gj72" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ73" name="wstd_gj73" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ74" name="wstd_gj74" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ75" name="wstd_gj75" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj69" name="wstd_gj69" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj72" name="wstd_gj72" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj73" name="wstd_gj73" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj74" name="wstd_gj74" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj75" name="wstd_gj75" class="basic" type="text" style="width:90%;" value=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                   </tr>
                   <tr>
                     <th>NH3[Nl/min]</th>
-                    <td><input id="wstdGJ79" name="wstd_gj79" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ82" name="wstd_gj82" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ83" name="wstd_gj83" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ84" name="wstd_gj84" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstdGJ85" name="wstd_gj85" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj79" name="wstd_gj79" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj82" name="wstd_gj82" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj83" name="wstd_gj83" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj84" name="wstd_gj84" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gj85" name="wstd_gj85" class="basic" type="text" style="width:90%;" value=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                     <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
                   </tr>
                   <tr>
                     <th>수량</th>
-                    <td><input id="wstdGJSu" name="wstd_gjsu" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gjsu" name="wstd_gjsu" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th>rpm</th>
-                    <td><input id="wstdGJRpm" name="wstd_gjrpm" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td><input id="wstd_gjrpm" name="wstd_gjrpm" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                 </tbody></table>
                 <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
@@ -564,7 +564,7 @@ body{
                   </colgroup>
                   <tbody><tr>
                     <th class="">비고</th>
-                    <td class=""><input id="wstdWorkNote" name="wstd_worknote" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_worknote" name="wstd_worknote" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
 
                 </tbody></table>
@@ -576,7 +576,7 @@ body{
                   <tbody><tr>
                     <th class="">설비</th>
                     <td class="">
-                      <select id="facCode" name="fac_code" class="basic" style="width: 100%">
+                      <select id="fac_code" name="fac_code" class="basic" style="width: 100%">
                         
                           <option value="5">고주파 1호기(폐기)</option>
                         
@@ -656,11 +656,11 @@ body{
                           <option>STEP3</option>
                          </select> -->
                     </td><th class="" style="width:5%;">온도</th>
-                    <td class=""><input id="wstdN03" name="wstd_n03" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_n03" name="wstd_n03" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="" style="width:5%;">시간</th>
-                    <td class=""><input id="wstdN04" name="wstd_n04" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_n04" name="wstd_n04" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="" style="width:5%;">농도</th>
-                    <td class=""><input id="wstdT67" name="wstd_t67" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_t67" name="wstd_t67" class="basic" type="text" style="width:90%;" value=""></td>
                       </tr>
                 </tbody></table>
               </fieldset>
@@ -677,11 +677,11 @@ body{
                   </colgroup>
                   <tbody><tr>
                     <th class="">온도</th>
-                    <td class=""><input id="wstdReady" name="wstd_ready" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_ready" name="wstd_ready" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="">시간</th>
-                    <td class=""><input id="wstdWorkTime" name="wstd_worktime" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_worktime" name="wstd_worktime" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="">비고</th>
-                    <td class=""><input id="wstdT62" name="wstd_t62" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_t62" name="wstd_t62" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                 </tbody></table>
               </fieldset>
@@ -698,11 +698,11 @@ body{
                   </colgroup>
                   <tbody><tr>
                     <th class="">온도</th>
-                    <td class=""><input id="wstdT63" name="wstd_t63" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_t63" name="wstd_t63" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="">시간</th>
-                    <td class=""><input id="wstdT64" name="wstd_t64" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_t64" name="wstd_t64" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="">비고</th>
-                    <td class=""><input id="wstdT65" name="wstd_t65" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_t65" name="wstd_t65" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                 </tbody></table>
               </fieldset>
@@ -711,9 +711,9 @@ body{
                 <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
                   <tbody><tr>
                     <th class="" style="width:10%;">후처리 수량</th>
-                    <td class=""><input id="wstdGJ97" name="wstd_gj97" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_gj97" name="wstd_gj97" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="" style="width:10%;">설비</th>
-                    <td class=""><select id="facCode3" name="fac_code3" class="basic" style="width: 90%">
+                    <td class=""><select id="fac_code3" name="fac_code3" class="basic" style="width: 90%">
                       
                         <option value="12">쇼트 1호기</option>
                       
@@ -727,15 +727,15 @@ body{
                   </td></tr>
                   <tr>
                     <th class="" style="width:5%;">1차처리</th>
-                    <td class=""><input id="wstdGJ98" name="wstd_gj98" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_gj98" name="wstd_gj98" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="" style="width:5%;">압력</th>
-                    <td class=""><input id="wstdGJ99" name="wstd_gj99" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_gj99" name="wstd_gj99" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="" style="width:5%;">2차처리</th>
-                    <td class=""><input id="wstdGJ100" name="wstd_gj100" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_gj100" name="wstd_gj100" class="basic" type="text" style="width:90%;" value=""></td>
                     <th class="" style="width:5%;">압력</th>
-                    <td class=""><input id="wstdGJ101" name="wstd_gj101" class="basic" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="wstd_gj101" name="wstd_gj101" class="basic" type="text" style="width:90%;" value=""></td>
                   </tr>
                 </tbody></table>
               </fieldset>
@@ -780,42 +780,42 @@ body{
                 </colgroup>
                 <tbody><tr>
                   <td class="top">EA/줄(판)</td>
-                  <td class="top2" colspan="2"><input type="text" id="wstdT32" name="wstd_t32" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td class="top2" colspan="2"><input type="text" id="wstd_t32" name="wstd_t32" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                   <td class="top2">이하</td>
                 </tr>
                 <tr>
                   <td class="left">줄(판)/단</td>
-                  <td colspan="3"><input type="text" id="wstdT33" name="wstd_t33" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td colspan="2" hidden=""><input type="text" id="wstdT34" name="wstd_t34" value="" class="basic" style="width:90%; display:none;"></td>
+                  <td colspan="3"><input type="text" id="wstd_t33" name="wstd_t33" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td colspan="2" hidden=""><input type="text" id="wstd_t34" name="wstd_t34" value="" class="basic" style="width:90%; display:none;"></td>
                 </tr>
                 <tr>
                   <td class="left">단/Tray</td>
-                  <td><input type="text" id="wstdT41" name="wstd_t41" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td><input type="text" id="wstd_t41" name="wstd_t41" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                   <td>Tray차지</td>
-                  <td><input type="text" id="wstdT42" name="wstd_t42" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td><input type="text" id="wstd_t42" name="wstd_t42" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                 </tr>
                 <tr>
                   <td class="left">추가수량</td>
-                  <td colspan="3"><input type="text" id="wstdT87" name="wstd_t87" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td colspan="3"><input type="text" id="wstd_t87" name="wstd_t87" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                 </tr>
                 <tr>
                   <td class="left">단취수량</td>
-                  <td colspan="2"><input type="text" id="wstdT43" name="wstd_t43" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
+                  <td colspan="2"><input type="text" id="wstd_t43" name="wstd_t43" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
                   <td>EA/CH</td>
                 </tr>
                 <tr>
                   <td class="left">Jig무게</td>
-                  <td colspan="2"><input type="text" id="wstdT44" name="wstd_t44" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td colspan="2"><input type="text" id="wstd_t44" name="wstd_t44" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                   <td>kg</td>
                 </tr>
                 <tr>
                   <td class="left">제품무게/ch</td>
-                  <td colspan="2"><input type="text" id="wstdT51" name="wstd_t51" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
+                  <td colspan="2"><input type="text" id="wstd_t51" name="wstd_t51" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
                   <td>kg</td>
                 </tr>
                 <tr>
                   <td class="left">총단중/ch</td>
-                  <td colspan="2"><input type="text" id="wstdT52" name="wstd_t52" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
+                  <td colspan="2"><input type="text" id="wstd_t52" name="wstd_t52" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
                   <td>kg</td>
                 </tr>
 
@@ -826,32 +826,32 @@ body{
                 </tr>
                 <tr>
                   <td class="left" colspan="4">
-                    ● <input type="text" id="wstdT53" name="wstd_t53" value="" class="basic" style="width:91%;">
+                    ● <input type="text" id="wstd_t53" name="wstd_t53" value="" class="basic" style="width:91%;">
                   </td>
                 </tr>
                 <tr>
                   <td class="left" colspan="4">
-                    ● <input type="text" id="wstdT54" name="wstd_t54" value="" class="basic" style="width:91%;">
+                    ● <input type="text" id="wstd_t54" name="wstd_t54" value="" class="basic" style="width:91%;">
                   </td>
                 </tr>
                 <tr>
                   <td class="left" colspan="4">
-                    ● <input type="text" id="wstdT30" name="wstd_t30" value="" class="basic" style="width:91%;">
+                    ● <input type="text" id="wstd_t30" name="wstd_t30" value="" class="basic" style="width:91%;">
                   </td>
                 </tr>
                 <tr>
                   <td class="left">단중</td>
-                  <td colspan="2"><input type="text" id="wstdT40" name="wstd_t40" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
+                  <td colspan="2"><input type="text" id="wstd_t40" name="wstd_t40" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
                   <td>kg</td>
                 </tr>
                 <tr>
                   <!-- <td class="left">HIGH NO</td> -->
-                  <td colspan="2" hidden=""><input type="text" id="wstdT50" name="wstd_t50" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
+                  <td colspan="2" hidden=""><input type="text" id="wstd_t50" name="wstd_t50" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
                   <!-- <td>EA</td> -->
                 </tr>
                 <tr>
                   <!-- <td class="left">LOW NO</td> -->
-                  <td colspan="2" hidden=""><input type="text" id="wstdT55" name="wstd_t55" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
+                  <td colspan="2" hidden=""><input type="text" id="wstd_t55" name="wstd_t55" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
                   <!-- <td>EA</td> -->
                 </tr>
               </tbody></table>
@@ -883,17 +883,17 @@ body{
             </colgroup>
             <tbody><tr>
               <th class="left">예냉온도</th>
-              <td class=""><input id="wstdT68" name="wstd_t68" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t68" name="wstd_t68" class="basic" type="text" style="width:90%;" value=""></td>
               <th class="">예냉시간</th>
-              <td class=""><input id="wstdT69" name="wstd_t69" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t69" name="wstd_t69" class="basic" type="text" style="width:90%;" value=""></td>
               <th class="">심냉온도</th>
-              <td class=""><input id="wstdT70" name="wstd_t70" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t70" name="wstd_t70" class="basic" type="text" style="width:90%;" value=""></td>
               <th class="">심냉시간</th>
-              <td class=""><input id="wstdT71" name="wstd_t71" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t71" name="wstd_t71" class="basic" type="text" style="width:90%;" value=""></td>
               <th class="">방냉후실온</th>
-              <td class=""><input id="wstdT72" name="wstd_t72" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t72" name="wstd_t72" class="basic" type="text" style="width:90%;" value=""></td>
               <th class="">비고</th>
-              <td class=""><input id="wstdT73" name="wstd_t73" class="basic" type="text" style="width:90%;" value=""></td>
+              <td class=""><input id="wstd_t73" name="wstd_t73" class="basic" type="text" style="width:90%;" value=""></td>
             </tr>
             </tbody></table>
         </fieldset>
@@ -916,32 +916,33 @@ body{
               </tr>
               <tr>
                 <td class="left">1</td>
-                <td class=""><input id="wstdG11" name="wstd_g11" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstdG12" name="wstd_g12" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g11" name="wstd_g11" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g12" name="wstd_g12" class="basic" type="text" style="width:98%;" value=""></td>
                 <td class=""></td>
               </tr>
               <tr>
                 <td class="left">2</td>
-                <td class=""><input id="wstdG21" name="wstd_g21" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstdG22" name="wstd_g22" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g21" name="wstd_g21" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g22" name="wstd_g22" class="basic" type="text" style="width:98%;" value=""></td>
                 <td class=""></td>
               </tr>
               <tr>
                 <td class="left">3</td>
-                <td class=""><input id="wstdG31" name="wstd_g31" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstdG32" name="wstd_g32" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g31" name="wstd_g31" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g32" name="wstd_g32" class="basic" type="text" style="width:98%;" value=""></td>
                 <td class=""></td>
               </tr>
               <tr>
                 <td class="left">4</td>
-                <td class=""><input id="wstdG41" name="wstd_g41" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstdG42" name="wstd_g42" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g41" name="wstd_g41" class="basic" type="text" style="width:98%;" value=""></td>
+                <td class=""><input id="wstd_g42" name="wstd_g42" class="basic" type="text" style="width:98%;" value=""></td>
                 <td class=""></td>
               </tr>
             </tbody></table>
           </fieldset>
         </div>
         <div class="btnSaveClose">
+        	<button class="delete" type="button" onclick="deleteChim();"  style="display: none;">삭제</button>
             <button class="save" type="button" onclick="save();">저장</button>
             <button class="close" type="button" onclick="window.close();">닫기</button>
     	</div>
@@ -976,6 +977,7 @@ body{
 <script>
 	//전역변수
     var cutumTable;	
+    var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -1053,6 +1055,24 @@ body{
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#chimStandardForm')[0].reset();
+				$('.chimStandardModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#chimStandardForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
+			},
 		});		
 	}
 	
@@ -1097,7 +1117,11 @@ body{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		chimStandardModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#chimStandardForm')[0].reset(); // 폼 초기화
+	    chimStandardModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -1182,28 +1206,74 @@ body{
     
   //침탄로작업표준 저장
     function save() {
-        var formData = new FormData($("#chimStandardForm")[0]);  
-        $.ajax({
-            url: "/tkheat/management/chimStandardInsert/chimStandardSave",
-            type: "POST",
-            data: formData,
-            contentType: false,    
-            processData: false,   
-            dataType: "json",      
-            success: function(result) {
-                console.log(result);
-                
-                alert("저장 되었습니다.");
+	    var formData = new FormData($("#chimStandardForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.wstd_code) {
+	        formData.append("mode", "update");
+	        formData.append("wstd_code", selectedRowData.wstd_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/chimStandardInsert/chimStandardInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	        	alert("저장 되었습니다.");
                 $(".chimStandardModal").hide();
                 getChimStandardList();
-                
-            },
-            error: function(xhr, status, error) {
-                console.error("저장 오류:", error);
-            }
-        });
-    }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
 
+
+	function deleteChim() {
+	    if (!selectedRowData || !selectedRowData.wstd_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/chimStandardInsert/chimStandardDelete",
+	        type: "POST",
+	        data: {
+	        	wstd_code: selectedRowData.wstd_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".chimStandardModal").hide();
+	                getChimStandardList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 
     
 		

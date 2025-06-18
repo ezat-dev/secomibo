@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -344,6 +345,7 @@ public class ProductionController {
 			rowMap.put("werr_fac", nonReportList.get(i).getWerr_fac());
 			rowMap.put("werr_gubn", nonReportList.get(i).getWerr_gubn());
 			rowMap.put("werr_amnt", nonReportList.get(i).getWerr_amnt());
+			rowMap.put("werr_code", nonReportList.get(i).getWerr_code());
 
 			rtnList.add(rowMap);
 		}
@@ -403,6 +405,60 @@ public class ProductionController {
 
 			return rtnMap; 
 		}
+		
+		
+		//부적합보고서 등록, 수정 - insert,update
+		@RequestMapping(value = "/production/nonReportInsert/nonReportSave", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> nonReportSave(
+				@ModelAttribute Work work,
+				@RequestParam("mode") String mode) { 
+			Map<String, Object> result = new HashMap<>();
+
+			try {
+				if ("insert".equalsIgnoreCase(mode)) {
+					productionService.nonReportInsertSave(work);
+				} else if ("update".equalsIgnoreCase(mode)) {
+					productionService.nonReportUpdateSave(work);  
+				} else {
+					throw new IllegalArgumentException("Invalid mode: " + mode);
+				}
+
+				result.put("status", "success");
+				result.put("message", "OK");
+
+			} catch (Exception e) {
+				result.put("status", "error");
+				result.put("message", e.getMessage());
+			}
+
+			System.out.println(result.get("status"));
+			System.out.println(result.get("message"));
+
+			return result;
+		}
+
+
+		//부적합보고서 삭제 - delete
+		@RequestMapping(value = "/production/nonReportInsert/nonReportDelete", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> nonReportDelete(@RequestParam("werr_code") int werr_code) {
+			Map<String, Object> result = new HashMap<>();
+
+			try {
+				productionService.nonReportDelete(werr_code);
+				result.put("status", "success");
+				result.put("message", "삭제 완료");
+			} catch (Exception e) {
+				result.put("status", "error");
+				result.put("message", e.getMessage());
+			}
+
+			System.out.println(result.get("status"));
+			System.out.println(result.get("message"));
+
+			return result;
+		}	
 		
 		
 		

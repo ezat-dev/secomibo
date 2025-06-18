@@ -129,6 +129,14 @@ public class Permission {
 	private String h12;
 	private String h13;
 	private String h14;
+	private String h15;
+	private String h16;
+	private String h17;
+	private String h18;
+	private String h19;
+	private String h20;
+	private String h21;
+	private String h22;
 	public int getPerm_code() {
 		return perm_code;
 	}
@@ -842,6 +850,54 @@ public class Permission {
 	}
 	public void setH14(String h14) {
 		this.h14 = h14;
+	}
+	public String getH15() {
+		return h15;
+	}
+	public void setH15(String h15) {
+		this.h15 = h15;
+	}
+	public String getH16() {
+		return h16;
+	}
+	public void setH16(String h16) {
+		this.h16 = h16;
+	}
+	public String getH17() {
+		return h17;
+	}
+	public void setH17(String h17) {
+		this.h17 = h17;
+	}
+	public String getH18() {
+		return h18;
+	}
+	public void setH18(String h18) {
+		this.h18 = h18;
+	}
+	public String getH19() {
+		return h19;
+	}
+	public void setH19(String h19) {
+		this.h19 = h19;
+	}
+	public String getH20() {
+		return h20;
+	}
+	public void setH20(String h20) {
+		this.h20 = h20;
+	}
+	public String getH21() {
+		return h21;
+	}
+	public void setH21(String h21) {
+		this.h21 = h21;
+	}
+	public String getH22() {
+		return h22;
+	}
+	public void setH22(String h22) {
+		this.h22 = h22;
 	}
 
 

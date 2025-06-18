@@ -82,6 +82,52 @@
 	#{fstp_bigo}
 	)
 	</insert>
+	
+	
+	<update id="begaUpdateSave" parameterType="bega">
+		UPDATE FACSTOP 
+		       SET FAC_CODE = #{fac_code},
+		       FSTP_DATE = #{fstp_date},
+		       FSTP_PLAN = #{fstp_plan},
+		       FSTP_TU = #{fstp_tu},
+		       FSTP_STBY = #{fstp_stby},
+		       FSTP_SIL = #{fstp_sil}, 
+		       FSTP_MAN = #{fstp_man},
+		       FSTP_MHR = #{fstp_mhr},
+		       FSTP_01 = #{fstp_01},
+		       FSTP_02 = #{fstp_02},
+		       FSTP_03 = #{fstp_03},
+		       FSTP_04 = #{fstp_04}, 
+		       FSTP_05 = #{fstp_05},
+		       FSTP_06 = #{fstp_06},
+		       FSTP_07 = #{fstp_07},
+		       FSTP_08 = #{fstp_08},
+		       FSTP_09 = #{fstp_09},
+		       FSTP_10 = #{fstp_10},
+		       FSTP_BIGO = #{fstp_bigo} 
+		 WHERE FSTP_CODE = #{fstp_code}
+	</update>
+	
+	
+	<delete id="begaDelete" parameterType="int">
+    DELETE FROM FACSTOP
+    WHERE FSTP_CODE = #{fstp_code}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 

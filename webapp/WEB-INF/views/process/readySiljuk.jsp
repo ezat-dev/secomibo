@@ -39,18 +39,32 @@
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -310px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"]{
-	width : 5%;
-}
-.box1 input[type="date"]{
-	width : 7%;
-}
 .box1 select{
 	width: 5%
-}      
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
+}
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}            
     
     </style>
     
@@ -153,35 +167,35 @@
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"코드", field:"prod_code", sorter:"string", width:120,
+		        {title:"작업일", field:"ilbo_date", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
+			    {title:"준비코드", field:"ilbo_code", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"수주NO", field:"ord_code", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"품명", field:"prod_name", sorter:"string", width:150,
+				{title:"시작", field:"ilbo_strt", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"품번", field:"prod_no", sorter:"string", width:120,
+		        {title:"완료", field:"ilbo_end", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        {title:"입고LOT", field:"ord_lot", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+		        {title:"거래처", field:"corp_name", sorter:"string", width:100,
 		        	hozAlign:"center"},
-		        {title:"공정", field:"tech_te", sorter:"string", width:100,
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
 			        hozAlign:"center"},	
-		        {title:"단중", field:"prod_danj", sorter:"int", width:100,
+		        {title:"품번", field:"prod_no", sorter:"string", width:100,
 		        	hozAlign:"center"},  	
-		        {title:"단위", field:"prod_danw", sorter:"int", width:100,
+		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
 			        hozAlign:"center"},	
-			    {title:"단가(EA)", field:"prod_danw", sorter:"int", width:100,
+			    {title:"재질", field:"prod_jai", sorter:"string", width:100,
 				    hozAlign:"center"},	
-				{title:"단가(kG)", field:"prod_danw", sorter:"int", width:100,
+				{title:"작업량", field:"ilbo_su", sorter:"string", width:100,
 				    hozAlign:"center"},
-				{title:"표면경도", field:"prod_danw", sorter:"int", width:100,
+				{title:"작업자", field:"user_name", sorter:"string", width:100,
 					hozAlign:"center"},
-			    {title:"경화깊이", field:"prod_danw", sorter:"int", width:100,
+			    {title:"담당자", field:"ord_name", sorter:"string", width:100,
 					hozAlign:"center"},
- 			    {title:"심부경도", field:"prod_danw", sorter:"int", width:100,
+ 			    {title:"삭제", field:"prod_danw", sorter:"string", width:100,
 					hozAlign:"center"},
 				    
 		    ],

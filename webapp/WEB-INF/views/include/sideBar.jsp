@@ -240,12 +240,17 @@
 
                     <div class="nav__link collapse">
                         <ion-icon name="desktop-outline"></ion-icon>
-                        <span class="nav_name">감시시스템</span>
+                        <span class="nav_name">모니터링</span>
                         <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
                         <ul class="collapse__menu" id="dMenu">
 <!--                          
-                            <li><a href="#" class="collapse__sublink" onclick="updateHeader('품질관리모니터링')">품질관리모니터링</a></li>
+                            <li><a href="#" class="collapse__sublink" onclick="updateHeader('모니터링')">통합모니터링</a></li>
 -->
+							<li>
+							  <a href="/tkheat/monitoring/monitoring" target="_blank">
+							    <i class=""></i> 통합모니터링
+							  </a>
+							</li>
                         </ul>
                     </div>
 
@@ -387,7 +392,7 @@
 										_group = "생산공정관리";
 										_groupID = "cMenu";
 									}else if(key.indexOf("d") != -1){
-										_group = "감시시스템";
+										_group = "모니터링";
 										_groupID = "dMenu";
 									}else if(key.indexOf("e") != -1){
 										_group = "설비보존관리";
@@ -547,6 +552,28 @@
                 });
             }
         });
+
+
+
+
+        
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+        
 </script>
 
     

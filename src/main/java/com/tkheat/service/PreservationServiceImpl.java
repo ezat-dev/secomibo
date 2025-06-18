@@ -24,6 +24,12 @@ public class PreservationServiceImpl implements PreservationService{
 		return preservationDao.getSparePartList();
 	}
 	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Bega> getBegaInsertList(Bega bega){
 		return preservationDao.getBegaInsertList(bega);
@@ -35,9 +41,41 @@ public class PreservationServiceImpl implements PreservationService{
 	}
 	
 	@Override
+	public void begaUpdateSave(Bega bega) {
+		preservationDao.begaUpdateSave(bega);
+	}
+	
+	@Override
+	public void begaDelete(int fstp_code) {
+		preservationDao.begaDelete(fstp_code);
+	}
+	
+	
+	
+	
+	
+	@Override
 	public List<Suri> getSuriHistoryList(Suri suri){
 		return preservationDao.getSuriHistoryList(suri);
 	}
+	
+	@Override
+	public void suriHistoryInsertSave(Suri suri) {
+		preservationDao.suriHistoryInsertSave(suri);
+	}
+	
+	@Override
+	public void suriHistoryUpdateSave(Suri suri) {
+		preservationDao.suriHistoryUpdateSave(suri);
+	}
+	
+	@Override
+	public void suriHistoryDelete(int ffx_no) {
+		preservationDao.suriHistoryDelete(ffx_no);
+	}
+	
+	
+	
 	
 	@Override
 	public List<Jeomgeom> getJeomgeomInsertList(){
@@ -50,6 +88,21 @@ public class PreservationServiceImpl implements PreservationService{
 	}
 	
 	@Override
+	public void jeomgeomUpdateSave(Jeomgeom jeomgeom) {
+		preservationDao.jeomgeomUpdateSave(jeomgeom);
+	}
+	
+	@Override
+	public void jeomgeomDelete(int chs_code) {
+		preservationDao.jeomgeomDelete(chs_code);
+	}
+	
+	
+	
+	
+	
+	
+	@Override
 	public List<Measure> getGigiGojangList(Measure measure){
 		return preservationDao.getGigiGojangList(measure);
 	}
@@ -59,9 +112,30 @@ public class PreservationServiceImpl implements PreservationService{
 		preservationDao.gigiGojangSave(measure);
 	}
 	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Measure> getGigiJeomgeomList(Measure measure){
 		return preservationDao.getGigiJeomgeomList(measure);
+	}
+	
+	@Override
+	public void gigiJeomgeomInsertSave(Measure measure) {
+		preservationDao.gigiJeomgeomInsertSave(measure);
+	}
+	
+	@Override
+	public void gigiJeomgeomUpdateSave(Measure measure) {
+		preservationDao.gigiJeomgeomUpdateSave(measure);
+	}
+	
+	@Override
+	public void gigiJeomgeomDelete(int ter_code) {
+		preservationDao.gigiJeomgeomDelete(ter_code);
 	}
 	
 

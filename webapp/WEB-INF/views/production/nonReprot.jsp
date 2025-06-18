@@ -117,20 +117,32 @@ textarea {
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -500px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"] {
-	width: 5%;
-}
-
-.box1 input[type="date"] {
-	width: 7%;
-}
-
-.box1 select {
+.box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 .btnSaveClose {
 	display: flex;
 	justify-content: center; /* 가운데 정렬 */
@@ -324,12 +336,12 @@ th{
 								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
 									<tr>
 										<th class="">작성일</th>
-										<td class=""><input id="datepicker1" name="werr_date"class="date js-datepicker" type="text" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
+										<td class=""><input id="werr_date" name="werr_date"class="date js-datepicker" type="date" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
 										<th class="">발생일</th>
-										<td class=""><input id="datepicker2" name="werr_wdate" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
+										<td class=""><input id="werr_wdate" name="werr_wdate" class="date js-datepicker" type="date" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
 										<th class="">설비선택</th>
 										<td>
-										<select id="werrFac" name="werr_fac" class="basic"style="width: 100px">									
+										<select id="werr_fac" name="werr_fac" class="basic"style="width: 100px">									
 											
 												<option value="고주파 1호기(폐기)">고주파 1호기(폐기)</option>
 											
@@ -376,12 +388,12 @@ th{
 										</tr>
 									<tr>
 										<th class="">관리번호</th>
-										<td class=""><input id="werrLot" name="werr_lot" class="basic" type="text" style="width:70%;" value="" /></td>
+										<td class=""><input id="werr_lot" name="werr_lot" class="basic" type="text" style="width:70%;" value="" /></td>
 										<th class="">발생부서</th>
-										<td class=""><input id="werrTeam" name="werr_team" class="basic" type="text" style="width:70%;" value="" /></td>
+										<td class=""><input id="werr_team" name="werr_team" class="basic" type="text" style="width:70%;" value="" /></td>
 										<th class="">구분</th>
 										<td>
-										<select class="basic" id="werrinOutGubn" name="werr_in_out_gubn" style="width:100px;">												
+										<select class="basic" id="werr_in_out_gubn" name="werr_in_out_gubn" style="width:100px;">												
 												<option selected="selected">사내</option>
 												<option>사외</option>
 										</select>
@@ -390,10 +402,10 @@ th{
 									<tr>
 										<th class="">보고자</th>
 										<td class="">
-											<input id="werrUser" name="werr_user" class="basic" type="text" style="width:70%;" value="" />
+											<input id="werr_user" name="werr_user" class="basic" type="text" style="width:70%;" value="" />
 										</td>
 										<th class="">수량</th>
-										<td class=""><input id="werrAmnt" name="werr_amnt" class="basic" type="text" style="width:70%;" value="" /></td>
+										<td class=""><input id="werr_amnt" name="werr_amnt" class="basic" type="text" style="width:70%;" value="" /></td>
 									</tr>
 								</table>
 											
@@ -406,7 +418,7 @@ th{
 										
 										<th class="">불량유형</th>
 										<td class="">
-											<select id="werrGubn" name="werr_gubn" class="basic">
+											<select id="werr_gubn" name="werr_gubn" class="basic">
 												<option selected="selected">찍힘</option>
 												<option>외관(이물)</option>
 												<option>외관(발청)</option>
@@ -421,7 +433,7 @@ th{
 										</td>
 										<th class="">조치구분</th>
 										<td class="">
-											<select id="werrJGubn" name="werr_jgubn" class="basic">
+											<select id="werr_jgubn" name="werr_jgubn" class="basic">
 												<option selected="selected">재작업</option>
 												<option>폐기</option>
 												<option>업체통보후납품</option>
@@ -432,18 +444,18 @@ th{
 										</tr>
 									<tr>
 										<th class="">불량내용</th>
-										<td class=""><textarea id="werrGNote" name="werr_gnote" class="basic" style="width:90%; height:60px;"></textarea></td>
+										<td class=""><textarea id="werr_gnote" name="werr_gnote" class="basic" style="width:90%; height:60px;"></textarea></td>
 										<th class="">대책수립 및<br />
 											대책실시</th>
-										<td class=""><textarea id="werrJNote" name="werr_jnote" class="basic" style="width:90%; height:60px;"></textarea></td>
+										<td class=""><textarea id="werr_jnote" name="werr_jnote" class="basic" style="width:90%; height:60px;"></textarea></td>
 									</tr>
 									<tr>
 										<th class="">발생원인 및<br />
 											원인분석</th>
-										<td class=""><textarea id="werrCase" name="werr_case" class="basic" style="width:90%; height:60px;"></textarea></td>
+										<td class=""><textarea id="werr_case" name="werr_case" class="basic" style="width:90%; height:60px;"></textarea></td>
 										<th class="">결과분석 및<br />
 											사후관리</th>
-										<td class=""><textarea id="werrNote" name="werr_note" class="basic" style="width:90%; height:60px;"></textarea></td>
+										<td class=""><textarea id="werr_note" name="werr_note" class="basic" style="width:90%; height:60px;"></textarea></td>
 									</tr>
 								</table>					
 							</td>
@@ -464,11 +476,12 @@ th{
 										<div class="imgArea" id='previewId2' style="height:190px;border:1px solid #ddd;"><img id="prev_previewId2" src="/resources/images/noimage_01.gif" width="100%" height="100%" /></div></div></p>
 									</div>
 								</div>
-								<input type="file" name="werr_fname" id="werrFname" title="파일 첨부"  onchange="" />
+								<input type="file" name="werr_fname" id="werr_fname" title="파일 첨부"  onchange="" />
 								</td>
 							</tr>
 					</table>
 					<div class="btnSaveClose">
+						 <button class="delete" type="button" onclick="deleteNonReprot();"  style="display: none;">삭제</button>	
 						 <button class="save" type="button" onclick="save();">저장</button>
 						 <button class="close" type="button" onclick="window.close();">닫기</button>
     	  			</div>
@@ -491,7 +504,7 @@ th{
 <script>
 	//전역변수
     var cutumTable;	
-
+    var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -526,7 +539,7 @@ th{
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"werr_code", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"발생일", field:"werr_wdate", sorter:"string", width:120,
 			        hozAlign:"center", headerFilter:"input"},	
@@ -570,6 +583,24 @@ th{
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#nonReportForm')[0].reset();
+				$('.nonReportModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#nonReportForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
+			},
 		});		
 	}
 
@@ -604,7 +635,11 @@ th{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		nonReportModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#nonReportForm')[0].reset(); // 폼 초기화
+	    nonReportModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -681,6 +716,78 @@ th{
         document.getElementById('ipgoListModal').style.display = 'none';
     }
 
+
+
+  //부적합보고서 저장
+    function save() {
+	    var formData = new FormData($("#nonReportForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.werr_code) {
+	        formData.append("mode", "update");
+	        formData.append("werr_code", selectedRowData.werr_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/production/nonReportInsert/nonReportSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	        	alert("저장 되었습니다.");
+                $(".nonReportModal").hide();
+                getNonReportList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteNonReport() {
+	    if (!selectedRowData || !selectedRowData.werr_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/production/nonReportInsert/nonReportDelete",
+	        type: "POST",
+	        data: {
+	        	werr_code: selectedRowData.werr_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".nonReportModal").hide();
+	                getNonReportList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 
 
 

@@ -115,28 +115,74 @@
 	background-color: #808080;
 	transform: scale(1.05);
 }
-
 .box1 {
 	display: flex;
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1200px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"] {
-	width: 5%;
-}
-
-.box1 input[type="date"] {
-	width: 7%;
-}
-
-.box1 select {
+.box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 th{
 	font-size : 14px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
 }
 </style>
     
@@ -152,7 +198,7 @@ th{
 	</div>
     
     <div class="button-container">
-        <button class="select-button">
+        <button class="select-button" onclick="getJajuJochiList();">
             <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
            
         </button>
@@ -176,6 +222,8 @@ th{
 		</div>
 	</main>
 	    
+	    
+<form method="post" id="jajuJochiForm" name="jajuJochiForm">    
 	<div class="jajujochiModal">    
 	 <div class="detail">
        <div class="header">
@@ -200,38 +248,38 @@ th{
                                 <tr>
                                     <th class="left">거래처</th>
                                     <td>
-                                        <input id="CORP_NAME" name="corp_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly="">
+                                        <input id="corp_name" name="corp_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly="">
                                     </td>
                                     <th><span class="left">품명</span></th>
-                                    <td><input id="PROD_NAME" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
+                                    <td><input id="prod_name" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
                                     <th><span class="left">품번</span></th>
-                                    <td><input id="PROD_NO" name="prod_no" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
+                                    <td><input id="prod_no" name="prod_no" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
                                 </tr>
                                 <tr>
                                     <th class="left">관리번호</th>
                                     <td><input id="" class="basic valClean" type="text" style="width:90%;" value=""></td>
                                     <th class="left">작성일</th>
-                                    <td><input type="text" id="JERR_RDATE" name="jerr_rdate" size="10" maxlength="10" value="2025-03-26" class="date valPost valClean hasDatepicker" style="width:85px;"></td>
+                                    <td><input type="text" id="jerr_rdate" name="jerr_rdate" size="10" maxlength="10" value="2025-03-26" class="date valPost valClean hasDatepicker" style="width:85px;"></td>
                                     <th><span class="left">관리번호</span></th>
                                     <td><input id="" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th class="left">발생일자</th>
-                                    <td><input type="text" id="JERR_SDATE" name="jerr_sdate" size="10" maxlength="10" value="2025-03-26" class="date valPost valClean hasDatepicker" style="width:85px;"></td>
+                                    <td><input type="text" id="jerr_sdate" name="jerr_sdate" size="10" maxlength="10" value="2025-03-26" class="date valPost valClean hasDatepicker" style="width:85px;"></td>
                                     <th><span class="left">발생부서</span></th>
-                                    <td><input id="JERR_SBUSO" name="jerr_sbuso" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+                                    <td><input id="jerr_sbuso" name="jerr_sbuso" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
                                     <th><span class="left">발생자</span></th>
-                                    <td><input id="JERR_SMAN" name="jerr_sman" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+                                    <td><input id="jerr_sman" name="jerr_sman" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th class="left">보고자</th>
-                                    <td><input id="JERR_RMAN" name="jerr_rman" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+                                    <td><input id="jerr_rman" name="jerr_rman" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
                                     <th><span class="left">수,중량</span></th>
-                                    <td><input id="JERR_SU" name="jerr_su" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
+                                    <td><input id="jerr_su" name="jerr_su" class="basic valPost valClean" type="text" style="width:90%;" value=""></td>
                                     <th><span class="left">설비</span></th>
-                                    <td><input id="FAC_NAME" name="fac_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
-                                    <td><input class="btnSearchFac" type="button" title="" value="설비검색"></td>
-                                    <td><input id="FAC_CODE" name="fac_code" class="basic valPost valClean hidden" type="text" style="width:90%;" value="" readonly=""></td>
+                                    <td><input id="fac_name" name="fac_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
+                                    <td><input class="btnSearchFac" type="button" onclick="openFacListModal();" value="설비검색"></td>
+                                    <td><input id="fac_code" name="fac_code" class="basic valPost valClean hidden" type="text" style="width:90%;" value="" readonly=""></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -246,7 +294,7 @@ th{
                                 <tr>
                                     <th class="">부적합구분</th>
                                     <td>
-                                        <select id="JERR_GUBN" name="jerr_gubn" class="basic valPost valClean" type="text" style="width:100px;">
+                                        <select id="jerr_gubn" name="jerr_gubn" class="basic valPost valClean" type="text" style="width:100px;">
                                             <option>경도</option>
                                             <option>경화깊이</option>
                                             <option>조직</option>
@@ -268,16 +316,16 @@ th{
                                 </tr>
                                 <tr>
                                     <th class="left">부적합내용</th>
-                                    <td class=""><textarea name="JERR_ACONTENTS" name="jerr_acontents" id="JERR_ACONTENTS" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
+                                    <td class=""><textarea  name="jerr_acontents" id="jerr_acontents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
                                 </tr>
                                 <tr>
                                     <th class="left">발생원인 및 원인분석</th>
-                                    <td class=""><textarea name="JERR_BCONTENTS" name="jerr_bcontents" id="JERR_BCONTENTS" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
+                                    <td class=""><textarea  name="jerr_bcontents" id="jerr_bcontents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
                                 </tr>
                                 <tr>
                                     <th class="left">조치구분</th>
                                     <td>
-                                        <select id="JERR_JGUBN" name="jerr_jgubn" class="basic valPost valClean" type="text" style="width:150px;">
+                                        <select id="jerr_jgubn" name="jerr_jgubn" class="basic valPost valClean" type="text" style="width:150px;">
                                             <option>재작업</option>
                                             <option>대기</option>
                                             <option>합격</option>
@@ -297,11 +345,11 @@ th{
                                 </tr>
                                 <tr>
                                     <th class="left">대책수립 및 대책실시</th>
-                                    <td class=""><textarea id="JERR_DCONTENTS" name="jerr_dcontents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
+                                    <td class=""><textarea id="jerr_dcontents" name="jerr_dcontents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
                                 </tr>
                                 <tr>
                                     <th class="left">결과분석 및 사후관리</th>
-                                    <td class=""><textarea id="JERR_ECONTENTS" name="jerr_econtents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
+                                    <td class=""><textarea id="jerr_econtents" name="jerr_econtents" class="basic valPost valClean" style="width:90%; height:60px;"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -310,16 +358,29 @@ th{
             </tbody>
         </table>
         <div class="btnSaveClose">
+        	<button class="delete" type="button" onclick="deleteJochi();"  style="display: none;">삭제</button>
             <button class="save" type="button" onclick="save();">저장</button>
             <button class="close" type="button" onclick="window.close();">닫기</button>
     </div>
     </div>
     </div>
-    
+   </form> 
+   
+   
+   <!-- 설비목록(검색버튼) 팝업창 -->
+	<div id="facListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">설비 리스트</span> <span class="modal-close" onclick="closeFacListModal()">&times;</span>
+			</div>
+			<div id="facListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
 	    
 <script>
 	//전역변수
     var cutumTable;	
+	var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -370,7 +431,6 @@ th{
 			        hozAlign:"center"},	
 		        {title:"조치구분", field:"jerr_jgubn", sorter:"string", width:100,
 		        	hozAlign:"center"},
-				    
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -393,6 +453,24 @@ th{
 
 				var rowData = row.getData();
 				
+			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#jajuJochiForm')[0].reset();
+				$('.jajujochiModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#jajuJochiForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
 			},
 		});		
 	}
@@ -438,12 +516,74 @@ th{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		jajujochiModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#jajuJochiForm')[0].reset(); // 폼 초기화
+	    jajujochiModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
 		jajujochiModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+
+
+
+	//설비검색버튼 리스트 모달
+    function openFacListModal() {
+        document.getElementById('facListModal').style.display = 'flex';
+
+        
+        let facListTable = new Tabulator("#facListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/management/facInsert/getFacList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+                "fac_code": "",
+                "fac_name": "",
+                "fac_no":"",
+                   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+                {title:"NO", field:"idx", width:80, hozAlign:"center"},
+                {title:"설비NO", field:"fac_no", width:120, hozAlign:"center"},
+                {title:"설비NO", field:"fac_code", width:120, hozAlign:"center",visible:false},
+                {title:"설비명", field:"fac_name", width:150, hozAlign:"center"},
+                {title:"규격", field:"fac_gyu", width:100, hozAlign:"center"},
+                {title:"형식", field:"fac_hyun", width:200, hozAlign:"center"},
+                {title:"용도", field:"fac_yong", width:200, hozAlign:"center"},
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                console.log("선택된 설비:", data);
+                document.getElementById('fac_code').value = data.fac_code;
+                document.getElementById('fac_name').value = data.fac_name;
+                
+                document.getElementById('facListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeFacListModal() {
+        document.getElementById('facListModal').style.display = 'none';
+    }
+
+
+
+
+
+	
 		
 
 

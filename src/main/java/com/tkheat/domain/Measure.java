@@ -34,6 +34,7 @@ public class Measure {
 	
 	
 	//측정기기고장 및 점검
+	private int terr_code;
 	private String terr_name;
 	private String terr_chkman; //확인자
 	private String terr_date; //고장일시
@@ -474,5 +475,11 @@ public class Measure {
 	}
 	public void setDevice_location_cd(String device_location_cd) {
 		this.device_location_cd = device_location_cd;
+	}
+	public int getTerr_code() {
+		return terr_code;
+	}
+	public void setTerr_code(int terr_code) {
+		this.terr_code = terr_code;
 	}
 }

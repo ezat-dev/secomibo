@@ -48,18 +48,25 @@ public class ManagementController {
 
 		return "/management/productInsert.jsp";
 	}	 
-
-
-	//제품등록 - insert
+	
+	
+	//제품등록, 수정 - insert,update
 	@RequestMapping(value = "/management/productInsert/productInsertSave", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> productInsertSave(
-			@ModelAttribute Product product){
+			@ModelAttribute Product product,
+			@RequestParam("mode") String mode) { 
 		Map<String, Object> result = new HashMap<>();
 
-		
 		try {
-			managementService.productInsertSave(product);
+			if ("insert".equalsIgnoreCase(mode)) {
+				managementService.productInsertSave(product);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				managementService.productUpdateSave(product);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
+
 			result.put("status", "success");
 			result.put("message", "OK");
 
@@ -73,7 +80,28 @@ public class ManagementController {
 
 		return result;
 	}
+	
+	
+	//제품 삭제 - delete
+	@RequestMapping(value = "/management/productInsert/productDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> productDelete(@RequestParam("prod_code") int prod_code) {
+		Map<String, Object> result = new HashMap<>();
 
+		try {
+			managementService.productDelete(prod_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
 
 
 	//전체 제품 목록 조회
@@ -186,7 +214,7 @@ public class ManagementController {
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<corpList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();
-			rowMap.put("idx", (i+1));
+			rowMap.put("corp_code", corpList.get(i).getCorp_code());
 			rowMap.put("corp_gubn", corpList.get(i).getCorp_gubn());
 			rowMap.put("corp_name", corpList.get(i).getCorp_name());
 			rowMap.put("corp_name2", corpList.get(i).getCorp_name2());
@@ -196,7 +224,6 @@ public class ManagementController {
 			rowMap.put("corp_boss", corpList.get(i).getCorp_boss());
 			rowMap.put("corp_mast", corpList.get(i).getCorp_mast());
 			rowMap.put("corp_plc", corpList.get(i).getCorp_plc());
-			rowMap.put("corp_code", corpList.get(i).getCorp_code());
 
 			rtnList.add(rowMap);
 		}
@@ -207,30 +234,71 @@ public class ManagementController {
 		return rtnMap; 
 	}
 	
+	//거래처 등록 and 수정
+	@RequestMapping(value = "/management/cutumInsert/cutumInsertSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cutumInsertSave(
+	        @ModelAttribute Corp corp,
+	        @RequestParam("mode") String mode) { 
+	    Map<String, Object> result = new HashMap<>();
+
+	    System.out.println("1");
+	    System.out.println(corp.getCorp_gyul1());
+	    System.out.println("2");
+	    
+	    
+	   if(corp.getCorp_gyul1() == null) {
+		   corp.setCorp_gyul1("0");
+	   }else if("on".equals(corp.getCorp_gyul1())) {
+		   corp.setCorp_gyul1("1");
+	   }
+	    
+	    try {
+	        if ("insert".equalsIgnoreCase(mode)) {
+	            managementService.cutumInsertSave(corp);
+	        } else if ("update".equalsIgnoreCase(mode)) {
+	            managementService.cutumUpdateSave(corp);  
+	        } else {
+	            throw new IllegalArgumentException("Invalid mode: " + mode);
+	        }
+
+	        result.put("status", "success");
+	        result.put("message", "OK");
+
+	    } catch (Exception e) {
+	        result.put("status", "error");
+	        result.put("message", e.getMessage());
+	    }
+
+	    System.out.println(result.get("status"));
+	    System.out.println(result.get("message"));
+
+	    return result;
+	}
 	
-	//거래처등록 - insert
-		@RequestMapping(value = "/management/cutumInsert/cutumInsertSave", method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> cutumInsertSave(
-				@ModelAttribute Corp corp){
-			Map<String, Object> result = new HashMap<>();
+	//거래처 삭제 - delete
+	@RequestMapping(value = "/management/cutumInsert/cutumDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cutumDelete(@RequestParam("corp_code") int corp_code) {
+	    Map<String, Object> result = new HashMap<>();
 
-			
-			try {
-				managementService.cutumInsertSave(corp);
-				result.put("status", "success");
-				result.put("message", "OK");
+	    try {
+	        managementService.cutumDelete(corp_code);
+	        result.put("status", "success");
+	        result.put("message", "삭제 완료");
+	    } catch (Exception e) {
+	        result.put("status", "error");
+	        result.put("message", e.getMessage());
+	    }
 
-			} catch (Exception e) {
-				result.put("status", "error");
-				result.put("message", e.getMessage());
-			}
+	    System.out.println(result.get("status"));
+	    System.out.println(result.get("message"));
 
-			System.out.println(result.get("status"));
-			System.out.println(result.get("message"));
+	    return result;
+	}
 
-			return result;
-		}
+	
+	
 
 
 	//설비등록 - 화면로드
@@ -258,7 +326,6 @@ public class ManagementController {
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<facList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();
-			rowMap.put("idx", (i+1));
 			rowMap.put("fac_no", facList.get(i).getFac_no());
 			rowMap.put("fac_name", facList.get(i).getFac_name());
 			rowMap.put("fac_gyu", facList.get(i).getFac_gyu());
@@ -277,6 +344,60 @@ public class ManagementController {
 		rtnMap.put("data",rtnList);
 
 		return rtnMap; 
+	}
+	
+	
+	//설비 등록 and 수정
+	@RequestMapping(value = "/management/facInsert/facInsertSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> facInsertSave(
+			@ModelAttribute Fac fac,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				managementService.facInsertSave(fac);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				managementService.facUpdateSave(fac);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
+
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+	
+	
+	//설비 삭제 - delete
+	@RequestMapping(value = "/management/facInsert/facDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> facDelete(@RequestParam("fac_code") int fac_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			managementService.facDelete(fac_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
 	}
 
 
@@ -327,6 +448,7 @@ public class ManagementController {
 			rowMap.put("tech_te", chimStandardList.get(i).getTech_te());
 			rowMap.put("prod_code", chimStandardList.get(i).getProd_code());
 			rowMap.put("fac_name", chimStandardList.get(i).getFac_name());
+			rowMap.put("wstd_code", chimStandardList.get(i).getWstd_code());
 			
 
 			rtnList.add(rowMap);
@@ -338,30 +460,60 @@ public class ManagementController {
 		return rtnMap; 
 	}
 	
+		
 	
-	//침탄로작업표준 등록 - insert
-		@RequestMapping(value = "/management/chimStandardInsert/chimStandardSave", method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> chimStandardSave(@ModelAttribute Standard standard) {
-		    Map<String, Object> result = new HashMap<>();
-		    
-		    
+	//침탄표준 등록 and 수정
+	@RequestMapping(value = "/management/chimStandardInsert/chimStandardInsertSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> chimStandardSave(
+			@ModelAttribute Standard standard,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
 
-		    try {
-		    	managementService.chimStandardSave(standard);
-		        result.put("status", "success");
-		        result.put("message", "OK");
-		        
-		    } catch (Exception e) {
-		        result.put("status", "error");
-		        result.put("message", e.getMessage());
-		    }
-		    
-		    System.out.println(result.get("status"));
-		    System.out.println(result.get("message"));
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				managementService.chimStandardInsertSave(standard);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				managementService.chimStandardUpdateSave(standard);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
 
-		    return result;
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
 		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+
+
+	//침탄표준 삭제 - delete
+	@RequestMapping(value = "/management/chimStandardInsert/chimStandardDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> chimStandardDelete(@RequestParam("wstd_code") int wstd_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			managementService.chimStandardDelete(wstd_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
 	
 	
 
@@ -563,7 +715,7 @@ public class ManagementController {
 
 
 
-	//전체 제품 목록 조회
+	//측정기기 목록 조회
 	@RequestMapping(value = "/management/measurement/measureList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getMeasureList() {
@@ -595,7 +747,59 @@ public class ManagementController {
 		return rtnMap; 
 	}	
 
+	
+	//측정기기 등록 and 수정
+	@RequestMapping(value = "/management/measurement/measureInsertSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> measureInsertSave(
+			@ModelAttribute Measure measure,
+			@RequestParam("mode") String mode) { 
+		Map<String, Object> result = new HashMap<>();
 
+		try {
+			if ("insert".equalsIgnoreCase(mode)) {
+				managementService.measureInsertSave(measure);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				managementService.measureUpdateSave(measure);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
+			}
+
+			result.put("status", "success");
+			result.put("message", "OK");
+
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+
+
+	//측정기기 삭제 - delete
+	@RequestMapping(value = "/management/measurement/measureDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> measureDelete(@RequestParam("ter_code") int ter_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			managementService.measureDelete(ter_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
 
 
 

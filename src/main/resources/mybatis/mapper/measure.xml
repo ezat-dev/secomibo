@@ -3,127 +3,304 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="measure">
-	
-	
-	<select id="getMeasureList" parameterType="measure" resultType="measure">
+
+
+	<select id="getMeasureList" parameterType="measure"
+		resultType="measure">
 		SET LOCK_TIMEOUT 10000;
-		SELECT 'T' + RIGHT('000000000' + CAST(TER_CODE AS nvarchar), 9) AS TER_BAR
-			 ,TER_CODE
-			 ,TER_NAME
-			 ,TER_NO
-			 ,TER_MODEL
-			 ,TER_SN
-			 ,TER_YONG
-			 ,TER_KIND
-			 ,TER_MAN1
-			 ,TER_MAN2
-			 ,TER_PLACE
-			 ,TER_USE
-			 ,TER_UBIGO
-			 ,TER_BIGO
-			 ,TER_MAKER
-			 ,convert(varchar(10), TER_MDATE, 120) AS TER_MDATE
-			 ,TER_BUY
-			 ,convert(varchar(10), TER_BDATE, 120) AS TER_BDATE
-			 ,TER_BMON
-			 ,TER_NEXT_GUM
-			 ,TER_END_GUM
-			 ,TER_GUM
-			 ,TER_V
-			 ,TER_A TER_KW
+		SELECT 'T' + RIGHT('000000000' +
+		CAST(TER_CODE AS nvarchar), 9) AS TER_BAR
+		,TER_CODE
+		,TER_NAME
+		,TER_NO
+		,TER_MODEL
+		,TER_SN
+		,TER_YONG
+		,TER_KIND
+		,TER_MAN1
+		,TER_MAN2
+		,TER_PLACE
+		,TER_USE
+		,TER_UBIGO
+		,TER_BIGO
+		,TER_MAKER
+		,convert(varchar(10), TER_MDATE, 120) AS TER_MDATE
+		,TER_BUY
+		,convert(varchar(10), TER_BDATE, 120) AS TER_BDATE
+		,TER_BMON
+		,TER_NEXT_GUM
+		,TER_END_GUM
+		,TER_GUM
+		,TER_V
+		,TER_A TER_KW
 		FROM TESTER WITH(NOLOCK)
 	</select>
-	
-	
+
+
 	<!-- 측정기기고장이력 -->
-	<select id="getGigiGojangList" parameterType="measure" resultType="measure">
+	<select id="getGigiGojangList" parameterType="measure"
+		resultType="measure">
 		SET LOCK_TIMEOUT 10000;
-        SELECT  TESTER_ERR_LIST.TERR_CODE, TESTER_ERR_LIST.TERR_NAME, TESTER_ERR_LIST.TERR_NAME, TESTER_ERR_LIST.TERR_DATE, TESTER_ERR_LIST.TERR_REWARD, TESTER_ERR_LIST.TERR_STRT,
-        TESTER_ERR_LIST.TERR_END, TESTER_ERR_LIST.TERR_TIME, TESTER_ERR_LIST.TERR_MAN, TESTER_ERR_LIST.TERR_CONTENT,
-        TESTER_ERR_LIST.TER_CODE, TESTER_ERR_LIST.TERR_COST
-        FROM TESTER_ERR_LIST WITH(NOLOCK) INNER JOIN
-        TESTER WITH(NOLOCK) ON TESTER_ERR_LIST.TER_CODE = TESTER.TER_CODE
-        WHERE TESTER_ERR_LIST.TERR_DATE BETWEEN #{sdate} AND #{edate}           
-        ORDER BY TESTER_ERR_LIST.TERR_DATE
+		SELECT TESTER_ERR_LIST.TERR_CODE, TESTER_ERR_LIST.TERR_NAME,
+		TESTER_ERR_LIST.TERR_NAME, TESTER_ERR_LIST.TERR_DATE,
+		TESTER_ERR_LIST.TERR_REWARD, TESTER_ERR_LIST.TERR_STRT,
+		TESTER_ERR_LIST.TERR_END, TESTER_ERR_LIST.TERR_TIME,
+		TESTER_ERR_LIST.TERR_MAN, TESTER_ERR_LIST.TERR_CONTENT,
+		TESTER_ERR_LIST.TER_CODE, TESTER_ERR_LIST.TERR_COST
+		FROM TESTER_ERR_LIST WITH(NOLOCK) INNER JOIN
+		TESTER WITH(NOLOCK) ON TESTER_ERR_LIST.TER_CODE = TESTER.TER_CODE
+		WHERE TESTER_ERR_LIST.TERR_DATE BETWEEN #{sdate} AND #{edate}
+		ORDER BY TESTER_ERR_LIST.TERR_DATE
 	</select>
-	
-	
+
+
 	<insert id="gigiGojangSave" parameterType="measure">
-		SET LOCK_TIMEOUT 10000;
-        INSERT INTO TESTER_ERR_LIST
-        (TER_CODE
-        ,TERR_NAME
-        ,TERR_CHKMAN
-        ,TERR_DATE
-        ,TERR_CONDI
-        ,TERR_COST
-        ,TERR_BIGO
-        ,TERR_REWARD
-        ,TERR_STRT
-        ,TERR_END
-        ,TERR_TIME
-        ,TERR_MAN
-        ,TERR_SURI
-        ,TERR_CONTENT
-        )
-        VALUES
-        
-        (#{ter_code}
-        ,#{terr_name}
-        ,#{terr_chkman}
-        ,#{terr_date}
-        ,#{terr_condi}
-        ,#{terr_cost}
-        ,#{terr_bigo}
-        ,#{terr_reward}
-        ,#{terr_strt_edit}
-        ,#{terr_end_edit}
-        ,#{terr_time}
-        ,#{terr_man}
-        ,#{terr_suri}
-        ,#{terr_content}
-        )
-	
-	
+		   INSERT INTO TESTER_ERR_LIST (
+        terr_name,
+        terr_chkman,
+        terr_reward,
+        terr_strt,
+        terr_end,
+        terr_time,
+        terr_content,
+        terr_man,
+        terr_cost,
+        terr_suri,
+        terr_bigo,
+        terr_condi,
+        terr_spare,
+        terr_date,
+        terr_adate,
+        ter_code,
+        terr_code
+    ) VALUES (
+        #{ter_code_name},
+        #{terr_chkman},
+        #{terr_reward},
+        #{terr_strt_edit},
+        #{terr_end_edit},
+        #{terr_time},
+        #{terr_content},
+        #{terr_man},
+        #{terr_cost},
+        #{terr_suri},
+        #{terr_bigo},
+        #{terr_condi},
+        #{terr_spare},
+        #{terr_date},
+        #{terr_adate},
+        #{ter_code},
+        #{terr_code}
+    )
 	</insert>
+
+
+
 	
+
+
+	<insert id="measureInsertSave" parameterType="measure">
+		SET LOCK_TIMEOUT
+		10000;
+		INSERT INTO TESTER
+		(
+		[TER_NAME],
+		[TER_NO],
+		[TER_MODEL],
+		[TER_SN],
+		[TER_YONG],
+		[TER_KIND],
+		[TER_MAN1],
+		[TER_MAN2],
+		[TER_PLACE],
+		[TER_USE],
+		[TER_UBIGO],
+		[TER_BIGO],
+		[TER_MAKER],
+		[TER_MDATE],
+		[TER_BUY],
+		[TER_BDATE],
+		[TER_BMON],
+		[TER_GUM],
+		[TER_V],
+		[TER_A],
+		[TER_KW],
+		[TER_NEXT_GUM],
+		[TER_END_GUM],
+		[TER_FILE]
+		)
+		VALUES
+		(
+		#{ter_name},
+		#{ter_no},
+		#{ter_model},
+		#{ter_sn},
+		#{ter_yong},
+		#{ter_kind},
+		#{ter_man1},
+		#{ter_man2},
+		#{ter_place},
+		#{ter_use},
+		#{ter_ubigo},
+		#{ter_bigo},
+		#{ter_maker},
+		#{ter_mdate},
+		#{ter_buy},
+		#{ter_bdate},
+		#{ter_bmon},
+		#{ter_gum},
+		#{ter_v},
+		#{ter_a},
+		#{ter_kw},
+		#{ter_next_gum},
+		#{ter_end_gum},
+		#{ter_file}
+		)
+
+	</insert>
+
+	<update id="measureUpdateSave" parameterType="measure">
+	SET LOCK_TIMEOUT 10000;
+	UPDATE TESTER
+	SET
+	TER_NAME = #{ter_name},
+	TER_MODEL = #{ter_model},
+	TER_SN = #{ter_sn},
+	TER_YONG = #{ter_yong},
+	TER_KIND = #{ter_kind},
+	TER_MAN1 = #{ter_man1},
+	TER_MAN2 = #{ter_man2},
+	TER_PLACE = #{ter_place},
+	TER_USE = #{ter_use},
+	TER_UBIGO = #{ter_ubigo},
+	TER_BIGO = #{ter_bigo},
+	TER_MAKER =
+	#{ter_maker},
+	TER_MDATE = #{ter_mdate},
+	TER_BUY = #{ter_buy},
+	TER_BDATE =
+	#{ter_bdate},
+	TER_BMON = #{ter_bmon},
+	TER_GUM = #{ter_gum},
+	TER_V =
+	#{ter_v},
+	TER_A = #{ter_a},
+	TER_KW = #{ter_kw},
+	TER_NEXT_GUM =
+	#{ter_next_gum},
+	TER_END_GUM = #{ter_end_gum},
+	TER_FILE = #{ter_file}
+	WHERE
+	TER_NO = #{ter_no}
+
+</update>
+
+
+	<delete id="measureDelete" parameterType="int">
+		DELETE FROM TESTER
+		WHERE TER_CODE = #{ter_code}
+	</delete>
+
 	
 	
 	<!-- 측정기기점검관리 -->
-	<select id="getGigiJeomgeomList" parameterType="measure" resultType="measure">
-		select MCD.MCD_CD                                         as MCD_CD
-        , MCD.TER_CODE                                       as TER_CODE
-        , TT.TER_NAME                                        as TER_NAME
-        , MCD.MCD_CORRECTION_CYCLE                           as MCD_CORRECTION_CYCLE_NM
-        , convert(varchar(10), MCD.MCD_INSPECTION_DATE, 120) as MCD_INSPECTION_DATE
-        , MCD.MCD_NO                                         as MCD_NO
-        , MCD.MCD_MAN_NO                                     as MCD_MAN_NO
-        , MCD.MCD_CORRECTION_CYCLE                           as MCD_CORRECTION_CYCLE
-        , convert(varchar(10), MCD.MCD_NEXT_DATE, 120)       as MCD_NEXT_DATE
-        , MCD.MCD_REPAIR_COMP                                as MCD_REPAIR_COMP
-        , MCD.MCD_AVAILABLE_TERM                             as MCD_AVAILABLE_TERM
-        , MCD.MCD_REPAIR_HISTORY                             as MCD_REPAIR_HISTORY
-        , MCD.MCD_MANAGER_USER_CD                            as MCD_MANAGER_USER_CD
-        , tu.USER_NAME                                       as MCD_MANAGER_USER_NM
-        , convert(varchar(10), MCD.MCD_REG_DT, 120)          as MCD_REG_DT
-        , MCD.MCD_REG_CD                                     as MCD_REG_CD
-        , rtu.USER_NAME                                      as MCD_REG_NM
-        , convert(varchar(10), MCD.MCD_MOD_DT, 120)          as MCD_MOD_DT
-        , MCD.MCD_MOD_CD                                     as MCD_MOD_CD
-        , mtu.USER_NAME                                      as MCD_MOD_NM
-        , MCD.MCD_FILE                                       as MCD_FILE
-        from MEASUREMENT_DEVICE_CEHCK MCD
-        inner join TESTER TT on MCD.TER_CODE = TT.TER_CODE
-        inner join USERT TU on MCD.MCD_MANAGER_USER_CD = TU.USER_CODE
-        left outer join USERT RTU on RTU.USER_CODE = MCD.MCD_REG_CD
-        left outer join USERT MTU on MTU.USER_CODE = MCD.MCD_MOD_CD
-        where 1 = 1
-        order by MCD_INSPECTION_DATE
+	<select id="getGigiJeomgeomList" parameterType="measure"
+		resultType="measure">
+		select MCD.MCD_CD as MCD_CD
+		, MCD.TER_CODE as TER_CODE
+		, TT.TER_NAME as TER_NAME
+		, MCD.MCD_CORRECTION_CYCLE as MCD_CORRECTION_CYCLE_NM
+		, convert(varchar(10), MCD.MCD_INSPECTION_DATE, 120) as
+		MCD_INSPECTION_DATE
+		, MCD.MCD_NO as MCD_NO
+		, MCD.MCD_MAN_NO as MCD_MAN_NO
+		, MCD.MCD_CORRECTION_CYCLE as MCD_CORRECTION_CYCLE
+		, convert(varchar(10), MCD.MCD_NEXT_DATE, 120) as MCD_NEXT_DATE
+		, MCD.MCD_REPAIR_COMP as MCD_REPAIR_COMP
+		, MCD.MCD_AVAILABLE_TERM as MCD_AVAILABLE_TERM
+		, MCD.MCD_REPAIR_HISTORY as MCD_REPAIR_HISTORY
+		, MCD.MCD_MANAGER_USER_CD as MCD_MANAGER_USER_CD
+		, tu.USER_NAME as MCD_MANAGER_USER_NM
+		, convert(varchar(10), MCD.MCD_REG_DT, 120) as MCD_REG_DT
+		, MCD.MCD_REG_CD as MCD_REG_CD
+		, rtu.USER_NAME as MCD_REG_NM
+		, convert(varchar(10), MCD.MCD_MOD_DT, 120) as MCD_MOD_DT
+		, MCD.MCD_MOD_CD as MCD_MOD_CD
+		, mtu.USER_NAME as MCD_MOD_NM
+		, MCD.MCD_FILE as MCD_FILE
+		from MEASUREMENT_DEVICE_CEHCK MCD
+		inner join TESTER TT on MCD.TER_CODE = TT.TER_CODE
+		inner join USERT TU on MCD.MCD_MANAGER_USER_CD = TU.USER_CODE
+		left outer join USERT RTU on RTU.USER_CODE = MCD.MCD_REG_CD
+		left outer join USERT MTU on MTU.USER_CODE = MCD.MCD_MOD_CD
+		where 1 = 1
+		order by MCD_INSPECTION_DATE
 	</select>
 	
 	
-	
-	
-	
+	<insert id="gigiJeomgeomInsertSave" parameterType="measure">
+		<selectKey resultType="String" keyProperty="MCD_CD1" order="BEFORE">
+            SELECT ISNULL(MAX(CONVERT(int,MCD_CD)), 0)+1 FROM MEASUREMENT_DEVICE_CEHCK
+        </selectKey>
+        insert into MEASUREMENT_DEVICE_CEHCK(
+        MCD_CD
+        , TER_CODE
+        , MCD_INSPECTION_DATE
+        , MCD_NO
+        , MCD_MAN_NO
+        , MCD_CORRECTION_CYCLE
+        , MCD_NEXT_DATE
+        , MCD_REPAIR_COMP
+        , MCD_MANAGER_USER_CD
+        , MCD_AVAILABLE_TERM
+        , MCD_REPAIR_HISTORY
+        , MCD_FILE
+        , MCD_REG_DT
+        , MCD_REG_CD
+        )
+        values (
+        #{MCD_CD1}
+        , #{req_s_tmd_cd}
+        , #{req_s_tmcd_inspection_date}
+        , #{req_s_tmcd_no}
+        , #{req_s_tmcd_man_no}
+        , #{req_s_tmcd_correction_cycle_select}
+        , #{req_s_tmcd_next_date}
+        , #{req_s_tmcd_repair_comp}
+        , #{req_s_tmcd_manager_user_cd}
+        , #{req_s_tmcd_available_term}
+        , #{req_s_tmcd_repair_history}
+        , <choose><when test=" req_s_tmcd_file != null and req_s_tmcd_file != '' "> #{req_s_tmcd_file} </when><otherwise> null </otherwise></choose>
+        , GETDATE()
+        , #{req_user_cd}
+        )
+	</insert>
+
+	<update id="gigiJeomgeomUpdateSave" parameterType="measure">
+	update MEASUREMENT_DEVICE_CEHCK
+        set TER_CODE					= #{req_s_tmd_cd}
+        , MCD_INSPECTION_DATE	= #{req_s_tmcd_inspection_date}
+        , MCD_NO					= #{req_s_tmcd_no}
+        , MCD_MAN_NO				= #{req_s_tmcd_man_no}
+        , MCD_CORRECTION_CYCLE	= #{req_s_tmcd_correction_cycle_select}
+        , MCD_NEXT_DATE			= #{req_s_tmcd_next_date}
+        , MCD_REPAIR_COMP		= #{req_s_tmcd_repair_comp}
+        , MCD_MANAGER_USER_CD	= #{req_s_tmcd_manager_user_cd}
+        , MCD_AVAILABLE_TERM		= #{req_s_tmcd_available_term}
+        , MCD_REPAIR_HISTORY		= #{req_s_tmcd_repair_history}
+        , MCD_FILE				=  #{req_s_tmcd_file}
+        , MCD_MOD_DT				= GETDATE()
+        , MCD_MOD_CD				= #{req_user_cd}
+        where MCD_CD = #{req_s_tmcd_cd}
+
+</update>
+
+
+	<delete id="gigiJeomgeomDelete" parameterType="int">
+		delete from MEASUREMENT_DEVICE_CEHCK
+        where MCD_CD = #{req_s_tmcd_cd}
+	</delete>
+
+
 
 </mapper>

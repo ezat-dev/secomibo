@@ -13,12 +13,11 @@
 		FROM     CHEKSTD WITH(NOLOCK) INNER JOIN
 		FACILITY WITH(NOLOCK) ON CHEKSTD.FAC_CODE = FACILITY.FAC_CODE INNER JOIN
 		TECHIN WITH(NOLOCK) ON TECHIN.TECH_NO = FACILITY.TECH_NO
- 		ORDER BY FAC_NAME,CHS_GUBN,CHS_SORT
-		ORDER BY CHS_NO, FAC_CODE
+ 		ORDER BY FAC_NAME,CHS_GUBN,CHS_SORT, CHS_NO, FAC_CODE
 	</select>
 
 
-	<!-- <insert id="jeomgeomInsertSave" parameterType="jeomgeom">
+	<insert id="jeomgeomInsertSave" parameterType="jeomgeom">
         INSERT
         INTO CHEKSTD
         (
@@ -35,9 +34,9 @@
         CHS_DANW,
         CHS_CHKMETHOD,
         CHS_STEPMETHOD
-        <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
+        <!-- <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
             , CHS_IMG
-        </if>
+        </if> -->
         )
         VALUES
         (
@@ -54,11 +53,49 @@
         #{chs_danw},
         #{chs_chkmethod},
         #{chs_stepmethod}
-        <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
+        <!-- <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
             , #{FILE_NAME0}
-        </if>
+        </if> -->
         )
-    </insert> -->
+    </insert>
+    
+    <update id="jeomgeomUpdateSave" parameterType="jeomgeom">
+    	UPDATE CHEKSTD
+    	SET
+        CHS_NO          = #{chs_no},
+        FAC_CODE        = #{fac_code},
+        CHS_SORT        = #{chs_sort},
+        CHS_GUBN        = #{chs_gubn},
+        CHS_GUBN_DETAIL = #{chs_gubn_detail},
+        CHS_HANG        = #{chs_hang},
+        CHS_KIJUN       = #{chs_kijun},
+        CHS_MIN         = #{chs_min},
+        CHS_MAX         = #{chs_max},
+        CHS_DANW        = #{chs_danw},
+        CHS_CHKMETHOD   = #{chs_chkmethod},
+        CHS_STEPMETHOD  = #{chs_stepmethod}
+    	WHERE
+        CHS_CODE = #{chs_code}
+    </update>
+    
+
+    <delete id="jeomgeomDelete" parameterType="int">
+	    DELETE FROM CHEKSTD
+	    WHERE CHS_CODE = #{chs_code}
+	</delete>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	
 
 </mapper>

@@ -140,7 +140,7 @@ function pageObject(paramKey){
 			"c12":["/tkheat/process/readySiljuk","준비작업실적"],
 			"d01":"",//기존 : 전체모니터링
 			"d02":"",//기존 : 전체모니터링(설비)
-			"d03":["/tkheat/monitoring/pumMonitoring","품질관리모니터링"],
+			"d03":["/tkheat/monitoring/pumMonitoring","통합모니터링"],
 			"e01":["/tkheat/preservation/sparePart","SparePart관리"],
 			"e02":["/tkheat/preservation/begaInsert","설비비가동등록"],
 			"e03":["/tkheat/preservation/begaAnaly","설비비가동율분석"],
@@ -164,7 +164,7 @@ function pageObject(paramKey){
 			"g03":["/tkheat/operation/prodSiljuk","제품별작업실적"],
 			"g04":["/tkheat/operation/cuIpgoStatus","거래처별입고현황"],
 			"g05":["/tkheat/operation/cuChulgoStatus","거래처별출고현황"],
-			"g06":["/tkheat/operation/facSiljuk","설비별 작업실적"],
+			"g06":["/tkheat/operation/facSiljuk","설비별작업실적"],
 			"g07":["/tkheat/operation/monthSale","월매출현황(마감)"],
 			"g08":"",//기존 : 없음
 			"g09":"",//기존 : 입고현황(종합)
@@ -190,11 +190,97 @@ function pageObject(paramKey){
 			"h10":"",//코일등록
 			"h11":"",//plug등록
 			"h12":"",//plug점검기준등록
-			"h13":["/tkheat/management/measurement","측정기기관리"]
+			"h13":["/tkheat/management/measurement","측정기기관리"],
+			"d04":["/tkheat/monitoring/alarm1","알람-1"],
+			"d05":["/tkheat/monitoring/alarm2","알람-2"],
+			"d06":["/tkheat/monitoring/trend","트렌드"]
 	};
 
 	
 	return obj[paramKey];
 }
+
+	
+	let userPermissions = {};
+	
+	function userInfoList(now_page_code) {
+	    $.ajax({
+	        url: '/tkheat/user/info',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(response) {
+	            const loginUserPage = response.loginUserPage;
+	            userPermissions = loginUserPage || {};
+	            controlButtonPermissions(now_page_code);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("데이터 가져오기 실패:", error);
+	        }
+	    });
+	}
+
+
+
+
+	function controlButtonPermissions(now_page_code) {
+	    const permission = userPermissions?.[now_page_code];
+	  //  console.log("현재 페이지 권한(permission):", permission);
+	
+	    const canRead = permission === "R" || permission === "C" || permission === "D";
+	    const canCreate = permission === "C" || permission === "D";
+	    const canDelete = permission === "D";
+	
+	    if (!canRead) {
+	        $(".select-button").css("pointer-events", "none").css("background-color", "#ced4da");
+	    }
+	
+	    if (!canCreate) {
+	        $(".insert-button").css("pointer-events", "none").css("background-color", "#ced4da");
+	        $("#corrForm").prop("disabled", true);
+	    }
+	
+	    if (!canDelete) {
+	        $(".delete").css("pointer-events", "none").css("background-color", "#ced4da");
+	    }
+	
+	    $(".select-button").on("click", function (e) {
+	        if (!canRead) {
+	            alert("당신의 권한이 없습니다. (조회)");
+	            e.preventDefault();
+	            e.stopImmediatePropagation();
+	        }
+	    });
+	
+	    $(".insert-button").on("click", function (e) {
+	        if (!canCreate) {
+	            alert("당신의 권한이 없습니다. (추가)");
+	            e.preventDefault();
+	            e.stopImmediatePropagation();
+	        }
+	    });
+	
+	    $(".delete").on("click", function (e) {
+	        if (!canDelete) {
+	            alert("당신의 권한이 없습니다. (삭제)");
+	            e.preventDefault();
+	            e.stopImmediatePropagation();
+	        }
+	    });
+	}
+
+
+
+
+	$(document).ready(function() {
+	    userInfoList(now_page_code);
+	    console.log("나우페이지코드",now_page_code)
+	});
+
+
+
+
+
+
 
 </script>

@@ -151,6 +151,8 @@ public class QualityController {
 			rowMap.put("ilbo_pg3", jajuStatusList.get(i).getIlbo_pg3());
 			rowMap.put("ilbo_pg4", jajuStatusList.get(i).getIlbo_pg4());
 			rowMap.put("ilbo_pg5", jajuStatusList.get(i).getIlbo_pg5());
+			rowMap.put("user_name", jajuStatusList.get(i).getUser_name());
+			
 
 			rtnList.add(rowMap);
 		}

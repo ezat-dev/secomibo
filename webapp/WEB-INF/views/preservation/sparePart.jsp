@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>거래처등록</title>
+    <title>sparePart관리</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
@@ -202,7 +202,7 @@ textarea {
 							<tbody><tr>
 								<th class="" style="width: 20%;">매입처</th>
 								<td>
-									<select id="SPP_PURCHASE" name="spp_purchase" class="basic valPost valClean" style="width:100%;">
+									<select id="spp_purchase" name="spp_purchase" class="basic valPost valClean" style="width:100%;">
 	
 										
 											<option value="(주)금성풍력 서울지사">(주)금성풍력 서울지사</option>
@@ -243,32 +243,32 @@ textarea {
 							<tr>
 								<th class="" style="width: 20%;">품번</th>
 								<td>
-									<input id="SPP_NO" name="spp_no" class="basic valPost valClean" type="text" style="width:100%;" value="">
-									<input id="SPP_IDX" name="spp_idx" class="basic valPost valClean" type="hidden" value="">
+									<input id="spp_no" name="spp_no" class="basic valPost valClean" type="text" style="width:100%;" value="">
+									<input id="spp_idx" name="spp_idx" class="basic valPost valClean" type="hidden" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">품명</th>
 								<td>
-									<input id="SPP_NAME" name="spp_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_name" name="spp_name" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">규격</th>
 								<td>
-									<input id="SPP_GYU" name="spp_gyu" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_gyu" name="spp_gyu" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">교체주기</th>
 								<td>
-									<input id="SPP_YONG" name="spp_yong" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_yong" name="spp_yong" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>
 								<th class="left">적정재고</th>
 								<td>
-									<input id="SPP_PROPER" name="spp_proper" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_proper" name="spp_proper" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 							<tr>

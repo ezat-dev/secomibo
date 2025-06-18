@@ -278,39 +278,56 @@
 		dbo.FACILITY.FAC_CODE
 		WHERE WORKERR.WERR_DATE
 		BETWEEN #{sdate} AND #{edate}
-
-		<!-- <if test="corp_name != null and corp_name != ''">
-			AND CORP.CORP_NAME LIKE CONCAT('%', #{corp_name}, '%')
-		</if>
-		<if test="prod_name != null and prod_name != ''">
-			AND PRODUCT.PROD_NAME LIKE CONCAT('%', #{prod_name}, '%')
-		</if>
-		<if test="prod_no != null and prod_no != ''">
-			AND PRODUCT.PROD_NO LIKE CONCAT('%', #{prod_no}, '%')
-		</if>
-		<if test="prod_gyu != null and prod_gyu != ''">
-			AND PRODUCT.PROD_GYU LIKE CONCAT('%', #{prod_gyu}, '%')
-		</if>
-		<if test="prod_gubn != null and prod_gubn != ''">
-			AND PRODUCT.PROD_GUBN LIKE
-			CONCAT('%',CASE
-			WHEN #{prod_gubn}
-			= '양산' THEN '양산'
-			WHEN #{prod_gubn} = '개발' THEN '개발'
-			ELSE ''
-			END,'%')
-		</if> -->
 	</select>
 	
 	
 	
+	<!-- 부적합보고서 등록 insert -->
+	<insert id="nonReportInsertSave" parameterType="work">
+	<selectKey resultType="String" keyProperty="werr_code" order="BEFORE">
+		select isnull(max(WERR_CODE), 0)+1 from workerr
+	</selectKey>
+	insert into WORKERR (WERR_CODE, ILBO_CODE,ILBO_NO, WERR_LOT, WERR_TEAM,
+	WERR_USER, WERR_AMNT, WERR_GUBN, WERR_JGUBN, WERR_GNOTE, WERR_JNOTE,
+	WERR_CASE, WERR_NOTE, WERR_DATE, WERR_WDATE, WERR_FAC, WERR_FNAME,
+	WERR_INOUTGUBN)
+	values (#{werr_code},#{ilbo_code},#{ilbo_no},#{werr_lot}, #{werr_team},
+	#{werr_user}, #{werr_amnt}, #{werr_gubn}, #{werr_jgubn}, #{werr_gnote},
+	#{werr_jnote}, #{werr_case}, #{werr_note}, #{werr_date},
+	#{werr_wdate},#{werr_fac},#{werr_fname},#{werr_in_out_gubn})
+	</insert>
+	
+	<!-- 부적합보고서 수정-->
+    <update id="nonReportUpdateSave" parameterType="work">
+		update WORKERR set 
+			WERR_LOT = #{werr_lot}, 
+			WERR_USER = #{werr_user}, 
+			WERR_AMNT = #{werr_amnt}, 
+			WERR_GUBN = #{werr_gubn}, 
+			WERR_JGUBN = #{werr_jgubn}, 
+			WERR_GNOTE = #{werr_gnote}, 
+			WERR_JNOTE = #{werr_jnote}, 
+			WERR_CASE = #{werr_case}, 
+			WERR_NOTE = #{werr_note}, 
+			WERR_DATE = #{werr_date}, 
+			WERR_WDATE = #{werr_wdate},
+			WERR_FAC = #{werr_fac},
+			WERR_TEAM = #{werr_team},
+			WERR_FNAME = #{werr_fname},
+			WERR_INOUTGUBN = #{werr_in_out_gubn}
+			where WERR_CODE = #{werr_code}
+	</update>
+	
+	<delete id="nonReportDelete" parameterType="int">
+    DELETE FROM WORKERR
+    WHERE WERR_CODE = #{werr_code}
+	</delete>
 	
 
 
 
 	<!-- 부적합등록(품질관리) -->
-	<select id="getNonIsertList" parameterType="work"
-		resultType="work">
+	<select id="getNonInsertList" parameterType="work" resultType="work">
 		SELECT ROW_NUMBER()OVER(ORDER BY
 		WORKERR.WERR_DATE,CORP.CORP_NAME, PRODUCT.PROD_NAME ) AS ROW_NUM ,
 		LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120),
@@ -414,11 +431,6 @@
 		ILBO_GUBN =
 		'A'
 		and WORKILBO.ILBO_STRT BETWEEN #{sdate} AND #{edate}
-		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
-			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
-			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
-			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
-			+ '%' + #{prodJai} + '%' </if> -->
 	</select>
 
 
@@ -456,11 +468,6 @@
 		ILBO_GUBN =
 		'R'
 		and WORKILBO.ILBO_STRT BETWEEN #{sdate} AND #{edate}
-		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
-			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
-			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
-			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
-			+ '%' + #{prodJai} + '%' </if> -->
 		GROUP BY ILBO_OKNG, ILBO_STRT, ILBO_END, ILBO_LOT, PROD_NAME ,
 		PROD_NO, PROD_GYU , PROD_JAI, PRODUCT.PROD_PG,
 		ILBO_PG1 , ILBO_PG2,
@@ -516,11 +523,6 @@
 		and ILBO_OKNG = '불합격'
 		and WORKILBO.ILBO_STRT
 		BETWEEN #{sdate} AND #{edate}
-		<!-- <if test="prodName != null"> and PRODUCT.PROD_NAME like + '%' + #{prodName} 
-			+ '%' </if> <if test="prodNo != null"> and PRODUCT.PROD_NO like + '%' + #{prodNo} 
-			+ '%' </if> <if test="prodGyu != null"> and PRODUCT.PROD_GYU like + '%' + 
-			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
-			+ '%' + #{prodJai} + '%' </if> -->
 	</select>
 
 

@@ -147,26 +147,37 @@ textarea {
 	background-color: #808080;
 	transform: scale(1.05);
 }
-
 .box1 {
 	display: flex;
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -1190px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"] {
-	width: 5%;
-}
-
-.box1 input[type="date"] {
-	width: 7%;
-}
-
-.box1 select {
+.box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 th{
 	font-size:14px;
 }
@@ -272,62 +283,62 @@ th{
                                         <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                                             <tbody><tr>
                                                 <th class="thSub">ITEM변경</th>
-                                                <td class="tdRight"><input id="fstp01" name="fstp_01" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_01" name="fstp_01" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">물량부족</th>
-                                                <td class="tdRight"><input id="fstp02" name="fstp_02" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_02" name="fstp_02" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">설비이상(기계)</th>
-                                                <td class="tdRight"><input id="fstp03" name="fstp_03" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_03" name="fstp_03" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">설비이상(전기)</th>
-                                                <td class="tdRight"><input id="fstp04" name="fstp_04" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_04" name="fstp_04" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">교육</th>
-                                                <td class="tdRight"><input id="fstp05" name="fstp_05" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_05" name="fstp_05" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">교대</th>
-                                                <td class="tdRight"><input id="fstp06" name="fstp_06" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_06" name="fstp_06" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">식사</th>
-                                                <td class="tdRight"><input id="fstp07" name="fstp_07" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_07" name="fstp_07" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">휴식</th>
-                                                <td class="tdRight"><input id="fstp08" name="fstp_08" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_08" name="fstp_08" class="basic" type="text" style="width:90%;" value="0""></td>
                                             </tr>
                                             <tr>
                                                 <th class="thSub">기타</th>
-                                                <td class="tdRight"><input id="fstp09" name="fstp_09" class="basic" type="text" style="width:90%;" value="0""></td>
+                                                <td class="tdRight"><input id="fstp_09" name="fstp_09" class="basic" type="text" style="width:90%;" value="0""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">계</th>
-                                                <td class="tdRight"><input id="fstp10" name="fstp_10" class="basic" type="text" style="width:90%;" value="0" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstp_10" name="fstp_10" class="basic" type="text" style="width:90%;" value="0" readonly="readonly"></td>
                                             </tr>
                                         </tbody></table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">일자</th>
-                                    <td class=""><input id="fstpDate" name="fstp_date" class="date js-datepicker hasDatepicker" type="date" style="width:100px;"  maxlength="20" size="20" ></td>
+                                    <td class=""><input id="fstp_date" name="fstp_date" class="date js-datepicker hasDatepicker" type="date" style="width:100px;"  maxlength="20" size="20" ></td>
                                     </tr>
                                 <tr>
                                     <th class="">계획시간(분)</th>
-                                    <td class=""><input id="fstpPlan" name="fstp_plan" class="basic" type="text" style="width:90%;" value="1440"></td>
+                                    <td class=""><input id="fstp_plan" name="fstp_plan" class="basic" type="text" style="width:90%;" value="1440"></td>
                                     </tr>
                                 <tr>
                                     <th class="">투입시간(분)</th>
-                                    <td class=""><input id="fstpTu" name="fstp_tu" class="basic" type="text" style="width:90%;" value="1440"></td>
+                                    <td class=""><input id="fstp_tu" name="fstp_tu" class="basic" type="text" style="width:90%;" value="1440"></td>
                                     </tr>
                                 <tr>
                                     <th class="">준비시간(분)</th>
-                                    <td class=""><input id="fstpStby" name="fstp_stby" class="basic" type="text" style="width:90%;" value=""></td>
+                                    <td class=""><input id="fstp_stby" name="fstp_stby" class="basic" type="text" style="width:90%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th class="left">TOTAL현황</th>
@@ -335,22 +346,22 @@ th{
                                         <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                                             <tbody><tr>
                                                 <th class="thSub">실가동시간(분)</th>
-                                                <td class="tdRight"><input id="fstpSil" name="fstp_sil" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstp_sil" name="fstp_sil" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">인원</th>
-                                                <td class="tdRight"><input id="fstpMan" name="fstp_man" class="basic" type="text" style="width:90%;" value=""></td>
+                                                <td class="tdRight"><input id="fstp_man" name="fstp_man" class="basic" type="text" style="width:90%;" value=""></td>
                                                 </tr>
                                             <tr>
                                                 <th class="thSub">M-Hr</th>
-                                                <td class="tdRight"><input id="fstpMhr" name="fstp_mhr" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
+                                                <td class="tdRight"><input id="fstp_mhr" name="fstp_mhr" class="basic" type="text" style="width:90%;" value="" readonly="readonly"></td>
                                             </tr>
                                         </tbody></table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="left">비고</th>
-                                    <td valign="top" class=""><textarea name="fstp_bigo" class="basic" style="width:90%; height:40px;"></textarea></td>
+                                    <td valign="top" class=""><textarea name="fstp_bigo" id="fstp_bigo" class="basic" style="width:90%; height:40px;"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td class=""></td>
@@ -363,6 +374,7 @@ th{
                         </tr>
                 </tbody></table>
                 <div class="btnSaveClose">
+                	 <button class="delete" type="button" onclick="deleteBega();"  style="display: none;">삭제</button>
 					 <button class="save" type="button" onclick="save();">저장</button>
 					 <button class="close" type="button" onclick="window.close();">닫기</button>
     	  		</div>
@@ -385,6 +397,7 @@ th{
 	<script>
 		//전역변수
 		var cutumTable;
+		var isEditMode = false; //수정,최초저장 구분값
 
 		//로드
 		$(function() {
@@ -397,7 +410,7 @@ th{
 		function getBegaInsertList() {
 
 			
-			$("#edate").val("2025-05-01");
+			/* $("#edate").val("2025-05-01"); */
 
 			userTable = new Tabulator(
 					"#tab1",
@@ -546,6 +559,24 @@ th{
 							var rowData = row.getData();
 
 						},
+						rowDblClick:function(e, row){
+
+							var data = row.getData();
+							selectedRowData = data;
+							isEditMode = true;
+							$('#begaInsertForm')[0].reset();
+							$('.begaInsertModal').show().addClass('show');
+
+							Object.keys(data).forEach(function (key) {
+						        const field = $('#begaInsertForm [name="' + key + '"]');
+
+						        if (field.length) {
+						            field.val(data[key]);
+						        }
+							});
+							console.log('data',data);
+							 $('.delete').show();
+						},
 					});
 		}
 	</script>
@@ -588,7 +619,11 @@ th{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		begaInsertModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#begaInsertForm')[0].reset(); // 폼 초기화
+	    begaInsertModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -653,29 +688,85 @@ th{
 
 	//비가동등록 저장
     function save() {
-        var formData = new FormData($("#begaInsertForm")[0]);  
-        $.ajax({
-            url: "/tkheat/preservation/begaInsert/begaInsertSave",
-            type: "POST",
-            data: formData,
-            contentType: false,    
-            processData: false,   
-            dataType: "json",      
-            success: function(result) {
-                console.log(result);
-                
-                alert("저장 되었습니다.");
-                $(".begaInsertModal").hide();
-                getBegaInsertList();
-                console.log($("#fac_code").val());
-                
-            },
-            error: function(xhr, status, error) {
-                console.error("저장 오류:", error);
-                console.log($("#fac_code").val());
-            }
-        });
-    }
+	    var formData = new FormData($("#begaInsertForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.fstp_code) {
+	        formData.append("mode", "update");
+	        formData.append("fstp_code", selectedRowData.fstp_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/begaInsert/begaInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".begaInsertModal").hide();
+	            getBegaInsertList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteBega() {
+	    if (!selectedRowData || !selectedRowData.fstp_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/begaInsert/begaDelete",
+	        type: "POST",
+	        data: {
+	        	fstp_code: selectedRowData.fstp_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".begaInsertModal").hide();
+	                getBegaInsertList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
+
+
+
+
+
+
+
+
+
+
+    
 
     
 

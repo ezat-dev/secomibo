@@ -231,7 +231,7 @@ th{
 	    
 	    
 	    
-	<form method="post" id="cutumInsertForm" name="cutumInsertForm">
+	<form method="post" class="corrForm" id="cutumInsertForm" name="cutumInsertForm">
 			<div class="cutumModal">
 				<div class="header">거래처등록</div>	
 				<div class="detail">
@@ -247,84 +247,84 @@ th{
 									</colgroup>
 									<tr>
 										<th class="">거래처</th>
-										<td class=""><input id="corpName" name="corp_name" class="basic" type="text" style="width:90%;" value="" />										
+										<td class=""><input id="corp_name" name="corp_name" class="basic" type="text" style="width:90%;" value="" />										
 										</td>
 										<th class="">사업자번호</th>
-										<td class=""><input id="corpNo" name="corp_no" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_no" name="corp_no" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">전화번호</th>
-										<td class=""><input id="corpTel" name="corp_tel" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_tel" name="corp_tel" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">팩스번호</th>
-										<td class=""><input id="corpFax" name="corp_fax" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_fax" name="corp_fax" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">대표자</th>
-										<td class=""><input id="corpBoss" name="corp_boss" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_boss" name="corp_boss" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">담당자</th>
-										<td class=""><input id="corpMast" name="corp_mast" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_mast" name="corp_mast" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">담당자 휴대폰</th>
-										<td class=""><input id="corpHp" name="corp_hp" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_hp" name="corp_hp" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">메일주소</th>
-										<td class=""><input id="corpMail" name="corp_mail" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_mail" name="corp_mail" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">업태</th>
-										<td class=""><input id="corpUpte" name="corp_upte" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_upte" name="corp_upte" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">종목</th>
-										<td class=""><input id="corpUpjo" name="corp_upjo" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_upjo" name="corp_upjo" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">주소</th>
-										<td class=""><input id="corpAdd" name="corp_add" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_add" name="corp_add" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">지역</th>
-										<td class=""><input id="corpPlc" name="corp_plc" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_plc" name="corp_plc" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">거래게시일</th>
 										<td class="">
-											<input id="corpStrt" name="corp_strt" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" readonly="readonly" /> 
-											<input type="checkbox" id="corpGyul1" name="corp_gyul1" checked="checked" class="" />매월 말일
+											<input id="corp_strt" name="corp_strt" type="date" style="width:100px;" value="" maxlength="20" size="20"  /> 
+											<input type="checkbox" id="corp_gyul1" name="corp_gyul1" checked="checked" class="" />매월 말일
 										</td>
 										<th class="">기초잔액</th>
-										<td class=""><input id="corpJan" name="corp_jan" class="basic" type="text" style="width:100%;" value="0" /></td>
+										<td class=""><input id="corp_jan" name="corp_jan" class="basic" type="text" style="width:90%;" value="0" /></td>
 										</tr>
 									<tr>
 										<th class="">마감일</th>
 										<td class="">
-											<input id="corpGyul2" name="corp_gyul2" class="basic" type="number" style="width:100px;IME-MODE:disabled;" value="" min="1" max="31" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"/>
+											<input id="corp_gyul2" name="corp_gyul2" class="basic" type="number" style="width:100px;IME-MODE:disabled;" value="" min="1" max="31" onkeyPress="if ((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"/>
 										</td>
 										<th class="">구분</th>
-										<td class=""><select id="corpGubn" name="corp_gubn"class="basic" style="width:85px;">
+										<td class=""><select id="corp_gubn" name="corp_gubn"class="basic" style="width:85px;">
 														<option>매출처</option>
 														<option>매입처</option>
 													</select></td>
 									</tr>
 									<tr>
 										<th class="">입금통장</th>
-										<td class=""><input id="corpCno" name="corp_Cno" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_cno" name="corp_cno" class="basic" type="text" style="width:90%;" value="" /></td>
 										<th class="">비밀번호</th>
-										<td class=""><input id="corpPwd" name="corp_pwd" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_pwd" name="corp_pwd" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class=""></th>
 										<td class=""></td>
 										<th class="">거래처명2</th>
-										<td class=""><input id="corpName2" name="corp_name2" class="basic" type="text" style="width:90%;" value="" /></td>
+										<td class=""><input id="corp_name2" name="corp_name2" class="basic" type="text" style="width:90%;" value="" /></td>
 									</tr>
 									<tr>
 										<th class="">비고</th>
-										<td colspan="3" class=""><textarea id="corpBigo" name="corp_bigo" class="basic" style="width:90%;"></textarea></td>
+										<td colspan="3" class=""><textarea id="corp_bigo" name="corp_bigo" class="basic" style="width:90%;"></textarea></td>
 										
 									</tr>
 									<tr>
 										<th class="">영업담당자</th>
 										<td class="">
-											<select id='corpBusiness' name="corp_business" class='basic js-username-select'></select>
+											<select id='corp_business' name="corp_business" class='basic js-username-select'></select>
 										</td>
-										<td class=""></td>
+										
 									</tr>
 								</table>
 							</td>
@@ -332,6 +332,7 @@ th{
 					</table>
 			</div>
 			<div class="btnSaveClose">
+				<button class="delete" type="button" onclick="deleteCutum();"  style="display: none;">삭제</button>
 	            <button class="save" type="button" onclick="save();">저장</button>
 	            <button class="close" type="button" onclick="window.close();">닫기</button>
 	    	</div>
@@ -340,20 +341,10 @@ th{
 	    
 	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
 <script>
 	//전역변수
     var cutumTable;	
+    var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -392,7 +383,7 @@ th{
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"corp_code", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"구분ID", field:"corp_gubn", sorter:"string", width:120,
 		        	hozAlign:"center", headerFilter:"input"},
@@ -412,7 +403,8 @@ th{
 					hozAlign:"center", headerFilter:"input"},
 				{title:"지역", field:"corp_plc", sorter:"int", width:100,
 					hozAlign:"center", headerFilter:"input"},    
-					{title:"거래처코드", field:"corp_code", width:120, hozAlign:"center",visible:false},  		
+				{title:"거래처코드", field:"corp_code", width:120, 
+					hozAlign:"center",visible:false},  		
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -436,11 +428,26 @@ th{
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#cutumInsertForm')[0].reset();
+				$('.cutumModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#cutumInsertForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
+			},
 		});		
 	}
-
-
-
 
 
 	// 드래그 기능 추가
@@ -478,7 +485,11 @@ th{
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
+		isEditMode = false;  // 추가 모드
+	    $('#cutumInsertForm')[0].reset(); // 폼 초기화
 		cutumModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -486,30 +497,83 @@ th{
 	});
 
 
+	
 
-	//비가동등록 저장
-    function save() {
-        var formData = new FormData($("#cutumInsertForm")[0]);  
-        $.ajax({
-            url: "/tkheat/management/cutumInsert/cutumInsertSave",
-            type: "POST",
-            data: formData,
-            contentType: false,    
-            processData: false,   
-            dataType: "json",      
-            success: function(result) {
-                console.log(result);
-                
-                alert("저장 되었습니다.");
-                $(".cutumModal").hide();
-                getCutumList();
-                
-            },
-            error: function(xhr, status, error) {
-                console.error("저장 오류:", error);
-            }
-        });
-    }
+	
+	function save() {
+	    var formData = new FormData($("#cutumInsertForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.corp_code) {
+	        formData.append("mode", "update");
+	        formData.append("corp_code", selectedRowData.corp_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/cutumInsert/cutumInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".cutumModal").hide();
+	            getCutumList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteCutum() {
+	    if (!selectedRowData || !selectedRowData.corp_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/cutumInsert/cutumDelete",
+	        type: "POST",
+	        data: {
+	            corp_code: selectedRowData.corp_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".cutumModal").hide();
+	                getCutumList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
+		
+
+
+	
+
 	
 
     </script>

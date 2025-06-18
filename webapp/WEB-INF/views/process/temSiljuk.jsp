@@ -39,18 +39,32 @@
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -310px;
+	margin-left: -1050px;
 }
 
-.box1 input[type="text"]{
-	width : 5%;
-}
-.box1 input[type="date"]{
-	width : 7%;
-}
 .box1 select{
 	width: 5%
-}    
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
+}
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}           
     
     </style>
     
@@ -172,7 +186,7 @@
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"입고LOT", field:"ord_lot", sorter:"string", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
-		        {title:"거래처", field:"corp_name", sorter:"int", width:100,
+		        {title:"거래처", field:"corp_name", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"픔명", field:"prod_name", sorter:"string", width:100,
 			        hozAlign:"center", headerFilter:"input"},	

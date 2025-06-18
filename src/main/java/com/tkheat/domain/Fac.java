@@ -34,7 +34,7 @@ public class Fac {
 	private String fac_pda_use;
 	private String fac_state;
 	
-	private String techNo;			//설비종료
+	private String tech_no;			//설비종료
 	
 	public int getFac_code() {
 		return fac_code;
@@ -216,11 +216,11 @@ public class Fac {
 	public void setFac_test(String fac_test) {
 		this.fac_test = fac_test;
 	}
-	public String getTechNo() {
-		return techNo;
+	public String getTech_no() {
+		return tech_no;
 	}
-	public void setTechNo(String techNo) {
-		this.techNo = techNo;
+	public void setTech_no(String tech_no) {
+		this.tech_no = tech_no;
 	}
 	
 }

@@ -171,6 +171,7 @@ textarea {
 	</main>
 	
 	
+<form method="post" class="corrForm" id="measurementForm" name="measurementForm">
 <div class="measurementModal">	
 	<div class="detail">
 		<div class="header">
@@ -380,17 +381,20 @@ textarea {
             </tr>
           </tbody></table>
           <div class="btnSaveClose">
+          	 <button class="delete" type="button" onclick="deleteMea();"  style="display: none;">삭제</button>
 			 <button class="save" type="button" onclick="save();">저장</button>
 			 <button class="close" type="button" onclick="window.close();">닫기</button>
     	  </div>
         </div>
      </div>
-	    
+</form>   
 	    
 <script>
 	//전역변수
     var cutumTable;	
+    var isEditMode = false; //수정,최초저장 구분값
 
+    
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
@@ -467,6 +471,24 @@ textarea {
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#measurementForm')[0].reset();
+				$('.measurementModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#measurementForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				});
+
+				 $('.delete').show();
+			},
 		});		
 	}
 	
@@ -511,12 +533,89 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		measurementModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#measurementForm')[0].reset(); // 폼 초기화
+	    measurementModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
 		measurementModal.style.display = 'none'; // 모달 숨김
 	});
+
+
+
+	//측정기기 저장
+    function save() {
+	    var formData = new FormData($("#measurementForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.ter_code) {
+	        formData.append("mode", "update");
+	        formData.append("wstd_code", selectedRowData.ter_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/measurement/measureInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	        	alert("저장 되었습니다.");
+                $(".measurementModal").hide();
+                getMeasureList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteMea() {
+	    if (!selectedRowData || !selectedRowData.ter_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/management/measurement/measureDelete",
+	        type: "POST",
+	        data: {
+	        	ter_code: selectedRowData.ter_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".measurementModal").hide();
+	                getMeasureList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
 		
 
 

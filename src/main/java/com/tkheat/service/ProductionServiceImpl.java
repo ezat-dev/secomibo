@@ -25,6 +25,9 @@ public class ProductionServiceImpl implements ProductionService{
 		return productionDao.getWorkStatusList(work);
 	}
 	
+	
+	
+	
 	@Override
 	public List<Work> getNonReportList(Work work) {
 		return productionDao.getNonReportList(work);
@@ -34,6 +37,25 @@ public class ProductionServiceImpl implements ProductionService{
 	public List<Ipgo> getNonReportIpgoList(Ipgo ipgo){
 		return productionDao.getNonReportIpgoList(ipgo);
 	}
+	
+	@Override
+	public void nonReportInsertSave(Work work) {
+		productionDao.nonReportInsertSave(work);
+	}
+	
+	@Override
+	public void nonReportUpdateSave(Work work) {
+		productionDao.nonReportUpdateSave(work);
+	}
+	
+	@Override
+	public void nonReportDelete(int werr_code) {
+		productionDao.nonReportDelete(werr_code);
+	}
+	
+	
+	
+	
 	
 	@Override
 	public List<Work> getProdWaitingStatusList(Work work) {

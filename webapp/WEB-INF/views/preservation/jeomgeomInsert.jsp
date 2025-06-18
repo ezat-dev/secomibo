@@ -218,7 +218,7 @@ textarea {
 	</main>
 	
 	
-<form method="post" id="jeomgeomInsertForm" name="jeomgeomInsertForm">	
+<form method="post" class="corrForm" id="jeomgeomInsertForm" name="jeomgeomInsertForm">	
 	<div class="jgInsertModal">
 	   <div id="editPop">
 	   	<div class="header">설비점검기준등록</div>
@@ -234,7 +234,7 @@ textarea {
                                 <tbody><tr>
                                     <th>설비그룹</th>
                                     <td>
-                                        <input id="CHS_NO" name="chs_no" class="basic" type="text" style="width:96%;" value="" readonly="">
+                                        <input id="chs_no" name="chs_no" class="basic" type="text" style="width:96%;" value="" readonly="">
                                     </td>
                                 </tr>
                                 <tr>
@@ -260,12 +260,12 @@ textarea {
                                 </tr>
                                 <tr>
                                     <th>순번</th>
-                                    <td><input id="CHS_SORT" name="chs_sort" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_sort" name="chs_sort" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>점검주기</th>
                                     <td>
-                                        <select id="CHS_GUBN" name="chs_gubn" style="width:98%;">
+                                        <select id="chs_gubn" name="chs_gubn" style="width:98%;">
                                             <option>일상</option>
                                             <option>주간</option>
                                             <option>월간</option>
@@ -279,7 +279,7 @@ textarea {
                                 <tr>
                                     <th>구분</th>
                                     <td>
-                                        <select id="CHS_GUBN_DETAIL" style="width:98%;">
+                                        <select id="chs_gubn_detail" style="width:98%;">
                                             <option>주간</option>
                                             <option>야간</option>
                                         </select>
@@ -287,36 +287,36 @@ textarea {
                                 </tr>
                                 <tr>
                                     <th>점검항목</th>
-                                    <td><input id="CHS_HANG" name="chs_hang" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_hang" name="chs_hang" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>기준방법</th>
-                                    <td><input id="CHS_KIJUN" name="chs_kijun" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_kijun" name="chs_kijun" class="basic" type="text" style="width:96%;"></td>
                                 </tr>
                                 <tr>
                                     <th>하한</th>
-                                    <td><input id="CHS_MIN" name="chs_min" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_min" name="chs_min" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>상한</th>
-                                    <td><input id="CHS_MAX" name="chs_max" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_max" name="chs_max" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>단위</th>
-                                    <td><input id="CHS_DANW" name="chs_dawn" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_dawn" name="chs_dawn" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>점검방법</th>
-                                    <td><input id="CHS_CHKMETHOD" name="chs_chkmethod" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_chkmethod" name="chs_chkmethod" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>조치방법</th>
-                                    <td><input id="CHS_STEPMETHOD" name="chs_stepmethod" class="basic" type="text" style="width:96%;" value=""></td>
+                                    <td><input id="chs_stepmethod" name="chs_stepmethod" class="basic" type="text" style="width:96%;" value=""></td>
                                 </tr>
                                 <tr>
                                     <th>이미지</th>
                                     <td>
-                                        <input id="CHS_IMG" name="chs_img" type="file" style="width:96%;" value="" accept="image/*">
+                                        <input id="chs_img" name="chs_img" type="file" style="width:96%;" value="" accept="image/*">
     
                                     </td>
                                 </tr>
@@ -327,6 +327,7 @@ textarea {
                 </tbody></table>
             </div>
             <div class="btnSaveClose">
+            	<button class="delete" type="button" onclick="deleteJeomgeom();"  style="display: none;">삭제</button>
 				<button class="save" type="button" onclick="save();">저장</button>
 				<button class="close" type="button" onclick="window.close();">닫기</button>
     		</div>
@@ -348,6 +349,7 @@ textarea {
 <script>
 	//전역변수
     var cutumTable;	
+    var isEditMode = false; //수정,최초저장 구분값
 
 	//로드
 	$(function(){
@@ -371,7 +373,9 @@ textarea {
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/preservation/jeomgeomInsert/getJeomgeomInsertList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"chs_code":"",
+			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
@@ -460,6 +464,25 @@ textarea {
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				$('#jeomgeomInsertForm')[0].reset();
+				$('.jgInsertModal').show().addClass('show');
+
+				Object.keys(data).forEach(function (key) {
+			        const field = $('#jeomgeomInsertForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+			        console.log('data',data);
+				});
+				console.log('data',data);
+				 $('.delete').show();
+			},
 		});		
 	}
 	
@@ -503,7 +526,11 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
-		jgInsertModal.style.display = 'block'; // 모달 표시
+		isEditMode = false;  // 추가 모드
+	    $('#jeomgeomInsertForm')[0].reset(); // 폼 초기화
+	    jgInsertModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
 	});
 
 	closeButton.addEventListener('click', function() {
@@ -560,31 +587,86 @@ textarea {
 
 
 
+
+
+	
   //설비점검기준등록 저장
     function save() {
-        var formData = new FormData($("#jeomgeomInsertForm")[0]);  
-        $.ajax({
-            url: "/tkheat/preservation/jeomgeomInsert/jeomgeomInsertSave",
-            type: "POST",
-            data: formData,
-            contentType: false,    
-            processData: false,   
-            dataType: "json",      
-            success: function(result) {
-                console.log(result);
-                
-                alert("저장 되었습니다.");
-                $(".jgInsertModal").hide();
-                getJeomgeomInsertList();
-                console.log($("#fac_code").val());
-                
-            },
-            error: function(xhr, status, error) {
-                console.error("저장 오류:", error);
-                console.log($("#fac_code").val());
-            }
-        });
-    }
+	    var formData = new FormData($("#jeomgeomInsertForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.chs_code) {
+	        formData.append("mode", "update");
+	        formData.append("chs_code", selectedRowData.chs_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	    	url: "/tkheat/preservation/jeomgeomInsert/jeomgeomInsertSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".jgInsertModal").hide();
+	            getJeomgeomInsertList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+
+    function deleteJeomgeom() {
+	    if (!selectedRowData || !selectedRowData.chs_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/jeomgeomInsert/jeomgeomDelete",
+	        type: "POST",
+	        data: {
+	        	chs_code: selectedRowData.chs_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".jgInsertModal").hide();
+	                getJeomgeomInsertList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
+	}
+
+
+
+
+
+    
 
     </script>
 

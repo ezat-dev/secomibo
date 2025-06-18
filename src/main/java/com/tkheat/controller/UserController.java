@@ -147,6 +147,30 @@ public class UserController {
 		 return rtnMap;
 	 }
 	 
+	 
+	 //사용자 권한 유저info
+	 @RequestMapping(value = "/user/info", method = RequestMethod.POST)
+	 @ResponseBody
+	 public Map<String, Object> getUserInfo(HttpSession session) {
+	     Map<String, Object> result = new HashMap<>();
+	     
+	     // 세션에서 데이터 가져오기
+	     Users loginUser = (Users) session.getAttribute("loginUser");
+	     Permission loginPermission = (Permission) session.getAttribute("loginUserPage");
+
+	 
+	     if (loginUser != null) {
+	         result.put("loginUser", loginUser);
+	     }
+	     if (loginPermission != null) {
+	         result.put("loginUserPage", loginPermission);
+	     }
+	     
+	     return result;
+	 }
+	 
+	 
+	 
 	//로그아웃
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
