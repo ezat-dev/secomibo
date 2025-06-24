@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +21,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Gongjung;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Jaego;
+import com.tkheat.domain.Product;
 import com.tkheat.service.ProductService;
 
 @Controller
@@ -135,6 +141,112 @@ public class ProductController {
 			return rtnMap; 
 		}
 
+		//작업지시 - 등록
+		@RequestMapping(value = "/product/ipgo/ipgoAdd", method = RequestMethod.POST) 
+		@ResponseBody 
+		public Map<String, Object> setIpgoAdd(@RequestBody String str){
+			Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+			JSONParser jParser = new JSONParser();
+
+			try {
+				JSONObject workObj = (JSONObject)jParser.parse(str);
+
+				String ordDate = workObj.get("ordDate").toString();
+				int ordCode = Integer.parseInt(workObj.get("ordDate").toString().replace("-", ""));
+
+				JSONArray workData = (JSONArray)workObj.get("ipgoData");
+
+//				System.out.println(workObj.toString());
+				int result = 0;
+				
+				for(int i=0; i<workData.size(); i++) {
+
+					JSONObject jObj = (JSONObject)workData.get(i);
+
+					Ipgo ipgo = new Ipgo();
+
+					
+					float prodDanj = Float.parseFloat(jObj.get("prod_danj").toString());
+					float prodDang = Float.parseFloat(jObj.get("prod_dang").toString());
+					float su = Float.parseFloat(jObj.get("ord_su").toString());
+					float amnt = prodDanj * su;
+					float ord_mon = 0;
+					if("KG".equals(jObj.get("prod_danw").toString())) {
+						ord_mon = prodDang * amnt;
+					}else if("EA".equals(jObj.get("prod_danw").toString()) ||
+							"CH".equals(jObj.get("prod_danw").toString())) {
+						amnt = prodDanj * su;
+						if("".equals(jObj.get("prod_danj").toString())) {
+							ord_mon = 0;
+						}else {
+							ord_mon = prodDang * su;
+						}
+					}
+					
+					ipgo.setOrd_code(ordCode);
+					ipgo.setOrd_prn("0");
+					ipgo.setOrd_input(ordDate);
+					ipgo.setProd_code(Integer.parseInt(jObj.get("prod_code").toString()));
+					ipgo.setOrd_date(ordDate);
+					ipgo.setOrd_lot("");
+					ipgo.setOrd_danw(jObj.get("prod_danw").toString());
+					ipgo.setOrd_dang(prodDang);
+					ipgo.setOrd_danj(prodDanj);
+					ipgo.setOrd_su(Integer.parseInt(jObj.get("ord_su").toString()));
+					ipgo.setOrd_amnt(amnt);
+					ipgo.setOrd_mon(ord_mon);
+					ipgo.setOrd_name("김성우");
+					ipgo.setOrd_gyu("");
+					ipgo.setOrd_sunip("선입1");
+					ipgo.setOrd_boxsu(jObj.get("prod_boxsu").toString());
+/*
+					System.out.println(ipgo.getOrd_code());
+					System.out.println(ipgo.getOrd_prn());
+					System.out.println(ipgo.getOrd_input());
+					System.out.println(ipgo.getProd_code());
+					System.out.println(ipgo.getOrd_date());
+					System.out.println(ipgo.getOrd_lot());
+					System.out.println(ipgo.getOrd_danw());
+					System.out.println(ipgo.getOrd_dang());
+					System.out.println(ipgo.getOrd_danj());
+					System.out.println(ipgo.getOrd_su());
+					System.out.println(ipgo.getOrd_amnt());
+					System.out.println(ipgo.getOrd_mon());
+					System.out.println(ipgo.getOrd_name());
+					System.out.println(ipgo.getOrd_gyu());
+					System.out.println(ipgo.getOrd_sunip());
+					System.out.println(ipgo.getOrd_boxsu());
+*/
+					
+					Product product = productService.getProductData(ipgo);
+					
+					ipgo.setProd_chisu1n(product.getProd_chisu1n());
+					ipgo.setProd_chisu1s(product.getProd_chisu1s());
+					ipgo.setProd_chisu2n(product.getProd_chisu2n());
+					ipgo.setProd_chisu2s(product.getProd_chisu2s());
+					ipgo.setProd_chisu3n(product.getProd_chisu3n());
+					ipgo.setProd_chisu3s(product.getProd_chisu3s());
+					ipgo.setProd_chisu4n(product.getProd_chisu4n());
+					ipgo.setProd_chisu4s(product.getProd_chisu4s());
+					ipgo.setProd_chisu5n(product.getProd_chisu5n());
+					ipgo.setProd_chisu5s(product.getProd_chisu5s());
+					
+					result = productService.setIpgoAdd(ipgo);
+					
+					if(result == 1) {
+						productService.setIpgoTest(ipgo);
+					}
+				}
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			rtnMap.put("data","succ");
+
+			return rtnMap;
+		}
 
 
 	//출고관리 - 화면로드

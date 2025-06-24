@@ -37,33 +37,18 @@
 	display: flex;
 	justify-content: right;
 	align-items: center;
-	width: 1500px;
-	margin-left: -1050px;
+	width: 880px;
+/*	margin-left: -620px;*/
+	margin-left: -25%;
 }
 
+
+.box1 input{
+	width : 7%;
+}
 .box1 select{
 	width: 5%
-}  
-.box1 input[type="date"] {
-	width: 150px;
-	padding: 5px 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	background-color: #f9f9f9;
-	color: #333;
-	outline: none;
-	transition: border 0.3s ease;
-}
-
-.box1 input[type="date"]:focus {
-	border: 1px solid #007bff;
-	background-color: #fff;
-}  
-.box1 label,
-.box1 input {
-	margin-right: 10px; /* 요소 사이 간격 */
-}       
+}         
 
 .ipgoModal {
 	position: fixed; /* 화면에 고정 */
@@ -128,6 +113,19 @@
 	background-color: #808080;
 	transform: scale(1.05);
 }
+
+input[type="date"] {
+    width: 150px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
     </style>
     
     
@@ -176,12 +174,17 @@
 		<div class="header">
 		입고등록
 		</div>
+		<div class="setRow">
+			<label class="daylabel">입고일 :</label>
+			<input type="date" class="ord_date" id="s_ord_date" 
+				style="font-size: 12pt;" autocomplete="off">		
+		</div>		
 		<div id="tabuData"></div>
 	</div>
 	
     <div class="btnSaveClose">
             <button class="save" type="button" onclick="save();">저장</button>
-            <button class="close" type="button" onclick="window.close();">닫기</button>
+            <button class="close" type="button" onclick="closeBtn();">닫기</button>
     </div>	
 </div>
 	    
@@ -193,8 +196,19 @@
 
 	//로드
 	$(function(){
+		
+		var tdate = todayDate();
+		var ydate = yesterDate();
+		
+		$("#sdate").val(ydate);
+		$("#edate").val(tdate);
+		
+		//모달창 입고일
+		$("#s_ord_date").val(tdate);
+		
 		//전체 거래처목록 조회
-		getIpgoList();
+		getIpgoList();		
+		
 	});
 
 	//이벤트
@@ -225,9 +239,9 @@
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        {title:"NO", field:"idx", sorter:"int", width:60,
 		        	hozAlign:"center"},
-		        {title:"출력", field:"ord_prn", sorter:"string", width:80,
+		        {title:"출력", field:"ord_prn", sorter:"string", width:60,
 			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"수주NO", field:"ord_code", sorter:"string", width:100,
 				    hozAlign:"center", headerFilter:"input"},     
@@ -237,9 +251,9 @@
 				    hozAlign:"center", headerFilter:"input"}, 
 		        {title:"거래처", field:"corp_name", sorter:"string", width:120,
 		        	hozAlign:"center", headerFilter:"input"},		        
-		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        {title:"품명", field:"prod_name", sorter:"string", width:160,
 		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"품번", field:"prod_no", sorter:"string", width:100,
+		        {title:"품번", field:"prod_no", sorter:"string", width:160,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
@@ -247,13 +261,14 @@
 		        	hozAlign:"center", headerFilter:"input"},  	
 		        {title:"공정", field:"tech_te", sorter:"int", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
-			    {title:"단위", field:"ord_danw", sorter:"int", width:100,
+			    {title:"단위", field:"ord_danw", sorter:"int", width:80,
 				    hozAlign:"center", headerFilter:"input"},	
-				{title:"박스수량", field:"ord_boxsu", sorter:"int", width:100,
-				    hozAlign:"center", headerFilter:"input"},
-				{title:"수량", field:"ord_su", sorter:"int", width:100,
+				{title:"박스수량", field:"ord_boxsu", sorter:"int", width:80,
+				    hozAlign:"center", headerFilter:"input"				    
+				},
+				{title:"수량", field:"ord_su", sorter:"int", width:80,
 					hozAlign:"center", headerFilter:"input"},
-				{title:"중량", field:"ord_amnt", sorter:"int", width:100,
+				{title:"중량", field:"ord_amnt", sorter:"int", width:80,
 					hozAlign:"center", headerFilter:"input"},	
 				{title:"입고/타각LOT", field:"ord_lot", sorter:"int", width:100,
 					hozAlign:"center", headerFilter:"input"},	
@@ -323,16 +338,32 @@
 				$("#tabuData .tabulator-col.tabulator-sortable").css("height","55px");
 		        return response; //return the response data to tabulator
 		    },
+		    rowSelectionChanged:function(data, rows){
+		    	//rows - array of row components for the selected rows in order of selection
+		        //data - array of data objects for the selected rows in order of selection
+		        //여기에 이벤트 정의
+		        
+//		        console.log(rows);
+		        if(data.length != 0){
+		        	console.log(data);
+		        	ipgoData = data;
+		        }
+		    },		    
 		    columns:[
+			    {formatter:"rowSelection", titleFormatter:"rowSelection",
+			    	hozAlign:"center", width:30,
+				    headerSort:false, cellClick:function(e, cell){
+			        }
+		        },			    	
 		        {title:"제품단중", field:"prod_danj", sorter:"string", width:100,
-			        hozAlign:"center", headerFilter:"input"},	
+			        hozAlign:"center", headerFilter:"input", visible:false},	
 			    {title:"제품코드", field:"prod_code", sorter:"string", width:100,
 				    hozAlign:"center", headerFilter:"input", visible:false},     
 				{title:"수주NO", field:"ord_code", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input", visible:false}, 
 				{title:"거래처", field:"corp_name", sorter:"string", width:150,
 				    hozAlign:"center", headerFilter:"input"}, 
-		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        {title:"품명", field:"prod_name", sorter:"string", width:160,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"품번", field:"prod_no", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
@@ -349,15 +380,16 @@
 				{title:"경화깊이", field:"prod_cd", sorter:"int", width:100,
 					hozAlign:"center", headerFilter:"input"},
 				{title:"단위", field:"prod_danw", sorter:"int", width:80,
-					hozAlign:"center", headerFilter:"input"},	
-				{title:"박스수량", field:"prod_boxsu", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},	
-				{title:"수량", field:"ord_su", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},
-				{title:"ROWS*", field:"ord_row", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},
-				{title:"단가", field:"prod_dang", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},
+					hozAlign:"center", headerFilter:"input", headSorter:false},	
+				{title:"박스수량", field:"prod_boxsu", sorter:"int", width:80,
+					hozAlign:"center", headerFilter:"input", headSorter:false,editor:true
+				},	
+				{title:"수량", field:"ord_su", sorter:"int", width:80,
+					hozAlign:"center", headerFilter:"input", headSorter:false,editor:true},
+				{title:"ROWS*", field:"ord_row", sorter:"int", width:80,
+					hozAlign:"center", headerFilter:"input", headSorter:false,editor:true},
+				{title:"단가", field:"prod_dang", sorter:"int", width:80,
+					hozAlign:"center", headerFilter:"input", headSorter:false},
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -382,6 +414,52 @@
 				
 			},
 		});		
+	}
+	
+	var ipgoData = new Array();
+	
+	//입고저장
+	function save(){
+		//ipgoAddTable
+		//tabuData
+		console.log("저장버튼");
+		console.log(ipgoData);
+		
+		if(ipgoData.length >= 1){
+			
+	//		var workSetDataSend = JSON.stringify(workSetTable.getData());
+			
+			var ordDate = $("#s_ord_date").val();
+			
+			var sendObj = {
+					"ipgoData": ipgoData,
+					"ordDate":ordDate
+			}
+			
+			
+			$.ajax({
+				url:"/tkheat/product/ipgo/ipgoAdd",
+				type:"post",
+				contentType: false,
+				processData: false,			
+				dataType:"json",
+				data:JSON.stringify(sendObj),
+				success:function(result){
+					console.log(result);
+					
+					ipgoData = new Array();
+					closeBtn();
+					getIpgoList();
+				},error: function(xhr, status, status) {
+					console.log(xhr);
+					console.log(status);
+					console.log(status);
+	            }
+			});
+		}else{
+			alert("입고등록할 제품을 선택하세요.");
+		}
+		
 	}
 
 	
@@ -422,10 +500,9 @@
 		ipgoModal.style.display = 'block'; // 모달 표시
 	});
 
-	closeButton.addEventListener('click', function() {
+	function closeBtn(){
 		ipgoModal.style.display = 'none'; // 모달 숨김
-	});
-
+	}
 
 
 	

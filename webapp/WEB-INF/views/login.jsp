@@ -87,7 +87,12 @@
 			dataType: "json",
 			data:userData,
 			success:function(result){				
-				location.href = "/tkheat/tkHeat";
+				console.log(result);
+				if(result.status == "NG"){
+					alert(result.data);	
+				}else{				
+					location.href = "/tkheat/tkHeat";
+				}
 			}
 		});
 	}

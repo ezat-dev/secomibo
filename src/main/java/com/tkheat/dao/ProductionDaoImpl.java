@@ -83,4 +83,45 @@ public class ProductionDaoImpl implements ProductionDao{
 		return sqlSession.selectOne("work.getPlnpNo", works);
 	}
 
+	@Override
+	public Work getWorkPlnpSeq(Work work) {
+		return sqlSession.selectOne("work.getWorkPlnpSeq", work);
+	}
+
+	@Override
+	public List<Work> workInstructionReport(Work work) {
+		return sqlSession.selectList("work.workInstructionReport",work);
+	}
+
+	@Override
+	public Work getWorkJBarcode(Work work) {
+		return sqlSession.selectOne("work.getWorkJBarcode", work);
+	}
+
+	@Override
+	public void setWorkJSave(Work work) {
+		
+		Work rWork = sqlSession.selectOne("work.setWorkJSaveChk", work);
+//		System.out.println("조회된 객체");
+//		System.out.println(rWork);
+		
+		if(rWork == null) {
+			work.setQueryGb("I");	
+		}else {
+			work.setQueryGb("U");
+		}
+//		(#{ord_code}, 'J', #{ilbo_su}, #{ilbo_jung}, #{ilbo_strt}, #{ilbo_end}, #{user_code})
+/*		System.out.println(work.getQueryGb());
+		System.out.println(work.getOrd_code());
+		System.out.println(work.getIlbo_su());
+		System.out.println(work.getIlbo_jung());
+		System.out.println(work.getIlbo_strt());
+		System.out.println(work.getIlbo_end());
+		System.out.println(work.getUser_code());*/
+//		System.out.println(work.getQueryGb());
+		
+		
+		sqlSession.insert("work.setWorkJSave",work);
+	}
+
 }

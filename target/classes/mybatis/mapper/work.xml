@@ -5,98 +5,126 @@
 <mapper namespace="work">
 
 	<!-- 작업지시 조회 -->
-	<select id="getWorkInstructionList" parameterType="work"
-		resultType="work">
-		SELECT PLANP_D.PLNP_CODE,
-		PLANP_D.PLNP_NO,
-		LEFT(CONVERT(VARCHAR,
-		PLANP_D.PLNP_DATE, 120), 10) PLNP_DATE,
-		FACILITY.FAC_NAME,
-		PLANP_D.PLNP_SEQ,
-		CORP.CORP_NAME,
-		PRODUCT.PROD_NAME,
-		PRODUCT.PROD_NO,
-		PRODUCT.PROD_GYU,
-		PRODUCT.PROD_JAI,
-		PLANP_D.PLNP_DSU,
-		PLANP_D.PLNP_TMP1,
-		PLANP_D.PLNP_TIME1,
-		PLANP_D.PLNP_TMP2,
-		PLANP_D.PLNP_TIME2,
-		PLANP_D.PLNP_TTMP,
-		PLANP_D.PLNP_TTIME,
-		PLANP_D.PLNP_STRT,
-		PLANP_D.PLNP_END,
-		PLANP_D.PLNP_NOTE,
-		PRODUCT.PROD_CODE,
-		PRODUCT.PROD_GD1+' '+
-		CASE WHEN ISNULL(PRODUCT.PROD_GD2,'') = '' THEN
-		''
-		ELSE PRODUCT.PROD_GD2+'기준 ' END
-		+PRODUCT.PROD_GD3+' '+
-		CASE WHEN
-		ISNULL(PRODUCT.PROD_GD4,'') = '' THEN
-		CASE WHEN
-		ISNULL(PRODUCT.PROD_GD5,'') = '' THEN ''
-		WHEN
-		ISNULL(PRODUCT.PROD_GD5,'')!='' THEN PRODUCT.PROD_GD5+'이하' END
-		WHEN
-		ISNULL(PRODUCT.PROD_GD4,'') !='' THEN
-		CASE WHEN
-		ISNULL(PRODUCT.PROD_GD5,'')='' THEN PRODUCT.PROD_GD4+'이상'
-		WHEN
-		ISNULL(PRODUCT.PROD_GD5,'')!='' THEN
-		PRODUCT.PROD_GD4+'~'+PRODUCT.PROD_GD5 END
-		END AS Prod_cd,
-		PRODUCT.PROD_PG + ' '+
-		CASE WHEN ISNULL(PRODUCT.PROD_PG1,'') = '' THEN
-		CASE WHEN ISNULL(PRODUCT.PROD_PG2,'') = '' THEN ''
-		WHEN
-		ISNULL(PRODUCT.PROD_PG2,'')!='' THEN PRODUCT.PROD_PG2+'이하' END
-		WHEN
-		ISNULL(PRODUCT.PROD_PG1,'') !='' THEN
-		CASE WHEN
-		ISNULL(PRODUCT.PROD_PG2,'')='' THEN PRODUCT.PROD_PG1+'이상'
-		WHEN
-		ISNULL(PRODUCT.PROD_PG2,'')!='' THEN
-		PRODUCT.PROD_PG1+'~'+PRODUCT.PROD_PG2 END
-		END AS Prod_pg,
-		PRODUCT.PROD_SG + ' '+
-		CASE WHEN ISNULL(PRODUCT.PROD_SG1,'') = '' THEN
-		CASE WHEN ISNULL(PRODUCT.PROD_SG2,'') = '' THEN ''
-		WHEN
-		ISNULL(PRODUCT.PROD_SG2,'')!='' THEN PRODUCT.PROD_SG2+'이하' END
-		WHEN
-		ISNULL(PRODUCT.PROD_SG1,'') !='' THEN
-		CASE WHEN
-		ISNULL(PRODUCT.PROD_SG2,'')='' THEN PRODUCT.PROD_SG1+'이상'
-		WHEN
-		ISNULL(PRODUCT.PROD_SG2,'')!='' THEN
-		PRODUCT.PROD_SG1+'~'+PRODUCT.PROD_SG2 END
-		END AS Prod_sg
-		FROM PLANP_D
-		WITH(NOLOCK)
-		INNER JOIN PRODUCT WITH(NOLOCK)
-		ON PLANP_D.PROD_CODE =
-		PRODUCT.PROD_CODE
-		INNER JOIN CORP
-		ON PRODUCT.CORP_CODE = CORP.CORP_CODE
-		INNER JOIN FACILITY
-		ON PLANP_D.FAC_CODE = FACILITY.FAC_CODE
-		<!-- <where> <if test="plnpDate == ''"> AND PLANP_D.PLNP_DATE = LEFT(CONVERT(VARCHAR, 
-			GETDATE(), 120), 10) </if> <if test="plnpDate != ''"> AND PLANP_D.PLNP_DATE 
-			= #{plnpDate} </if> <if test="corpName != ''"> AND CORP.CORP_NAME LIKE +'%'+ 
-			#{corpName} +'%' </if> <if test="prodName != ''"> AND PRODUCT.PROD_NAME LIKE 
-			+'%'+ #{prodName} +'%' </if> <if test="prodNo != ''"> AND PRODUCT.PROD_NO 
-			LIKE +'%'+ #{prodNo} +'%' </if> <if test="facName != '' and facName != null"> 
-			AND FACILITY.FAC_NAME LIKE +'%'+ #{facName} +'%' </if> <if test="prodGubn 
-			!= ''"> AND PRODUCT.PROD_GUBN LIKE + '%' + CASE #{prodGubn} WHEN '양산' THEN 
-			'양산' WHEN '개발' THEN '개발' ELSE '' END + '%' </if> </where> -->
-		ORDER BY PLANP_D.PLNP_DATE,
-		FACILITY.FAC_NAME,
-		PLANP_D.PLNP_SEQ
+	<select id="getWorkInstructionList" parameterType="work" resultType="work">
+	SELECT * 
+	FROM (
+		SELECT
+		A.ord_date,	--입고일
+		A.ord_code,	--수주NO
+		B.ilbo_lot,	--일보로트
+		B.ilbo_no,	--일보순번
+		CASE WHEN B.ilbo_gubn = 'J' THEN '준비'
+			 WHEN B.ilbo_gubn = 'A' THEN '열처리'
+			 WHEN B.ilbo_gubn = 'R' THEN '템퍼링'
+		END AS ilbo_gubn,--일보구분(J:준비, A:열처리, R:템퍼링)
+		CASE WHEN B.ilbo_gubn = 'J' THEN 1
+			 WHEN B.ilbo_gubn = 'A' THEN 2
+			 WHEN B.ilbo_gubn = 'R' THEN 3
+		END AS ilbo_gubn_idx,--일보구분(J:준비, A:열처리, R:템퍼링)
+		B.ilbo_strt,--일보시작일
+		B.ilbo_end,	--일보종료일
+		A.ord_su,	--입고수량
+		B.ilbo_su,	--일보수량
+		E.fac_name,	--설비명
+		C.prod_name,--제품명
+		C.prod_no,	--제품품번
+		C.prod_gyu,	--제품규격
+		C.prod_jai,	--제품재질
+		D.corp_name	--거래처명
+		FROM ordert A 
+		LEFT OUTER JOIN
+			workilbo B	
+		ON A.ord_code = B.ord_code
+		LEFT OUTER JOIN
+			product C
+		ON A.prod_code = C.prod_code
+		LEFT OUTER JOIN
+			corp D
+		ON C.corp_code = D.corp_code
+		LEFT OUTER JOIN
+			facility E
+		ON B.fac_code = E.fac_code
+		WHERE 1=1
+		AND B.ilbo_strt >= CONCAT(#{sdate},' 00:00:00')
+		AND B.ilbo_strt <![CDATA[<=]]> CONCAT(#{edate}, ' 23:59:59')
+	) AA
+	ORDER BY ilbo_lot DESC, ilbo_gubn_idx
 	</select>
 
+	<!-- 작업지시 - 준비작업 스캔한 바코드의 입고정보 조회 -->
+	<select id="getWorkJBarcode" parameterType="work" resultType="work">
+		SELECT TOP 1 A.ord_code, A.ord_date, A.ord_su, (A.ord_su * A.ord_danj) AS ord_danj,
+			 C.corp_name, B.prod_name, B.prod_no, B.prod_danj,
+			 CONCAT(B.prod_pg, ' ', B.prod_pg1, ' ~ ') AS prod_pg,
+			 CONCAT(B.prod_gd3,' ',B.prod_gd4, ' ~ ', B.prod_gd5) AS prod_gd,
+			 E.wstd_t32,
+			 E.wstd_t33,
+			 E.wstd_t41,
+			 E.wstd_t42,
+			 E.wstd_t87,
+			 E.wstd_t43,
+			 E.wstd_t44,
+			 E.wstd_t51,
+			 E.wstd_t52,
+			 E.wstd_t53,
+			 E.wstd_t54,
+			 E.wstd_t30,
+			 F.ilbo_strt,
+			 F.ilbo_end
+--			 ,G.user_name
+		FROM ordert A
+		INNER JOIN
+			product B
+		ON A.prod_code = B.prod_code
+		INNER JOIN
+			corp C
+		ON B.corp_code = C.corp_code
+		INNER JOIN
+			techIN D
+		ON B.tech_no = D.tech_no
+		INNER JOIN
+			workstd E
+		ON B.prod_code = E.prod_code
+		LEFT OUTER JOIN
+			workilbo F
+		ON A.ord_code = F.ord_code
+--		INNER JOIN
+--			usert G
+--		ON F.user_code = G.user_code		
+		WHERE A.ord_code = #{barcode};		
+	</select>
+
+	<select id="setWorkJSaveChk" parameterType="work" resultType="work">
+		SELECT *
+		FROM workilbo
+		WHERE 1=1 
+		AND ilbo_gubn = 'J'
+		AND ord_code = #{ord_code}
+	</select>
+
+	<insert id="setWorkJSave" parameterType="work">
+		
+			INSERT INTO workilbo (ilbo_code, ilbo_no, ord_code, ilbo_gubn, ilbo_su, ilbo_jung, ilbo_strt, ilbo_end, user_code)
+			VALUES
+								 (				  
+								 (SELECT ISNULL(MAX(ILBO_CODE), 0)+1
+									FROM WORKILBO
+								  ),
+					(SELECT CASE WHEN MAX(ILBO_NO) IS NULL 
+						   THEN 0 
+						   ELSE ISNULL(MAX(ILBO_NO),0)+1 END 
+					FROM WORKILBO WHERE ord_code = #{ord_code}
+								  ),								  
+								 #{ord_code}, 'J', #{ilbo_su}, #{ilbo_jung}, #{ilbo_strt}, #{ilbo_end}, #{user_code})
+<!-- 		
+	<if test='queryGb.equals("I")'>
+	</if>
+		<if test='queryGb.equals("U")'>
+			UPDATE workilbo SET 
+				ilbo_su = #{ilbo_su}, ilbo_jung = #{ilbo_jung}
+			WHERE ord_code = #{ord_code} AND ilbo_gubn = 'J' AND ilbo_no = #{ilbo_no}
+		</if> -->
+	</insert>
 
 	<!-- 작업지시 - 작업지시대기 조회(팝업) -->
 	<select id="getWorkWaitList" parameterType="work"
@@ -145,13 +173,18 @@
 		CONCAT(dbo.PRODUCT.PROD_SG1,'이상') WHEN
 		ISNULL(dbo.PRODUCT.PROD_SG2,'')!='' THEN
 		CONCAT(dbo.PRODUCT.PROD_SG1,'~'+PRODUCT.PROD_SG2) END END) AS Prod_SG
-		FROM dbo.ORDERT WITH(NOLOCK) INNER JOIN dbo.PRODUCT WITH(NOLOCK) ON
-		dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE INNER JOIN dbo.CORP
-		WITH(NOLOCK) ON dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE INNER JOIN
-		dbo.TECHIN WITH(NOLOCK) ON dbo.PRODUCT.TECH_NO = dbo.TECHIN.TECH_NO
-		LEFT MERGE JOIN dbo.WORKILBO WITH(NOLOCK) ON dbo.ORDERT.ORD_CODE =
-		dbo.WORKILBO.ORD_CODE LEFT OUTER JOIN dbo.WORKSTD WITH(NOLOCK) ON
-		WORKSTD.PROD_CODE = PRODUCT.PROD_CODE WHERE ORD_DATE BETWEEN
+		FROM dbo.ORDERT WITH(NOLOCK) 
+		INNER JOIN dbo.PRODUCT WITH(NOLOCK) 
+			ON dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE 
+		INNER JOIN dbo.CORP WITH(NOLOCK) 
+			ON dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE 
+		INNER JOIN dbo.TECHIN WITH(NOLOCK) 
+			ON dbo.PRODUCT.TECH_NO = dbo.TECHIN.TECH_NO
+		LEFT MERGE JOIN dbo.WORKILBO WITH(NOLOCK) 
+			ON dbo.ORDERT.ORD_CODE = dbo.WORKILBO.ORD_CODE 
+		LEFT OUTER JOIN dbo.WORKSTD WITH(NOLOCK) 
+			ON WORKSTD.PROD_CODE = PRODUCT.PROD_CODE 
+		WHERE ORD_DATE BETWEEN
 		#{sdate}+' 00:00:00' AND #{edate}+' 23:59:59'
 		<!-- <where> <if test="ordDateS != null"> <if test="ordDateS != ''"> </if> 
 			</if> <if test="corpName != null"> AND CORP_NAME like + '%' + #{corpName} 
@@ -576,16 +609,227 @@
 			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
 			+ '%' + #{prodJai} + '%' </if> -->
 	</select>
+<insert id="setWorkSetSave" parameterType="work">
+		INSERT 
+		  INTO PLANP_D 
+		       (  
+		           PLNP_NO, 
+		           PLNP_DATE, 
+		           FAC_CODE, 
+		           PLNP_SEQ, 
+		           ORD_DATE, 
+		           PROD_CODE,
+		           PLNP_DSU, 
+		           PLNP_TMP1, 
+		           PLNP_TIME1, 
+		           PLNP_TMP2, 
+		           PLNP_TIME2, 
+		           PLNP_TTMP, 
+		           PLNP_TTIME, 
+		           PLNP_BNO, 
+		           PLNP_NOTE,
+		           PLNP_STRT,
+		           PLNP_END,
+				   PLNP_LOT,
+				   ORD_CODE
+		       ) 
+		       VALUES 
+		       (  
+		           #{plnp_no}, 
+		           #{plnp_date}, 
+		           #{fac_code}, 
+		           #{plnp_seq}, 
+		           #{ord_date}, 
+		           #{prod_code},
+		           #{plnp_dsu},
+		           #{plnp_tmp1}, 
+		           #{plnp_time1}, 
+		           #{plnp_tmp2}, 
+		           #{plnp_time2}, 
+		           #{plnp_ttmp}, 
+		           #{plnp_ttime}, 
+		           #{plnp_bno}, 
+		           #{plnp_note},
+		           #{plnp_strt},
+		           #{plnp_end},				   
+				   #{plnp_lot},
+				   #{ord_code}
+		       )
+</insert>
 
 
+	<select id="getWorkPlnpSeq" parameterType="work" resultType="work">
+		SELECT ISNULL(MAX(PLNP_SEQ), 0)+1 AS plnp_seq,
+				CONCAT('TK-',
+				   RIGHT(REPLACE(#{plnp_date},'-',''),6),
+				   '-',
+				   FORMAT(CAST(#{fac_code} AS INT),'00'),
+				   '-',
+				   FORMAT(CAST(RIGHT(ISNULL(MAX(PLNP_LOT),0),2) AS INT)+1,'00')) AS plnp_lot
+		  FROM PLANP_D 
+		 WHERE FAC_CODE = #{fac_code} 
+		   AND PLNP_DATE = #{plnp_date}		
+	</select>
 
-
-
-
-
-
-
-
-
-
+	
+	<select id="workInstructionReport" parameterType="work" resultType="work">
+		SELECT PLANP_D.PLNP_CODE AS ilbo_code, 
+		       PLANP_D.PLNP_DATE AS ilbo_strt, 
+		       SUM(ORDERT.ORD_SU) AS ilbo_su, 
+		       PLANP_D.PLNP_LOT AS ilbo_lot, 
+		       LEFT(RIGHT(CONVERT(NVARCHAR, PLANP_D.PLNP_STRT, 120), 8), 5) AS ilbostrt, 
+		       LEFT(RIGHT(CONVERT(NVARCHAR, PLANP_D.PLNP_END, 120), 8), 5) AS ilboend, 
+		       LEFT(CONVERT(NVARCHAR, PLANP_D.PLNP_DATE, 120), 10) AS ilbo_date, 
+		       'J' + RIGHT('000000000' + CAST(PLANP_D.PLNP_CODE AS NVARCHAR), 9) AS barcode, 
+		       CORP.corp_name, 
+		       ORDERT.ord_lot, 
+		       ORDERT.ord_gyu, 
+		       ORDERT.prod_code, 
+		       TECHIN.tech_te, 
+		       PRODUCT.prod_code, 
+		       PRODUCT.prod_jai, 
+		       PRODUCT.prod_name, 
+		       PRODUCT.prod_no, 
+		       PRODUCT.prod_gyu, 
+		       PRODUCT.prod_danch, 
+		       PRODUCT.tech_pattern, 
+		       PRODUCT.prod_pg, 
+		       PRODUCT.prod_pg1, 
+		       PRODUCT.prod_pg2, 
+		       PRODUCT.prod_gd1, 
+		       PRODUCT.prod_gd2, 
+		       PRODUCT.prod_gd3, 
+		       PRODUCT.prod_gd4, 
+		       PRODUCT.prod_gd5, 
+		       PRODUCT.prod_sg, 
+		       PRODUCT.prod_sg1, 
+		       PRODUCT.prod_sg2, 
+		       PRODUCT.prod_e1, 
+		       PRODUCT.prod_e2, 
+		       PRODUCT.prod_bangch, 
+		       PRODUCT.prod_vnyl, 
+		       PRODUCT.prod_pad, 
+		       WORKSTD.wstd_n06, 
+		       WORKSTD.wstd_n11, 
+		       --WORKSTD.WSTD_T26, 
+		       WORKSTD.wstd_t12, 
+		       --WORKSTD.WSTD_T17, 
+		       --WORKSTD.WSTD_T46, 
+		       WORKSTD.wstd_ready, 
+		       WORKSTD.wstd_worktime, 
+		       WORKSTD.wstd_t32, 
+		       WORKSTD.wstd_t33, 
+		       WORKSTD.wstd_t34, 
+		       WORKSTD.wstd_t41, 
+		       WORKSTD.wstd_t42, 
+		       WORKSTD.wstd_t43, 
+		       WORKSTD.wstd_t44, 
+		       WORKSTD.wstd_t51, 
+		       WORKSTD.wstd_t52, 
+		       WORKSTD.wstd_t53, 
+		       WORKSTD.wstd_t54
+		       --WORKSTD.WSTD_T30, 
+		       --WORKSTD.WSTD_T40, 
+		       --WORKSTD.WSTD_T50, 
+		      -- WORKSTD.WSTD_T55, 
+--		       USERT.user_name 
+		  FROM PLANP_D 
+		   INNER JOIN ORDERT 
+		       ON PLANP_D.ORD_CODE = ORDERT.ORD_CODE 
+		   INNER JOIN PRODUCT 
+		       ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE 
+		   INNER JOIN CORP 
+		       ON PRODUCT.CORP_CODE = CORP.CORP_CODE 
+		   INNER JOIN TECHIN 
+		       ON PRODUCT.TECH_NO = TECHIN.TECH_NO 
+		   LEFT OUTER JOIN WORKSTD 
+		       ON PRODUCT.PROD_CODE = WORKSTD.PROD_CODE 
+--		   LEFT OUTER JOIN USERT 
+--		       ON WORKILBO.USER_CODE = USERT.USER_CODE 
+	WHERE 1=1
+--	AND WORKILBO.ILBO_GUBN = 'J' 
+	AND plnp_date BETWEEN '2025-04-01' + ' 00:00' AND '2025-04-25' + ' 23:59' 
+<!--  
+	       
+	       AND CORP_NAME LIKE +'%'+ #{corpName} +'%' 
+	       AND PROD_NAME LIKE +'%'+ #{prodName} +'%' 
+	       AND PROD_NO LIKE +'%'+ #{prodNo} +'%' 
+	       AND PROD_GUBN LIKE + '%' + 
+	       CASE #{prodGubn} 
+	           WHEN '양산' 
+	           THEN '양산' 
+	           WHEN '개발' 
+	           THEN '개발' 
+	           ELSE '' 
+	       END + '%'
+      
+	       AND 'J' + RIGHT('000000000' + CAST(PLANP_D.PLNP_CODE AS NVARCHAR), 9) IN
+		<foreach item="reportBarcode" collection="reportBarcode" open="(" separator="," close=")">
+		 	#{reportBarcode}
+		</foreach>	
+-->	 
+--	AND PLNP_LOT = 'TK-250422-02-01'
+		 GROUP BY PLANP_D.PLNP_CODE, 
+		       PLANP_D.PLNP_DATE, 
+		       PLANP_D.PLNP_LOT, 
+		       PLANP_D.PLNP_STRT, 
+		       PLANP_D.PLNP_END, 
+		       PLANP_D.PLNP_CODE, 
+		       CORP.CORP_NAME, 
+		       ORDERT.ORD_LOT, 
+		       ORDERT.ORD_GYU, 
+		       ORDERT.PROD_CODE, 
+		       TECHIN.TECH_TE, 
+		       PRODUCT.PROD_CODE, 
+		       PRODUCT.PROD_JAI, 
+		       PRODUCT.PROD_NAME, 
+		       PRODUCT.PROD_NO, 
+		       PRODUCT.PROD_GYU, 
+		       PRODUCT.PROD_DANCH, 
+		       PRODUCT.TECH_PATTERN, 
+		       PRODUCT.PROD_PG, 
+		       PRODUCT.PROD_PG1, 
+		       PRODUCT.PROD_PG2, 
+		       PRODUCT.PROD_GD1, 
+		       PRODUCT.PROD_GD2, 
+		       PRODUCT.PROD_GD3, 
+		       PRODUCT.PROD_GD4, 
+		       PRODUCT.PROD_GD5, 
+		       PRODUCT.PROD_SG, 
+		       PRODUCT.PROD_SG1, 
+		       PRODUCT.PROD_SG2, 
+		       PRODUCT.PROD_E1, 
+		       PRODUCT.PROD_E2, 
+		       PRODUCT.PROD_BANGCH, 
+		       PRODUCT.PROD_VNYL, 
+		       PRODUCT.PROD_PAD, 
+		       WORKSTD.WSTD_N06, 
+		       WORKSTD.WSTD_N11, 
+		       --WORKSTD.WSTD_T26, 
+		       WORKSTD.WSTD_T12, 
+		       --WORKSTD.WSTD_T17, 
+		       --WORKSTD.WSTD_T46, 
+		       WORKSTD.WSTD_READY, 
+		       WORKSTD.WSTD_WORKTIME, 
+		       WORKSTD.WSTD_T32, 
+		       WORKSTD.WSTD_T33, 
+		       WORKSTD.WSTD_T34, 
+		       WORKSTD.WSTD_T41, 
+		       WORKSTD.WSTD_T42, 
+		       WORKSTD.WSTD_T43, 
+		       WORKSTD.WSTD_T44, 
+		       WORKSTD.WSTD_T51, 
+		       WORKSTD.WSTD_T52, 
+		       WORKSTD.WSTD_T53, 
+		       WORKSTD.WSTD_T54
+		       --WORKSTD.WSTD_T30, 
+		       --WORKSTD.WSTD_T40, 
+		       --WORKSTD.WSTD_T50, 
+		       --WORKSTD.WSTD_T55, 
+--		       USERT.USER_NAME 
+		ORDER BY PLANP_D.PLNP_DATE, 
+		       CORP.CORP_NAME, 
+		       PRODUCT.PROD_NAME  
+		
+	</select>
 </mapper>

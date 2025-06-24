@@ -34,4 +34,12 @@ public interface ProductionDao {
 	void setWorkSetSave(Work work);
 
 	Work getPlnpNo(Work works);
+
+	Work getWorkPlnpSeq(Work work);
+
+	List<Work> workInstructionReport(Work work);
+
+	Work getWorkJBarcode(Work work);
+
+	void setWorkJSave(Work work);
 }

@@ -11,6 +11,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Gongjung;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Jaego;
+import com.tkheat.domain.Product;
 @Repository
 public class ProductDaoImpl implements ProductDao {
 	 @Autowired
@@ -55,5 +56,21 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Ipgo> getIpgoAddList(Ipgo ipgo) {
 		return sqlSession.selectList("ipgo.getIpgoAddList", ipgo);
 	}
+
+	@Override
+	public int setIpgoAdd(Ipgo ipgo) {
+		return sqlSession.insert("ipgo.setIpgoAdd", ipgo);
+	}
+
+	@Override
+	public void setIpgoTest(Ipgo ipgo) {
+		sqlSession.insert("ipgo.setIpgoTest", ipgo);
+	}
+
+	@Override
+	public Product getProductData(Ipgo ipgo) {
+		return sqlSession.selectOne("ipgo.getProductData",ipgo);
+	}
+	
 }
 

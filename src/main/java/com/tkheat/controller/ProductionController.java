@@ -1,9 +1,13 @@
 package com.tkheat.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +26,16 @@ import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 import com.tkheat.service.ProductionService;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
+import net.sf.jasperreports.engine.SimpleJasperReportsContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 @Controller
 public class ProductionController {
 
@@ -38,11 +52,17 @@ public class ProductionController {
 	@RequestMapping(value = "/production/workInstruction/getWorkInstructionList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getWorkInstructionList(
-			@RequestParam String sdate) {
+			@RequestParam String plnp_date,
+			@RequestParam String corp_name,
+			@RequestParam String prod_name,
+			@RequestParam String prod_no,
+			@RequestParam String prod_gubn,
+			@RequestParam String fac_name) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
-		work.setSdate(sdate);
+		work.setSdate(plnp_date);
+		work.setEdate(plnp_date);
 
 
 		List<Work> workInstructionList = productionService.getWorkInstructionList(work);
@@ -50,27 +70,21 @@ public class ProductionController {
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<workInstructionList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();
-			rowMap.put("plnp_no", workInstructionList.get(i).getPlnp_no());
-			rowMap.put("plnp_date", workInstructionList.get(i).getPlnp_date());
-			rowMap.put("prod_date", workInstructionList.get(i).getProd_date());
+			rowMap.put("ord_date", workInstructionList.get(i).getOrd_date());
+			rowMap.put("ord_code", workInstructionList.get(i).getOrd_code());
+			rowMap.put("ilbo_lot", workInstructionList.get(i).getIlbo_lot());
+			rowMap.put("ilbo_no", workInstructionList.get(i).getIlbo_no());
+			rowMap.put("ilbo_gubn", workInstructionList.get(i).getIlbo_gubn());
+			rowMap.put("ilbo_strt", workInstructionList.get(i).getIlbo_strt());
+			rowMap.put("ilbo_end", workInstructionList.get(i).getIlbo_end());
+			rowMap.put("ord_su", workInstructionList.get(i).getOrd_su());
+			rowMap.put("ilbo_su", workInstructionList.get(i).getIlbo_su());
 			rowMap.put("fac_name", workInstructionList.get(i).getFac_name());
-			rowMap.put("plnp_seq", workInstructionList.get(i).getPlnp_seq());
-			rowMap.put("corp_name", workInstructionList.get(i).getCorp_name());
 			rowMap.put("prod_name", workInstructionList.get(i).getProd_name());
 			rowMap.put("prod_no", workInstructionList.get(i).getProd_no());
 			rowMap.put("prod_gyu", workInstructionList.get(i).getProd_gyu());
 			rowMap.put("prod_jai", workInstructionList.get(i).getProd_jai());
-			rowMap.put("plnp_dsu", workInstructionList.get(i).getPlnp_dsu());
-			rowMap.put("plnp_tmp1", workInstructionList.get(i).getPlnp_tmp1());
-			rowMap.put("plnp_time1", workInstructionList.get(i).getPlnp_time1());
-			rowMap.put("plnp_tmp2", workInstructionList.get(i).getPlnp_tmp2());
-			rowMap.put("plnp_time2", workInstructionList.get(i).getPlnp_time2());
-			rowMap.put("plnp_ttmp", workInstructionList.get(i).getPlnp_ttmp());
-			rowMap.put("plnp_ttime", workInstructionList.get(i).getPlnp_ttime());
-			rowMap.put("plnp_note", workInstructionList.get(i).getPlnp_note());
-			rowMap.put("prod_cd", workInstructionList.get(i).getProd_cd());
-			rowMap.put("prod_pg", workInstructionList.get(i).getProd_pg());
-			rowMap.put("prod_sg", workInstructionList.get(i).getProd_sg());
+			rowMap.put("corp_name", workInstructionList.get(i).getCorp_name());
 
 			rtnList.add(rowMap);
 		}
@@ -87,12 +101,24 @@ public class ProductionController {
 	@ResponseBody 
 	public Map<String, Object> getWorkWaitList(
 			@RequestParam String sdate,
-			@RequestParam String edate) {
+			@RequestParam String edate,
+			@RequestParam String plnp_date,
+			@RequestParam String corp_name,
+			@RequestParam String prod_name,
+			@RequestParam String prod_no,
+			@RequestParam String prod_gubn,
+			@RequestParam String fac_name) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Work work = new Work();
 		work.setSdate(sdate);
 		work.setEdate(edate);
+		work.setCorp_name(plnp_date);
+		work.setProd_name(corp_name);
+		work.setProd_no(prod_name);
+		work.setProd_gyu(prod_no);
+		work.setProd_jai(prod_gubn);
+		work.setProd_pg(fac_name);
 
 
 		List<Work> workInstructionList = productionService.getWorkWaitList(work);
@@ -136,7 +162,71 @@ public class ProductionController {
 
 		return rtnMap; 
 	}	 
+	
+	//준비작업시 스캔한 바코드의 입고정보 조회
+	///tkheat
+	@RequestMapping(value = "/production/workInstruction/getWorkJBarcode", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> getWorkJBarcode(
+			@RequestParam String barcode) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
+		Work work = new Work();
+		work.setBarcode(barcode);
+
+
+		Work getIpgoData = productionService.getWorkJBarcode(work);
+		if(getIpgoData == null) {
+			rtnMap.put("data","조회된 데이터 없음");
+		}else {
+//			System.out.println(getIpgoData.getBarcode());
+//			System.out.println(getIpgoData.getIlbostrt());
+			rtnMap.put("data",getIpgoData);
+		}
+		
+		return rtnMap; 
+	}	 
+	
+	//준비작업 등록
+	@RequestMapping(value = "/production/workInstruction/workJSave", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> setWorkJSave(
+			@ModelAttribute Work work) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		work.setUser_code(UserController.USER_CODE);
+		productionService.setWorkJSave(work);
+
+		rtnMap.put("data",work);
+		
+		
+		return rtnMap; 
+	}	 
+	
+
+	//작업지시 - Seq, TKLOT 
+	@RequestMapping(value = "/production/workInstruction/getWorkPlnpSeq", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> getWorkPlnpSeq(
+			@RequestParam String plnp_date,
+			@RequestParam int fac_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		Work work = new Work();
+		work.setPlnp_date(plnp_date);
+		work.setFac_code(fac_code);
+
+
+		Work getWorkPlnpSeqData = productionService.getWorkPlnpSeq(work);
+
+//		System.out.println("getWorkPlnpSeqData : "+getWorkPlnpSeqData.getPlnp_seq());
+//		System.out.println("getWorkPlnpSeqData : "+getWorkPlnpSeqData.getPlnp_lot());
+		rtnMap.put("data",getWorkPlnpSeqData);
+
+		return rtnMap; 
+	}	 
+	
+	
 	//작업지시 - 등록
 	@RequestMapping(value = "/production/workInstruction/setWorkSetSave", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -159,19 +249,19 @@ public class ProductionController {
 			works.setFac_code(Integer.parseInt(facCode));
 			works.setPlnp_date(plnpDate);
 
-			System.out.println(workObj.toString());
+//			System.out.println(workObj.toString());
 
 			for(int i=0; i<workData.size(); i++) {
-				Work oneWork = productionService.getPlnpNo(works);
-
 
 				JSONObject jObj = (JSONObject)workData.get(i);
-				System.out.println(jObj.get("ord_code"));
+//				System.out.println(jObj.get("ord_code"));
 				Work work = new Work();
 				work.setPlnp_date(plnpDate);
 				work.setFac_code(Integer.parseInt(facCode));
 				work.setOrd_date(jObj.get("ord_date").toString());
-				work.setPlnp_seq(oneWork.getPlnp_seq());
+				work.setOrd_code(Integer.parseInt(jObj.get("ord_code").toString()));
+				work.setPlnp_seq(jObj.get("plnp_seq").toString());
+				work.setPlnp_lot(jObj.get("plnp_lot").toString());
 				work.setPlnp_dsu(jObj.get("plnp_dsu").toString());
 				work.setPlnp_tmp1(jObj.get("plnp_tmp1").toString());
 				work.setPlnp_tmp2(jObj.get("plnp_tmp2").toString());
@@ -195,6 +285,56 @@ public class ProductionController {
 
 		rtnMap.put("data","succ");
 
+		return rtnMap;
+	}
+
+	//작업지시 - 리포트 출력
+	@RequestMapping(value = "/production/workInstruction/workInstructionReport", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> workInstructionReport(@ModelAttribute Work work,
+			HttpServletRequest request){
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		List<Work> workList = productionService.workInstructionReport(work);
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Date time = new Date();
+        String fileName = "Report_"+format.format(time); // 최종 파일 이름
+		
+		String abPath = request.getServletContext().getRealPath("/WEB-INF/resources/reports/LoadWorkJisi.jrxml");
+		String savePath = request.getServletContext().getRealPath("/WEB-INF/resources/uploads/");
+		String previewPath = request.getServletContext().getRealPath("/reports/preview");
+		
+		try {
+
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(workList);
+			
+			JasperReportsContext jasperReportsContext = new SimpleJasperReportsContext();
+			JasperCompileManager compileManager = JasperCompileManager.getInstance(jasperReportsContext);
+			JasperReport report = JasperCompileManager.compileReport(abPath);
+			
+			
+			
+			
+			Map<String, Object> reportMap = new HashMap<String, Object>();
+			reportMap.put("report_list", workList);
+			reportMap.put("imageGoods", "GOOD");
+			
+			
+			JasperFillManager fillManager = JasperFillManager.getInstance(jasperReportsContext);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(report, reportMap, dataSource);		
+			
+			JasperExportManager exportManager = JasperExportManager.getInstance(jasperReportsContext); 
+			JasperExportManager.exportReportToPdfFile(jasperPrint,"D:/workReport/"+fileName+".pdf");			
+			rtnMap.put("data",fileName+".pdf");
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		
+		
 		return rtnMap;
 	}
 

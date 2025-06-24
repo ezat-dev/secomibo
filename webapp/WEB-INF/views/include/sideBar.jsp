@@ -383,29 +383,20 @@
 									var _groupID = "";
 
 									if(key.indexOf("a") != -1){
-										_group = "제품관리";
+										_group = "모니터링";
 										_groupID = "aMenu";
 									}else if(key.indexOf("b") != -1){
 										_group = "생산관리";
 										_groupID = "bMenu";
 									}else if(key.indexOf("c") != -1){
-										_group = "생산공정관리";
+										_group = "조건관리";
 										_groupID = "cMenu";
 									}else if(key.indexOf("d") != -1){
-										_group = "모니터링";
+										_group = "품질관리";
 										_groupID = "dMenu";
 									}else if(key.indexOf("e") != -1){
-										_group = "설비보존관리";
+										_group = "기준관리";
 										_groupID = "eMenu";
-									}else if(key.indexOf("f") != -1){
-										_group = "품질관리";
-										_groupID = "fMenu";
-									}else if(key.indexOf("g") != -1){
-										_group = "경영정보";
-										_groupID = "gMenu";
-									}else if(key.indexOf("h") != -1){
-										_group = "기준정보";
-										_groupID = "hMenu";
 									}
 									
 									

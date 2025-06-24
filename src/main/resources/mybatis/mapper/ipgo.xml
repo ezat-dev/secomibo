@@ -59,7 +59,7 @@
 		LEFT OUTER JOIN TECHIN ON PRODUCT.TECH_NO =
 		TECHIN.TECH_NO
 		WHERE CONVERT(CHAR(19),ORDERT.ORD_DATE,120) BETWEEN
-		#{sdate} AND #{edate}
+		CONCAT(#{sdate},' 00:00:00') AND CONCAT(#{edate},' 23:59:59')
 		<!-- <if test="corp_name != null"> AND CORP.CORP_NAME LIKE '%'+ #{corp_name} 
 			+'%' </if> <if test="prod_name != null"> AND PRODUCT.PROD_NAME LIKE '%'+ 
 			#{prod_name} +'%' </if> <if test="prod_no != null"> AND PRODUCT.PROD_NO LIKE 
@@ -191,6 +191,56 @@
 			</if> </where> -->
 	</select>
 
+	
+	<insert id="setIpgoAdd" parameterType="ipgo" keyProperty="ord_code">
+		<selectKey resultType="int" keyProperty="ord_code" order="BEFORE">
+			select isnull(MAX(ORD_CODE), cast(substring(CONCAT(#{ord_code},''), 3, 8)+'000' AS numeric))+1 
+			from ORDERT 
+			where ord_code>cast(substring(CONCAT(#{ord_code},''), 3, 8)+'000' AS numeric)
+		</selectKey>
+		INSERT INTO ORDERT
+           (ORD_CODE, ORD_PRN,
+		   ORD_INPUT, PROD_CODE, ORD_DATE, ORD_NAP, ORD_LOT, 
+		   ORD_DANW, ORD_DANG, ORD_DANJ, ORD_SU, ORD_AMNT,
+		   ORD_MON, ORD_NAME, ORD_GYU, ORD_SUNIP,ORD_BOXSU)
+     VALUES(
+           #{ord_code}, 0 ,
+		   #{ord_date}, #{prod_code}, #{ord_date}, DATEADD(DAY,10,#{ord_date}), '',
+		   #{ord_danw}, #{ord_dang}, #{ord_danj}, #{ord_su}, #{ord_amnt},
+		   #{ord_mon}, #{ord_name}, '', '선입1', #{ord_boxsu})
+	</insert>
+	
+	<insert id="setIpgoTest" parameterType="ipgo">
+		INSERT INTO IPTEST(
+				ITST_CODE, 
+				ORD_CODE, ITST_POOR,
+				ITST_DATE, ITST_WP, ITST_WN, ITST_WS, ITST_SU,
+				ITST_05N, ITST_05S, ITST_03N, ITST_03S, ITST_01N, ITST_01S,
+				ITST_051, ITST_052, ITST_053, ITST_054, ITST_055,
+				ITST_031, ITST_032, ITST_033, ITST_034, ITST_035,
+				ITST_011, ITST_012, ITST_013, ITST_014, ITST_015,
+				ITST_P,ITST_06N,ITST_06S,ITST_07N,ITST_07S,ITST_08N,ITST_08S,
+				ITST_04N,ITST_04S,ITST_02N,ITST_02S,ITST_11N, ITST_12N, ITST_121, ITST_122, ITST_123, ITST_124,
+				ITST_111, ITST_112, ITST_113, ITST_114
+			) 
+				SELECT ISNULL(MAX(ITST_CODE), 0)+1, 
+				#{ord_code}, '',
+				#{ord_date}, '검사대기', '외관', '녹없을것', '5EA',
+				'가공칩', '가공칩없을것', '이물질', '이물질없을것', '찍힘', '찍힘없을것',
+				'OK', 'OK', 'OK', 'OK', 'OK', 
+				'OK', 'OK', 'OK', 'OK', 'OK', 
+				'OK', 'OK', 'OK', 'OK', 'OK', 
+				#{ord_name},
+				#{prod_chisu1n},#{prod_chisu1s},#{prod_chisu2n},#{prod_chisu2s},
+				#{prod_chisu3n},#{prod_chisu3s},
+				#{prod_chisu4n},#{prod_chisu4s},#{prod_chisu5n},#{prod_chisu5s}, 
+				'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK'  
+		FROM IPTEST
+	</insert>
 
-
+	<select id="getProductData" parameterType="ipgo" resultType="product">
+		SELECT *
+		FROM PRODUCT
+		WHERE prod_code = #{prod_code}
+	</select>
 </mapper>

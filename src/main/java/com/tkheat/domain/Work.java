@@ -26,6 +26,11 @@ public class Work {
 	private String plnp_note;
 	private String plnp_bno;
 	
+	//고유구분값 (TK-년월일-설비-순번)
+	private String tk_primary;
+	private String plnp_lot;
+	private String plnp_barcode;
+	
 	//PRODUCT 테이블
 	private int prod_code;
 	private String prod_name;			//품명
@@ -42,8 +47,19 @@ public class Work {
 	private String prod_pg1;
 	private String prod_pg2;
 	private String prod_sg;
+	private String prod_sg1;
+	private String prod_sg2;
+	private String prod_e1;
+	private String prod_e2;	
 	private String prod_gubn;
 	private String prod_date;
+	private String prod_danch;
+	private String prod_bangch;
+	private String prod_vnyl;
+	private String tech_pattern;
+	private String prod_pad;
+	private String prod_gd;
+	private float prod_danj;
 	
 	//CORP 테이블
 	private String corp_name;
@@ -60,9 +76,26 @@ public class Work {
 	private String wstd_n12;
 	private String wstd_ready;
 	private String wstd_worktime;
+	private String wstd_t12;
+	private String wstd_t32;
+	private String wstd_t33;
+	private String wstd_t34;
+	private String wstd_t41;
+	private String wstd_t42;
+	private String wstd_t43;
+	private String wstd_t44;
+	private String wstd_t51;
+	private String wstd_t52;
+	private String wstd_t53;
+	private String wstd_t54;
+	private String wstd_t26;
+	private String wstd_t17;
+	private String wstd_t46;
+	private String wstd_t30;
+	private String wstd_t50;
+	private String wstd_t55;
+	private String wstd_t40;
 	
-	//고유구분값 (TK-년월일-설비-순번)
-	private String tk_primary;
 	
 	//작업스케줄
 	//컬럼은 작업지시와 비슷
@@ -78,17 +111,29 @@ public class Work {
 	private int sum_su;
 	private int ilbo_su;				//생산 수량
 	private String ilbo_ok;             //판정
-	private String ilbo_pg1;               //검사값 x1~5
-	private String ilbo_pg2;
-	private String ilbo_pg3;
-	private String ilbo_pg4;
-	private String ilbo_pg5;
+//	private String ilbo_pg1;               //검사값 x1~5
+//	private String ilbo_pg2;
+//	private String ilbo_pg3;
+//	private String ilbo_pg4;
+//	private String ilbo_pg5;
+	private int ilbo_pg1;               //검사값 x1~5
+	private int ilbo_pg2;
+	private int ilbo_pg3;
+	private int ilbo_pg4;
+	private int ilbo_pg5;
 	private String ilbo_okng; //판정
+	private String ilbostrt;
+	private String ilboend;
+	private int ilbo_no;
 	
-	
+	//ORDERT 테이블
+	private String ord_date;				//입고일
+	private int ord_su;    //입고수량
+	private float ord_danj;		//입고중량
 	//ORDERT 테이블
 	private int ord_code;				//수주NO
 	private String ord_lot;
+	private String ord_gyu;
 	
 	//TECHIN 테이블
 	private String tech_te;				//공정
@@ -145,9 +190,6 @@ public class Work {
 	
 	//LOT추적관리(입고)
 	//입고 그리드
-	//ORDERT 테이블
-	private String ord_date;				//입고일
-	private int ord_su;    //입고수량
 	
 	//CORP 테이블
 	private String corp_business;		//영업 담당자
@@ -161,6 +203,7 @@ public class Work {
 	
 	//USERT테이블
 	private String user_name;			//작업자
+	private int user_code;			//작업자
 	
 	//전세척 그리드(ILBO_GUBN = 'P')
 	
@@ -246,6 +289,15 @@ public class Work {
 	
 	//2025-04-11 리스트 테스트
 	ArrayList<Work> rWorkList;
+	
+	//2025-04-22 추가
+	private String reportDate;
+	private String reportBarcode;
+	private String reportPlnpLot;
+	
+	//2025-06-20 추가
+	private String queryGb;
+	
 	
 	public int getPlnp_code() {
 		return plnp_code;
@@ -1071,46 +1123,6 @@ public class Work {
 		this.ilbo_ok = ilbo_ok;
 	}
 
-	public String getIlbo_pg1() {
-		return ilbo_pg1;
-	}
-
-	public void setIlbo_pg1(String ilbo_pg1) {
-		this.ilbo_pg1 = ilbo_pg1;
-	}
-
-	public String getIlbo_pg2() {
-		return ilbo_pg2;
-	}
-
-	public void setIlbo_pg2(String ilbo_pg2) {
-		this.ilbo_pg2 = ilbo_pg2;
-	}
-
-	public String getIlbo_pg4() {
-		return ilbo_pg4;
-	}
-
-	public void setIlbo_pg4(String ilbo_pg4) {
-		this.ilbo_pg4 = ilbo_pg4;
-	}
-
-	public String getIlbo_pg3() {
-		return ilbo_pg3;
-	}
-
-	public void setIlbo_pg3(String ilbo_pg3) {
-		this.ilbo_pg3 = ilbo_pg3;
-	}
-
-	public String getIlbo_pg5() {
-		return ilbo_pg5;
-	}
-
-	public void setIlbo_pg5(String ilbo_pg5) {
-		this.ilbo_pg5 = ilbo_pg5;
-	}
-
 	public int getCorp_code() {
 		return corp_code;
 	}
@@ -1349,5 +1361,381 @@ public class Work {
 
 	public void setWerr_team(String werr_team) {
 		this.werr_team = werr_team;
+	}
+
+	public String getPlnp_lot() {
+		return plnp_lot;
+	}
+
+	public void setPlnp_lot(String plnp_lot) {
+		this.plnp_lot = plnp_lot;
+	}
+
+	public String getPlnp_barcode() {
+		return plnp_barcode;
+	}
+
+	public void setPlnp_barcode(String plnp_barcode) {
+		this.plnp_barcode = plnp_barcode;
+	}
+
+	public String getProd_sg1() {
+		return prod_sg1;
+	}
+
+	public void setProd_sg1(String prod_sg1) {
+		this.prod_sg1 = prod_sg1;
+	}
+
+	public String getProd_sg2() {
+		return prod_sg2;
+	}
+
+	public void setProd_sg2(String prod_sg2) {
+		this.prod_sg2 = prod_sg2;
+	}
+
+	public String getProd_e1() {
+		return prod_e1;
+	}
+
+	public void setProd_e1(String prod_e1) {
+		this.prod_e1 = prod_e1;
+	}
+
+	public String getProd_e2() {
+		return prod_e2;
+	}
+
+	public void setProd_e2(String prod_e2) {
+		this.prod_e2 = prod_e2;
+	}
+
+	public String getProd_danch() {
+		return prod_danch;
+	}
+
+	public void setProd_danch(String prod_danch) {
+		this.prod_danch = prod_danch;
+	}
+
+	public String getProd_bangch() {
+		return prod_bangch;
+	}
+
+	public void setProd_bangch(String prod_bangch) {
+		this.prod_bangch = prod_bangch;
+	}
+
+	public String getProd_vnyl() {
+		return prod_vnyl;
+	}
+
+	public void setProd_vnyl(String prod_vnyl) {
+		this.prod_vnyl = prod_vnyl;
+	}
+
+	public String getTech_pattern() {
+		return tech_pattern;
+	}
+
+	public void setTech_pattern(String tech_pattern) {
+		this.tech_pattern = tech_pattern;
+	}
+
+	public String getProd_pad() {
+		return prod_pad;
+	}
+
+	public void setProd_pad(String prod_pad) {
+		this.prod_pad = prod_pad;
+	}
+
+	public String getProd_gd() {
+		return prod_gd;
+	}
+
+	public void setProd_gd(String prod_gd) {
+		this.prod_gd = prod_gd;
+	}
+
+	public String getWstd_t12() {
+		return wstd_t12;
+	}
+
+	public void setWstd_t12(String wstd_t12) {
+		this.wstd_t12 = wstd_t12;
+	}
+
+	public String getWstd_t32() {
+		return wstd_t32;
+	}
+
+	public void setWstd_t32(String wstd_t32) {
+		this.wstd_t32 = wstd_t32;
+	}
+
+	public String getWstd_t33() {
+		return wstd_t33;
+	}
+
+	public void setWstd_t33(String wstd_t33) {
+		this.wstd_t33 = wstd_t33;
+	}
+
+	public String getWstd_t34() {
+		return wstd_t34;
+	}
+
+	public void setWstd_t34(String wstd_t34) {
+		this.wstd_t34 = wstd_t34;
+	}
+
+	public String getWstd_t41() {
+		return wstd_t41;
+	}
+
+	public void setWstd_t41(String wstd_t41) {
+		this.wstd_t41 = wstd_t41;
+	}
+
+	public String getWstd_t42() {
+		return wstd_t42;
+	}
+
+	public void setWstd_t42(String wstd_t42) {
+		this.wstd_t42 = wstd_t42;
+	}
+
+	public String getWstd_t43() {
+		return wstd_t43;
+	}
+
+	public void setWstd_t43(String wstd_t43) {
+		this.wstd_t43 = wstd_t43;
+	}
+
+	public String getWstd_t44() {
+		return wstd_t44;
+	}
+
+	public void setWstd_t44(String wstd_t44) {
+		this.wstd_t44 = wstd_t44;
+	}
+
+	public String getWstd_t51() {
+		return wstd_t51;
+	}
+
+	public void setWstd_t51(String wstd_t51) {
+		this.wstd_t51 = wstd_t51;
+	}
+
+	public String getWstd_t52() {
+		return wstd_t52;
+	}
+
+	public void setWstd_t52(String wstd_t52) {
+		this.wstd_t52 = wstd_t52;
+	}
+
+	public String getWstd_t53() {
+		return wstd_t53;
+	}
+
+	public void setWstd_t53(String wstd_t53) {
+		this.wstd_t53 = wstd_t53;
+	}
+
+	public String getWstd_t54() {
+		return wstd_t54;
+	}
+
+	public void setWstd_t54(String wstd_t54) {
+		this.wstd_t54 = wstd_t54;
+	}
+
+	public String getWstd_t26() {
+		return wstd_t26;
+	}
+
+	public void setWstd_t26(String wstd_t26) {
+		this.wstd_t26 = wstd_t26;
+	}
+
+	public String getWstd_t17() {
+		return wstd_t17;
+	}
+
+	public void setWstd_t17(String wstd_t17) {
+		this.wstd_t17 = wstd_t17;
+	}
+
+	public String getWstd_t46() {
+		return wstd_t46;
+	}
+
+	public void setWstd_t46(String wstd_t46) {
+		this.wstd_t46 = wstd_t46;
+	}
+
+	public String getWstd_t30() {
+		return wstd_t30;
+	}
+
+	public void setWstd_t30(String wstd_t30) {
+		this.wstd_t30 = wstd_t30;
+	}
+
+	public String getWstd_t50() {
+		return wstd_t50;
+	}
+
+	public void setWstd_t50(String wstd_t50) {
+		this.wstd_t50 = wstd_t50;
+	}
+
+	public String getWstd_t55() {
+		return wstd_t55;
+	}
+
+	public void setWstd_t55(String wstd_t55) {
+		this.wstd_t55 = wstd_t55;
+	}
+
+	public String getWstd_t40() {
+		return wstd_t40;
+	}
+
+	public void setWstd_t40(String wstd_t40) {
+		this.wstd_t40 = wstd_t40;
+	}
+
+	public String getIlbostrt() {
+		return ilbostrt;
+	}
+
+	public void setIlbostrt(String ilbostrt) {
+		this.ilbostrt = ilbostrt;
+	}
+
+	public String getIlboend() {
+		return ilboend;
+	}
+
+	public void setIlboend(String ilboend) {
+		this.ilboend = ilboend;
+	}
+
+	public int getIlbo_no() {
+		return ilbo_no;
+	}
+
+	public void setIlbo_no(int ilbo_no) {
+		this.ilbo_no = ilbo_no;
+	}
+
+	public float getOrd_danj() {
+		return ord_danj;
+	}
+
+	public void setOrd_danj(float ord_danj) {
+		this.ord_danj = ord_danj;
+	}
+
+	public String getOrd_gyu() {
+		return ord_gyu;
+	}
+
+	public void setOrd_gyu(String ord_gyu) {
+		this.ord_gyu = ord_gyu;
+	}
+
+	public int getUser_code() {
+		return user_code;
+	}
+
+	public void setUser_code(int user_code) {
+		this.user_code = user_code;
+	}
+
+	public String getReportDate() {
+		return reportDate;
+	}
+
+	public void setReportDate(String reportDate) {
+		this.reportDate = reportDate;
+	}
+
+	public String getReportBarcode() {
+		return reportBarcode;
+	}
+
+	public void setReportBarcode(String reportBarcode) {
+		this.reportBarcode = reportBarcode;
+	}
+
+	public String getReportPlnpLot() {
+		return reportPlnpLot;
+	}
+
+	public void setReportPlnpLot(String reportPlnpLot) {
+		this.reportPlnpLot = reportPlnpLot;
+	}
+
+	public String getQueryGb() {
+		return queryGb;
+	}
+
+	public void setQueryGb(String queryGb) {
+		this.queryGb = queryGb;
+	}
+
+	public void setIlbo_pg1(int ilbo_pg1) {
+		this.ilbo_pg1 = ilbo_pg1;
+	}
+
+	public void setIlbo_pg2(int ilbo_pg2) {
+		this.ilbo_pg2 = ilbo_pg2;
+	}
+
+	public void setIlbo_pg3(int ilbo_pg3) {
+		this.ilbo_pg3 = ilbo_pg3;
+	}
+
+	public void setIlbo_pg4(int ilbo_pg4) {
+		this.ilbo_pg4 = ilbo_pg4;
+	}
+
+	public void setIlbo_pg5(int ilbo_pg5) {
+		this.ilbo_pg5 = ilbo_pg5;
+	}
+
+	public int getIlbo_pg1() {
+		return ilbo_pg1;
+	}
+
+	public int getIlbo_pg2() {
+		return ilbo_pg2;
+	}
+
+	public int getIlbo_pg3() {
+		return ilbo_pg3;
+	}
+
+	public int getIlbo_pg4() {
+		return ilbo_pg4;
+	}
+
+	public int getIlbo_pg5() {
+		return ilbo_pg5;
+	}
+
+	public float getProd_danj() {
+		return prod_danj;
+	}
+
+	public void setProd_danj(float prod_danj) {
+		this.prod_danj = prod_danj;
 	}
 }

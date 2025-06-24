@@ -6,6 +6,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Gongjung;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Jaego;
+import com.tkheat.domain.Product;
 
 public interface ProductService {
 	
@@ -24,6 +25,12 @@ public interface ProductService {
 	List<Gongjung> getWorkStatusList(Gongjung gongjung);
 
 	List<Ipgo> getIpgoAddList(Ipgo ipgo);
+
+	int setIpgoAdd(Ipgo ipgo);
+
+	void setIpgoTest(Ipgo ipgo);
+
+	Product getProductData(Ipgo ipgo);
 	
 	
 }

@@ -10,6 +10,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Gongjung;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Jaego;
+import com.tkheat.domain.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -55,4 +56,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<Ipgo> getIpgoAddList(Ipgo ipgo) {
 		return productDao.getIpgoAddList(ipgo);
 	}
+
+	@Override
+	public int setIpgoAdd(Ipgo ipgo) {
+		return productDao.setIpgoAdd(ipgo);
+	}
+
+	@Override
+	public void setIpgoTest(Ipgo ipgo) {
+		productDao.setIpgoTest(ipgo);
+	}
+
+	@Override
+	public Product getProductData(Ipgo ipgo) {
+		return productDao.getProductData(ipgo);
+	}
+	
 }

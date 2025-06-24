@@ -647,7 +647,7 @@ public class ManagementController {
 			@RequestParam String user_name,
 			@RequestParam String user_ret) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
-
+		
 		Users user = new Users();
 		user.setUser_buso(user_buso);
 		user.setUser_jick(user_jick);
@@ -656,6 +656,7 @@ public class ManagementController {
 
 		List<Users> userList = managementService.getUserList(user);
 
+		
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<userList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();

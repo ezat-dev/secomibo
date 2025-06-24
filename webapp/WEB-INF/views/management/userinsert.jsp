@@ -158,13 +158,14 @@
 		//전체 사용자목록 조회
 		getAllUserList();
 	});
-
+	
 	
 	
 	
 	
 	//함수
 	function getAllUserList(){
+		
 		
 		userTable = new Tabulator("#tab1", {
 		    height:"760px",
@@ -185,12 +186,15 @@
                 "user_name": $("#user_name").val(),
                 "user_ret": $("#user_ret").val(),
 			   },
-		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
+		    	console.log(response);
+		    	console.log(params);
+		    	console.log(url);
 				$("#tab1 .tabulator-col.tabulator-sortable").css("height","29px");
 		        return response; //return the response data to tabulator
 		    },
+		    placeholder:"조회된 데이터가 없습니다.",
+		    paginationSize:20,
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:180,
 		        	hozAlign:"center"},

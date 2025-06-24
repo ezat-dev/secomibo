@@ -7,14 +7,11 @@ import com.tkheat.domain.Work;
 
 public interface ProductionService {
 
-	List<Work> getWorkInstructionList(Work work);
+	List<Work> getWorkInstructionList(Work work);	
 	
 	List<Work> getWorkStatusList(Work work);
 	
-	
-	
-	
-	List<Work> getNonReportList(Work work);
+	List<Work> getNonReportList(Work work);	
 	
 	List<Ipgo> getNonReportIpgoList(Ipgo ipgo);
 	
@@ -24,8 +21,6 @@ public interface ProductionService {
 	
 	void nonReportDelete(int werr_code);
 	
-	
-	
 	List<Work> getProdWaitingStatusList(Work work);
 
 	List<Work> getWorkWaitList(Work work);
@@ -33,5 +28,13 @@ public interface ProductionService {
 	void setWorkSetSave(Work work);
 
 	Work getPlnpNo(Work works);
+
+	Work getWorkPlnpSeq(Work work);
+
+	List<Work> workInstructionReport(Work work);
+
+	Work getWorkJBarcode(Work work);
+
+	void setWorkJSave(Work work);
 
 }

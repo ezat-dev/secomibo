@@ -1014,7 +1014,12 @@ $(document).ready(function() {
 		    ajaxLoader:false,
 		    ajaxURL:"/tkheat/management/authority/userList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{
+		    	"user_buso": "",
+                "user_jick": "",
+                "user_name": "",
+                "user_ret": ""
+			   },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
@@ -1089,11 +1094,6 @@ $(document).ready(function() {
 	
 	function saveAut(){
 		var permissionData = new FormData($("#permissionForm")[0]);
-/*		
-		console.log(permissionData);
-		
-		return false;
-*/		
 		
 		$.ajax({
 			url:"/tkheat/management/authority/userSelectSave",

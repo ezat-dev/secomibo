@@ -7,21 +7,16 @@
 	<!-- 침탄작업실적 조회 -->
 	<select id="getChimSiljukList" parameterType="siljuk"
 		resultType="siljuk">
-		SELECT ROW_NUMBER()OVER(ORDER BY IlboDate, IlboStrt) AS
-		ROW_NUM, vWrkBang.IlboDate AS ilbo_date, vWrkBang.IlboStrt AS ilbo_strt, vWrkBang.IlboEnd AS ilbo_end,
-		vWrkBang.CORP_NAME, vWrkBang.PROD_NAME, vWrkBang.PROD_NO,
-		vWrkBang.PROD_GYU,
-		vWrkBang.PROD_JAI, vWrkBang.ILBO_SU,
-		vWrkBang.USER_NAME,
-		vWrkBang.ORD_NAME,vWrkBang.ILBO_CODE,
-		vWrkBang.ILBO_NO,
-		vWrkBang.ORD_CODE, vWrkBang.ORD_LOT
-		FROM vWrkBang
-		INNER JOIN PRODUCT ON
-		vWrkBang.PROD_CODE = PRODUCT.PROD_CODE
-		where
-		ILBO_STRT between #{sdate} and #{edate}
-		ORDER BY IlboDate, IlboStrt
+		SELECT ROW_NUMBER()OVER(ORDER BY ILBO_LOT desc) AS ROW_NUM, 
+				*
+		FROM WORKILBO INNER JOIN
+			ORDERT ON WORKILBO.ORD_CODE = ORDERT.ORD_CODE INNER JOIN
+			FACILITY ON WORKILBO.FAC_CODE = FACILITY.FAC_CODE INNER JOIN
+			PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE INNER JOIN
+			CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE INNER JOIN
+			TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO INNER JOIN
+			USERT ON WORKILBO.USER_CODE = USERT.USER_CODE
+		where ILBO_STRT between CONCAT(#{sdate},' 00:00') and CONCAT(#{edate},' 23:59') and ILBO_GUBN='A'
 	</select>
 
 
@@ -61,6 +56,20 @@
 		vWrkPrepare.PROD_CODE = PRODUCT.PROD_CODE
 		where ILBO_STRT between
 		#{sdate} and #{edate}
+		<!-- and vWrkPrepare.CORP_NAME like + '%' +
+		#{corp_name} + '%'
+		and vWrkPrepare.PROD_NAME like + '%' + #{prod_name}
+		+ '%'
+		and vWrkPrepare.PROD_NO like + '%' + #{prod_no} + '%'
+		and
+		vWrkPrepare.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and
+		vWrkPrepare.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and
+		PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발' else '' end + '%'
+		and vWrkPrepare.ord_NAME like +
+		'%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 	
@@ -68,20 +77,16 @@
 	<!-- 템퍼링 조회 -->
 	<select id="getTemSiljukList" parameterType="siljuk"
 		resultType="siljuk">
-		SELECT
-		ROW_NUMBER() OVER (ORDER BY TMP_STRT) AS ROW_NUM,
-		vWrkTemper.TmpDate AS tmp_date, vWrkTemper.FAC_NAME, vWrkTemper.TMP_LOT,
-		vWrkTemper.IlboStrt AS ilbo_strt, vWrkTemper.IlboEnd AS ilbo_end, vWrkTemper.CORP_NAME,
-		vWrkTemper.PROD_NAME, vWrkTemper.PROD_NO, vWrkTemper.PROD_GYU,
-		vWrkTemper.PROD_JAI, vWrkTemper.TMP_AMNT, vWrkTemper.USER_NAME,
-		vWrkTemper.TMP_CODE, vWrkTemper.TMP_NO
-		FROM vWrkTemper
-		INNER JOIN
-		PRODUCT ON vWrkTemper.PROD_CODE = PRODUCT.PROD_CODE
-		WHERE TMP_STRT
-		BETWEEN #{sdate} AND #{edate}
-		ORDER BY
-		TMP_STRT
+		SELECT ROW_NUMBER()OVER(ORDER BY ILBO_LOT desc) AS ROW_NUM, 
+				*
+		FROM WORKILBO INNER JOIN
+			ORDERT ON WORKILBO.ORD_CODE = ORDERT.ORD_CODE INNER JOIN
+			FACILITY ON WORKILBO.FAC_CODE = FACILITY.FAC_CODE INNER JOIN
+			PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE INNER JOIN
+			CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE INNER JOIN
+			TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO INNER JOIN
+			USERT ON WORKILBO.USER_CODE = USERT.USER_CODE
+		where ILBO_STRT between CONCAT(#{sdate},' 00:00') and CONCAT(#{edate},' 23:59') and ILBO_GUBN='R'
 	</select>
 
 
@@ -99,6 +104,14 @@
 		INNER JOIN PRODUCT ON
 		vWrkShot.PROD_CODE = PRODUCT.PROD_CODE
 		where ILBO_STRT between #{sdate} and #{edate}
+		<!-- and vWrkShot.CORP_NAME like + '%' + #{corp_name} + '%'
+		and vWrkShot.PROD_NAME like + '%' + #{prod_name} + '%'
+		and vWrkShot.PROD_NO like + '%' + #{prod_no} + '%'
+		and vWrkShot.PROD_GYU like + '%' + #{prod_gyu} + '%'
+		and vWrkShot.PROD_JAI like + '%' + #{prod_jai} + '%'
+		and PRODUCT.PROD_GUBN like + '%' + case #{prod_gubn} when '양산' then '양산'
+		when '개발' then '개발' else '' end + '%'
+		and vWrkShot.ORD_NAME like + '%' + #{ord_name} + '%' -->
 		ORDER BY IlboDate, IlboStrt
 	</select>
 	

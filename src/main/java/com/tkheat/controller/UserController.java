@@ -30,6 +30,7 @@ public class UserController {
 	private UserService userService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	public static int USER_CODE = 0;
 	
 	/*사용자 로그인*/
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
@@ -40,14 +41,16 @@ public class UserController {
 		 
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		
-		 if("".equals(users.getUser_id())){
+		 if("".equals(users.getUser_id()) || users.getUser_id() == null){
 			 rtnMap.put("data","아이디를 입력해주십시오!");
+			 rtnMap.put("status","NG");
 			 
 			 return rtnMap;
 		 }
 		 
-		 if("".equals(users.getUser_pwd())){
+		 if("".equals(users.getUser_pwd()) || users.getUser_pwd() == null){
 			 rtnMap.put("data","비밀번호를 입력해주십시오!");
+			 rtnMap.put("status","NG");
 			 
 			 return rtnMap;
 		 }
@@ -57,6 +60,7 @@ public class UserController {
 		 
 		 if(loginUser == null) {
 			 rtnMap.put("data","등록되지 않은 사용자입니다.");
+			 rtnMap.put("status","NG");
 			 
 			 return rtnMap;			 
 		 }
@@ -70,7 +74,10 @@ public class UserController {
 		 session.setAttribute("loginUser",loginUser);
 		 session.setAttribute("loginUserPage",loginPermission);
 		 
+		 USER_CODE = loginUser.getUser_code();
+		 
 		 rtnMap.put("data", loginUser);
+		 rtnMap.put("status","OK");
 		 rtnMap.put("loginUserPage", loginPermission);
 
 

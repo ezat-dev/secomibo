@@ -66,6 +66,16 @@ public class Ipgo {
 	private String prod_gd2;			//
 	private String prod_gd3;			//
 	private String prod_boxsu;			//
+	private String prod_chisu1n;
+	private String prod_chisu1s;
+	private String prod_chisu2n;
+	private String prod_chisu2s;
+	private String prod_chisu3n;
+	private String prod_chisu3s;
+	private String prod_chisu4n;
+	private String prod_chisu4s;
+	private String prod_chisu5n;
+	private String prod_chisu5s;
 	
 	
 	//CORP 테이블(거래처)
@@ -473,4 +483,65 @@ public class Ipgo {
 	public void setProd_dang(String prod_dang) {
 		this.prod_dang = prod_dang;
 	}
+	public String getProd_chisu1n() {
+		return prod_chisu1n;
+	}
+	public void setProd_chisu1n(String prod_chisu1n) {
+		this.prod_chisu1n = prod_chisu1n;
+	}
+	public String getProd_chisu1s() {
+		return prod_chisu1s;
+	}
+	public void setProd_chisu1s(String prod_chisu1s) {
+		this.prod_chisu1s = prod_chisu1s;
+	}
+	public String getProd_chisu2n() {
+		return prod_chisu2n;
+	}
+	public void setProd_chisu2n(String prod_chisu2n) {
+		this.prod_chisu2n = prod_chisu2n;
+	}
+	public String getProd_chisu2s() {
+		return prod_chisu2s;
+	}
+	public void setProd_chisu2s(String prod_chisu2s) {
+		this.prod_chisu2s = prod_chisu2s;
+	}
+	public String getProd_chisu3n() {
+		return prod_chisu3n;
+	}
+	public void setProd_chisu3n(String prod_chisu3n) {
+		this.prod_chisu3n = prod_chisu3n;
+	}
+	public String getProd_chisu3s() {
+		return prod_chisu3s;
+	}
+	public void setProd_chisu3s(String prod_chisu3s) {
+		this.prod_chisu3s = prod_chisu3s;
+	}
+	public String getProd_chisu4n() {
+		return prod_chisu4n;
+	}
+	public void setProd_chisu4n(String prod_chisu4n) {
+		this.prod_chisu4n = prod_chisu4n;
+	}
+	public String getProd_chisu4s() {
+		return prod_chisu4s;
+	}
+	public void setProd_chisu4s(String prod_chisu4s) {
+		this.prod_chisu4s = prod_chisu4s;
+	}
+	public String getProd_chisu5n() {
+		return prod_chisu5n;
+	}
+	public void setProd_chisu5n(String prod_chisu5n) {
+		this.prod_chisu5n = prod_chisu5n;
+	}
+	public String getProd_chisu5s() {
+		return prod_chisu5s;
+	}
+	public void setProd_chisu5s(String prod_chisu5s) {
+		this.prod_chisu5s = prod_chisu5s;
+	}
+	
 }

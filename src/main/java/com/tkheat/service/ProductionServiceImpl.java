@@ -77,4 +77,24 @@ public class ProductionServiceImpl implements ProductionService{
 		return productionDao.getPlnpNo(works);
 	}
 
+	@Override
+	public Work getWorkPlnpSeq(Work work) {
+		return productionDao.getWorkPlnpSeq(work);
+	}
+
+	@Override
+	public List<Work> workInstructionReport(Work work) {
+		return productionDao.workInstructionReport(work);
+	}
+
+	@Override
+	public Work getWorkJBarcode(Work work) {
+		return productionDao.getWorkJBarcode(work);
+	}
+
+	@Override
+	public void setWorkJSave(Work work) {
+		productionDao.setWorkJSave(work);
+	}
+
 }
