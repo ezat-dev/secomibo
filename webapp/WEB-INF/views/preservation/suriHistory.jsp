@@ -420,7 +420,11 @@ textarea {
     var isEditMode = false; //수정,최초저장 구분값
 	//로드
 	$(function(){
-		//전체 거래처목록 조회
+		var tdate = todayDate();
+		var ydate = yesterDate();
+		
+		$("#sdate").val(ydate);
+		$("#edate").val(tdate);
 		getSuriHistoryList();
 	});
 

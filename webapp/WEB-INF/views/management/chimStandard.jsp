@@ -1031,7 +1031,8 @@ body{
 			    {title:"설비", field:"fac_name", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},
 				{title:"공정", field:"tech_te", sorter:"int", width:150,
-					hozAlign:"center", headerFilter:"input"},      		
+					hozAlign:"center", headerFilter:"input"},
+					{title:"", field:"wstd_code", visible:false}
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -1061,8 +1062,8 @@ body{
 				selectedRowData = data;
 				isEditMode = true;
 				$('#chimStandardForm')[0].reset();
-				$('.chimStandardModal').show().addClass('show');
 
+/*
 				Object.keys(data).forEach(function (key) {
 			        const field = $('#chimStandardForm [name="' + key + '"]');
 
@@ -1070,13 +1071,38 @@ body{
 			            field.val(data[key]);
 			        }
 				});
+*/
 
+
+				getChimStandardDetail(data.wstd_code);
 				 $('.delete').show();
 			},
 		});		
 	}
 	
 
+function getChimStandardDetail(wstd_code){
+	$.ajax({
+		url:"/tkheat/management/chimStandardInsert/getChimStandardDetail",
+		type:"post",
+		dataType:"json",
+		data:{
+			"wstd_code":wstd_code
+		},
+		success:function(result){
+//			console.log(result);
+			var allData = result.data;
+			
+			for(let key in allData){
+//				console.log(allData, key);	
+				$("input[name='"+key+"']").val(allData[key]);
+			}
+
+			$('.chimStandardModal').show().addClass('show');
+		}
+	});
+}
+	
     </script>
     
     

@@ -67,6 +67,20 @@
 		order by CORP_NAME, PROD_NAME, PROD_NO
 	</select>
 	
+	<select id="getChimStandardDetail" parameterType="standard" resultType="standard">
+		select *
+		from product A
+		INNER JOIN
+			workstd B
+		ON A.prod_code = B.prod_code
+		INNER JOIN
+			CORP C
+		ON A.corp_code = C.corp_code
+		INNER JOIN
+			TECHIN D
+		ON A.tech_no = D.tech_no
+		WHERE wstd_code = #{wstd_code}
+	</select>
 	
 	<insert id="chimStandardInsertSave" parameterType="standard">
     	INSERT 

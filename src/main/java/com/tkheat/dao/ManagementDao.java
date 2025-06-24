@@ -75,4 +75,6 @@ public interface ManagementDao {
 	List<Standard> getGoStandardList(Standard standard);
 	
 	void insertUser(Users users);
+
+	Standard getChimStandardDetail(Standard standard);
 }

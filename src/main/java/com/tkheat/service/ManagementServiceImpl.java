@@ -167,6 +167,10 @@ public class ManagementServiceImpl implements ManagementService {
         managementDao.insertUser(users); 
     
     }
+	@Override
+	public Standard getChimStandardDetail(Standard standard) {
+		return managementDao.getChimStandardDetail(standard);
+	}
 	
 	
 }

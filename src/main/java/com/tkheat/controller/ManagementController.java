@@ -438,6 +438,7 @@ public class ManagementController {
 		for(int i=0; i<chimStandardList.size(); i++) {
 			HashMap<String, Object> rowMap = new HashMap<String, Object>();
 			rowMap.put("idx", (i+1));
+			rowMap.put("wstd_code", chimStandardList.get(i).getWstd_code());
 			rowMap.put("corp_name", chimStandardList.get(i).getCorp_name());
 			rowMap.put("prod_name", chimStandardList.get(i).getProd_name());
 			rowMap.put("prod_no", chimStandardList.get(i).getProd_no());
@@ -457,6 +458,28 @@ public class ManagementController {
 		rtnMap.put("last_page",1);
 		rtnMap.put("data",rtnList);
 
+		return rtnMap; 
+	}
+	//침탄로 작업표준 조회
+	@RequestMapping(value = "/management/chimStandardInsert/getChimStandardDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> getChimStandardDetail(
+			@RequestParam int wstd_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		Standard standard = new Standard();
+		standard.setWstd_code(wstd_code);
+		
+		/*
+		 * standard.setCorp_name(corp_name); standard.setProd_name(prod_name);
+		 * standard.setProd_no(prod_no); standard.setFac_name(fac_name);
+		 */
+		
+		
+		Standard chimStandardList = managementService.getChimStandardDetail(standard);
+		
+		rtnMap.put("data",chimStandardList);
+		
 		return rtnMap; 
 	}
 	

@@ -200,5 +200,10 @@ public class ManagementDaoImpl implements ManagementDao {
 	    public void insertUser(Users users) {
 	        sqlSession.insert("users.insertUser", users); 
 	    }
+
+	@Override
+	public Standard getChimStandardDetail(Standard standard) {
+		return sqlSession.selectOne("standard.getChimStandardDetail",standard);
+	}
 }
 

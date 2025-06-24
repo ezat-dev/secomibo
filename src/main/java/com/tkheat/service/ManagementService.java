@@ -86,4 +86,6 @@ public interface ManagementService {
 	
 	
 	void insertUser(Users users);
+
+	Standard getChimStandardDetail(Standard standard);
 }

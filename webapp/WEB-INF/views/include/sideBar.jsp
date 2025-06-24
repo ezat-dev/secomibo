@@ -397,7 +397,16 @@
 									}else if(key.indexOf("e") != -1){
 										_group = "기준관리";
 										_groupID = "eMenu";
-									}
+									}else if(key.indexOf("f") != -1){
+			                              _group = "품질관리";
+			                              _groupID = "fMenu";
+			                           }else if(key.indexOf("g") != -1){
+			                              _group = "경영정보";
+			                              _groupID = "gMenu";
+			                           }else if(key.indexOf("h") != -1){
+			                              _group = "기준정보";
+			                              _groupID = "hMenu";
+			                           }
 									
 									
 									var _menu = "<li>";
