@@ -80,122 +80,93 @@
     </div>
   </div>
 <script>
-/*
-//SP값 포함
-var seriesNames = [
-    "prePv", "heatPv", "qf1Pv", "qf2Pv", "diffPv", "crack1Pv", "crack2Pv",
-    "oilPv", "qfCpPv", "diffCpPv", "crackCpPv", "preSp", "heatSp", "qf1Sp",
-    "qf2Sp", "diffSp", "crack1Sp", "crack2Sp", "oilSp", "qfCpSp", "diffCpSp", "crackCpSp"
-];
-*/
-//SP값 미포함
-var seriesNames = [
-    "prePv", "heatPv", "qf1Pv", "qf2Pv", "diffPv", "crack1Pv", "crack2Pv",
-    "oilPv", "qfCpPv", "diffCpPv", "crackCpPv"
-];
+Highcharts.chart('container', {
 
-window.onload = function() {
-    var now = new Date();
-    var startTime = new Date(now.getTime() - (33 * 60 * 60 * 1000));
-    var endTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+    title: {
+        text: '태경열처리 온도 트렌드',
+        align: 'left'
+    },
 
-    var nowISO = now.toISOString().slice(0, 16); 
-    var startTimeISO = startTime.toISOString().slice(0, 16);
-    var endTimeISO = endTime.toISOString().slice(0, 16);
+    subtitle: {
+        text: 'By EZautomation: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>.',
+        align: 'left'
+    },
 
-    document.getElementById('startDate').value = startTimeISO;
-    document.getElementById('endDate').value = endTimeISO;
-
-    loadTrendData();
-};
-
-function loadTrendData() {
-    var startDate = ($('#startDate').val()).replace("T", " ") + ":00";
-    var endDate = ($('#endDate').val()).replace("T", " ") + ":00";
-
-    $.ajax({
-        url: "/DHT/trendCcf/getData",
-        method: "post",
-        data: { sdateTime: startDate, edateTime: endDate },
-        success: function(result) {
-            var seriesData = [];
-            var data = result.data;
-
-            // seriesNames 배열을 사용하여 각각의 데이터를 시리즈로 변환
-            seriesNames.forEach(function(name) {
-                if (data[name]) {
-                    var series = {
-                        name: data[name].name,
-                        color: data[name].color,
-                        data: data[name].data.map(function(item, index) {
-                            var date = new Date(data.tdate[index]);
-                            var offset = 9 * 60 * 60 * 1000; // 타임존 보정 (UTC+9)
-                            var localDate = new Date(date.getTime() + offset);
-//                            console.log(item);
-                            
-                            return [localDate.getTime(), item[1]]; // [timestamp, value]
-                        })
-                    };
-                    seriesData.push(series);
-                }
-            });
-
-            // Highcharts 차트 생성
-            Highcharts.chart('container', {
-                accessibility: { enabled: false },
-                title: { text: 'Trend Data' },
-                xAxis: {
-                    type: 'datetime',
-                    title: { text: '날짜 및 시간' },
-                    crosshair:{
-                       width:1,
-                       color:'#E2E2E2',
-                       zIndex:5
-                    },               
-                    labels: {
-                      useHTML: true,
-                      formatter: function() {
-                        var date = Highcharts.dateFormat('%m-%d', this.value);
-                        var time = Highcharts.dateFormat('%H:%M', this.value);
-                        return '<span style="font-weight:bold; font-size:10pt;">' + date + '</span><br>' +
-                               '<span style="font-size:10pt; color:gray;">' + time + '</span>';
-                      },
-                      style: {
-                        whiteSpace: 'nowrap'
-                      }
-                    }
-                },
-                tooltip: {
-                   useHTML: true,
-                   shared: true, // 여러 시리즈의 데이터를 보여줌
-                   positioner: function(labelWidth, labelHeight, point) {
-                     return { x: point.plotX + this.chart.plotLeft + 15, y: point.plotY + this.chart.plotTop - labelHeight }; // 툴팁 위치 조정
-                   },
-                   formatter: function() {
-                     var s = '<b>' + Highcharts.dateFormat('%H:%M:%S', this.x) + '</b><br/>'; // 시간 표시
-                     this.points.forEach(function(point) {
-                       s += '<span style="color:' + point.series.color + '">' + point.series.name + ':</span> ' + point.y + '<br/>'; // 각 시리즈의 데이터 표시
-                     });
-                     return s;
-                   },
-                   borderColor: '#333333',
-                   shadow: false
-                 },
-                exporting: {
-                    buttons: {
-                        contextButton: {
-                            menuItems: ['downloadPNG', 'downloadPDF', 'downloadXLS', 'separator']
-                        }
-                    }
-                },
-                series: seriesData // 데이터가 여기서 적용됨
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Ajax 요청 실패:", status, error);
+    yAxis: {
+        title: {
+            text: 'Number of Employees'
         }
-    });
-}
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Range: 2010 to 2022'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2010
+        }
+    },
+
+    series: [{
+        name: 'Installation & Developers',
+        data: [
+            43934, 48656, 65165, 81827, 112143, 142383,
+            171533, 165174, 155157, 161454, 154610, 168960, 171558
+        ]
+    }, {
+        name: 'Manufacturing',
+        data: [
+            24916, 37941, 29742, 29851, 32490, 30282,
+            38121, 36885, 33726, 34243, 31050, 33099, 33473
+        ]
+    }, {
+        name: 'Sales & Distribution',
+        data: [
+            11744, 30000, 16005, 19771, 20185, 24377,
+            32147, 30912, 29243, 29213, 25663, 28978, 30618
+        ]
+    }, {
+        name: 'Operations & Maintenance',
+        data: [
+            null, null, null, null, null, null, null,
+            null, 11164, 11218, 10077, 12530, 16585
+        ]
+    }, {
+        name: 'Other',
+        data: [
+            21908, 5548, 8105, 11248, 8989, 11816, 18274,
+            17300, 13053, 11906, 10073, 11471, 11648
+        ]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
 </script>
 
 	</body>

@@ -41,6 +41,8 @@ public interface ManagementService {
 	
 	List<Corp> getCorpList(Corp corp);
 	
+	Corp cutumInsertDetail(Corp corp);
+	
 	void cutumInsertSave(Corp corp);
 	
 	void cutumUpdateSave(Corp corp);
@@ -72,6 +74,8 @@ public interface ManagementService {
 	
 	List<Standard> getChimStandardList(Standard standard);
 	
+	Standard getChimStandardDetail(Standard standard);
+	
 	void chimStandardInsertSave(Standard standard);
 	
 	void chimStandardUpdateSave(Standard standard);
@@ -87,5 +91,5 @@ public interface ManagementService {
 	
 	void insertUser(Users users);
 
-	Standard getChimStandardDetail(Standard standard);
+	
 }

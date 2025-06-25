@@ -193,7 +193,7 @@ function pageObject(paramKey){
 			"c12":["/tkheat/process/readySiljuk","준비작업실적"],
 			"d01":"",//기존 : 전체모니터링
 			"d02":"",//기존 : 전체모니터링(설비)
-			"d03":["/tkheat/monitoring/pumMonitoring","통합모니터링"],
+			"d03":"",
 			"e01":["/tkheat/preservation/sparePart","SparePart관리"],
 			"e02":["/tkheat/preservation/begaInsert","설비비가동등록"],
 			"e03":["/tkheat/preservation/begaAnaly","설비비가동율분석"],
@@ -246,7 +246,9 @@ function pageObject(paramKey){
 			"h13":["/tkheat/management/measurement","측정기기관리"],
 			"d04":["/tkheat/monitoring/alarm1","알람-1"],
 			"d05":["/tkheat/monitoring/alarm2","알람-2"],
-			"d06":["/tkheat/monitoring/trend","트렌드"]
+			"d06":["/tkheat/monitoring/trend","트렌드"],
+			"d07":["/tkheat/monitoring/alarmHistory","알람내역"],
+			"d08":["/tkheat/monitoring/alarmRanking","알람랭킹"]
 	};
 
 	

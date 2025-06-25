@@ -37,10 +37,9 @@ div {
 </style>
 
 <body>
-
-
-	<main class="main">
-		<div class="alarm-big-box-5"></div>
+	
+	
+	  <div class="alarm-big-box-5"></div>
 		<div class="alarm-167">종합 이상</div>
 		<div class="alarm-168">세척실 입구문 이상</div>
 		<div class="alarm-169">세척실 출구문 이상</div>
@@ -98,19 +97,9 @@ div {
 		<div class="alarm-220">비상정지</div>
 		<div class="wm" style="font-size : 16px;">WM</div>
 		<div class="tf" style="font-size : 16px;">TF</div>
+	
+	  
 
-
-
-
-		<div class="container">
-			<div id="tab1" class="tabulator"></div>
-		</div>
-
-
-
-
-
-	</main>
 
 
 	<script>
@@ -121,92 +110,12 @@ div {
 
 	//로드
 	$(function(){
-		//전체 거래처목록 조회
-		getGigiGojangList();
+		
 	});
 
 	//이벤트
 	//함수
-	function getGigiGojangList(){
-		
-		userTable = new Tabulator("#tab1", {
-		    height:"750px",
-		    layout:"fitColumns",
-		    selectable:true,	//로우 선택설정
-		    tooltips:true,
-		    selectableRangeMode:"click",
-		    reactiveData:true,
-		    headerHozAlign:"center",
-		    ajaxConfig:"POST",
-		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/preservation/gigiGojang/getGigiGojangList",
-		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{
-			    },
-		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
-		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
-		        return response; //return the response data to tabulator
-		    },
-		    columns:[
-		        
-				    
-		    ],
-		    rowFormatter:function(row){
-			    var data = row.getData();
-			    
-			    row.getElement().style.fontWeight = "700";
-				row.getElement().style.backgroundColor = "#FFFFFF";
-			},
-		});		
-	}
-
-
-
-
-	/* //로드
-	$(function(){
-		getAlarm1();
-		
-	}); */
 	
-
-
-	/* //OPC값 알람 조회
-    function getAlarm1(){
-		$.ajax({
-			url:"/tkheat/monitoring/getAlarm1",
-			type:"post",
-			dataType:"json",
-			success:function(result){				
-				var data = result.multiValues;
-				
-	            for(let key in data){
-	            	for(let keys in data[key]){
-	            		var d = data[key];
-						
-						if(d[keys].action == "c"){
-							c(keys, d[keys].value)	
-						}
-	            	}                    	
-	            }
-			}
-		});
-	}
-	
-	function c(keys, value){
-//		$("."+keys).text(value);
-		
-		if(value == true){
-			$("."+keys).css("background-color","red");
-			$("."+keys).css("color","white");
-		}else{
-			$("."+keys).css("background-color","#f1f1f1");
-			$("."+keys).css("color","black");
-		}
-		
-	} */
 	
 
     </script>

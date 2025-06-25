@@ -116,7 +116,6 @@ textarea {
 	display: flex;
 	justify-content: center; /* 가운데 정렬 */
 	gap: 20px; /* 버튼 사이 여백 */
-	margin-top: -80px; /* 모달 내용과의 간격 */
 	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
 }
 .btnSaveClose button {
@@ -330,12 +329,13 @@ th{
 							</td>
 							</tr>
 					</table>
-			</div>
-			<div class="btnSaveClose">
+					<div class="btnSaveClose">
 				<button class="delete" type="button" onclick="deleteCutum();"  style="display: none;">삭제</button>
 	            <button class="save" type="button" onclick="save();">저장</button>
 	            <button class="close" type="button" onclick="window.close();">닫기</button>
 	    	</div>
+			</div>
+			
 			</div>
 			</form>
 	    
@@ -434,19 +434,41 @@ th{
 				selectedRowData = data;
 				isEditMode = true;
 				$('#cutumInsertForm')[0].reset();
-				$('.cutumModal').show().addClass('show');
+				
 
-				Object.keys(data).forEach(function (key) {
+				/* Object.keys(data).forEach(function (key) {
 			        const field = $('#cutumInsertForm [name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);
 			        }
-				});
-
+				}); */
+				cutumInsertDetail(data.corp_code);	
 				 $('.delete').show();
 			},
 		});		
+	}
+
+	function cutumInsertDetail(corp_code){
+		$.ajax({
+			url:"/tkheat/management/cutumInsert/cutumInsertDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"corp_code":corp_code
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("input[name='"+key+"']").val(allData[key]);
+				}
+
+				$('.cutumModal').show().addClass('show');
+			}
+		});
 	}
 
 

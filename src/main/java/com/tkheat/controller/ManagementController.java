@@ -108,35 +108,11 @@ public class ManagementController {
 	@RequestMapping(value = "/management/productInsert/productList", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getProductList(
-	/*
-	 * @RequestParam String corp_name,
-	 * 
-	 * @RequestParam String prod_name,
-	 * 
-	 * @RequestParam String prod_no,
-	 * 
-	 * @RequestParam String prod_gyu,
-	 * 
-	 * @RequestParam String prod_jai,
-	 * 
-	 * @RequestParam String prod_pg,
-	 * 
-	 * @RequestParam String prod_gd3,
-	 * 
-	 * @RequestParam String prod_sg,
-	 * 
-	 * @RequestParam String tech_te
-	 */) {
+	) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Product product = new Product();
-		/*
-		 * product.setCorp_name(corp_name); product.setProd_name(prod_name);
-		 * product.setProd_no(prod_no); product.setProd_gyu(prod_gyu);
-		 * product.setProd_jai(prod_jai); product.setProd_pg(prod_pg);
-		 * product.setProd_gd3(prod_gd3); product.setProd_sg(prod_sg);
-		 * product.setTech_te(tech_te);
-		 */
+		
 
 
 		List<Product> productList = managementService.getProductList(product);
@@ -230,6 +206,29 @@ public class ManagementController {
 
 		rtnMap.put("last_page",1);
 		rtnMap.put("data",rtnList);
+
+		return rtnMap; 
+	}
+	
+	//거래처등록 더블클릭조회
+	@RequestMapping(value = "/management/cutumInsert/cutumInsertDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> cutumInsertDetail(
+			@RequestParam int corp_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		Corp corp = new Corp();
+		corp.setCorp_code(corp_code);
+
+		/*
+		 * standard.setCorp_name(corp_name); standard.setProd_name(prod_name);
+		 * standard.setProd_no(prod_no); standard.setFac_name(fac_name);
+		 */
+
+
+		Corp corpList = managementService.cutumInsertDetail(corp);
+
+		rtnMap.put("data",corpList);
 
 		return rtnMap; 
 	}
@@ -347,6 +346,7 @@ public class ManagementController {
 	}
 	
 	
+	
 	//설비 등록 and 수정
 	@RequestMapping(value = "/management/facInsert/facInsertSave", method = RequestMethod.POST)
 	@ResponseBody
@@ -460,7 +460,7 @@ public class ManagementController {
 
 		return rtnMap; 
 	}
-	//침탄로 작업표준 조회
+	//침탄로 작업표준 더블클릭조회
 	@RequestMapping(value = "/management/chimStandardInsert/getChimStandardDetail", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> getChimStandardDetail(

@@ -293,7 +293,7 @@ textarea {
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">일자</th>
-                                <td class=""><input id="ffx_date" name="ffx_date" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20" readonly="readonly"></td>
+                                <td class=""><input id="ffx_date" name="ffx_date" class="date js-datepicker hasDatepicker" type="date" style="width:150px;"  maxlength="20" size="20"></td>
                             </tr>
                             <tr>
                                 <th class="left" style="width: 15%;">내용</th>
@@ -473,6 +473,8 @@ textarea {
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"내용", field:"ffx_note", sorter:"string", width:600,
 			        hozAlign:"center", headerFilter:"input"},
+			        {title:"내용", field:"fac_code", sorter:"string", width:600,
+				        hozAlign:"center", headerFilter:"input", visible:false},   
 				    
 		    ],
 		    rowFormatter:function(row){

@@ -374,7 +374,7 @@ textarea {
 		    ajaxURL:"/tkheat/preservation/jeomgeomInsert/getJeomgeomInsertList",
 		    ajaxProgressiveLoad:"scroll",
 		    ajaxParams:{
-		    	"chs_code":"",
+			    
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -418,6 +418,7 @@ textarea {
 				            clearable: true
 				        }
 				    },	
+				   
 			    {title:"설비", field:"fac_name", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},     
 				{title:"점검주기", field:"chs_gubn", sorter:"string", width:120,
@@ -440,6 +441,8 @@ textarea {
 				    hozAlign:"center", headerFilter:"input"},	
 				{title:"사진", field:"chs_img", sorter:"string", width:100,
 				    hozAlign:"center", headerFilter:"input"},
+				    {title:"사진", field:"chs_code", sorter:"int", width:100,
+					    hozAlign:"center", headerFilter:"input"}    
 				    
 		    ],
 		    rowFormatter:function(row){

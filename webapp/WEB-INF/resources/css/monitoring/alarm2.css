@@ -1,8 +1,8 @@
-.group-4,
-.group-4 * {
+.group-5,
+.group-5 * {
   box-sizing: border-box;
 }
-.group-4 {
+.group-5 {
   height: 954px;
   position: relative;
 }
@@ -15,6 +15,11 @@
   object-fit: cover;
   aspect-ratio: 1920/954;
 }
+.group-4 {
+  width: 500px;
+  height: 826px;
+  position: static;
+}
 .alarm-big-box-5 {
   background: #f1f1f1;
   border-radius: 5px;
@@ -24,7 +29,7 @@
   width: 329px;
   height: 794px;
   position: absolute;
-  left: 19px;
+  left: 637px;
   top: 36px;
 }
 .alarm-167 {
@@ -36,7 +41,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 51px;
 }
 .alarm-168 {
@@ -48,7 +53,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 86px;
 }
 .alarm-169 {
@@ -60,7 +65,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 121px;
 }
 .alarm-170 {
@@ -72,7 +77,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 156px;
 }
 .alarm-171 {
@@ -84,7 +89,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 191px;
 }
 .alarm-172 {
@@ -96,7 +101,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 226px;
 }
 .alarm-173 {
@@ -108,7 +113,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 261px;
 }
 .alarm-174 {
@@ -120,7 +125,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 296px;
 }
 .alarm-175 {
@@ -132,7 +137,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 331px;
 }
 .alarm-176 {
@@ -144,7 +149,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 366px;
 }
 .alarm-177 {
@@ -156,7 +161,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 401px;
 }
 .alarm-178 {
@@ -168,7 +173,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 436px;
 }
 .alarm-179 {
@@ -180,7 +185,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 471px;
 }
 .alarm-180 {
@@ -192,7 +197,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 506px;
 }
 .alarm-181 {
@@ -204,7 +209,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 541px;
 }
 .alarm-182 {
@@ -216,7 +221,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 576px;
 }
 .alarm-183 {
@@ -228,7 +233,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 611px;
 }
 .alarm-184 {
@@ -240,7 +245,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 646px;
 }
 .alarm-185 {
@@ -252,7 +257,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 681px;
 }
 .alarm-186 {
@@ -264,7 +269,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 716px;
 }
 .alarm-187 {
@@ -276,7 +281,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 751px;
 }
 .alarm-188 {
@@ -288,7 +293,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 28px;
+  left: 646px;
   top: 786px;
 }
 .alarm-189 {
@@ -300,7 +305,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 51px;
 }
 .alarm-190 {
@@ -312,7 +317,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 86px;
 }
 .alarm-191 {
@@ -324,7 +329,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 121px;
 }
 .alarm-192 {
@@ -336,7 +341,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 156px;
 }
 .alarm-193 {
@@ -348,7 +353,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 191px;
 }
 .alarm-194 {
@@ -360,7 +365,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 226px;
 }
 .alarm-195 {
@@ -372,7 +377,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 261px;
 }
 .alarm-196 {
@@ -384,7 +389,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 296px;
 }
 .alarm-197 {
@@ -396,7 +401,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 331px;
 }
 .alarm-198 {
@@ -408,7 +413,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 366px;
 }
 .alarm-199 {
@@ -420,7 +425,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 401px;
 }
 .alarm-200 {
@@ -432,7 +437,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 436px;
 }
 .alarm-201 {
@@ -444,7 +449,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 471px;
 }
 .alarm-202 {
@@ -456,7 +461,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 506px;
 }
 .alarm-203 {
@@ -468,7 +473,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 541px;
 }
 .alarm-204 {
@@ -480,7 +485,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 187px;
+  left: 805px;
   top: 576px;
 }
 .alarm-big-box-6 {
@@ -492,7 +497,7 @@
   width: 168px;
   height: 794px;
   position: absolute;
-  left: 351px;
+  left: 969px;
   top: 36px;
 }
 .alarm-205 {
@@ -504,7 +509,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 51px;
 }
 .alarm-206 {
@@ -516,7 +521,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 86px;
 }
 .alarm-207 {
@@ -528,7 +533,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 121px;
 }
 .alarm-208 {
@@ -540,7 +545,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 156px;
 }
 .alarm-209 {
@@ -552,7 +557,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 191px;
 }
 .alarm-210 {
@@ -564,7 +569,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 226px;
 }
 .alarm-211 {
@@ -576,7 +581,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 261px;
 }
 .alarm-212 {
@@ -588,7 +593,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 296px;
 }
 .alarm-213 {
@@ -600,7 +605,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 331px;
 }
 .alarm-214 {
@@ -612,7 +617,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 366px;
 }
 .alarm-215 {
@@ -624,7 +629,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 401px;
 }
 .alarm-216 {
@@ -636,7 +641,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 436px;
 }
 .alarm-217 {
@@ -648,7 +653,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 471px;
 }
 .alarm-218 {
@@ -660,7 +665,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 506px;
 }
 .alarm-219 {
@@ -672,7 +677,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 541px;
 }
 .alarm-220 {
@@ -684,7 +689,7 @@
   width: 152px;
   height: 34px;
   position: absolute;
-  left: 359px;
+  left: 977px;
   top: 576px;
 }
 .wm {
@@ -695,7 +700,7 @@
   width: 329px;
   height: 30px;
   position: absolute;
-  left: 19px;
+  left: 637px;
   top: 4px;
 }
 .tf {
@@ -706,6 +711,6 @@
   width: 168px;
   height: 30px;
   position: absolute;
-  left: 351px;
+  left: 969px;
   top: 4px;
 }

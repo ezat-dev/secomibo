@@ -84,6 +84,11 @@ public class ManagementDaoImpl implements ManagementDao {
 	 public List<Corp> getCorpList(Corp corp) {
 		 return sqlSession.selectList("corp.getCorpList", corp);
 	 }
+	//거래처 더블클릭 조회
+	@Override
+	public Corp cutumInsertDetail(Corp corp) {
+		return sqlSession.selectOne("corp.cutumInsertDetail",corp);
+	}
 	
 	//거래처 등록 저장 - insert
 	@Override
@@ -172,6 +177,11 @@ public class ManagementDaoImpl implements ManagementDao {
 	 }
 	
 	@Override
+	public Standard getChimStandardDetail(Standard standard) {
+		return sqlSession.selectOne("standard.getChimStandardDetail",standard);
+	}
+	
+	@Override
 	public void chimStandardInsertSave(Standard standard) {
 		sqlSession.insert("standard.chimStandardInsertSave", standard);
 	}
@@ -201,9 +211,6 @@ public class ManagementDaoImpl implements ManagementDao {
 	        sqlSession.insert("users.insertUser", users); 
 	    }
 
-	@Override
-	public Standard getChimStandardDetail(Standard standard) {
-		return sqlSession.selectOne("standard.getChimStandardDetail",standard);
-	}
+	
 }
 

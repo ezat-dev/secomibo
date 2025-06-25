@@ -68,18 +68,15 @@
 	</select>
 	
 	<select id="getChimStandardDetail" parameterType="standard" resultType="standard">
-		select *
-		from product A
-		INNER JOIN
-			workstd B
-		ON A.prod_code = B.prod_code
-		INNER JOIN
-			CORP C
-		ON A.corp_code = C.corp_code
-		INNER JOIN
-			TECHIN D
-		ON A.tech_no = D.tech_no
-		WHERE wstd_code = #{wstd_code}
+		SELECT  WORKSTD.*, FACILITY.*, vProduct.*, 
+		vProduct.PROD_E1 +' '+ PROD_E2 AS PROD_E1,
+		vProduct.PROD_E3 + ' ' +PROD_E4 AS PROD_E3,
+		vProduct.PROD_PGS + ' ' + PROD_PGS1 + '~' + PROD_PGS2 AS PROD_PGS,--실측치 표면경도
+		WORKSTD.WSTD_READY + 'x' + dbo.WORKSTD.WSTD_WORKTIME + 'x AC' AS TEMPERING
+		FROM dbo.WORKSTD 
+			INNER JOIN dbo.vProduct ON dbo.WORKSTD.PROD_CODE = dbo.vProduct.PROD_CODE 
+			INNER JOIN dbo.FACILITY ON dbo.WORKSTD.FAC_CODE = dbo.FACILITY.FAC_CODE 
+		WHERE WSTD_CODE = #{wstd_code}
 	</select>
 	
 	<insert id="chimStandardInsertSave" parameterType="standard">

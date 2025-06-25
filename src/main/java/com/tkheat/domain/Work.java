@@ -111,16 +111,16 @@ public class Work {
 	private int sum_su;
 	private int ilbo_su;				//생산 수량
 	private String ilbo_ok;             //판정
-//	private String ilbo_pg1;               //검사값 x1~5
-//	private String ilbo_pg2;
-//	private String ilbo_pg3;
-//	private String ilbo_pg4;
-//	private String ilbo_pg5;
-	private int ilbo_pg1;               //검사값 x1~5
-	private int ilbo_pg2;
-	private int ilbo_pg3;
-	private int ilbo_pg4;
-	private int ilbo_pg5;
+	private String ilbo_pg1;               //검사값 x1~5
+	private String ilbo_pg2;
+	private String ilbo_pg3;
+	private String ilbo_pg4;
+	private String ilbo_pg5;
+//	private int ilbo_pg1;               //검사값 x1~5
+//	private int ilbo_pg2;
+//	private int ilbo_pg3;
+//	private int ilbo_pg4;
+//	private int ilbo_pg5;
 	private String ilbo_okng; //판정
 	private String ilbostrt;
 	private String ilboend;
@@ -1691,43 +1691,43 @@ public class Work {
 		this.queryGb = queryGb;
 	}
 
-	public void setIlbo_pg1(int ilbo_pg1) {
+	public void setIlbo_pg1(String ilbo_pg1) {
 		this.ilbo_pg1 = ilbo_pg1;
 	}
 
-	public void setIlbo_pg2(int ilbo_pg2) {
+	public void setIlbo_pg2(String ilbo_pg2) {
 		this.ilbo_pg2 = ilbo_pg2;
 	}
 
-	public void setIlbo_pg3(int ilbo_pg3) {
+	public void setIlbo_pg3(String ilbo_pg3) {
 		this.ilbo_pg3 = ilbo_pg3;
 	}
 
-	public void setIlbo_pg4(int ilbo_pg4) {
+	public void setIlbo_pg4(String ilbo_pg4) {
 		this.ilbo_pg4 = ilbo_pg4;
 	}
 
-	public void setIlbo_pg5(int ilbo_pg5) {
+	public void setIlbo_pg5(String ilbo_pg5) {
 		this.ilbo_pg5 = ilbo_pg5;
 	}
 
-	public int getIlbo_pg1() {
+	public String getIlbo_pg1() {
 		return ilbo_pg1;
 	}
 
-	public int getIlbo_pg2() {
+	public String getIlbo_pg2() {
 		return ilbo_pg2;
 	}
 
-	public int getIlbo_pg3() {
+	public String getIlbo_pg3() {
 		return ilbo_pg3;
 	}
 
-	public int getIlbo_pg4() {
+	public String getIlbo_pg4() {
 		return ilbo_pg4;
 	}
 
-	public int getIlbo_pg5() {
+	public String getIlbo_pg5() {
 		return ilbo_pg5;
 	}
 

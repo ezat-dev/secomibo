@@ -275,6 +275,7 @@ th{
                                 <tbody><tr>
                                     <th class="left">설비</th>
                                     <td class="">
+                                    	<input type="hidden" name="fstp_code" id="fstp_code">
                                         <input id="fac_code" name="fac_code" class="basic" type="hidden" style="width:50%;" readonly="readonly"> 
                                         <input id="fac_name" name="fac_name" class="basic" type="text" style="width:50%;" readonly="readonly">
                                         <input type="button" title="검색" class="btnSearchSmall" value="설비검색" onclick="openFacListModal();"></td>
@@ -532,6 +533,7 @@ th{
 							width : 100,
 							hozAlign : "center"
 						},
+						{title:"용도", field:"fstp_code", width:200, hozAlign:"center",visible:false},
 
 						],
 						rowFormatter : function(row) {
@@ -583,6 +585,130 @@ th{
 						},
 					});
 		}
+
+
+
+		//설비검색버튼 리스트 모달
+	    function openFacListModal() {
+	        document.getElementById('facListModal').style.display = 'flex';
+
+	        
+	        let facListTable = new Tabulator("#facListTabulator", {
+	            height:"450px",
+	            layout:"fitColumns",
+	            selectable:true,
+	            ajaxURL:"/tkheat/management/facInsert/getFacList",
+	            ajaxConfig:"POST",
+	            ajaxParams:{
+	                "fac_code": "",
+	                "fac_name": "",
+	                "fac_no":"",
+	                   
+	            },
+			    ajaxResponse:function(url, params, response){
+//					$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+					console.log(response);
+			        return response.data; //return the response data to tabulator
+			    },    
+	            columns:[
+	                {title:"NO", field:"idx", width:80, hozAlign:"center"},
+	                {title:"설비NO", field:"fac_no", width:120, hozAlign:"center"},
+	                {title:"설비NO", field:"fac_code", width:120, hozAlign:"center",visible:false},
+	                {title:"설비명", field:"fac_name", width:150, hozAlign:"center"},
+	                {title:"규격", field:"fac_gyu", width:100, hozAlign:"center"},
+	                {title:"형식", field:"fac_hyun", width:200, hozAlign:"center"},
+	                {title:"용도", field:"fac_yong", width:200, hozAlign:"center"},
+	                
+	            ],
+	            rowDblClick:function(e, row){
+	                let data = row.getData();
+	                
+	                console.log("선택된 설비:", data);
+	                document.getElementById('fac_code').value = data.fac_code;
+	                document.getElementById('fac_name').value = data.fac_name;
+	                
+	                document.getElementById('facListModal').style.display = 'none';
+	            }
+	        });
+	    }
+
+	    function closeFacListModal() {
+	        document.getElementById('facListModal').style.display = 'none';
+	    }
+
+
+
+		//비가동등록 저장
+	    function save() {
+		    var formData = new FormData($("#begaInsertForm")[0]);
+
+		    let confirmMsg = "";
+
+		    if (isEditMode && selectedRowData && selectedRowData.fstp_code) {
+		        formData.append("mode", "update");
+		        formData.append("fstp_code", selectedRowData.fstp_code);
+		        confirmMsg = "수정하시겠습니까?";
+		    } else {
+		        formData.append("mode", "insert");
+		        confirmMsg = "저장하시겠습니까?";
+		    }
+
+		    if (!confirm(confirmMsg)) {
+		        return;
+		    }
+
+		    $.ajax({
+		        url: "/tkheat/preservation/begaInsert/begaInsertSave",
+		        type: "POST",
+		        data: formData,
+		        contentType: false,
+		        processData: false,
+		        dataType: "json",
+		        success: function(result) {
+		            alert("저장 되었습니다.");
+		            $(".begaInsertModal").hide();
+		            getBegaInsertList();
+		        },
+		        error: function(xhr, status, error) {
+		            console.error("저장 오류:", error);
+		        }
+		    });
+		}
+
+
+		function deleteBega() {
+		    if (!selectedRowData || !selectedRowData.fstp_code) {
+		        alert("삭제할 대상을 선택하세요.");
+		        return;
+		    }
+
+		    if (!confirm("삭제하시겠습니까?")) {
+		        return;
+		    }
+
+		    $.ajax({
+		        url: "/tkheat/preservation/begaInsert/begaDelete",
+		        type: "POST",
+		        data: {
+		        	fstp_code: selectedRowData.fstp_code
+		        },
+		        dataType: "json",
+		        success: function(result) {
+		            if (result.status === "success") {
+		                alert("삭제되었습니다.");
+		                $(".begaInsertModal").hide();
+		                getBegaInsertList();
+		            } else {
+		                alert("삭제 중 오류가 발생했습니다: " + result.message);
+		            }
+		        },
+		        error: function(xhr, status, error) {
+		            console.error("삭제 오류:", error);
+		            alert("삭제 요청 중 오류가 발생했습니다.");
+		        }
+		    });
+		}
+			
 	</script>
     
     
@@ -641,126 +767,7 @@ th{
     
     <script>
 
-	//설비검색버튼 리스트 모달
-    function openFacListModal() {
-        document.getElementById('facListModal').style.display = 'flex';
-
-        
-        let facListTable = new Tabulator("#facListTabulator", {
-            height:"450px",
-            layout:"fitColumns",
-            selectable:true,
-            ajaxURL:"/tkheat/management/facInsert/getFacList",
-            ajaxConfig:"POST",
-            ajaxParams:{
-                "fac_code": "",
-                "fac_name": "",
-                "fac_no":"",
-                   
-            },
-		    ajaxResponse:function(url, params, response){
-//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
-				console.log(response);
-		        return response.data; //return the response data to tabulator
-		    },    
-            columns:[
-                {title:"NO", field:"idx", width:80, hozAlign:"center"},
-                {title:"설비NO", field:"fac_no", width:120, hozAlign:"center"},
-                {title:"설비NO", field:"fac_code", width:120, hozAlign:"center",visible:false},
-                {title:"설비명", field:"fac_name", width:150, hozAlign:"center"},
-                {title:"규격", field:"fac_gyu", width:100, hozAlign:"center"},
-                {title:"형식", field:"fac_hyun", width:200, hozAlign:"center"},
-                {title:"용도", field:"fac_yong", width:200, hozAlign:"center"},
-            ],
-            rowDblClick:function(e, row){
-                let data = row.getData();
-                
-                console.log("선택된 설비:", data);
-                document.getElementById('fac_code').value = data.fac_code;
-                document.getElementById('fac_name').value = data.fac_name;
-                
-                document.getElementById('facListModal').style.display = 'none';
-            }
-        });
-    }
-
-    function closeFacListModal() {
-        document.getElementById('facListModal').style.display = 'none';
-    }
-
-
-
-	//비가동등록 저장
-    function save() {
-	    var formData = new FormData($("#begaInsertForm")[0]);
-
-	    let confirmMsg = "";
-
-	    if (isEditMode && selectedRowData && selectedRowData.fstp_code) {
-	        formData.append("mode", "update");
-	        formData.append("fstp_code", selectedRowData.fstp_code);
-	        confirmMsg = "수정하시겠습니까?";
-	    } else {
-	        formData.append("mode", "insert");
-	        confirmMsg = "저장하시겠습니까?";
-	    }
-
-	    if (!confirm(confirmMsg)) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/preservation/begaInsert/begaInsertSave",
-	        type: "POST",
-	        data: formData,
-	        contentType: false,
-	        processData: false,
-	        dataType: "json",
-	        success: function(result) {
-	            alert("저장 되었습니다.");
-	            $(".begaInsertModal").hide();
-	            getBegaInsertList();
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("저장 오류:", error);
-	        }
-	    });
-	}
-
-
-	function deleteBega() {
-	    if (!selectedRowData || !selectedRowData.fstp_code) {
-	        alert("삭제할 대상을 선택하세요.");
-	        return;
-	    }
-
-	    if (!confirm("삭제하시겠습니까?")) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/preservation/begaInsert/begaDelete",
-	        type: "POST",
-	        data: {
-	        	fstp_code: selectedRowData.fstp_code
-	        },
-	        dataType: "json",
-	        success: function(result) {
-	            if (result.status === "success") {
-	                alert("삭제되었습니다.");
-	                $(".begaInsertModal").hide();
-	                getBegaInsertList();
-	            } else {
-	                alert("삭제 중 오류가 발생했습니다: " + result.message);
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("삭제 오류:", error);
-	            alert("삭제 요청 중 오류가 발생했습니다.");
-	        }
-	    });
-	}
-
+	
 
 
 

@@ -361,10 +361,10 @@ body{
                     <td class="" hidden=""><input id="prodSg3" name="prod_sg3" class="basic" type="text" style="width:90%; display:none;" value="" readonly=""></td>
                     <!-- <th class="">표면경도 (실측치)</th>
                     <td class=""><input id="prodPgs" name="prodPgs" class="basic" type="text" style="width:100%;" value="" readonly/></td> -->
-                    <th class="">경화거리(ECD)</th>
+                    <!-- <th class="">경화거리(ECD)</th>
                     <td class=""><input id="prod_khecd" name="prod_khecd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     <th class="">경화거리(TCD)</th>
-                    <td class=""><input id="prod_khtcd" name="prod_khtcd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
+                    <td class=""><input id="prod_khtcd" name="prod_khtcd" class="basic" type="text" style="width:90%;" value="" readonly=""></td> -->
                   </tr>
                     <tr>
                     <th class="">경화깊이</th>
@@ -372,7 +372,7 @@ body{
                     <td class="" align="center">~</td><td class=""><input id="prod_gd5" name="prod_gd5" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
                     </tr>
                     <tr>
-                    <input id="Prod_cd" name="Prod_cd" class="basic" type="hidden" value="" readonly="">
+                    <input id="prod_cd" name="prod_cd" class="basic" type="hidden" value="" readonly="">
                     <input id="prod_e5" name="prod_e5" class="basic" type="hidden" value="" readonly="">
                     <input id="prod_ra" name="prod_ra" class="basic" type="hidden" value="" readonly="">
                     <input id="prod_pgs" name="prod_pgs" class="basic" type="hidden" value="" readonly="">
@@ -956,7 +956,7 @@ body{
 	<div id="productListModal" class="modal-overlay" style="display: none;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<span class="modal-title">제품 리스트</span> <span class="modal-close" onclick="closeProductListModal()">&times;</span>
+				<span class="modal-title">제품 리스트</span> <span class="modal-close" onclick="closeProductListModal();">&times;</span>
 			</div>
 			<div id="productListTabulator" style="height: 500px;"></div>
 		</div>

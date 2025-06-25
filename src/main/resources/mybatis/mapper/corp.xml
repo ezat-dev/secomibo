@@ -17,6 +17,13 @@
 			!= null and corp_mast != ''"> AND corp_mast = #{corp_mast} </if> -->
 	</select>
 	
+	<!-- 거래처 더블클릭 조회 -->
+	<select id="cutumInsertDetail" parameterType="corp" resultType="corp">
+		SELECT *
+		FROM CORP
+		WHERE corp_code = #{corp_code}
+	</select>
+	
 	<insert id="cutumInsertSave" parameterType="corp">
 		insert into CORP (
 		CORP_CODE, CORP_NAME, CORP_NO, CORP_TEL, CORP_FAX, CORP_BOSS, CORP_MAST,

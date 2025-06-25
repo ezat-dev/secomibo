@@ -121,7 +121,7 @@ public class PreservationController {
 	}
 	
 	//설비 비가동등록 - insert,update
-	@RequestMapping(value = "/production/begaInsert/begaInsertSave", method = RequestMethod.POST)
+	@RequestMapping(value = "/preservation/begaInsert/begaInsertSave", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> begaInsertSave(
 			@ModelAttribute Bega bega,
@@ -221,6 +221,7 @@ public class PreservationController {
 			rowMap.put("ffx_cost", suriHistoryList.get(i).getFfx_cost());
 			rowMap.put("ffx_note", suriHistoryList.get(i).getFfx_note());
 			rowMap.put("ffx_no", suriHistoryList.get(i).getFfx_no());
+			rowMap.put("fac_code", suriHistoryList.get(i).getFac_code());
 
 			rtnList.add(rowMap);
 		}

@@ -33,6 +33,8 @@ public interface ManagementDao {
 	
 	List<Corp> getCorpList(Corp corp); 
 	
+	Corp cutumInsertDetail(Corp corp);
+	
 	void cutumInsertSave(Corp corp);
 	
 	void cutumUpdateSave(Corp corp);
@@ -63,6 +65,8 @@ public interface ManagementDao {
 	
 	List<Standard> getChimStandardList(Standard standard);
 	
+	Standard getChimStandardDetail(Standard standard);
+	
 	void chimStandardInsertSave(Standard standard);
 	
 	void chimStandardUpdateSave(Standard standard);
@@ -76,5 +80,5 @@ public interface ManagementDao {
 	
 	void insertUser(Users users);
 
-	Standard getChimStandardDetail(Standard standard);
+	
 }

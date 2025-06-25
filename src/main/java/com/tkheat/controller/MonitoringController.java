@@ -55,6 +55,16 @@ public class MonitoringController {
 		 return "/monitoring/trend.jsp";
 	 }
 	 
+	 //트렌드 - 화면로드
+	 @RequestMapping(value = "/monitoring/alarmHistory", method = RequestMethod.GET)
+	 public String alarmHistory() {
+		 return "/monitoring/alarmHistory.jsp";
+	 }
+	 //트렌드 - 화면로드
+	 @RequestMapping(value = "/monitoring/alarmRanking", method = RequestMethod.GET)
+	 public String alarmRanking() {
+		 return "/monitoring/alarmRanking.jsp";
+	 }
 	 
 
 		 @RequestMapping(value = "/monitoring/getMonitoringList", method = RequestMethod.POST) 

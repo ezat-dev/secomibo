@@ -9,297 +9,363 @@
     <link rel="stylesheet" href="/tkheat/css/monitoring/monitoring2.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
-    <style>
-    
-.main{
-	width:98%;
+<style>
+    html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: 800;
 }
-.container {
-	display: flex;
-	justify-content: space-between;
+
+body {
+  display: flex;
+  flex-direction: column;
 }
-div{
-	text-align : center;
-	border : 1px solid black;
+
+table {
+  flex: 1;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
-    
-    
-    </style>
+
+th, td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word;
+}
+td{
+  
+  min-height: 50px;            /* 최소 높이 유지 */
+  height: 50px;                /* 고정 높이 (필요 시 조정) */
+  line-height: 1.2;            /* 줄 간격 */
+  white-space: nowrap;         /* 줄바꿈 방지 */
+  vertical-align: middle;      /* 수직 정렬 */
+  empty-cells: show;           /* 비어 있는 셀도 테두리 표시 */
+
+
+}
+
+th.header {
+  background-color: #bde295;
+}
+
+td#cbeffc {
+  background-color: #cbeffc;
+}
+
+td#e9f5dd {
+  background-color: #e9f5dd;
+}
+
+td#bde295 {
+  background-color: #bde295;
+}
+#cutum{
+  background-color: #e9f5dd;
+  
+}
+#prod{
+  background-color: #cbeffc;
+}
+  </style>
     
     
     <body>
+  <table>
+    <thead>
+      <tr>
+        <th class="header" style="width: 140px;">구분</th>
+        <th class="header">고객사</th>
+        <th class="header">품명</th>
+        <th class="header">LOT</th>
+        <th class="header">승온</th>
+        <th class="header">예열</th>
+        <th class="header">침탄</th>
+        <th class="header">확산</th>
+        <th class="header">강온</th>
+        <th class="header">냉각</th>
+        <th class="header">출구</th>
+        <th class="header">대기</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    <tr>
+      <th class="header"  rowspan="3">열처리 1호기</th>
+      <td class="bcf1-cutum-1" id="cutum"></td>
+      <td class="bcf1-pum-1" id="cutum"></td>
+      <td class="bcf1-lot-1" id="cutum"></td>
+      <td class="bcf1-heat-1" id="prod"></td>
+      <td class="bcf1-pre-1" id="prod"></td>
+      <td class="bcf1-chim-1" id="prod"></td>
+      <td class="bcf1-diff-1" id="prod"></td>
+      <td class="bcf1-gang-1" id="prod"></td>
+      <td class="bcf1-cold-1" id="prod"></td>
+      <td class="bcf1-chul-1" id="prod"></td>
+      <td class="bcf1-spare-1" id="prod"></td>
+    </tr>
     
-   
-    <div class="group-6">
-    <div class="rectangle-12"></div>
-    <div class="rectangle-4"></div>
-    <div class="rectangle-252"></div>
-    <div class="rectangle-253"></div>
-    <div class="rectangle-6"></div>
-    <div class="rectangle-84"></div>
-    <div class="rectangle-230"></div>
-    <div class="rectangle-231"></div>
-    <div class="rectangle-232"></div>
-    <div class="rectangle-233"></div>
-    <div class="rectangle-234"></div>
-    <div class="rectangle-235"></div>
-    <div class="chim-1-heat"></div>
-    <div class="chim-1-bon"></div>
-    <div class="rectangle-35"></div>
-    <div class="rectangle-36"></div>
-    <div class="rectangle-37"></div>
-    <div class="chim-2-heat"></div>
-    <div class="chim-2-bon"></div>
-    <div class="rectangle-40"></div>
-    <div class="rectangle-41"></div>
-    <div class="rectangle-42"></div>
-    <div class="chim-3-heat"></div>
-    <div class="chim-3-bon"></div>
-    <div class="rectangle-45"></div>
-    <div class="rectangle-46"></div>
-    <div class="rectangle-47"></div>
-    <div class="chim-4-heat"></div>
-    <div class="chim-4-bon"></div>
-    <div class="rectangle-50"></div>
-    <div class="rectangle-51"></div>
-    <div class="rectangle-52"></div>
-    <div class="chim-5-heat"></div>
-    <div class="chim-5-bon"></div>
-    <div class="rectangle-55"></div>
-    <div class="rectangle-56"></div>
-    <div class="rectangle-57"></div>
-    <div class="rectangle-73"></div>
-    <div class="rectangle-74"></div>
-    <div class="rectangle-75"></div>
-    <div class="rectangle-76"></div>
-    <div class="rectangle-77"></div>
-    <div class="rectangle-78"></div>
-    <div class="rectangle-79"></div>
-    <div class="rectangle-80"></div>
-    <div class="rectangle-81"></div>
-    <div class="rectangle-82"></div>
-    <div class="chim-1-heat2"></div>
-    <div class="chim-1-bon2"></div>
-    <div class="rectangle-85"></div>
-    <div class="rectangle-86"></div>
-    <div class="rectangle-87"></div>
-    <div class="chim-2-heat2"></div>
-    <div class="chim-2-bon2"></div>
-    <div class="rectangle-88"></div>
-    <div class="rectangle-89"></div>
-    <div class="rectangle-90"></div>
-    <div class="chim-3-heat2"></div>
-    <div class="chim-3-bon2"></div>
-    <div class="rectangle-91"></div>
-    <div class="rectangle-92"></div>
-    <div class="rectangle-93"></div>
-    <div class="chim-4-heat2"></div>
-    <div class="chim-4-bon2"></div>
-    <div class="rectangle-94"></div>
-    <div class="rectangle-95"></div>
-    <div class="rectangle-96"></div>
-    <div class="chim-5-heat2"></div>
-    <div class="chim-5-bon2"></div>
-    <div class="rectangle-97"></div>
-    <div class="rectangle-98"></div>
-    <div class="rectangle-99"></div>
-    <div class="rectangle-100"></div>
-    <div class="rectangle-101"></div>
-    <div class="rectangle-102"></div>
-    <div class="rectangle-103"></div>
-    <div class="rectangle-104"></div>
-    <div class="rectangle-105"></div>
-    <div class="rectangle-106"></div>
-    <div class="rectangle-107"></div>
-    <div class="rectangle-108"></div>
-    <div class="rectangle-109"></div>
-    <div class="chim-1-heat3"></div>
-    <div class="chim-1-bon3"></div>
-    <div class="rectangle-110"></div>
-    <div class="rectangle-111"></div>
-    <div class="rectangle-112"></div>
-    <div class="chim-2-heat3"></div>
-    <div class="chim-2-bon3"></div>
-    <div class="rectangle-113"></div>
-    <div class="rectangle-114"></div>
-    <div class="rectangle-115"></div>
-    <div class="chim-3-heat3"></div>
-    <div class="chim-3-bon3"></div>
-    <div class="rectangle-116"></div>
-    <div class="rectangle-117"></div>
-    <div class="rectangle-118"></div>
-    <div class="chim-4-heat3"></div>
-    <div class="chim-4-bon3"></div>
-    <div class="rectangle-119"></div>
-    <div class="rectangle-120"></div>
-    <div class="rectangle-121"></div>
-    <div class="chim-5-heat3"></div>
-    <div class="chim-5-heat4"></div>
-    <div class="chim-5-bon3"></div>
-    <div class="rectangle-122"></div>
-    <div class="rectangle-123"></div>
-    <div class="rectangle-124"></div>
-    <div class="rectangle-125"></div>
-    <div class="rectangle-126"></div>
-    <div class="rectangle-127"></div>
-    <div class="rectangle-128"></div>
-    <div class="rectangle-129"></div>
-    <div class="rectangle-130"></div>
-    <div class="rectangle-131"></div>
-    <div class="rectangle-132"></div>
-    <div class="rectangle-133"></div>
-    <div class="rectangle-134"></div>
-    <div class="rectangle-236"></div>
-    <div class="rectangle-237"></div>
-    <div class="rectangle-238"></div>
-    <div class="rectangle-239"></div>
-    <div class="rectangle-240"></div>
-    <div class="rectangle-241"></div>
-    <div class="rectangle-242"></div>
-    <div class="rectangle-243"></div>
-    <div class="rectangle-244"></div>
-    <div class="rectangle-245"></div>
-    <div class="rectangle-246"></div>
-    <div class="rectangle-247"></div>
-    <div class="rectangle-248"></div>
-    <div class="rectangle-249"></div>
-    <div class="rectangle-250"></div>
-    <div class="rectangle-251"></div>
-    <div class="rectangle-254"></div>
-    <div class="rectangle-13"></div>
-    <div class="rectangle-135"></div>
-    <div class="rectangle-140"></div>
-    <div class="rectangle-141"></div>
-    <div class="rectangle-142"></div>
-    <div class="rectangle-143"></div>
-    <div class="rectangle-144"></div>
-    <div class="rectangle-145"></div>
-    <div class="rectangle-146"></div>
-    <div class="rectangle-147"></div>
-    <div class="rectangle-148"></div>
-    <div class="rectangle-149"></div>
-    <div class="rectangle-150"></div>
-    <div class="rectangle-151"></div>
-    <div class="rectangle-152"></div>
-    <div class="rectangle-153"></div>
-    <div class="rectangle-16"></div>
-    <div class="chim-1-cutum"></div>
-    <div class="chim-1-pum"></div>
-    <div class="chim-1-lot"></div>
-    <div class="chim-2-cutum"></div>
-    <div class="chim-2-pum"></div>
-    <div class="chim-2-lot"></div>
-    <div class="chim-3-cutum"></div>
-    <div class="chim-3-pum"></div>
-    <div class="chim-3-lot"></div>
-    <div class="chim-4-cutum"></div>
-    <div class="chim-4-pum"></div>
-    <div class="chim-4-lot"></div>
-    <div class="chim-5-cutum"></div>
-    <div class="chim-5-pum"></div>
-    <div class="chim-5-lot"></div>
-    <div class="tem-1-cutum"></div>
-    <div class="tem-1-pum"></div>
-    <div class="tem-1-lot"></div>
-    <div class="rectangle-61"></div>
-    <div class="tem-2-cutum"></div>
-    <div class="tem-2-pum"></div>
-    <div class="tem-2-lot"></div>
-    <div class="byun-1-cutum"></div>
-    <div class="byun-1-pum"></div>
-    <div class="byun-1-lot"></div>
-    <div class="byun-2-cutum"></div>
-    <div class="byun-2-pum"></div>
-    <div class="byun-2-lot"></div>
-    <div class="rectangle-67"></div>
-    <div class="clean-cutum"></div>
-    <div class="clean-pum"></div>
-    <div class="clean-lot"></div>
-    <div class="clean-cutum2"></div>
-    <div class="clean-pum2"></div>
-    <div class="clean-lot2"></div>
-    <div class="clean-cutum3"></div>
-    <div class="clean-pum3"></div>
-    <div class="clean-lot3"></div>
-    <div class="rectangle-70"></div>
-    <div class="clean-cutum4"></div>
-    <div class="clean-pum4"></div>
-    <div class="clean-lot4"></div>
-    <div class="clean-cutum5"></div>
-    <div class="clean-pum5"></div>
-    <div class="clean-lot5"></div>
-    <div class="clean-cutum6"></div>
-    <div class="clean-pum6"></div>
-    <div class="clean-lot6"></div>
-    <div class="clean-cutum7"></div>
-    <div class="clean-pum7"></div>
-    <div class="clean-lot7"></div>
-    <div class="chim-5-heat5"></div>
-    <div class="rectangle-255"></div>
-    <div class="clean-cutum8"></div>
-    <div class="clean-pum8"></div>
-    <div class="clean-lot8"></div>
-  </div>
-	    
-	    
-<script>
 
-	//로드
-	$(function(){
-		getMonitoringList();
-		
-	});
-	
+    <tr>
+      <td class="bcf1-cutum-2" id="cutum"></td>
+      <td class="bcf1-pum-2" id="cutum"></td>
+      <td class="bcf1-lot-2" id="cutum"></td>
+      <td class="bcf1-heat-2" id="prod"></td>
+      <td class="bcf1-pre-2" id="prod"></td>
+      <td class="bcf1-chim-2" id="prod"></td>
+      <td class="bcf1-diff-2" id="prod"></td>
+      <td class="bcf1-gang-2" id="prod"></td>
+      <td class="bcf1-cold-2" id="prod"></td>
+      <td class="bcf1-chul-2" id="prod"></td>
+      <td class="bcf1-spare-2" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf1-cutum-3" id="cutum"></td>
+      <td class="bcf1-pum-3" id="cutum"></td>
+      <td class="bcf1-lot-3" id="cutum"></td>
+      <td class="bcf1-heat-3" id="prod"></td>
+      <td class="bcf1-pre-3" id="prod"></td>
+      <td class="bcf1-chim-3" id="prod"></td>
+      <td class="bcf1-diff-3" id="prod"></td>
+      <td class="bcf1-gang-3" id="prod"></td>
+      <td class="bcf1-cold-3" id="prod"></td>
+      <td class="bcf1-chul-3" id="prod"></td>
+      <td class="bcf1-spare-3" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <th class="header"  rowspan="3">열처리 2호기</th>
+      <td class="bcf2-cutum-1" id="cutum"></td>
+      <td class="bcf2-pum-1" id="cutum"></td>
+      <td class="bcf2-lot-1" id="cutum"></td>
+      <td class="bcf2-heat-1" id="prod"></td>
+      <td class="bcf2-pre-1" id="prod"></td>
+      <td class="bcf2-chim-1" id="prod"></td>
+      <td class="bcf2-diff-1" id="prod"></td>
+      <td class="bcf2-gang-1" id="prod"></td>
+      <td class="bcf2-cold-1" id="prod"></td>
+      <td class="bcf2-chul-1" id="prod"></td>
+      <td class="bcf2-spare-1" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf2-cutum-2" id="cutum"></td>
+      <td class="bcf2-pum-2" id="cutum"></td>
+      <td class="bcf2-lot-2" id="cutum"></td>
+      <td class="bcf2-heat-2" id="prod"></td>
+      <td class="bcf2-pre-2" id="prod"></td>
+      <td class="bcf2-chim-2" id="prod"></td>
+      <td class="bcf2-diff-2" id="prod"></td>
+      <td class="bcf2-gang-2" id="prod"></td>
+      <td class="bcf2-cold-2" id="prod"></td>
+      <td class="bcf2-chul-2" id="prod"></td>
+      <td class="bcf2-spare-2" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf2-cutum-3" id="cutum"></td>
+      <td class="bcf2-pum-3" id="cutum"></td>
+      <td class="bcf2-lot-3" id="cutum"></td>
+      <td class="bcf2-heat-3" id="prod"></td>
+      <td class="bcf2-pre-3" id="prod"></td>
+      <td class="bcf2-chim-3" id="prod"></td>
+      <td class="bcf2-diff-3" id="prod"></td>
+      <td class="bcf2-gang-3" id="prod"></td>
+      <td class="bcf2-cold-3" id="prod"></td>
+      <td class="bcf2-chul-3" id="prod"></td>
+      <td class="bcf2-spare-3" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <th class="header"  rowspan="3">열처리 3호기</th>
+      <td class="bcf3-cutum-1" id="cutum"></td>
+      <td class="bcf3-pum-1" id="cutum"></td>
+      <td class="bcf3-lot-1" id="cutum"></td>
+      <td class="bcf3-heat-1" id="prod"></td>
+      <td class="bcf3-pre-1" id="prod"></td>
+      <td class="bcf3-chim-1" id="prod"></td>
+      <td class="bcf3-diff-1" id="prod"></td>
+      <td class="bcf3-gang-1" id="prod"></td>
+      <td class="bcf3-cold-1" id="prod"></td>
+      <td class="bcf3-chul-1" id="prod"></td>
+      <td class="bcf3-spare-1" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf3-cutum-2" id="cutum"></td>
+      <td class="bcf3-pum-2" id="cutum"></td>
+      <td class="bcf3-lot-2" id="cutum"></td>
+      <td class="bcf3-heat-2" id="prod"></td>
+      <td class="bcf3-pre-2" id="prod"></td>
+      <td class="bcf3-chim-2" id="prod"></td>
+      <td class="bcf3-diff-2" id="prod"></td>
+      <td class="bcf3-gang-2" id="prod"></td>
+      <td class="bcf3-cold-2" id="prod"></td>
+      <td class="bcf3-chul-2" id="prod"></td>
+      <td class="bcf3-spare-2" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf3-cutum-3" id="cutum"></td>
+      <td class="bcf3-pum-3" id="cutum"></td>
+      <td class="bcf3-lot-3" id="cutum"></td>
+      <td class="bcf3-heat-3" id="prod"></td>
+      <td class="bcf3-pre-3" id="prod"></td>
+      <td class="bcf3-chim-3" id="prod"></td>
+      <td class="bcf3-diff-3" id="prod"></td>
+      <td class="bcf3-gang-3" id="prod"></td>
+      <td class="bcf3-cold-3" id="prod"></td>
+      <td class="bcf3-chul-3" id="prod"></td>
+      <td class="bcf3-spare-3" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <th class="header"  rowspan="3">열처리 4호기</th>
+      <td class="bcf4-cutum-1" id="cutum"></td>
+      <td class="bcf4-pum-1" id="cutum"></td>
+      <td class="bcf4-lot-1" id="cutum"></td>
+      <td class="bcf4-heat-1" id="prod"></td>
+      <td class="bcf4-pre-1" id="prod"></td>
+      <td class="bcf4-chim-1" id="prod"></td>
+      <td class="bcf4-diff-1" id="prod"></td>
+      <td class="bcf4-gang-1" id="prod"></td>
+      <td class="bcf4-cold-1" id="prod"></td>
+      <td class="bcf4-chul-1" id="prod"></td>
+      <td class="bcf4-spare-1" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf4-cutum-2" id="cutum"></td>
+      <td class="bcf4-pum-2" id="cutum"></td>
+      <td class="bcf4-lot-2" id="cutum"></td>
+      <td class="bcf4-heat-2" id="prod"></td>
+      <td class="bcf4-pre-2" id="prod"></td>
+      <td class="bcf4-chim-2" id="prod"></td>
+      <td class="bcf4-diff-2" id="prod"></td>
+      <td class="bcf4-gang-2" id="prod"></td>
+      <td class="bcf4-cold-2" id="prod"></td>
+      <td class="bcf4-chul-2" id="prod"></td>
+      <td class="bcf4-spare-2" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf4-cutum-3" id="cutum"></td>
+      <td class="bcf4-pum-3" id="cutum"></td>
+      <td class="bcf4-lot-3" id="cutum"></td>
+      <td class="bcf4-heat-3" id="prod"></td>
+      <td class="bcf4-pre-3" id="prod"></td>
+      <td class="bcf4-chim-3" id="prod"></td>
+      <td class="bcf4-diff-3" id="prod"></td>
+      <td class="bcf4-gang-3" id="prod"></td>
+      <td class="bcf4-cold-3" id="prod"></td>
+      <td class="bcf4-chul-3" id="prod"></td>
+      <td class="bcf4-spare-3" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <th class="header"  rowspan="3">열처리 5호기</th>
+      <td class="bcf5-cutum-1" id="cutum"></td>
+      <td class="bcf5-pum-1" id="cutum"></td>
+      <td class="bcf5-lot-1" id="cutum"></td>
+      <td class="bcf5-heat-1" id="prod"></td>
+      <td class="bcf5-pre-1" id="prod"></td>
+      <td class="bcf5-chim-1" id="prod"></td>
+      <td class="bcf5-diff-1" id="prod"></td>
+      <td class="bcf5-gang-1" id="prod"></td>
+      <td class="bcf5-cold-1" id="prod"></td>
+      <td class="bcf5-chul-1" id="prod"></td>
+      <td class="bcf5-spare-1" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf5-cutum-2" id="cutum"></td>
+      <td class="bcf5-pum-2" id="cutum"></td>
+      <td class="bcf5-lot-2" id="cutum"></td>
+      <td class="bcf5-heat-2" id="prod"></td>
+      <td class="bcf5-pre-2" id="prod"></td>
+      <td class="bcf5-chim-2" id="prod"></td>
+      <td class="bcf5-diff-2" id="prod"></td>
+      <td class="bcf5-gang-2" id="prod"></td>
+      <td class="bcf5-cold-2" id="prod"></td>
+      <td class="bcf5-chul-2" id="prod"></td>
+      <td class="bcf5-spare-2" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <td class="bcf5-cutum-3" id="cutum"></td>
+      <td class="bcf5-pum-3" id="cutum"></td>
+      <td class="bcf5-lot-3" id="cutum"></td>
+      <td class="bcf5-heat-3" id="prod"></td>
+      <td class="bcf5-pre-3" id="prod"></td>
+      <td class="bcf5-chim-3" id="prod"></td>
+      <td class="bcf5-diff-3" id="prod"></td>
+      <td class="bcf5-gang-3" id="prod"></td>
+      <td class="bcf5-cold-3" id="prod"></td>
+      <td class="bcf5-chul-3" id="prod"></td>
+      <td class="bcf5-spare-3" id="prod"></td>
+    </tr>
+    
+
+    <tr>
+      <th class="header"  rowspan="2">템퍼링 1호기</th>
+      <td  id="cutum">고객사</td>
+      <td  id="cutum">품명</td>
+      <td  id="cutum">LOT</td>
+      <td  id="prod" colspan="2.67">대기</td>
+      <td  id="prod" colspan="2.67">템퍼링1존</td>
+      <td  id="prod" colspan="2.67">템퍼링2존</td>
+      <td  id="prod" colspan="2">템퍼링3존</td>
+    </tr>
+    
+
+    <tr>
+      <td class="tem1-cutum-1" id="cutum"></td>
+      <td class="tem1-pum-1" id="cutum"></td>
+      <td class="tem1-lot-1" id="cutum"></td>
+      <td class="tem1-spare-1" id="prod" colspan="2.67"></td>
+      <td class="tem1-zone-1" id="prod" colspan="2.67"></td>
+      <td class="tem1-zone-2" id="prod" colspan="2.67"></td>
+      <td class="tem1-zone-3" id="prod" colspan="2"></td>
+    </tr>
 
 
-	function getMonitoringList(){
-		$.ajax({
-			url: "/tkheat/monitoring/getMonitoringList",
-			type: "post",
-			dataType: "json",
-			success: function(result){
-				var data = result.data;
-				
-				data.forEach(function(monitoring){
-					let gb = monitoring.gb;
-					console.log(monitoring);
-					if(monitoring.pum) {
-						$("." +gb+"pum").html(monitoring.pum);
-					}
-					if(monitoring.heat) {
-						$("." +gb+"heat").html(monitoring.heat);
-					}
-					if(monitoring.cutum) {
-						$("." +gb+"cutum").html(monitoring.cutum);
-					}
-					if(monitoring.lot) {
-						$("." +gb+"lot").html(monitoring.lot);
-					}
-					if(monitoring.bon) {
-						$("." +gb+"bon").html(monitoring.bon);
-					}
-					if(monitoring.gangon) {
-						$("." +gb+"gangon").html(monitoring.gangon);
-					}
-					if(monitoring.cool) {
-						$("." +gb+"cool").html(monitoring.cool);
-					}
-					if(monitoring.gonglo) {
-						$("." +gb+"gonglo").html(monitoring.gonglo);
-					}
-					if(monitoring.gong) {
-						$("." +gb+"gong").html(monitoring.gong);
-					}
-				});
-			}
-		});
-	}
+    <tr>
+      <th class="header"  rowspan="2">세정기</th>
+      <td  id="cutum">고객사</td>
+      <td  id="cutum">품명</td>
+      <td  id="cutum">LOT</td>
+      <td  id="prod" colspan="2.67">대기</td>
+      <td  id="prod" colspan="6">시간</td>
+    </tr>
 
-	
 
-	
-
-    </script>
-
-	</body>
+    <tr>
+      <td class="wm1-cutum-1" id="cutum"></td>
+      <td class="wm1-pum-1" id="cutum"></td>
+      <td class="wm1-lot-1" id="cutum"></td>
+      <td class="wm1-spare-1" id="prod" colspan="2.67"></td>
+      <td class="wm1-zone-1" id="prod" colspan="6"></td>
+    </tr>
+    
+    </tbody>
+  </table>
+</body>
 </html>

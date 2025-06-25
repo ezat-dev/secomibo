@@ -243,14 +243,9 @@
                         <span class="nav_name">모니터링</span>
                         <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
                         <ul class="collapse__menu" id="dMenu">
-<!--                          
-                            <li><a href="#" class="collapse__sublink" onclick="updateHeader('모니터링')">통합모니터링</a></li>
--->
-							<li>
-							  <a href="/tkheat/monitoring/monitoring" target="_blank">
-							    <i class=""></i> 통합모니터링
-							  </a>
-							</li>
+                          
+                            <li><a href="/tkheat/monitoring/monitoring" class="collapse__sublink"">통합모니터링</a></li>
+
                         </ul>
                     </div>
 

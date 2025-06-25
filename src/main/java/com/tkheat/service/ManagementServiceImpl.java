@@ -72,6 +72,11 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public Corp cutumInsertDetail(Corp corp) {
+		return managementDao.cutumInsertDetail(corp);
+	}
+	
+	@Override
 	public void cutumInsertSave(Corp corp) {
 		managementDao.cutumInsertSave(corp);
 	}
@@ -143,6 +148,11 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 	
 	@Override
+	public Standard getChimStandardDetail(Standard standard) {
+		return managementDao.getChimStandardDetail(standard);
+	}
+	
+	@Override
 	public void chimStandardInsertSave(Standard standard) {
 		managementDao.chimStandardInsertSave(standard);
 	}
@@ -167,10 +177,6 @@ public class ManagementServiceImpl implements ManagementService {
         managementDao.insertUser(users); 
     
     }
-	@Override
-	public Standard getChimStandardDetail(Standard standard) {
-		return managementDao.getChimStandardDetail(standard);
-	}
 	
 	
 }
