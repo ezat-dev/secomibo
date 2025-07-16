@@ -56,6 +56,11 @@ public class ManagementDaoImpl implements ManagementDao {
 		 return sqlSession.selectList("product.getProductList",product);
 	 }
 	
+	@Override
+	public Product productInsertDetail(Product product) {
+		return sqlSession.selectOne("product.productInsertDetail",product);
+	}
+	
 	//제품 등록 저장 - insert
 	@Override
 	public void productInsertSave(Product product) {
@@ -118,6 +123,11 @@ public class ManagementDaoImpl implements ManagementDao {
 	 public List<Fac> getFacList(Fac fac) {
 		 return sqlSession.selectList("fac.getFacList", fac);
 	 }
+	
+	@Override
+	public Fac facInsertDetail(Fac fac) {
+		return sqlSession.selectOne("fac.facInsertDetail",fac);
+	}
 	
 	//설비 등록 저장 - insert
 	@Override

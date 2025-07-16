@@ -150,11 +150,11 @@
 		    columns:[
 		    	{title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"출고일", field:"och_date", sorter:"string", width:120,
+		        {title:"출고일", field:"och_date", sorter:"string", width:240,
 			        hozAlign:"center", headerFilter:"input"},
-				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
+				{title:"거래처명", field:"corp_name", sorter:"string", width:240,
 				    hozAlign:"center", headerFilter:"input"}, 
-				{title:"매출금액", field:"och_mon", sorter:"string", width:150,
+				{title:"매출금액", field:"och_mon", sorter:"string", width:190,
 				    hozAlign:"center", headerFilter:"input"},
 				    
 		    ],

@@ -256,7 +256,7 @@ th{
 	</main>
 	    
 	    
-<form method="post" id="begaInsertForm" name="begaInsertForm">	    
+ <form method="post" id="begaInsertForm" name="begaInsertForm">   
   <div class="begaInsertModal">	
 	<div class="detail">
 			<div class="header">
@@ -275,7 +275,7 @@ th{
                                 <tbody><tr>
                                     <th class="left">설비</th>
                                     <td class="">
-                                    	<input type="hidden" name="fstp_code" id="fstp_code">
+                                    	<!-- <input type="hidden" name="fstp_code" id="fstp_code"> -->
                                         <input id="fac_code" name="fac_code" class="basic" type="hidden" style="width:50%;" readonly="readonly"> 
                                         <input id="fac_name" name="fac_name" class="basic" type="text" style="width:50%;" readonly="readonly">
                                         <input type="button" title="검색" class="btnSearchSmall" value="설비검색" onclick="openFacListModal();"></td>
@@ -413,10 +413,6 @@ th{
 		//이벤트
 		//함수
 		function getBegaInsertList() {
-
-			
-			/* $("#edate").val("2025-05-01"); */
-
 			userTable = new Tabulator(
 					"#tab1",
 					{
@@ -429,7 +425,7 @@ th{
 						headerHozAlign : "center",
 						ajaxConfig : "POST",
 						ajaxLoader : false,
-						ajaxURL : "/tkheat/preservation/bagaInsert/getBegaInsertList",
+						ajaxURL : "/tkheat/preservation/begaInsert/getBegaInsertList",
 						ajaxProgressiveLoad : "scroll",
 						ajaxParams : {
 							"sdate" : $("#sdate").val(),
@@ -533,8 +529,9 @@ th{
 							width : 100,
 							hozAlign : "center"
 						},
-						{title:"용도", field:"fstp_code", width:200, hozAlign:"center",visible:false},
-
+						{title:"비가동코드", field:"fstp_code", width:200, hozAlign:"center",visible:false},
+						{title:"", field:"fstp_bigo", width:200, hozAlign:"center",visible:false},
+						{title:"", field:"fstp_10", width:200, hozAlign:"center",visible:false},
 						],
 						rowFormatter : function(row) {
 							var data = row.getData();
@@ -570,21 +567,45 @@ th{
 							var data = row.getData();
 							selectedRowData = data;
 							isEditMode = true;
+							console.log(selectedRowData.fstp_code)
 							$('#begaInsertForm')[0].reset();
-							$('.begaInsertModal').show().addClass('show');
 
-							Object.keys(data).forEach(function (key) {
+							/* Object.keys(data).forEach(function (key) {
 						        const field = $('#begaInsertForm [name="' + key + '"]');
 
 						        if (field.length) {
 						            field.val(data[key]);
 						        }
-							});
-							console.log('data',data);
+							}); */
+							begaInsertDetail(data.fstp_code);
 							 $('.delete').show();
 						},
 					});
 		}
+
+		function begaInsertDetail(fstp_code){
+			$.ajax({
+				url:"/tkheat/preservation/begaInsert/begaInsertDetail",
+				type:"post",
+				dataType:"json",
+				data:{
+					"fstp_code":fstp_code
+				},
+				success:function(result){
+//					console.log(result);
+					var allData = result.data;
+					
+					for(let key in allData){
+//						console.log(allData, key);	
+						$("#begaInsertForm [name='"+key+"']").val(allData[key]);
+					}
+
+					$('.begaInsertModal').show().addClass('show');
+				}
+			});
+		}
+
+		
 
 
 

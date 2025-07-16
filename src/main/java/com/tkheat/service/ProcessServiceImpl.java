@@ -43,5 +43,10 @@ public class ProcessServiceImpl implements ProcessService{
 	public List<Siljuk> getReadySiljukList(Siljuk siljuk) {
 		return processDao.getReadySiljukList(siljuk);
 	}
+	
+	@Override
+	public List<Siljuk> getFacSiljukList(Siljuk siljuk) {
+		return processDao.getFacSiljukList(siljuk);
+	}
 
 }

@@ -11,7 +11,12 @@ public interface ProductionService {
 	
 	List<Work> getWorkStatusList(Work work);
 	
+	
+	
+	
 	List<Work> getNonReportList(Work work);	
+	
+	Work nonReportDetail(Work work);
 	
 	List<Ipgo> getNonReportIpgoList(Ipgo ipgo);
 	
@@ -20,6 +25,12 @@ public interface ProductionService {
 	void nonReportUpdateSave(Work work);
 	
 	void nonReportDelete(int werr_code);
+	
+	
+	
+	
+	
+	
 	
 	List<Work> getProdWaitingStatusList(Work work);
 

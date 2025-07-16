@@ -189,6 +189,9 @@ textarea {
 	</main>
 	
 	
+	
+	
+<form method="post" id="sparePartForm" name="sparePartForm">	
 	<div class="spareModal">    
 	  <div id="editPop">
 	  	<div class="header">
@@ -202,7 +205,7 @@ textarea {
 							<tbody><tr>
 								<th class="" style="width: 20%;">매입처</th>
 								<td>
-									<select id="spp_purchase" name="spp_purchase" class="basic valPost valClean" style="width:100%;">
+									<select id="spp_purchase" name="spp_purchase" class="basic valPost valClean" style="width:90%;">
 	
 										
 											<option value="(주)금성풍력 서울지사">(주)금성풍력 서울지사</option>
@@ -243,8 +246,8 @@ textarea {
 							<tr>
 								<th class="" style="width: 20%;">품번</th>
 								<td>
-									<input id="spp_no" name="spp_no" class="basic valPost valClean" type="text" style="width:100%;" value="">
-									<input id="spp_idx" name="spp_idx" class="basic valPost valClean" type="hidden" value="">
+									<input id="spp_no" name="spp_no" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_idx" name="spp_idx" class="basic valPost valClean" type="hidden" value="0">
 								</td>
 							</tr>
 							<tr>
@@ -274,7 +277,7 @@ textarea {
 							<tr>
 								<th class="left">비고</th>
 								<td>
-									<input id="SPP_BIGO" name="spp_bigo" class="basic valPost valClean" type="text" style="width:90%;" value="">
+									<input id="spp_bigo" name="spp_bigo" class="basic valPost valClean" type="text" style="width:90%;" value="">
 								</td>
 							</tr>
 	
@@ -331,16 +334,21 @@ textarea {
     	 </div>
 	</div>
 </div>
+</form>
+
+
+
+
 	    
 <script>
 	//전역변수
     var cutumTable;	
-
+    var isEditMode = false; //수정,최초저장 구분값
 	//로드
 	$(function(){
 		//전체 거래처목록 조회
 		getSparePartList();
-		getSpareSubList();
+		getSpareSubList(0);
 	});
 
 	//이벤트
@@ -367,8 +375,9 @@ textarea {
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
+		    	{title:"NO", field:"idx", width:80, hozAlign:"center"},
 		        {title:"NO", field:"spp_idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
+		        	hozAlign:"center",visible:false},
 		        {title:"매입처", field:"spp_purchase", sorter:"string", width:120,
 			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"품번", field:"spp_no", sorter:"string", width:120,
@@ -399,29 +408,135 @@ textarea {
 				row.getElement().style.backgroundColor = "#FFFFFF";
 			},
 			rowClick:function(e, row){
+				
+			    $("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
+			        if($(this).hasClass("row_select")){							
+			            $(this).removeClass('row_select');
+			            row.getElement().className += " row_select";
+			        }else{
+			            $("#tab1 div.row_select").removeClass("row_select");
+			            row.getElement().className += " row_select";	
+			        }
+			    });
 
-				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
-						
-					if($(this).hasClass("row_select")){							
-						$(this).removeClass('row_select');
-						row.getElement().className += " row_select";
-					}else{
-						$("#tab1 div.row_select").removeClass("row_select");
-						row.getElement().className += " row_select";	
-					}
-				});
+			    var rowData = row.getData();
 
-				var rowData = row.getData();
+			 
+			    if(rowData.spp_idx){
+			        getSpareSubList(rowData.spp_idx);
+			    }
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				console.log(selectedRowData.spp_idx)
+				$('#sparePartForm')[0].reset();
+
+				sparePartDetail(data.spp_idx);
+				 $('.delete').show();
+			},
 		});		
+	}
+
+	function sparePartDetail(spp_idx){
+		$.ajax({
+			url:"/tkheat/preservation/sparePart/sparePartDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"spp_idx":spp_idx
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("input[name='"+key+"']").val(allData[key]);
+				}
+
+				$('.spareModal').show().addClass('show');
+			}
+		});
+	}
+
+	//SparePart 저장
+    function save() {
+	    var formData = new FormData($("#sparePartForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.spp_idx) {
+	        formData.append("mode", "update");
+	        formData.append("spp_idx", selectedRowData.spp_idx);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/sparePart/sparePartSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".spareModal").hide();
+	            getSparePartList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+    function deleteSparePart() {
+	    if (!selectedRowData || !selectedRowData.spp_idx) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/sparePart/sparePartDelete",
+	        type: "POST",
+	        data: {
+	        	spp_idx: selectedRowData.spp_idx
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".spareModal").hide();
+	                getSparePartList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
 	}
 
 
 
 
-
-	function getSpareSubList(){
+	function getSpareSubList(spp_idx){
 		
 		subTable = new Tabulator("#sub", {
 		    height:"330px",
@@ -433,9 +548,9 @@ textarea {
 		    headerHozAlign:"center",
 		    ajaxConfig:"POST",
 		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/preservation/sparePart/getSparePartList",
+		    ajaxURL:"/tkheat/preservation/sparePart/getSpareSubList",
 		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{},
+		    ajaxParams:{spp_idx: spp_idx},
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
 		    ajaxResponse:function(url, params, response){
@@ -445,27 +560,27 @@ textarea {
 		    columns:[
 		        {title:"NO", field:"spp_idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"매입처", field:"spp_purchase", sorter:"string", width:120,
+		        {title:"매입처", field:"spp_purchase_his", sorter:"string", width:120,
 			        hozAlign:"center"},	
-			    {title:"품번", field:"spp_no", sorter:"string", width:120,
+			    {title:"품번", field:"spp_no_his", sorter:"string", width:120,
 				    hozAlign:"center"},     
-				{title:"품명", field:"spp_name", sorter:"string", width:120,
+				{title:"품명", field:"spp_name_his", sorter:"string", width:120,
 				    hozAlign:"center"}, 
-				{title:"규격", field:"spp_gyu", sorter:"string", width:150,
+				{title:"규격", field:"spp_gyu_his", sorter:"string", width:150,
 				    hozAlign:"center"}, 
-		        {title:"교체주기", field:"spp_yong", sorter:"string", width:120,
+		        {title:"교체주기", field:"spp_yong_his", sorter:"string", width:120,
 		        	hozAlign:"center"},		        
-		        {title:"적정재고", field:"spp_proper", sorter:"int", width:100,
-		        	hozAlign:"center"},
-		        {title:"비고", field:"spp_bigo", sorter:"string", width:100,
-		        	hozAlign:"center"},
 		        {title:"입고", field:"sph_input", sorter:"int", width:100,
-			        hozAlign:"center"},	
-		        {title:"수리출고", field:"sph_suriout", sorter:"int", width:100,
-		        	hozAlign:"center"},  	
+		        	hozAlign:"center"},
+		        {title:"수리출고", field:"sph_suriout", sorter:"string", width:100,
+		        	hozAlign:"center"},
 		        {title:"자산출고", field:"sph_jasanout", sorter:"int", width:100,
 			        hozAlign:"center"},	
-			    {title:"현재고", field:"spp_jaigo", sorter:"int", width:100,
+		        {title:"비고", field:"sph_bigo", sorter:"int", width:100,
+		        	hozAlign:"center"},  	
+		        {title:"입력시간", field:"sph_time", sorter:"int", width:100,
+			        hozAlign:"center"},	
+			    {title:"담당자", field:"sph_user", sorter:"int", width:100,
 				    hozAlign:"center"},	
 		    ],
 		    rowFormatter:function(row){
@@ -495,6 +610,19 @@ textarea {
 	
 
     </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     <script>

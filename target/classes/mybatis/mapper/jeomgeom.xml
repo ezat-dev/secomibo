@@ -15,6 +15,16 @@
 		TECHIN WITH(NOLOCK) ON TECHIN.TECH_NO = FACILITY.TECH_NO
  		ORDER BY FAC_NAME,CHS_GUBN,CHS_SORT, CHS_NO, FAC_CODE
 	</select>
+	
+	
+	<select id="jeomgeomInsertDetail" parameterType="jeomgeom" resultType="jeomgeom">
+		SET LOCK_TIMEOUT 10000;
+        SELECT *
+        FROM   CHEKSTD WITH(NOLOCK) INNER JOIN
+        FACILITY WITH(NOLOCK) ON CHEKSTD.FAC_CODE = FACILITY.FAC_CODE
+        WHERE CHS_CODE = #{chs_code}
+	
+	</select>
 
 
 	<insert id="jeomgeomInsertSave" parameterType="jeomgeom">
@@ -34,14 +44,11 @@
         CHS_DANW,
         CHS_CHKMETHOD,
         CHS_STEPMETHOD
-        <!-- <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
-            , CHS_IMG
-        </if> -->
         )
         VALUES
         (
-        #{chs_code},
-        #{chs_no},
+        (SELECT ISNULL(MAX(CHS_CODE), 0) + 1 FROM CHEKSTD),
+        (SELECT ISNULL(MAX(CHS_NO), 0) + 1 FROM CHEKSTD),
         #{fac_code},
         #{chs_sort},
         #{chs_gubn},
@@ -53,9 +60,6 @@
         #{chs_danw},
         #{chs_chkmethod},
         #{chs_stepmethod}
-        <!-- <if test="FILE_NAME0 !='' and FILE_NAME0 != null">
-            , #{FILE_NAME0}
-        </if> -->
         )
     </insert>
     

@@ -10,6 +10,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Siljuk;
 import com.tkheat.domain.Users;
+import com.tkheat.domain.Work;
 
 
 @Service
@@ -51,6 +52,21 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public List<Users> getNoticeList(){
 		return operationDao.getNoticeList();
+	}
+	
+	@Override
+	public List<Chulgo> getYearSaleList(Chulgo chulgo){
+		return operationDao.getYearSaleList(chulgo);
+	}
+	
+	@Override
+	public List<Chulgo> getMonthSaleList(Chulgo chulgo){
+		return operationDao.getMonthSaleList(chulgo);
+	}
+	
+	@Override
+	public List<Work> getMonthBulList(Work work){
+		return operationDao.getMonthBulList(work);
 	}
 	
 

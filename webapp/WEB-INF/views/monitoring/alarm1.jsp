@@ -41,7 +41,6 @@ div {
 
 	<main class="main">
 		<div class="alarm-big-box-1"></div>
-		<div class="alarm-1"></div>
 		<div class="alarm-1">로내 SCR이상</div>
 		<div class="alarm-2">로내롤러 INV.TRIP</div>
 		<div class="alarm-3">아지테이터 INV.TRIP</div>

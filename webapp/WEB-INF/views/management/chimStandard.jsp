@@ -1095,7 +1095,7 @@ function getChimStandardDetail(wstd_code){
 			
 			for(let key in allData){
 //				console.log(allData, key);	
-				$("input[name='"+key+"']").val(allData[key]);
+				$("[name='"+key+"']").val(allData[key]);
 			}
 
 			$('.chimStandardModal').show().addClass('show');

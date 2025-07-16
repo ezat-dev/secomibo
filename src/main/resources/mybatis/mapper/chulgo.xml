@@ -206,9 +206,9 @@
 	CORP.CORP_NAME,
 	PRODUCT.PROD_NAME,
 	PRODUCT.PROD_NO,
-	SUM(OCHULGO.OCH_SU) AS Su,
-	SUM(OCHULGO.OCH_AMNT) AS Jung,
-	SUM(OCHULGO.OCH_MON) AS Mon ,
+	SUM(OCHULGO.OCH_SU) AS OCH_SU,
+	SUM(OCHULGO.OCH_AMNT) AS OCH_AMNT,
+	SUM(OCHULGO.OCH_MON) AS OCH_MON ,
 	STR(PRODUCT.PROD_DANG,16,1) AS PROD_DANG
 	FROM OCHULGO
 	INNER JOIN ORDERT
@@ -228,17 +228,86 @@
 	</select>
 
 	
-	<!-- 제품별출고 조회 -->
+	<!-- 거래처별출고 조회 -->
 	<select id="getCuChulgoStatusList" parameterType="chulgo"
 	resultType="chulgo">
-	SELECT ROW_NUMBER()OVER(ORDER BY  OCH_DATE,CORP_NAME) AS ROW_NUM,LEFT(CONVERT(NVARCHAR, OCH_DATE, 120), 10) as OCH_DATE,dbo.CORP.CORP_NAME, SUM(dbo.OCHULGO.OCH_MON) AS Mon
+	SELECT ROW_NUMBER()OVER(ORDER BY  OCH_DATE,CORP_NAME) AS ROW_NUM,LEFT(CONVERT(NVARCHAR, OCH_DATE, 120), 10) as OCH_DATE,dbo.CORP.CORP_NAME, SUM(dbo.OCHULGO.OCH_MON) AS OCH_MON
 		FROM dbo.ORDERT INNER JOIN
 		     dbo.PRODUCT ON dbo.ORDERT.PROD_CODE = dbo.PRODUCT.PROD_CODE INNER JOIN
 		     dbo.CORP ON dbo.PRODUCT.CORP_CODE = dbo.CORP.CORP_CODE INNER JOIN
 		     dbo.OCHULGO ON dbo.ORDERT.ORD_CODE = dbo.OCHULGO.ORD_CODE
 		     where 	dbo.OCHULGO.OCH_DATE between #{sdate} and #{edate}
 		     GROUP BY dbo.OCHULGO.OCH_DATE, dbo.CORP.CORP_NAME
-</select>
-
+	</select>
+	
+	
+	<!-- 년간매출현황 조회 -->
+	<select id="getYearSaleList" parameterType="chulgo"
+	resultType="chulgo">
+	SELECT CORP_NAME, isnull([1],0) as MM1,
+					  isnull([2],0) as MM2, 
+					  isnull([3],0) as MM3, 
+					  isnull([4],0) as MM4,
+                 	  isnull([5],0) as MM5,
+                 	  isnull([6],0) as MM6, 
+                 	  isnull([7],0) as MM7, 
+                 	  isnull([8],0) as MM8,
+				  	  isnull([9],0) as MM9,
+				  	  isnull([10],0) as MM10,
+				  	  isnull([11],0) as MM11 ,
+				  	  isnull([12],0) as MM12
+	FROM   
+    	 ( SELECT CORP_NAME,
+	         	 DATEPART(mm, OCH_DATE) AS OCH_DATE_MM,  
+			  	SUM(OCH_MON) AS OCH_MON_SUM
+     		FROM OCHULGO
+				 INNER JOIN ORDERT ON OCHULGO.ORD_CODE = ORDERT.ORD_CODE
+			 	INNER JOIN PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE
+				INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE 
+		group by DATEPART(mm, OCH_DATE),CORP_NAME ) AS  A
+	PIVOT
+	(SUM(OCH_MON_SUM) FOR OCH_DATE_MM IN ([1], [2], [3], [4],[5],[6],[7],[8],[9],[10],[11],[12]) )   AS P
+	ORDER BY CORP_NAME;
+	</select>
+	
+	<!-- 월매출현황(마감) 조회 -->
+	<select id="getMonthSaleList" parameterType="chulgo"
+	resultType="chulgo">
+	SELECT OCHULGO.OCH_MA, 
+		       CORP.CORP_NAME, 
+		       LEFT(CONVERT(NVARCHAR,OCHULGO.OCH_DATE, 120), 10) AS OCH_DATE, 
+		       PRODUCT.PROD_NAME, 
+		       PRODUCT.PROD_NO, 
+		       OCHULGO.OCH_LOT, 
+		       OCHULGO.OCH_SU, 
+		       OCHULGO.OCH_DANG, 
+		       OCHULGO.OCH_MON,
+		       FLOOR(OCHULGO.OCH_MON * 0.1) as OCH_MON_TAX,
+		       (OCHULGO.OCH_MON + FLOOR(OCHULGO.OCH_MON * 0.1)) as OCH_MON_TOTAL ,
+		       OCHULGO.OCH_AMNT 
+		  FROM OCHULGO 
+		   INNER JOIN ORDERT 
+		       ON OCHULGO.ORD_CODE = ORDERT.ORD_CODE 
+		   INNER JOIN PRODUCT 
+		       ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE 
+		   INNER JOIN CORP 
+		       ON PRODUCT.CORP_CODE = CORP.CORP_CODE  
+		ORDER BY CORP.CORP_NAME, 
+		       OCHULGO.OCH_DATE            			
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

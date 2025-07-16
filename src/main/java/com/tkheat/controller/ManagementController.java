@@ -58,6 +58,9 @@ public class ManagementController {
 			@RequestParam("mode") String mode) { 
 		Map<String, Object> result = new HashMap<>();
 
+		System.out.println(product.getProd_code());
+		System.out.println(product.getProd_date());
+		
 		try {
 			if ("insert".equalsIgnoreCase(mode)) {
 				managementService.productInsertSave(product);
@@ -158,7 +161,24 @@ public class ManagementController {
 
 		return rtnMap; 
 	}	 
+	
+	
+	//제품 더블클릭조회
+	@RequestMapping(value = "/management/productInsert/productInsertDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> productInsertDetail(
+			@RequestParam int prod_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
+		Product product = new Product();
+		product.setProd_code(prod_code);
+
+		Product prodList = managementService.productInsertDetail(product);
+
+		rtnMap.put("data",prodList);
+
+		return rtnMap; 
+	}
 
 	//거래처등록 - 화면로드
 	@RequestMapping(value = "/management/cutumInsert", method = RequestMethod.GET)
@@ -344,6 +364,24 @@ public class ManagementController {
 
 		return rtnMap; 
 	}
+	
+	//설비 더블클릭조회
+	@RequestMapping(value = "/management/facInsert/facInsertDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> facInsertDetail(
+			@RequestParam int fac_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		Fac fac = new Fac();
+		fac.setFac_code(fac_code);
+
+		Fac facList = managementService.facInsertDetail(fac);
+
+		rtnMap.put("data",facList);
+
+		return rtnMap; 
+	}
+		
 	
 	
 	

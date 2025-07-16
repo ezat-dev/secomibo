@@ -22,6 +22,33 @@ public class PreverationDaoImpl implements PreservationDao {
 		 return sqlSession.selectList("sparePart.getSparePartList");
 	 }
 	
+	@Override
+	 public List<SparePart> getSpareSubList(int spp_idx) {
+		 return sqlSession.selectList("sparePart.getSpareSubList",spp_idx);
+	 }
+	
+	@Override
+	public SparePart sparePartDetail(SparePart sparePart) {
+		return sqlSession.selectOne("sparePart.sparePartDetail",sparePart);
+	}
+	
+	@Override
+	 public void sparePartInsertSave(SparePart sparePart) {
+		 sqlSession.insert("sparePart.sparePartInsertSave", sparePart);
+	 }
+	
+	@Override
+	 public void sparePartUpdateSave(SparePart sparePart) {
+		 sqlSession.update("sparePart.sparePartUpdateSave", sparePart);
+	 }
+	
+	@Override
+	 public void deleteSparePart(int spp_idx) {
+		 sqlSession.delete("sparePart.deleteSparePart", spp_idx);
+	 }
+	
+	
+	
 	
 	
 	
@@ -31,6 +58,12 @@ public class PreverationDaoImpl implements PreservationDao {
 	 public List<Bega> getBegaInsertList(Bega bega) {
 		 return sqlSession.selectList("bega.getBegaInsertList", bega);
 	 }
+	
+	//비가동등록 더블클릭 조회
+	@Override
+	public Bega begaInsertDetail(Bega bega) {
+		return sqlSession.selectOne("bega.begaInsertDetail",bega);
+	}
 	
 	@Override
 	 public void begaInsertSave(Bega bega) {
@@ -52,9 +85,22 @@ public class PreverationDaoImpl implements PreservationDao {
 	
 	
 	@Override
+	 public List<Bega> getBegaAnalyList(Bega bega) {
+		 return sqlSession.selectList("bega.getBegaAnalyList", bega);
+	 }
+	
+	
+	
+	
+	@Override
 	 public List<Suri> getSuriHistoryList(Suri suri) {
 		 return sqlSession.selectList("suri.getSuriHistoryList", suri);
 	 }
+	
+	@Override
+	public Suri suriHistoryDetail(Suri suri) {
+		return sqlSession.selectOne("suri.suriHistoryDetail",suri);
+	}
 	
 	@Override
 	 public void suriHistoryInsertSave(Suri suri) {
@@ -83,6 +129,11 @@ public class PreverationDaoImpl implements PreservationDao {
 	 }
 	
 	@Override
+	public Jeomgeom jeomgeomInsertDetail(Jeomgeom jeomgeom) {
+		return sqlSession.selectOne("jeomgeom.jeomgeomInsertDetail",jeomgeom);
+	}
+	
+	@Override
 	 public void jeomgeomInsertSave(Jeomgeom jeomgeom) {
 		 sqlSession.insert("jeomgeom.jeomgeomInsertSave", jeomgeom);
 	 }
@@ -108,10 +159,24 @@ public class PreverationDaoImpl implements PreservationDao {
 	 }
 	
 	@Override
-	 public void gigiGojangSave(Measure measure) {
-		 sqlSession.insert("measure.gigiGojangSave", measure);
+	public Measure gigiGojangtDetail(Measure measure) {
+		return sqlSession.selectOne("bega.gigiGojangtDetail",measure);
+	}
+	
+	@Override
+	 public void gigiGojangInsert(Measure measure) {
+		 sqlSession.insert("measure.gigiGojangInsert", measure);
 	 }
 	
+	@Override
+	 public void gigiGojangUdate(Measure measure) {
+		 sqlSession.update("measure.gigiGojangUdate", measure);
+	 }
+	
+	@Override
+	 public void gigiGojangDelete(int terr_code) {
+		 sqlSession.delete("measure.gigiGojangDelete", terr_code);
+	 }
 	
 	
 	

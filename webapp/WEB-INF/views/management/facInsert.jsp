@@ -23,13 +23,12 @@
 	background: #ffffff;
 	border: 1px solid #000000;
 	width: 1000px; /* 가로 길이 고정 */
-	height: 600px; /* 세로 길이 고정 */
+	height: 630px; /* 세로 길이 고정 */
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 	margin: 20px auto; /* 중앙 정렬 */
 	padding: 20px;
 	border-radius: 5px; /* 모서리 둥글게 */
 	overflow-y: auto; /* 세로 스크롤 추가 */
-	position: relative; /* 자식 요소의 절대 위치 설정을 위한 기준 */
 }
 
 .insideTable {
@@ -178,21 +177,37 @@ textarea {
 	background-color: #808080;
 	transform: scale(1.05);
 }
-
 .box1 {
 	display: flex;
 	justify-content: right;
 	align-items: center;
 	width: 1500px;
-	margin-left: -250px;
+	margin-left: -1050px;
 }
 
-.box1 input{
-	width : 5%;
-}
 .box1 select{
 	width: 5%
+}  
+.box1 input[type="date"] {
+	width: 150px;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #f9f9f9;
+	color: #333;
+	outline: none;
+	transition: border 0.3s ease;
 }
+
+.box1 input[type="date"]:focus {
+	border: 1px solid #007bff;
+	background-color: #fff;
+}  
+.box1 label,
+.box1 input {
+	margin-right: 10px; /* 요소 사이 간격 */
+}  
 th{
 	font-size : 14px;
 }
@@ -506,12 +521,13 @@ th{
 							</td>
 						</tr>
 					</table>
-				</div>
-				<div class="btnSaveClose">
+					<div class="btnSaveClose">
 					<button class="delete" type="button" onclick="deleteFac();"  style="display: none;">삭제</button>
 		            <button class="save" type="button" onclick="save();">저장</button>
 		            <button class="close" type="button" onclick="window.close();">닫기</button>
-	    		</div>
+	    			</div>
+				</div>
+				
 				</div>
 			</form>
 	    
@@ -608,21 +624,45 @@ th{
 				selectedRowData = data;
 				isEditMode = true;
 				$('#facInsertForm')[0].reset();
-				$('.facModal').show().addClass('show');
+				
 
-				Object.keys(data).forEach(function (key) {
-			        const field = $('#facInsertForm [name="' + key + '"]');
+				/* Object.keys(data).forEach(function (key) {
+			        const field = $('[name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);
 			        }
-				});
+				}); */
+				facInsertDetail(data.fac_code);	
 
 				 $('.delete').show();
 			},
 			
 		});		
 	}
+
+	function facInsertDetail(fac_code){
+		$.ajax({
+			url:"/tkheat/management/facInsert/facInsertDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"fac_code":fac_code
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("#facInsertForm [name='"+key+"']").val(allData[key]);
+				}
+
+				$('.facModal').show().addClass('show');
+			}
+		});
+	}
+
 
 	
 

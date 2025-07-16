@@ -6,7 +6,7 @@ public class Measure {
 	private String edate;
 	
 	
-	private int ter_code;
+	private Integer ter_code;
 	private String ter_name;		//측정기기명
 	private String ter_no;			//측정기기번호
 	private String ter_model;		//모델명
@@ -34,7 +34,7 @@ public class Measure {
 	
 	
 	//측정기기고장 및 점검
-	private int terr_code;
+	private Integer terr_code;
 	private String terr_name;
 	private String terr_chkman; //확인자
 	private String terr_date; //고장일시
@@ -47,7 +47,7 @@ public class Measure {
 	private String terr_strt; //수리시작시간
 	private String terr_strt_h; //시작 시
 	private String terr_strt_mm; //시작 분
-	private String terr_stst_ss; //시작 초
+	private String terr_strt_ss; //시작 초
 	private String terr_end; //수리종료시간
 	private String terr_end_h; //종료 시
 	private String terr_end_mm; //종료 분
@@ -60,7 +60,7 @@ public class Measure {
 	
 	
 	//측정기기점검관리
-	private int mcd_cd;
+	private Integer mcd_cd;
 	private String mcd_inspection_date; //점검일
 	private String mcd_no; //장비번호
 	private String mcd_man_no;
@@ -82,10 +82,10 @@ public class Measure {
 	
 	
 	
-	public int getTer_code() {
+	public Integer getTer_code() {
 		return ter_code;
 	}
-	public void setTer_code(int ter_code) {
+	public void setTer_code(Integer ter_code) {
 		this.ter_code = ter_code;
 	}
 	public String getTer_name() {
@@ -298,11 +298,11 @@ public class Measure {
 	public void setTerr_strt_mm(String terr_strt_mm) {
 		this.terr_strt_mm = terr_strt_mm;
 	}
-	public String getTerr_stst_ss() {
-		return terr_stst_ss;
+	public String getTerr_strt_ss() {
+		return terr_strt_ss;
 	}
-	public void setTerr_stst_ss(String terr_stst_ss) {
-		this.terr_stst_ss = terr_stst_ss;
+	public void setTerr_strt_ss(String terr_strt_ss) {
+		this.terr_strt_ss = terr_strt_ss;
 	}
 	public String getTerr_end() {
 		return terr_end;
@@ -404,10 +404,10 @@ public class Measure {
 		this.mcd_mod_dt = mcd_mod_dt;
 	}
 
-	public int getMcd_cd() {
+	public Integer getMcd_cd() {
 		return mcd_cd;
 	}
-	public void setMcd_cd(int mcd_cd) {
+	public void setMcd_cd(Integer mcd_cd) {
 		this.mcd_cd = mcd_cd;
 	}
 	public String getMcd_man_no() {
@@ -476,10 +476,10 @@ public class Measure {
 	public void setDevice_location_cd(String device_location_cd) {
 		this.device_location_cd = device_location_cd;
 	}
-	public int getTerr_code() {
+	public Integer getTerr_code() {
 		return terr_code;
 	}
-	public void setTerr_code(int terr_code) {
+	public void setTerr_code(Integer terr_code) {
 		this.terr_code = terr_code;
 	}
 }

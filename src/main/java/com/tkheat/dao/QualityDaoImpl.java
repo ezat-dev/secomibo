@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.tkheat.domain.Suip;
 import com.tkheat.domain.Work;
 
@@ -20,9 +21,42 @@ public class QualityDaoImpl implements QualityDao{
 	}
 	
 	
+	
+	
+	
 	@Override public List<Work> getNonInsertList(Work work) { 
 		return sqlSession.selectList("work.getNonInsertList",work); 
 	}
+	
+	@Override public List<Work> getNonCorpList(Work work) { 
+		return sqlSession.selectList("work.getNonCorpList",work); 
+	}
+	
+	@Override
+	public Work nonInsertDetail(Work work) {
+		return sqlSession.selectOne("work.nonInsertDetail",work);
+	}
+	
+	@Override
+	 public void nonInsertSave(Work work) {
+		 sqlSession.insert("work.nonInsertSave", work);
+	 }
+	
+	@Override
+	 public void nonUdateSave(Work work) {
+		 sqlSession.update("work.nonUdateSave", work);
+	 }
+	
+	@Override
+	 public void deleteNon(Integer werr_code) {
+		 sqlSession.delete("work.deleteNon", werr_code);
+	 }
+	
+	
+	
+	
+	
+	
 	 
 	
 	@Override

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Work;
 import com.tkheat.service.ProductionService;
@@ -486,12 +487,41 @@ public class ProductionController {
 			rowMap.put("werr_gubn", nonReportList.get(i).getWerr_gubn());
 			rowMap.put("werr_amnt", nonReportList.get(i).getWerr_amnt());
 			rowMap.put("werr_code", nonReportList.get(i).getWerr_code());
+			rowMap.put("ilbo_code", nonReportList.get(i).getIlbo_code());
+			rowMap.put("ilbo_no", nonReportList.get(i).getIlbo_no());
+			rowMap.put("werr_lot", nonReportList.get(i).getWerr_lot());
+			rowMap.put("werr_team", nonReportList.get(i).getWerr_team());
+			rowMap.put("werr_user", nonReportList.get(i).getWerr_user());
+			rowMap.put("werr_jgubn", nonReportList.get(i).getWerr_jgubn());
+			rowMap.put("werr_gnote", nonReportList.get(i).getWerr_gnote());
+			rowMap.put("werr_jnote", nonReportList.get(i).getWerr_jnote());
+			rowMap.put("werr_case", nonReportList.get(i).getWerr_case());
+			rowMap.put("werr_note", nonReportList.get(i).getWerr_note());
+			rowMap.put("werr_date", nonReportList.get(i).getWerr_date());
+			rowMap.put("werr_fname", nonReportList.get(i).getWerr_fname());
+			rowMap.put("werr_in_out_gubn", nonReportList.get(i).getWerr_in_out_gubn());
 
 			rtnList.add(rowMap);
 		}
 
 		rtnMap.put("last_page",1);
 		rtnMap.put("data",rtnList);
+
+		return rtnMap; 
+	}
+	
+	//부적합보고서 더블클릭 조회
+	@RequestMapping(value = "/production/nonReport/nonReportDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> nonReportDetail(
+			@RequestParam int werr_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		Work work = new Work();
+		work.setWerr_code(werr_code);
+		Work nonReportList = productionService.nonReportDetail(work);
+
+		rtnMap.put("data",nonReportList);
 
 		return rtnMap; 
 	}
@@ -545,6 +575,9 @@ public class ProductionController {
 
 			return rtnMap; 
 		}
+		
+		
+		
 		
 		
 		//부적합보고서 등록, 수정 - insert,update

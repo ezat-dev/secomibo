@@ -31,6 +31,16 @@
     </select>
     
     
+    <!-- 전체 설비 목록 더블클릭 조회 -->
+	<select id="facInsertDetail" parameterType="fac" resultType="fac">
+       SELECT FAC_CODE, FAC_NO,  FAC_NAME, FAC_GYU, FAC_HYUN,  FAC_YONG,  TECH_NO, FAC_MAN1, 
+		       FAC_MAN2,  FAC_LOT, FAC_E1,  FAC_PLC, FAC_E2, FAC_MAKE, FAC_CBUY,  FAC_E3, 
+		       FAC_BUY, FAC_MDAY, FAC_MON, FAC_ABLE, FAC_TIME, FAC_TEST,  FAC_E4, FAC_BIGO, FAC_DAN,
+		       FAC_CAU, FAC_UNUS
+		  FROM FACILITY 
+		 WHERE FAC_CODE = #{fac_code};
+    </select>
+    
     <insert id="facInsertSave" parameterType="fac">
 		INSERT 
 		  INTO FACILITY 

@@ -9,6 +9,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Siljuk;
 import com.tkheat.domain.Users;
+import com.tkheat.domain.Work;
 
 @Repository
 public class OperationDaoImpl implements OperationDao{
@@ -49,6 +50,21 @@ public class OperationDaoImpl implements OperationDao{
 	@Override
 	public List<Users> getNoticeList() {
 		return sqlSession.selectList("users.getNoticeList");
+	}
+	
+	@Override
+	public List<Chulgo> getYearSaleList(Chulgo chulgo) {
+		return sqlSession.selectList("chulgo.getYearSaleList",chulgo);
+	}
+	
+	@Override
+	public List<Chulgo> getMonthSaleList(Chulgo chulgo) {
+		return sqlSession.selectList("chulgo.getMonthSaleList",chulgo);
+	}
+	
+	@Override
+	public List<Work> getMonthBulList(Work work) {
+		return sqlSession.selectList("work.getMonthBulList",work);
 	}
 	
 	

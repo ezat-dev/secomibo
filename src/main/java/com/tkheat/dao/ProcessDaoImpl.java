@@ -44,5 +44,10 @@ public class ProcessDaoImpl implements ProcessDao {
 	 public List<Siljuk> getReadySiljukList(Siljuk siljuk) {
 		 return sqlSession.selectList("siljuk.getReadySiljukList", siljuk);
 	 }
+	 
+	 @Override
+	 public List<Siljuk> getFacSiljukList(Siljuk siljuk) {
+		 return sqlSession.selectList("siljuk.getFacSiljukList", siljuk);
+	 }
 
 }

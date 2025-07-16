@@ -233,7 +233,7 @@ textarea {
                                 </colgroup>
                                 <tbody><tr>
                                     <th>설비그룹</th>
-                                    <td>
+                                     <td>
                                         <input id="chs_no" name="chs_no" class="basic" type="text" style="width:96%;" value="" readonly="">
                                     </td>
                                 </tr>
@@ -315,10 +315,10 @@ textarea {
                                 </tr>
                                 <tr>
                                     <th>이미지</th>
-                                    <td>
+                                    <!-- <td>
                                         <input id="chs_img" name="chs_img" type="file" style="width:96%;" value="" accept="image/*">
     
-                                    </td>
+                                    </td> -->
                                 </tr>
     
                             </tbody></table>
@@ -385,7 +385,7 @@ textarea {
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
-		        {title:"설비그룹", field:"chs_no", sorter:"string", width:120,
+		         {title:"설비그룹", field:"chs_no", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},	
 				    {
 				        title: "설비공정종류",
@@ -442,7 +442,7 @@ textarea {
 				{title:"사진", field:"chs_img", sorter:"string", width:100,
 				    hozAlign:"center", headerFilter:"input"},
 				    {title:"사진", field:"chs_code", sorter:"int", width:100,
-					    hozAlign:"center", headerFilter:"input"}    
+					    hozAlign:"center", headerFilter:"input",visible:false}    
 				    
 		    ],
 		    rowFormatter:function(row){
@@ -473,76 +473,52 @@ textarea {
 				selectedRowData = data;
 				isEditMode = true;
 				$('#jeomgeomInsertForm')[0].reset();
-				$('.jgInsertModal').show().addClass('show');
+				
 
-				Object.keys(data).forEach(function (key) {
+				/* Object.keys(data).forEach(function (key) {
 			        const field = $('#jeomgeomInsertForm [name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);
 			        }
 			        console.log('data',data);
-				});
+				}); */
+
+				jeomgeomInsertDetail(data.chs_code);
 				console.log('data',data);
 				 $('.delete').show();
 			},
 		});		
 	}
+
+		function jeomgeomInsertDetail(chs_code){
+			$.ajax({
+				url:"/tkheat/preservation/jeomgeomInsert/jeomgeomInsertDetail",
+				type:"post",
+				dataType:"json",
+				data:{
+					"chs_code":chs_code
+				},
+				success:function(result){
+	//				console.log(result);
+					var allData = result.data;
+					
+					for(let key in allData){
+	//					console.log(allData, key);	
+						$("input[name='"+key+"']").val(allData[key]);
+					}
+	
+					$('.jgInsertModal').show().addClass('show');
+				}
+			});
+		}
+
 	
 
     </script>
     
     <script>
 		
- 	// 드래그 기능 추가
-	const modal = document.querySelector('.jgInsertModal');
-	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
-
-	header.addEventListener('mousedown', function(e) {
-		// transform 제거를 위한 초기 위치 설정
-		const rect = modal.getBoundingClientRect();
-		modal.style.left = rect.left + 'px';
-		modal.style.top = rect.top + 'px';
-		modal.style.transform = 'none'; // 중앙 정렬 해제
-
-		let offsetX = e.clientX - rect.left;
-		let offsetY = e.clientY - rect.top;
-
-		function moveModal(e) {
-			modal.style.left = (e.clientX - offsetX) + 'px';
-			modal.style.top = (e.clientY - offsetY) + 'px';
-		}
-
-		function stopMove() {
-			window.removeEventListener('mousemove', moveModal);
-			window.removeEventListener('mouseup', stopMove);
-		}
-
-		window.addEventListener('mousemove', moveModal);
-		window.addEventListener('mouseup', stopMove);
-	});
-		
-
-	// 모달 열기
-	const insertButton = document.querySelector('.insert-button');
-	const jgInsertModal = document.querySelector('.jgInsertModal');
-	const closeButton = document.querySelector('.close');
-
-	insertButton.addEventListener('click', function() {
-		isEditMode = false;  // 추가 모드
-	    $('#jeomgeomInsertForm')[0].reset(); // 폼 초기화
-	    jgInsertModal.style.display = 'block'; // 모달 표시
-
-		$('.delete').hide();
-	});
-
-	closeButton.addEventListener('click', function() {
-		jgInsertModal.style.display = 'none'; // 모달 숨김
-	});
-		
-
-
-
 	//설비검색버튼 리스트 모달
     function openFacListModal() {
         document.getElementById('facListModal').style.display = 'flex';
@@ -668,7 +644,51 @@ textarea {
 
 
 
+ // 드래그 기능 추가
+	const modal = document.querySelector('.jgInsertModal');
+	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
+	header.addEventListener('mousedown', function(e) {
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
+
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
+
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
+
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
+	});
+		
+
+	// 모달 열기
+	const insertButton = document.querySelector('.insert-button');
+	const jgInsertModal = document.querySelector('.jgInsertModal');
+	const closeButton = document.querySelector('.close');
+
+	insertButton.addEventListener('click', function() {
+		isEditMode = false;  // 추가 모드
+	    $('#jeomgeomInsertForm')[0].reset(); // 폼 초기화
+	    jgInsertModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
+	});
+
+	closeButton.addEventListener('click', function() {
+		jgInsertModal.style.display = 'none'; // 모달 숨김
+	});
     
 
     </script>

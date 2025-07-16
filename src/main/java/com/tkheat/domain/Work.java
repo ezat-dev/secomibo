@@ -8,6 +8,9 @@ public class Work {
 	private String sdate; 
 	private String edate; 
 	
+	private String subsdate; 
+	private String subedate;
+	
 	//작업지시
 	//PLANP_D 테이블
 	private int plnp_code;
@@ -32,7 +35,7 @@ public class Work {
 	private String plnp_barcode;
 	
 	//PRODUCT 테이블
-	private int prod_code;
+	private Integer prod_code;
 	private String prod_name;			//품명
 	private String prod_no;				//품번
 	private String prod_gyu;			//규격
@@ -61,13 +64,14 @@ public class Work {
 	private String prod_gd;
 	private float prod_danj;
 	
+	
 	//CORP 테이블
 	private String corp_name;
-	private int corp_code;
+	private Integer corp_code;
 	
 	//FACILITY 테이블
 	private String fac_name;
-	private int fac_code;
+	private Integer fac_code;
 
 	private int work_su;
 	private String wstd_n06;
@@ -124,14 +128,14 @@ public class Work {
 	private String ilbo_okng; //판정
 	private String ilbostrt;
 	private String ilboend;
-	private int ilbo_no;
+	private Integer ilbo_no;
 	
 	//ORDERT 테이블
 	private String ord_date;				//입고일
 	private int ord_su;    //입고수량
 	private float ord_danj;		//입고중량
 	//ORDERT 테이블
-	private int ord_code;				//수주NO
+	private Integer ord_code;				//수주NO
 	private String ord_lot;
 	private String ord_gyu;
 	
@@ -141,9 +145,9 @@ public class Work {
 	//부적합현황
 	//WORKER 테이블
 	private String werr_wdate;			//부적합 발생일
-	private float werr_amnt;			//부적합 수량
+	private Float werr_amnt;			//부적합 수량
 	private String werr_gubn;			//부적합 공정
-	private int werr_code;				//부적합 코드
+	private Integer werr_code;				//부적합 코드
 	private String werr_fac;			//부적합 설비
 	private String werr_lot;        // LOT No
 	private String werr_date;       // 작성일자
@@ -151,7 +155,7 @@ public class Work {
 	private String werr_mon;        // 금액
 	private String werr_user;       // 발생자
 	private String werr_rep;        // 보고자
-	private boolean werr_alert;     // 알림 체크박스
+	private String werr_alert;     // 알림 체크박스
 	private String werr_buso;       // 부서 (select)
 	private String werr_in_out_gubn; // 출입 구분 (select)
 	private String werr_gnote;      // 불량내용
@@ -170,6 +174,26 @@ public class Work {
 	private String werr_note3;      // 유효성 점검 3차 내용
 	private String werr_bigo3;      // 유효성 점검 3차 비고
 	private String werr_team;
+	
+	private String check_date_a;
+	private String check_date_b;
+	private String check_date_c;
+	
+	private int m1;
+	private int m2;
+	private int m3;
+	private int m4;
+	private int m5;
+	private int m6;
+	private int m7;
+	private int m8;
+	private int m9;
+	private int m10;
+	private int m11;
+	private int m12;
+	
+	private int average_SUM;
+	private String quantityItem;
 	
 	
 	
@@ -195,7 +219,7 @@ public class Work {
 	private String corp_business;		//영업 담당자
 	
 	//준비 그리드(ILBO_GUBN = 'J')
-	private int ilbo_code;
+	private Integer ilbo_code;
 //	private String ilbo_date;			//작업일(ilbo_strt에서 년월일만)
 //	private String ilbo_strt;			//작업 시작시간
 //	private String ilbo_end;			//작업 종료시간
@@ -411,11 +435,11 @@ public class Work {
 		this.plnp_note = plnp_note;
 	}
 
-	public int getProd_code() {
+	public Integer getProd_code() {
 		return prod_code;
 	}
 
-	public void setProd_code(int prod_code) {
+	public void setProd_code(Integer prod_code) {
 		this.prod_code = prod_code;
 	}
 
@@ -571,11 +595,11 @@ public class Work {
 		this.sum_su = sum_su;
 	}
 
-	public int getOrd_code() {
+	public Integer getOrd_code() {
 		return ord_code;
 	}
 
-	public void setOrd_code(int ord_code) {
+	public void setOrd_code(Integer ord_code) {
 		this.ord_code = ord_code;
 	}
 
@@ -603,11 +627,11 @@ public class Work {
 		this.werr_wdate = werr_wdate;
 	}
 
-	public float getWerr_amnt() {
+	public Float getWerr_amnt() {
 		return werr_amnt;
 	}
 
-	public void setWerr_amnt(float werr_amnt) {
+	public void setWerr_amnt(Float werr_amnt) {
 		this.werr_amnt = werr_amnt;
 	}
 
@@ -619,11 +643,11 @@ public class Work {
 		this.werr_gubn = werr_gubn;
 	}
 
-	public int getWerr_code() {
+	public Integer getWerr_code() {
 		return werr_code;
 	}
 
-	public void setWerr_code(int werr_code) {
+	public void setWerr_code(Integer werr_code) {
 		this.werr_code = werr_code;
 	}
 
@@ -659,11 +683,11 @@ public class Work {
 		this.corp_business = corp_business;
 	}
 
-	public int getIlbo_code() {
+	public Integer getIlbo_code() {
 		return ilbo_code;
 	}
 
-	public void setIlbo_code(int ilbo_code) {
+	public void setIlbo_code(Integer ilbo_code) {
 		this.ilbo_code = ilbo_code;
 	}
 
@@ -955,11 +979,11 @@ public class Work {
 		this.werr_user = werr_user;
 	}
 
-	public boolean isWerr_alert() {
+	public String getWerr_alert() {
 		return werr_alert;
 	}
 
-	public void setWerr_alert(boolean werr_alert) {
+	public void setWerr_alert(String werr_alert) {
 		this.werr_alert = werr_alert;
 	}
 
@@ -1123,11 +1147,11 @@ public class Work {
 		this.ilbo_ok = ilbo_ok;
 	}
 
-	public int getCorp_code() {
+	public Integer getCorp_code() {
 		return corp_code;
 	}
 
-	public void setCorp_code(int corp_code) {
+	public void setCorp_code(Integer corp_code) {
 		this.corp_code = corp_code;
 	}
 
@@ -1219,11 +1243,11 @@ public class Work {
 		this.plnp_bno = plnp_bno;
 	}
 
-	public int getFac_code() {
+	public Integer getFac_code() {
 		return fac_code;
 	}
 
-	public void setFac_code(int fac_code) {
+	public void setFac_code(Integer fac_code) {
 		this.fac_code = fac_code;
 	}
 
@@ -1627,11 +1651,11 @@ public class Work {
 		this.ilboend = ilboend;
 	}
 
-	public int getIlbo_no() {
+	public Integer getIlbo_no() {
 		return ilbo_no;
 	}
 
-	public void setIlbo_no(int ilbo_no) {
+	public void setIlbo_no(Integer ilbo_no) {
 		this.ilbo_no = ilbo_no;
 	}
 
@@ -1737,5 +1761,157 @@ public class Work {
 
 	public void setProd_danj(float prod_danj) {
 		this.prod_danj = prod_danj;
+	}
+
+	public int getM1() {
+		return m1;
+	}
+
+	public void setM1(int m1) {
+		this.m1 = m1;
+	}
+
+	public int getM2() {
+		return m2;
+	}
+
+	public void setM2(int m2) {
+		this.m2 = m2;
+	}
+
+	public int getM3() {
+		return m3;
+	}
+
+	public void setM3(int m3) {
+		this.m3 = m3;
+	}
+
+	public int getM5() {
+		return m5;
+	}
+
+	public void setM5(int m5) {
+		this.m5 = m5;
+	}
+
+	public int getM4() {
+		return m4;
+	}
+
+	public void setM4(int m4) {
+		this.m4 = m4;
+	}
+
+	public int getM6() {
+		return m6;
+	}
+
+	public void setM6(int m6) {
+		this.m6 = m6;
+	}
+
+	public int getM7() {
+		return m7;
+	}
+
+	public void setM7(int m7) {
+		this.m7 = m7;
+	}
+
+	public int getM8() {
+		return m8;
+	}
+
+	public void setM8(int m8) {
+		this.m8 = m8;
+	}
+
+	public int getM9() {
+		return m9;
+	}
+
+	public void setM9(int m9) {
+		this.m9 = m9;
+	}
+
+	public int getM10() {
+		return m10;
+	}
+
+	public void setM10(int m10) {
+		this.m10 = m10;
+	}
+
+	public int getM11() {
+		return m11;
+	}
+
+	public void setM11(int m11) {
+		this.m11 = m11;
+	}
+
+	public int getM12() {
+		return m12;
+	}
+
+	public void setM12(int m12) {
+		this.m12 = m12;
+	}
+
+	public int getAverage_SUM() {
+		return average_SUM;
+	}
+
+	public void setAverage_SUM(int average_SUM) {
+		this.average_SUM = average_SUM;
+	}
+
+	public String getQuantityItem() {
+		return quantityItem;
+	}
+
+	public void setQuantityItem(String quantityItem) {
+		this.quantityItem = quantityItem;
+	}
+
+	public String getSubsdate() {
+		return subsdate;
+	}
+
+	public void setSubsdate(String subsdate) {
+		this.subsdate = subsdate;
+	}
+
+	public String getSubedate() {
+		return subedate;
+	}
+
+	public void setSubedate(String subedate) {
+		this.subedate = subedate;
+	}
+
+	public String getCheck_date_a() {
+		return check_date_a;
+	}
+
+	public void setCheck_date_a(String check_date_a) {
+		this.check_date_a = check_date_a;
+	}
+
+	public String getCheck_date_b() {
+		return check_date_b;
+	}
+
+	public void setCheck_date_b(String check_date_b) {
+		this.check_date_b = check_date_b;
+	}
+
+	public String getCheck_date_c() {
+		return check_date_c;
+	}
+
+	public void setCheck_date_c(String check_date_c) {
+		this.check_date_c = check_date_c;
 	}
 }

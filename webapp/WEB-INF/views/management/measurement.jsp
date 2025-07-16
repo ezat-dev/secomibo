@@ -181,35 +181,35 @@ textarea {
             <tbody><tr>
               <td class="">
                 <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-                  <input type="hidden" class="basic rp-input" id="TER_CODE" name="ter_code" value="-1">
+                  <input type="hidden" class="basic rp-input" id="ter_code" name="ter_code" value="-1">
                   <tbody><tr>
                     <th class="left">측정기기명</th>
                     <td class="">
   
-                      <input type="text" class="form-control rp-input" id="TER_NAME" name="ter_name" style="width:90%;" value="">
+                      <input type="text" class="form-control rp-input" id="ter_name" name="ter_name" style="width:90%;" value="">
   
                     </td>
   
                     <th class="left">측정기기번호</th>
                     <td class="">
-                      <input type="text" class="basic rp-input" id="TER_NO" name="ter_no" style="width:90%;" value="">
+                      <input type="text" class="basic rp-input" id="ter_no" name="ter_no" style="width:90%;" value="">
                     </td>
   
                     <th class="left">제조회사</th>
                     <td class="">
-                      <input type="text" class="basic rp-input" id="TER_MAKER" name="ter_maker" style="width:90%;" value="">
+                      <input type="text" class="basic rp-input" id="ter_maker" name="ter_maker" style="width:90%;" value="">
                     </td>
   
                   </tr>
                   <tr>
                     <td class="" colspan="2">
-                    <input id="TER_IMG" name="ter_img" type="file" class="rp-input" style="width:92%;" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');">
+                    <input id="ter_img" name="ter_img" type="file" class="rp-input" style="width:92%;" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');">
                       <button onclick="imageDelete(this)">X</button>
                     </td>
                     <th class="">모델명</th>
-                    <td class=""><input id="TER_MODEL" name="ter_model" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_model" name="ter_model" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">제조일자</th>
-                    <td class=""><input id="TER_MDATE" name="ter_mdate" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" style="width:90%;" value="" maxlength="20" size="20" readonly="readonly"></td>
+                    <td class=""><input id="ter_mdate" name="ter_mdate" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" style="width:90%;" value="" maxlength="20" size="20" readonly="readonly"></td>
   
                   </tr>
                   <tr>
@@ -217,29 +217,29 @@ textarea {
                       <img class="img-rounded rp-img-popup" src="resources/images/imgs/noimage_click.jpg" alt="사진" style="width: 220px;">
                     </td>
                     <th class="">S/N</th>
-                    <td class=""><input id="TER_SN" name="ter_sn" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_sn" name="ter_sn" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">구입회사</th>
-                    <td class=""><input id="TER_BUY" name="ter_buy" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_buy" name="ter_buy" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">용도</th>
-                    <td class=""><input id="TER_YONG" name="ter_yong" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_yong" name="ter_yong" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">구입일자</th>
-                    <td class=""><input id="TER_BDATE" name="ter_bdate" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" style="width:90%;" value="" maxlength="20" size="20" readonly="readonly"></td>
+                    <td class=""><input id="ter_bdate" name="ter_bdate" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" style="width:90%;" value="" maxlength="20" size="20" readonly="readonly"></td>
                   </tr>
                   <tr>
                     <th class="">측정기기종류</th>
-                    <td class=""><input id="TER_KIND" name="ter_kind" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_kind" name="ter_kind" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">구입금액</th>
-                    <td class=""><input id="TER_BMON" name="ter_bmon" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_bmon" name="ter_bmon" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">관리자(정)</th>
-                    <td class=""><input id="TER_MAN1" name="ter_ma1" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_ma1" name="ter_ma1" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">검교정주기</th>
                     <td class="">
   
-                        <select id="TER_GUM" name="ter_gum"  class="basic rp-input" style="width: 100%">
+                        <select id="ter_gum" name="ter_gum"  class="basic rp-input" style="width: 100%">
                           
                             <option value="분기(120)">분기(120)</option>
                           
@@ -253,129 +253,49 @@ textarea {
                   </td></tr>
                   <tr>
                     <th class="">관리자(부)</th>
-                    <td class=""><input id="TER_MAN2" name="ter_man2" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_man2" name="ter_man2" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">사용전압</th>
-                    <td class=""><input id="TER_V" name="ter_v" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_v" name="ter_v" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">설치장소</th>
-                    <td class=""><input id="TER_PLACE" name="ter_place" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_place" name="ter_place" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">사용전류</th>
-                    <td class=""><input id="TER_A" name="ter_a" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_a" name="ter_a" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">상태</th>
                     <td class="">
-                      <select id="TER_USE" name="ter_use" class="basic rp-input" style="width:90%;">
+                      <select id="ter_use" name="ter_use" class="basic rp-input" style="width:90%;">
                         <option>사용</option>
                         <option>폐기</option>
                         <option>매각</option>
                       </select>
                     </td>
                     <th class="">사용전력</th>
-                    <td class=""><input id="TER_KW" name="ter_kw" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_kw" name="ter_kw" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">상태비고</th>
-                    <td class=""><input id="TER_UBIGO" name="ter_ubigo" class="basic rp-input" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_ubigo" name="ter_ubigo" class="basic rp-input" type="text" style="width:90%;" value=""></td>
                     <th class="">차기검교정일</th>
-                    <td class=""><input id="TER_NEXT_GUM" name="ter_next_gum" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_next_gum" name="ter_next_gum" c type="date" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">첨부파일</th>
                     <td class="findImage"><input type="hidden" name="type" id="type" class="rp-input" value="tester">
                       <input type="file" name="file1" id="file1" class="rp-input" title="파일 찾기" onchange="" accept=".xls,.xlsx,.hwp,.hwpx,.pdf,.jpeg,.jpg,.png">
                     </td><th class="">최종검교정일</th>
-                    <td class=""><input id="TER_END_GUM" name="ter_end_gum" class="basic rp-input date js-datepicker js-date-now hasDatepicker" type="text" onfocusout="set_ter_next_gum();" style="width:90%;" value=""></td>
+                    <td class=""><input id="ter_end_gum" name="ter_end_gum"  type="date" onfocusout="set_ter_next_gum();" style="width:90%;" value=""></td>
                   </tr>
                   <tr>
                     <th class="">비고</th>
                     <td class="" colspan="3">
-                      <textarea id="TER_BIGO" name="ter_bigo" class="basic rp-input" type="text" style="width:90%;"></textarea>
+                      <textarea id="ter_bigo" name="ter_bigo" class="basic rp-input" type="text" style="width:90%;"></textarea>
                     </td>
                   </tr>
                 </tbody></table>
-                <div id="contents">
-                  <!-- Article List -->
-                  <div class="contentList">
-                    <button type="button" style="width:40px; height:30px; font-size:20px" id="searchAddRevisionBtn" onclick="gridRowPlus()"> + </button>
-  
-  
-  
-                    <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" id="gbox_grid" dir="ltr" style="width: 980px;"><div class="ui-widget-overlay jqgrid-overlay" id="lui_grid"></div><div class="loading ui-state-default ui-state-active" id="load_grid" style="display: none;">조회중...</div><div class="ui-jqgrid-view" id="gview_grid" style="width: 980px;"><div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="display: none;"><a role="link" href="javascript:void(0)" class="ui-jqgrid-titlebar-close HeaderButton" style="right: 0px;"><span class="ui-icon ui-icon-circle-triangle-n"></span></a><span class="ui-jqgrid-title"></span></div><div class="ui-state-default ui-jqgrid-hdiv" style="width: 980px;"><div class="ui-jqgrid-hbox"><table class="ui-jqgrid-htable" style="width:980px" role="grid" aria-labelledby="gbox_grid" cellspacing="0" cellpadding="0" border="0"><thead><tr class="ui-jqgrid-labels" role="rowheader"><th id="grid_rn" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 25px;"><div id="jqgh_grid_rn"><span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_CODE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 45px; display: none;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_CODE" class="ui-jqgrid-sortable">개정코드<span class="s-ico" style=""><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_REVISION_DATE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 97px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_REVISION_DATE" class="ui-jqgrid-sortable">개정일자<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_SUMMARY" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 218px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_SUMMARY" class="ui-jqgrid-sortable">적요<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_REASON" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 218px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_REASON" class="ui-jqgrid-sortable">내용<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_CONFIRM" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 61px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_CONFIRM" class="ui-jqgrid-sortable">확인<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_REG_DATE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 97px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_REG_DATE" class="ui-jqgrid-sortable">개정등록일<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_REG_CODE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 50px; display: none;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_REG_CODE" class="ui-jqgrid-sortable">개정등록자코드<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_REG_NAME" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 61px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_REG_NAME" class="ui-jqgrid-sortable">개정등록자<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_MOD_DATE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 97px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_MOD_DATE" class="ui-jqgrid-sortable">개정수정일<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_MOD_CODE" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 50px; display: none;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_MOD_CODE" class="ui-jqgrid-sortable">개정수정자코드<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th><th id="grid_TER_HIST_MOD_NAME" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" style="width: 61px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="jqgh_grid_TER_HIST_MOD_NAME" class="ui-jqgrid-sortable">개정수정자<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div></th></tr></thead></table></div></div><div class="ui-jqgrid-bdiv" style="height: auto; width: 980px;"><div style="position:relative;"><div></div><table id="grid" tabindex="0" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" aria-labelledby="gbox_grid" class="ui-jqgrid-btable" style="width: 980px;"><tbody><tr class="jqgfirstrow" role="row" style="height:auto"><td role="gridcell" style="height:0px;width:25px;"></td><td role="gridcell" style="height:0px;width:45px;display:none;"></td><td role="gridcell" style="height:0px;width:97px;"></td><td role="gridcell" style="height:0px;width:218px;"></td><td role="gridcell" style="height:0px;width:218px;"></td><td role="gridcell" style="height:0px;width:61px;"></td><td role="gridcell" style="height:0px;width:97px;"></td><td role="gridcell" style="height:0px;width:50px;display:none;"></td><td role="gridcell" style="height:0px;width:61px;"></td><td role="gridcell" style="height:0px;width:97px;"></td><td role="gridcell" style="height:0px;width:50px;display:none;"></td><td role="gridcell" style="height:0px;width:61px;"></td></tr></tbody></table></div></div></div><div class="ui-jqgrid-resize-mark" id="rs_mgrid">&nbsp;</div></div>
-                    <script type="text/javascript">
-  
-                      var $grid = $("#grid");
-  
-                      $(function () {
-                        initGrid();
-                      });
-  
-                      function gridRowPlus() {
-                        var rowNum = $("#grid").getGridParam("reccount");
-                        var rowdata = {
-                          TER_HIST_REVISION_DATE1		: '',
-                          TER_HIST_REVISION_DATE		: '',
-                          TER_HIST_REASON			: '',
-                          TER_HIST_CONFIRM1			: '',
-                        };
-  
-                        $("#grid").jqGrid("addRowData", Number(rowNum)+1, rowdata, 'last');
-                      }
-  
-                      function initGrid() {
-                        $grid.jqGrid({
-                          url: "terHistGridSelect",
-                          datatype: "json",
-                          mtype: "POST",
-                          postData: {
-                            TER_CODE: $('#TER_CODE').val(),
-                          },
-                          cellEdit: true,
-                          cellsubmit: 'clientArray',
-                          autoencode: true,
-                          width: 980,	// width 자동, width와 같이 쓸수 없음.
-                          height: 'auto',
-                          //shrinkToFit: false,
-                          rownumbers: true,
-                          pager: "#prodPagerDiv",
-                          sortname: 'TER_HIST_CODE',
-                          sortorder: "asc",
-                          viewrecords: true,
-                          rowNum: 99999,
-                          rowList: [20, 30, 100, 99999],
-                          //footerrow: true,
-                          //userDataOnFooter : true,
-                          gridview: true,
-                          colModel: [
-                            {name: 'TER_HIST_CODE',				label: "개정코드",		width: 45,	align: 'center',	hidden: true,	key: true},
-                            {name: 'TER_HIST_REVISION_DATE',	label: "개정일자",		width: 80,	align: 'center',	editable: true	},
-                            {name: 'TER_HIST_SUMMARY',			label: "적요",			width: 180,	align: 'center',	editable: true	},
-                            {name: 'TER_HIST_REASON',			label: "내용",			width: 180,	align: 'center',	editable: true	},
-                            {name: 'TER_HIST_CONFIRM',			label: "확인",			width: 50,	align: 'center',	editable: true	},
-                            {name: 'TER_HIST_REG_DATE',			label: "개정등록일",		width: 80,	align: 'center',	editable: false, formatter:'date', formatoptions:{srcformat:'ISO8601Long', newformat:'Y-m-d'} },
-                            {name: 'TER_HIST_REG_CODE',			label: "개정등록자코드",	width: 50,	align: 'center',	hidden: true	},
-                            {name: 'TER_HIST_REG_NAME',			label: "개정등록자",		width: 50,	align: 'center',	editable: false	},
-                            {name: 'TER_HIST_MOD_DATE',			label: "개정수정일",		width: 80,	align: 'center',	editable: false, formatter:'date', formatoptions:{srcformat:'ISO8601Long', newformat:'Y-m-d'} },
-                            {name: 'TER_HIST_MOD_CODE',			label: "개정수정자코드",	width: 50,	align: 'center',	hidden: true	},
-                            {name: 'TER_HIST_MOD_NAME',			label: "개정수정자",		width: 50,	align: 'center',	editable: false	},
-                          ],
-  
-                          afterSaveCell: function (rowid, cellname, value, iRow, iCol) {
-                          }
-                        });
-                      }
-  
-  
-  
-                    </script>
-                  </div>
-                  <!-- Article List.end -->
-                  <!-- Pagination -->
-                  <div id="pagination">
-                  </div>
-                  <!-- Pagination.end -->
-                </div>
+                
   
               </td>
             </tr>
@@ -480,7 +400,7 @@ textarea {
 				$('.measurementModal').show().addClass('show');
 
 				Object.keys(data).forEach(function (key) {
-			        const field = $('#measurementForm [name="' + key + '"]');
+			        const field = $('[name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);

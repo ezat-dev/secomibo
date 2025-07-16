@@ -6,6 +6,7 @@ import com.tkheat.domain.Chulgo;
 import com.tkheat.domain.Ipgo;
 import com.tkheat.domain.Siljuk;
 import com.tkheat.domain.Users;
+import com.tkheat.domain.Work;
 
 public interface OperationDao {
 	
@@ -23,5 +24,14 @@ public interface OperationDao {
 	
 	List<Users> getNoticeList();
 
+	List<Chulgo> getYearSaleList(Chulgo chulgo);
+	
+	List<Chulgo> getMonthSaleList(Chulgo chulgo);
+	
+	List<Work> getMonthBulList(Work work);
+	
+	
+	
+	
 	
 }

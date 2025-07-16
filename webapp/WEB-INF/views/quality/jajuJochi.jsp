@@ -234,7 +234,7 @@ th{
             <tbody>
                 <tr>
                     <td>
-                        <input class="btnSearchWork" type="button" title="" value="불합격현황 검색">
+                        <input class="btnSearchWork" type="button" title="" value="불합격현황 검색" onclick="openJajuListModal();">
                         <table cellspacing="0" cellpadding="0" width="80%" class="insideTable">
                             <colgroup span="6">
                                 <col width="*">
@@ -249,6 +249,7 @@ th{
                                     <th class="left">거래처</th>
                                     <td>
                                         <input id="corp_name" name="corp_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly="">
+                                        <input id="corp_code" name="corp_code" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly="">
                                     </td>
                                     <th><span class="left">품명</span></th>
                                     <td><input id="prod_name" name="prod_name" class="basic valPost valClean" type="text" style="width:90%;" value="" readonly=""></td>
@@ -376,6 +377,18 @@ th{
 			<div id="facListTabulator" style="height: 500px;"></div>
 		</div>
 	</div>
+	
+	<!-- 불량현황 팝업창 -->
+	<div id="jajuListModal" class="modal-overlay" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title">설비 리스트</span> <span class="modal-close" onclick="closeJajuListModal()">&times;</span>
+			</div>
+			<div id="jajuListTabulator" style="height: 500px;"></div>
+		</div>
+	</div>
+	
+	
 	    
 <script>
 	//전역변수
@@ -485,51 +498,7 @@ th{
     
     <script>
 		
- // 드래그 기능 추가
-	const modal = document.querySelector('.jajujochiModal');
-	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
-	header.addEventListener('mousedown', function(e) {
-		// transform 제거를 위한 초기 위치 설정
-		const rect = modal.getBoundingClientRect();
-		modal.style.left = rect.left + 'px';
-		modal.style.top = rect.top + 'px';
-		modal.style.transform = 'none'; // 중앙 정렬 해제
-
-		let offsetX = e.clientX - rect.left;
-		let offsetY = e.clientY - rect.top;
-
-		function moveModal(e) {
-			modal.style.left = (e.clientX - offsetX) + 'px';
-			modal.style.top = (e.clientY - offsetY) + 'px';
-		}
-
-		function stopMove() {
-			window.removeEventListener('mousemove', moveModal);
-			window.removeEventListener('mouseup', stopMove);
-		}
-
-		window.addEventListener('mousemove', moveModal);
-		window.addEventListener('mouseup', stopMove);
-	});
-		
-
-	// 모달 열기
-	const insertButton = document.querySelector('.insert-button');
-	const jajujochiModal = document.querySelector('.jajujochiModal');
-	const closeButton = document.querySelector('.close');
-
-	insertButton.addEventListener('click', function() {
-		isEditMode = false;  // 추가 모드
-	    $('#jajuJochiForm')[0].reset(); // 폼 초기화
-	    jajujochiModal.style.display = 'block'; // 모달 표시
-
-		$('.delete').hide();
-	});
-
-	closeButton.addEventListener('click', function() {
-		jajujochiModal.style.display = 'none'; // 모달 숨김
-	});
 
 
 
@@ -585,11 +554,138 @@ th{
 
 
 
+  //자주현황 검색 리스트 모달
+    function openJajuListModal() {
+        document.getElementById('jajuListModal').style.display = 'flex';
+
+        
+        let jajuListTable = new Tabulator("#jajuListTabulator", {
+            height:"450px",
+            layout:"fitColumns",
+            selectable:true,
+            ajaxURL:"/tkheat/quality/jajuStatus/getJajuStatusList",
+            ajaxConfig:"POST",
+            ajaxParams:{
+                "prod_name": "",
+                "prod_no": "",
+                "corp_name": "",
+                "corp_code": "",
+                   
+            },
+		    ajaxResponse:function(url, params, response){
+//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
+				console.log(response);
+		        return response.data; //return the response data to tabulator
+		    },    
+            columns:[
+            	{title:"구분", field:"ilbo_gubn", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},
+		    	{title:"준비코드", field:"juckjaecode", sorter:"string", width:120,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"작업일", field:"ilbo_strt", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"},     
+				{title:"시작", field:"ilbo_strt", sorter:"string", width:120,
+				    hozAlign:"center", headerFilter:"input"}, 
+				{title:"종료", field:"ilbo_end", sorter:"string", width:150,
+				    hozAlign:"center", headerFilter:"input"}, 
+		        {title:"LOTNO", field:"ilbo_lot", sorter:"string", width:120,
+		        	hozAlign:"center", headerFilter:"input"},		        
+		        {title:"작업자", field:"user_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"품번", field:"prod_no", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"규격", field:"prod_gyu", sorter:"string", width:100,
+		        	hozAlign:"center", headerFilter:"input"},  	
+		        {title:"재질", field:"prod_jai", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input"},	
+			    {title:"표면경도", field:"prod_pg", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},	
+				{title:"판정", field:"ilbo_okng", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input"},
+				{title:"x1", field:"ilbo_pg1", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+			    {title:"x2", field:"ilbo_pg2", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+ 			    {title:"x3", field:"ilbo_pg3", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+				{title:"x4", field:"ilbo_pg4", sorter:"String", width:100,
+					hozAlign:"center", headerFilter:"input"},
+	 			{title:"x5", field:"ilbo_pg5", sorter:"String", width:100,
+				    hozAlign:"center", headerFilter:"input"},
+				    {title:"거래처명", field:"corp_name", sorter:"String", width:100,
+					    hozAlign:"center", headerFilter:"input",visible:false},
+					    {title:"거래처코드", field:"corp_code", sorter:"int", width:100,
+						    hozAlign:"center", headerFilter:"input",visible:false},    
+            ],
+            rowDblClick:function(e, row){
+                let data = row.getData();
+                
+                
+                document.getElementById('prod_name').value = data.prod_name;
+                document.getElementById('corp_name').value = data.corp_name;
+                document.getElementById('prod_no').value = data.prod_no;
+                document.getElementById('corp_code').value = data.corp_code;
+                
+                document.getElementById('jajuListModal').style.display = 'none';
+            }
+        });
+    }
+
+    function closeJajuListModal() {
+        document.getElementById('jajuListModal').style.display = 'none';
+    }
+
 
 
 	
 		
+    // 드래그 기능 추가
+	const modal = document.querySelector('.jajujochiModal');
+	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
+	header.addEventListener('mousedown', function(e) {
+		// transform 제거를 위한 초기 위치 설정
+		const rect = modal.getBoundingClientRect();
+		modal.style.left = rect.left + 'px';
+		modal.style.top = rect.top + 'px';
+		modal.style.transform = 'none'; // 중앙 정렬 해제
+
+		let offsetX = e.clientX - rect.left;
+		let offsetY = e.clientY - rect.top;
+
+		function moveModal(e) {
+			modal.style.left = (e.clientX - offsetX) + 'px';
+			modal.style.top = (e.clientY - offsetY) + 'px';
+		}
+
+		function stopMove() {
+			window.removeEventListener('mousemove', moveModal);
+			window.removeEventListener('mouseup', stopMove);
+		}
+
+		window.addEventListener('mousemove', moveModal);
+		window.addEventListener('mouseup', stopMove);
+	});
+		
+
+	// 모달 열기
+	const insertButton = document.querySelector('.insert-button');
+	const jajujochiModal = document.querySelector('.jajujochiModal');
+	const closeButton = document.querySelector('.close');
+
+	insertButton.addEventListener('click', function() {
+		isEditMode = false;  // 추가 모드
+	    $('#jajuJochiForm')[0].reset(); // 폼 초기화
+	    jajujochiModal.style.display = 'block'; // 모달 표시
+
+		$('.delete').hide();
+	});
+
+	closeButton.addEventListener('click', function() {
+		jajujochiModal.style.display = 'none'; // 모달 숨김
+	});
 
     </script>
 

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,21 +94,159 @@ public class QualityController {
 	  
 	  List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String,
 	  Object>>(); for(int i=0; i<nonInsertList.size(); i++) { HashMap<String,
-	  Object> rowMap = new HashMap<String, Object>(); rowMap.put("werr_date",
-	  nonInsertList.get(i).getWerr_date()); rowMap.put("corp_name",
+	  Object> rowMap = new HashMap<String, Object>(); 
+	  rowMap.put("werr_date", nonInsertList.get(i).getWerr_date()); 
+	  rowMap.put("corp_name",
 	  nonInsertList.get(i).getCorp_name()); rowMap.put("prod_name",
 	  nonInsertList.get(i).getProd_name()); rowMap.put("prod_no",
-	  nonInsertList.get(i).getProd_no()); rowMap.put("werr_lot",
-	  nonInsertList.get(i).getWerr_lot()); rowMap.put("werr_gubn",
+	  nonInsertList.get(i).getProd_no()); rowMap.put("ilbo_lot",
+	  nonInsertList.get(i).getIlbo_lot()); rowMap.put("werr_gubn",
 	  nonInsertList.get(i).getWerr_gubn()); rowMap.put("werr_amnt",
 	  nonInsertList.get(i).getWerr_amnt()); rowMap.put("werr_mon",
 	  nonInsertList.get(i).getWerr_mon());
+	  rowMap.put("werr_code", nonInsertList.get(i).getWerr_code());
 	  
 	  rtnList.add(rowMap); }
 	  
 	  rtnMap.put("last_page",1); rtnMap.put("data",rtnList);
 	  
-	  return rtnMap; }
+	  return rtnMap; 
+	  }
+	  
+	//부적합 설비목록 조회
+	  @RequestMapping(value = "/quality/nonInsert/getNonCorpList", method = RequestMethod.POST) 
+	  @ResponseBody 
+	  public Map<String, Object> getNonCorpList(
+			  @RequestParam Integer fac_code,
+			  @RequestParam Integer ord_code,
+			  @RequestParam Integer prod_code,
+			  @RequestParam Integer ilbo_code,
+			  @RequestParam Integer ilbo_no,
+			  @RequestParam Integer corp_code,
+			  @RequestParam String ilbo_lot
+			  ) {
+		  Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		  Work work = new Work();
+		  work.setFac_code(fac_code);
+		  work.setOrd_code(ord_code);
+		  work.setProd_code(prod_code);
+		  work.setIlbo_code(ilbo_code);
+		  work.setIlbo_no(ilbo_no);
+		  work.setCorp_code(corp_code);
+
+		  List<Work> workList = qualityService.getNonCorpList(work);
+
+		  List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+		  for(int i=0; i<workList.size(); i++) {
+			  HashMap<String, Object> rowMap = new HashMap<String, Object>();
+			  rowMap.put("idx", (i+1));
+			  rowMap.put("fac_name", workList.get(i).getFac_name());
+			  rowMap.put("ord_date", workList.get(i).getOrd_date());
+			  rowMap.put("ilbo_date", workList.get(i).getIlbo_date());
+			  rowMap.put("corp_name", workList.get(i).getCorp_name());
+			  rowMap.put("prod_name", workList.get(i).getProd_name());
+			  rowMap.put("prod_no", workList.get(i).getProd_no());
+			  rowMap.put("tech_te", workList.get(i).getTech_te());
+			  rowMap.put("ilbo_su", workList.get(i).getIlbo_su());
+			  rowMap.put("ord_lot", workList.get(i).getOrd_lot());
+			  rowMap.put("ord_code", workList.get(i).getOrd_code());
+			  rowMap.put("ilbo_lot", workList.get(i).getIlbo_lot());
+			  rowMap.put("fac_code", workList.get(i).getFac_code());
+			  rowMap.put("prod_code", workList.get(i).getProd_code());
+			  rowMap.put("ilbo_code", workList.get(i).getIlbo_code());
+			  rowMap.put("corp_code", workList.get(i).getCorp_code());
+			  rowMap.put("ilbo_no", workList.get(i).getIlbo_no());
+			  rowMap.put("werr_wdate", workList.get(i).getWerr_wdate());
+			  rowMap.put("werr_gubn", workList.get(i).getWerr_gubn());
+			  rowMap.put("werr_lot", workList.get(i).getWerr_lot());
+			  rowMap.put("werr_amnt", workList.get(i).getWerr_amnt());
+			  rowMap.put("werr_mon", workList.get(i).getWerr_mon());
+
+
+			  rtnList.add(rowMap);
+		  }
+
+		  rtnMap.put("last_page",1);
+		  rtnMap.put("data",rtnList);
+
+		  return rtnMap; 
+	  }  
+
+
+	//부적합등록 - insert,update
+	  @RequestMapping(value = "/quality/nonInsert/nonInsertSave", method = RequestMethod.POST)
+	  @ResponseBody
+	  public Map<String, Object> nonInsertSave(
+			  @ModelAttribute Work work,
+			  @RequestParam("mode") String mode) { 
+
+		  System.out.println("mode = " + mode);
+		  System.out.println("werr_code = " + work.getWerr_code());
+		  System.out.println("werr_alert = " + work.getWerr_alert());
+		  Map<String, Object> result = new HashMap<>();
+
+		  try {
+			  if ("insert".equalsIgnoreCase(mode)) {
+				  qualityService.nonInsertSave(work);
+			  } else if ("update".equalsIgnoreCase(mode)) {
+				  qualityService.nonUdateSave(work);  
+			  } else {
+				  throw new IllegalArgumentException("Invalid mode: " + mode);
+			  }
+
+			  result.put("status", "success");
+			  result.put("message", "OK");
+
+		  } catch (Exception e) {
+			  result.put("status", "error");
+			  result.put("message", e.getMessage());
+		  }
+
+		  System.out.println(result.get("status"));
+		  System.out.println(result.get("message"));
+
+
+		  return result;
+	  } 
+	  
+	  
+	//부적합등록 더블클릭조회
+	  @RequestMapping(value = "/quality/nonInsert/nonInsertDetail", method = RequestMethod.POST) 
+	  @ResponseBody 
+	  public Map<String, Object> nonInsertDetail(
+			  @RequestParam int werr_code) {
+		  Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		  Work work = new Work();
+		  work.setWerr_code(werr_code);
+		  Work workList = qualityService.nonInsertDetail(work);
+
+		  rtnMap.put("data",workList);
+
+		  return rtnMap; 
+	  }  
+	  
+	//부적합등록 삭제 - delete
+	  @RequestMapping(value = "/quality/nonInsert/deleteNon", method = RequestMethod.POST)
+	  @ResponseBody
+	  public Map<String, Object> deleteNon(@RequestParam("werr_code") Integer werr_code) {
+		  Map<String, Object> result = new HashMap<>();
+
+		  try {
+			  qualityService.deleteNon(werr_code);
+			  result.put("status", "success");
+			  result.put("message", "삭제 완료");
+		  } catch (Exception e) {
+			  result.put("status", "error");
+			  result.put("message", e.getMessage());
+		  }
+
+		  System.out.println(result.get("status"));
+		  System.out.println(result.get("message"));
+
+		  return result;
+	  }	
 	 
 
 	//자주검사불량현황 - 화면로드
@@ -171,41 +310,41 @@ public class QualityController {
 	
 	
 	//자주검사불량조치관리 조회
-		@RequestMapping(value = "/quality/jajwjochi/getJajuJochiList", method = RequestMethod.POST) 
-		@ResponseBody 
-		public Map<String, Object> getJajuJochiList(
-				@RequestParam String sdate,
-				@RequestParam String edate) {
-			Map<String, Object> rtnMap = new HashMap<String, Object>();
+	@RequestMapping(value = "/quality/jajwjochi/getJajuJochiList", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> getJajuJochiList(
+			@RequestParam String sdate,
+			@RequestParam String edate) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
-			Work work = new Work();
+		Work work = new Work();
 
-			work.setSdate(sdate);
-			work.setEdate(edate);
+		work.setSdate(sdate);
+		work.setEdate(edate);
 
 
-			List<Work> jajuJochiList = qualityService.getJajuJochiList(work);
+		List<Work> jajuJochiList = qualityService.getJajuJochiList(work);
 
-			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
-			for(int i=0; i<jajuJochiList.size(); i++) {
-				HashMap<String, Object> rowMap = new HashMap<String, Object>();	
-				rowMap.put("ord_code", jajuJochiList.get(i).getOrd_code());
-				rowMap.put("corp_name", jajuJochiList.get(i).getCorp_name());
-				rowMap.put("prod_name", jajuJochiList.get(i).getProd_name());
-				rowMap.put("prod_no", jajuJochiList.get(i).getProd_no());
-				rowMap.put("prod_gyu", jajuJochiList.get(i).getProd_gyu());
-				rowMap.put("jerr_rdate", jajuJochiList.get(i).getJerr_rdate());
-				rowMap.put("jerr_gubn", jajuJochiList.get(i).getJerr_gubn());
-				rowMap.put("jerr_jgubn", jajuJochiList.get(i).getJerr_jgubn());
+		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+		for(int i=0; i<jajuJochiList.size(); i++) {
+			HashMap<String, Object> rowMap = new HashMap<String, Object>();	
+			rowMap.put("ord_code", jajuJochiList.get(i).getOrd_code());
+			rowMap.put("corp_name", jajuJochiList.get(i).getCorp_name());
+			rowMap.put("prod_name", jajuJochiList.get(i).getProd_name());
+			rowMap.put("prod_no", jajuJochiList.get(i).getProd_no());
+			rowMap.put("prod_gyu", jajuJochiList.get(i).getProd_gyu());
+			rowMap.put("jerr_rdate", jajuJochiList.get(i).getJerr_rdate());
+			rowMap.put("jerr_gubn", jajuJochiList.get(i).getJerr_gubn());
+			rowMap.put("jerr_jgubn", jajuJochiList.get(i).getJerr_jgubn());
 
-				rtnList.add(rowMap);
-			}
-
-			rtnMap.put("last_page",1);
-			rtnMap.put("data",rtnList);
-
-			return rtnMap; 
+			rtnList.add(rowMap);
 		}
+
+		rtnMap.put("last_page",1);
+		rtnMap.put("data",rtnList);
+
+		return rtnMap; 
+	}
 
 	//Xbar-R관리도 - 화면로드
 	@RequestMapping(value = "/quality/xBar", method = RequestMethod.GET)
@@ -254,6 +393,7 @@ public class QualityController {
 			rowMap.put("ilbo_pg3", queHardList.get(i).getIlbo_pg3());
 			rowMap.put("ilbo_pg4", queHardList.get(i).getIlbo_pg4());
 			rowMap.put("ilbo_pg5", queHardList.get(i).getIlbo_pg5());
+			rowMap.put("user_name", queHardList.get(i).getUser_name());
 
 			rtnList.add(rowMap);
 		}
@@ -314,5 +454,8 @@ public class QualityController {
 
 		return rtnMap; 
 	}
+	
+	
+	
 
 }

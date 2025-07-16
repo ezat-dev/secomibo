@@ -374,7 +374,7 @@ th{
                 "corp_plc": $("#corp_plc").val(),
                 "corp_gubn": $("#corp_gubn").val(),
                 "corp_mast": $("#corp_mast").val(),
-                "corp_code":"",
+                /* "corp_code":"", */
 			    },
 		    placeholder:"조회된 데이터가 없습니다.",
 		    paginationSize:20,
@@ -463,7 +463,7 @@ th{
 				
 				for(let key in allData){
 //					console.log(allData, key);	
-					$("input[name='"+key+"']").val(allData[key]);
+					$("[name='"+key+"']").val(allData[key]);
 				}
 
 				$('.cutumModal').show().addClass('show');

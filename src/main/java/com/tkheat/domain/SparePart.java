@@ -2,7 +2,7 @@ package com.tkheat.domain;
 
 public class SparePart {
 	
-	private int spp_idx;
+	private Integer spp_idx;
 	private String spp_purchase; //매입처
 	private String spp_no; //품번
 	private String spp_name; //품명
@@ -14,6 +14,7 @@ public class SparePart {
 	private int sph_suriout; //수리출고
 	private int sph_jasanout; //자산출고
 	private int spp_jaigo; //재고
+	private String spp_image;
 	
 	
 	
@@ -98,10 +99,10 @@ public class SparePart {
 	public void setSpp_jaigo(int spp_jaigo) {
 		this.spp_jaigo = spp_jaigo;
 	}
-	public int getSpp_idx() {
+	public Integer getSpp_idx() {
 		return spp_idx;
 	}
-	public void setSpp_idx(int spp_idx) {
+	public void setSpp_idx(Integer spp_idx) {
 		this.spp_idx = spp_idx;
 	}
 	public String getSpp_purchase_his() {
@@ -151,6 +152,12 @@ public class SparePart {
 	}
 	public void setSph_bigo(String sph_bigo) {
 		this.sph_bigo = sph_bigo;
+	}
+	public String getSpp_image() {
+		return spp_image;
+	}
+	public void setSpp_image(String spp_image) {
+		this.spp_image = spp_image;
 	}
 
 }

@@ -360,7 +360,7 @@ textarea {
             </colgroup>
             <tbody><tr>
               <th class="left">등록일</th>
-              <td><input id="prod_date" name="prod_date" class="date valPost valClean hasDatepicker" type="date" style="width:100px;" maxlength="20" size="20"></td>
+              <td><input id="prod_date" name="prod_date" type="date" style="width:100px;" maxlength="20" size="20"></td>
               <th>구분</th>
               <td>
                 <select id="prod_gubn" name="prod_gubn" class="basic valPost valClean" style="width:150px;">										
@@ -423,23 +423,23 @@ textarea {
                 <table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
                   <tbody><tr>
                   <th>치수1</th>
-                  <td><input id="prod_chisu1n" name="prod_chisu1n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu1s" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu1n" name="prod_chisu1n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu1s" name="prod_chisu1s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수2</th>
-                  <td><input id="prod_chisu2n" name="prod_chisu2n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu2s" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu2n" name="prod_chisu2n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu2s" name="prod_chisu2s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수3</th>
-                  <td><input id="prod_chisu3n" name="prod_chisu3n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu3s" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu3n" name="prod_chisu3n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu3s" name="prod_chisu3s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수4</th>
-                  <td><input id="prod_chisu4n" name="prod_chisu4n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu4s" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu4n" name="prod_chisu4n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu4s" name="prod_chisu4s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                     <tr>
                   <th>치수5</th>
-                  <td><input id="prod_chisu5n" name="prod_chisu5n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu5s" class="basic valPost valClean" type="text" value=""></td>
+                  <td><input id="prod_chisu5n" name="prod_chisu5n" class="basic valPost valClean" type="text" value="">-<input id="prod_chisu5s" name="prod_chisu5s" class="basic valPost valClean" type="text" value=""></td>
                     </tr>
                 </tbody></table>
               </td>
@@ -964,7 +964,7 @@ textarea {
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"코드", field:"prod_code", sorter:"string", width:120,
-			        hozAlign:"center", headerFilter:"input"},	
+			        hozAlign:"center", headerFilter:"input", visible:false},	
 			    {title:"등록일", field:"prod_date", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},     
 				{title:"거래처명", field:"corp_name", sorter:"string", width:120,
@@ -1023,58 +1023,44 @@ textarea {
 				selectedRowData = data;
 				isEditMode = true;
 				$('#productInsertForm')[0].reset();
-				$('.productModal').show().addClass('show');
+				
 
 				console.log(data);
 				
-				
-				Object.keys(data).forEach(function (key) {
-					console.log(key);
-					
-			        const field = $('#productInsertForm [name="' + key + '"]');
-
-			        if (field.length) {
-			            field.val(data[key]);
-			        }
-				});
-
+				productInsertDetail(data.prod_code);	
 				 $('.delete').show();
 			},
 		});		
 	}
 
-	/* function techNoSelect(){
-		var obj = {
-				"":"전체",
-				"A08":"가스산질화",
-				"A11":"가스연질화",
-				"A12":"가스질화",
-			};
 
-		return obj;	
-	}
-
-
-	
-	function save() {
-
-		var productData = new FormData($("#productInsertForm")[0]);
-
-		console.log($("#productForm")[0]);
-
+	function productInsertDetail(prod_code){
 		$.ajax({
-			url : "/tkheat/management/productInsert/productInsertSave",
-			type : "post",
-			contentType : false,
-			processData : false,
-			dataType : "json",
-			data : productData,
-			success : function(result) {
-				alert("제품이 등록되었습니다.");
-				getProductList();
+			url:"/tkheat/management/productInsert/productInsertDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"prod_code":prod_code
+			},
+			success:function(result){
+				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					if(key == "prod_date"){
+						$("[name='"+key+"']").val(allData[key].substring(0,10));
+					}else{
+						$("[name='"+key+"']").val(allData[key]);
+					}
+					
+				}
+
+				$('.productModal').show().addClass('show');
 			}
 		});
-	} */
+	}
+
 </script>
     
     
@@ -1197,7 +1183,6 @@ textarea {
 	    if (!confirm(confirmMsg)) {
 	        return;
 	    }
-	     
         $.ajax({
             url: "/tkheat/management/productInsert/productInsertSave",
             type: "POST",

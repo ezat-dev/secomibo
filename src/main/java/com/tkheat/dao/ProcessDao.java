@@ -17,5 +17,7 @@ public interface ProcessDao {
 	List<Siljuk> getShortSiljukList(Siljuk siljuk);
 	
 	List<Siljuk> getReadySiljukList(Siljuk siljuk);
+	
+	List<Siljuk> getFacSiljukList(Siljuk siljuk);
 
 }

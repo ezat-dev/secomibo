@@ -327,12 +327,12 @@ th{
                                 <tr>
                                     <th class="left">고장일시</th>
                                     <td>
-                                        <input type="text" class="form-control rp-input" id="terr_date" name="terr_date" value="" placeholder="0000-00-00" style="width:90%;">
+                                        <input type="date"  id="terr_date" name="terr_date" value="" placeholder="0000-00-00" style="width:90%;">
                                     </td>
                                     <th class="left">수리시간</th>
                                     <td>
                                         <input type="text" class="form-control rp-input" id="terr_time" name="terr_time" value="" style="width:90%;" disabled="">
-                                        <input type="text" class="form-control rp-input hidden" id="terr_code" name="terr_code" value="-1" style="width:90%;">
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -412,7 +412,8 @@ th{
 <script>
 	//전역변수
     var cutumTable;	
-
+    var isEditMode = false; //수정,최초저장 구분값
+    
 	//로드
 	$(function(){
 		var tdate = todayDate();
@@ -468,6 +469,18 @@ th{
 			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"소요비용", field:"terr_cost", sorter:"string", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
+		        {title:"기기코드", field:"terr_code", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input", visible:false},
+			    {title:"기기코드", field:"ter_code", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input", visible:false},
+				{title:"소요비용", field:"terr_chkman", sorter:"string", width:100,
+			        hozAlign:"center", headerFilter:"input", visible:false},
+			    {title:"소요비용", field:"terr_suri", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input", visible:false}, 
+			    {title:"소요비용", field:"terr_bigo", sorter:"string", width:100,
+				    hozAlign:"center", headerFilter:"input", visible:false},
+				{title:"소요비용", field:"terr_condi", sorter:"string", width:100,
+					hozAlign:"center", headerFilter:"input", visible:false},		        	    		
 				    
 		    ],
 		    rowFormatter:function(row){
@@ -492,7 +505,119 @@ th{
 				var rowData = row.getData();
 				
 			},
+			rowDblClick:function(e, row){
+
+				var data = row.getData();
+				selectedRowData = data;
+				isEditMode = true;
+				console.log(selectedRowData.terr_code)
+				$('#gigiGojangForm')[0].reset();
+
+				/* Object.keys(data).forEach(function (key) {
+			        const field = $('#begaInsertForm [name="' + key + '"]');
+
+			        if (field.length) {
+			            field.val(data[key]);
+			        }
+				}); */
+				gigiGojangtDetail(data.terr_code);
+				 $('.delete').show();
+			},
 		});		
+	}
+
+	function gigiGojangtDetail(terr_code){
+		$.ajax({
+			url:"/tkheat/preservation/gigiGojang/gigiGojangtDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"terr_code":terr_code
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("input[name='"+key+"']").val(allData[key]);
+				}
+
+				$('.gojangModal').show().addClass('show');
+			}
+		});
+	}
+
+
+	//측정기기고장이력 저장
+    function save() {
+	    var formData = new FormData($("#gigiGojangForm")[0]);
+
+	    let confirmMsg = "";
+
+	    if (isEditMode && selectedRowData && selectedRowData.terr_code) {
+	        formData.append("mode", "update");
+	        formData.append("terr_code", selectedRowData.terr_code);
+	        confirmMsg = "수정하시겠습니까?";
+	    } else {
+	        formData.append("mode", "insert");
+	        confirmMsg = "저장하시겠습니까?";
+	    }
+
+	    if (!confirm(confirmMsg)) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/gigiGojang/gigiGojangSave",
+	        type: "POST",
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        dataType: "json",
+	        success: function(result) {
+	            alert("저장 되었습니다.");
+	            $(".gojangModal").hide();
+	            getGigiGojangList();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("저장 오류:", error);
+	        }
+	    });
+	}
+
+
+	function deleteGigiGojang() {
+	    if (!selectedRowData || !selectedRowData.terr_code) {
+	        alert("삭제할 대상을 선택하세요.");
+	        return;
+	    }
+
+	    if (!confirm("삭제하시겠습니까?")) {
+	        return;
+	    }
+
+	    $.ajax({
+	        url: "/tkheat/preservation/gigiGojang/deleteGigiGojang",
+	        type: "POST",
+	        data: {
+	        	terr_code: selectedRowData.terr_code
+	        },
+	        dataType: "json",
+	        success: function(result) {
+	            if (result.status === "success") {
+	                alert("삭제되었습니다.");
+	                $(".gojangModal").hide();
+	                getGigiGojangList();
+	            } else {
+	                alert("삭제 중 오류가 발생했습니다: " + result.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("삭제 오류:", error);
+	            alert("삭제 요청 중 오류가 발생했습니다.");
+	        }
+	    });
 	}
 	
 
@@ -545,29 +670,7 @@ th{
 
 
 
-	//측정기기고장이력 저장
-    function save() {
-        var formData = new FormData($("#gigiGojangForm")[0]);  
-        $.ajax({
-            url: "/tkheat/preservation/gigiGojang/gigiGojangSave",
-            type: "POST",
-            data: formData,
-            contentType: false,    
-            processData: false,   
-            dataType: "json",      
-            success: function(result) {
-                console.log(result);
-                
-                alert("저장 되었습니다.");
-                $(".gojangModal").hide();
-                getGigiGojangList();
-                
-            },
-            error: function(xhr, status, error) {
-                console.error("저장 오류:", error);
-            }
-        });
-    }
+	
 		
 
 

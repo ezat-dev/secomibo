@@ -118,6 +118,32 @@ function paddingZero(value){
 	return rtn;
 }
 
+function trendStime(){
+	var now = new Date();
+	now.setHours(now.getHours() - 8);
+	
+	var ye = now.getFullYear();
+	var mo = paddingZero(now.getMonth()+1);
+	var da = paddingZero(now.getDate());
+	
+	var ho = paddingZero(now.getHours());
+	var mi = paddingZero(now.getMinutes());
+		
+	return ye+"-"+mo+"-"+da+" "+ho+":"+mi; 
+}
+
+function trendEtime(){
+	var now = new Date();
+	var ye = now.getFullYear();
+	var mo = paddingZero(now.getMonth()+1);
+	var da = paddingZero(now.getDate());
+	
+	var ho = paddingZero(now.getHours());
+	var mi = paddingZero(now.getMinutes());
+		
+	return ye+"-"+mo+"-"+da+" "+ho+":"+mi; 
+}
+
 function rpImagePopup() {
     var img = document.createElement("img");
 //    console.log(img);
@@ -174,11 +200,11 @@ function pageObject(paramKey){
 			"a10":["/tkheat/product/ipChulDelete","입출고삭제현황"],
 			"b01":["/tkheat/production/workInstruction","작업지시"],
 			"b02":["/tkheat/production/workStatus","작업현황"],
-			"b03":["/tkheat/production/nonReprot","부적합보고서"],
+			"b03":"",
 			"b04":["/tkheat/production/prodWaitingStatus","생산대기현황"],
 			"b05":["/tkheat/production/lotIpgo","LOT추적관리(입고)"],
 			"b06":["/tkheat/production/lotHeat","LOT추적관리(열처리LOT)"],
-			"b07":["/tkheat/production/workSchedule","작업스케줄"],
+			"b07":"",
 			"c01":["/tkheat/process/cleanSiljuk","전세정작업실적"],
 			"c02":["/tkheat/process/chimSiljuk","침탄작업실적"],
 			"c03":"",//기존 : 각로별작업실적
@@ -208,7 +234,7 @@ function pageObject(paramKey){
 			"f03":["/tkheat/quality/nonInsert","부적합등록"],
 			"f04":["/tkheat/quality/xBar","Xbar-R관리도"],
 			"f05":["/tkheat/quality/jajuStatus","자주검사불량현황"],//기존 : LOT추적
-			"f06":["/tkheat/quality/jajuJochi","자주검사불량조치관리"],//기존 : 월별 불량현황
+			"f06":"",
 			"f07":"",//기존 : 세척청정도검사
 			"f08":["/tkheat/quality/queHard","소입경도현황"],
 			"f09":["/tkheat/quality/temHard","템퍼링경도현황"],
@@ -217,7 +243,7 @@ function pageObject(paramKey){
 			"g03":["/tkheat/operation/prodSiljuk","제품별작업실적"],
 			"g04":["/tkheat/operation/cuIpgoStatus","거래처별입고현황"],
 			"g05":["/tkheat/operation/cuChulgoStatus","거래처별출고현황"],
-			"g06":["/tkheat/operation/facSiljuk","설비별작업실적"],
+			"g06":"",
 			"g07":["/tkheat/operation/monthSale","월매출현황(마감)"],
 			"g08":"",//기존 : 없음
 			"g09":"",//기존 : 입고현황(종합)

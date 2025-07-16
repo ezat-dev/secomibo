@@ -20,5 +20,9 @@ public class MonitoringServiceImpl implements MonitoringService{
 	        return monitoringDao.getMonitoringList();
 	    }
 	
+	 @Override
+		public List<Monitoring > gettrend(Monitoring monitoring) {
+		    return monitoringDao.gettrend(monitoring); 	   
+		}
 
 }

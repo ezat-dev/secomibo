@@ -16,6 +16,8 @@ public interface ProductionDao {
 	
 	List<Work> getNonReportList(Work work);
 	
+	Work nonReportDetail(Work work);
+	
 	List<Ipgo> getNonReportIpgoList(Ipgo ipgo);
 	
 	void nonReportInsertSave(Work work);

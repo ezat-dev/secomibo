@@ -37,6 +37,11 @@ public class Siljuk {
 		private int sum_su;
 		private int ilbo_su;				//생산 수량
 		private String ilbo_jung;
+		private int ilbo_mon;
+		
+		
+		private int time;
+		private int mon;
 		
 		//TECHIN 테이블
 		private String tech_te;				//공정
@@ -239,6 +244,24 @@ public class Siljuk {
 		}
 		public void setProd_gubn(String prod_gubn) {
 			this.prod_gubn = prod_gubn;
+		}
+		public int getIlbo_mon() {
+			return ilbo_mon;
+		}
+		public void setIlbo_mon(int ilbo_mon) {
+			this.ilbo_mon = ilbo_mon;
+		}
+		public int getMon() {
+			return mon;
+		}
+		public void setMon(int mon) {
+			this.mon = mon;
+		}
+		public int getTime() {
+			return time;
+		}
+		public void setTime(int time) {
+			this.time = time;
 		}
 	
 	

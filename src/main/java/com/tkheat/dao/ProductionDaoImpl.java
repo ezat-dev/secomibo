@@ -36,6 +36,11 @@ public class ProductionDaoImpl implements ProductionDao{
 	}
 	
 	@Override
+	public Work nonReportDetail(Work work) {
+		return sqlSession.selectOne("work.nonReportDetail",work);
+	}
+	
+	@Override
 	public List<Ipgo> getNonReportIpgoList(Ipgo ipgo) {
 		return sqlSession.selectList("ipgo.getNonReportIpgoList",ipgo);
 	}

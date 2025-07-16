@@ -314,6 +314,33 @@
 	</select>
 	
 	
+	<!-- 부적합보고서 더블클릭 조회 -->
+	<select id="nonReportDetail" parameterType="work" resultType="work">
+		select 		
+		dbo.WORKERR.WERR_AMNT,dbo.WORKERR.WERR_GUBN,WERR_CODE,WERR_JNOTE,WERR_CASE, WERR_NOTE, WERR_GNOTE,WERR_LOT,
+		        WERR_AMNT,WERR_TEAM,WERR_JGUBN,WERR_USER, WERR_FNAME,
+		       PRODUCT.PROD_NAME, PRODUCT.PROD_NO, PRODUCT.PROD_GYU, WERR_JNOTE, WERR_CASE, WERR_NOTE, WERR_GNOTE,  
+		       LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120), 120), 10) as WERR_WDATE,
+		       LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120), 10) as WERR_DATE,
+               PRODUCT.PROD_JAI, CORP.CORP_NAME, TECHIN.TECH_TE, PRODUCT.PROD_PG, 
+               PRODUCT.PROD_PG1, PRODUCT.PROD_PG2, 
+               PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2 AS ProdPG, 
+               PRODUCT.PROD_SG, PRODUCT.PROD_SG1, PRODUCT.PROD_SG2, 
+               PRODUCT.PROD_SG + ' ' + PRODUCT.PROD_SG1 + '~' + PRODUCT.PROD_SG2 AS ProdSG, 
+               PRODUCT.PROD_GD4, PRODUCT.PROD_GD5, 
+               PRODUCT.PROD_GD4 + '~' + PRODUCT.PROD_GD5 AS ProdCd,ORDERT.ORD_CODE, LEFT(CONVERT(VARCHAR, CONVERT(datetime, dbo.ORDERT.ORD_DATE, 120), 120), 10) as ORD_DATE, 
+               ORDERT.ORD_LOT, WORKILBO.ILBO_CODE, WORKILBO.ILBO_NO, WERR_FAC, WERR_FNAME, WERR_INOUTGUBN
+		from WORKERR 
+				INNER JOIN WORKILBO ON WORKILBO.ILBO_CODE = WORKERR.ILBO_CODE and WORKILBO.ILBO_NO = WORKERR.ILBO_NO
+				INNER JOIN ORDERT ON WORKILBO.ORD_CODE = ORDERT.ORD_CODE 
+				INNER JOIN PRODUCT ON ORDERT.PROD_CODE = PRODUCT.PROD_CODE 
+				INNER JOIN TECHIN ON PRODUCT.TECH_NO = TECHIN.TECH_NO 
+				INNER JOIN CORP ON PRODUCT.CORP_CODE = CORP.CORP_CODE 
+		where WERR_CODE = #{werr_code};
+	
+	</select>
+	
+	
 	
 	<!-- 부적합보고서 등록 insert -->
 	<insert id="nonReportInsertSave" parameterType="work">
@@ -404,6 +431,120 @@
 		WORKILBO.FAC_CODE = FACILITY.FAC_CODE
 		where WERR_DATE between #{sdate} and #{edate}
 	</select>
+	
+	
+	<select id="getNonCorpList" parameterType="work" resultType="work">
+		SELECT ROW_NUMBER()OVER(ORDER BY WORKERR.WERR_DATE,CORP.CORP_NAME, PRODUCT.PROD_NAME ) AS ROW_NUM ,  
+			   LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120), 120), 10) as WERR_WDATE,
+			   LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120), 10) as WERR_DATE,
+			   CORP.CORP_NAME,
+			   PRODUCT.PROD_NAME,
+			   PRODUCT.PROD_NO,
+			   LEFT(CONVERT(VARCHAR, CONVERT(datetime, ORDERT.ORD_DATE, 120), 120), 10)          as ORD_DATE,
+			   FACILITY.FAC_NAME,
+			   WORKERR.WERR_AMNT,
+			   WORKERR.WERR_GUBN,
+			   WORKERR.WERR_MON,
+			   WORKERR.WERR_CODE,
+			   WORKILBO.ILBO_LOT,
+			   CASE WORKILBO.ILBO_GUBN
+				   WHEN 'A'
+					   THEN '침탄'
+				   WHEN 'P'
+					   THEN '전세정'
+				   WHEN 'B'
+					   THEN '방탄'
+				   WHEN 'H'
+					   THEN '고주파'
+				   WHEN 'F'
+					   THEN '후세정'
+				   WHEN 'S'
+					   THEN '쇼트'
+				   WHEN 'V'
+					   THEN '진공'
+				   END                                                                           as ILBO_GUBN,
+			   WORKERR.WERR_FAC
+		FROM   WORKERR
+		INNER JOIN  WORKILBO ON  WORKERR.ILBO_CODE =  WORKILBO.ILBO_CODE AND   WORKERR.ILBO_NO =  WORKILBO.ILBO_NO
+		INNER JOIN  ORDERT ON  WORKILBO.ORD_CODE =  ORDERT.ORD_CODE INNER JOIN  PRODUCT ON  ORDERT.PROD_CODE =  PRODUCT.PROD_CODE
+		INNER JOIN  CORP ON  PRODUCT.CORP_CODE =  CORP.CORP_CODE LEFT OUTER JOIN  FACILITY ON  WORKILBO.FAC_CODE =  FACILITY.FAC_CODE
+		
+	</select>
+	
+	
+	<select id="nonInsertDetail" parameterType="work" resultType="work">
+		SELECT ROW_NUMBER()OVER(ORDER BY WORKERR.WERR_DATE,CORP.CORP_NAME, PRODUCT.PROD_NAME ) AS ROW_NUM ,  
+			LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_WDATE, 120), 120), 10) as WERR_WDATE,
+			LEFT(CONVERT(VARCHAR, CONVERT(datetime, WORKERR.WERR_DATE, 120), 120), 10) as WERR_DATE,
+			concat(YEAR(WORKERR.WERR_DATE) , '-' , format(MONTH(WORKERR.WERR_DATE) , '00')) as WERR_MONTH,
+			CORP.CORP_NAME,  PRODUCT.PROD_NAME,  PRODUCT.PROD_NO, LEFT(CONVERT(VARCHAR, CONVERT(datetime,  ORDERT.ORD_DATE, 120), 120), 10) as ORD_DATE,
+			FACILITY.FAC_NAME,  WORKERR.WERR_AMNT,  WORKERR.WERR_GUBN, WERR_CODE, WORKERR.ILBO_CODE, WORKERR.ILBO_NO,
+	        WORKERR.WERR_GNOTE,  WORKERR.WERR_CASE,  WORKERR.WERR_JGUBN, WORKERR.WERR_MON,
+	        WORKERR.WERR_JNOTE,  WORKERR.WERR_NOTE,  WORKERR.WERR_YU, LEFT(CONVERT(NVARCHAR,CHECK_DATEA, 120), 10) AS CHECK_DATEA, LEFT(CONVERT(NVARCHAR,CHECK_DATEB, 120), 10) AS CHECK_DATEB, 
+	        LEFT(CONVERT(NVARCHAR,CHECK_DATEC, 120), 10) AS CHECK_DATEC, WERR_USER1, WERR_USER2, WERR_USER3, WERR_NOTE1, WERR_NOTE2, WERR_NOTE3, WERR_BIGO1, WERR_BIGO2, WERR_BIGO3, WERR_ALERT , WERR_FNAME,
+			WERR_LOT,WERR_YU,WERR_AMNT,WERR_USER,WERR_REP,TECH_TE,WERR_INOUTGUBN,
+			CASE WORKILBO.ILBO_GUBN
+		           WHEN 'A' 
+		           THEN '침탄' 
+		           WHEN 'P' 
+		           THEN '전세정' 
+		           WHEN 'B' 
+		           THEN '방탄' 
+		           WHEN 'H' 
+		           THEN '고주파' 
+		           WHEN 'F' 
+		           THEN '후세정' 
+		           WHEN 'S' 
+		           THEN '쇼트' 
+		           WHEN 'V' 
+		           THEN '진공' 
+		       END as ILBO_GUBN,
+		       WERR_FAC, 
+		       WERR_BUSO
+		FROM   TECHIN INNER JOIN
+                FACILITY ON  TECHIN.TECH_NO =  FACILITY.TECH_NO RIGHT OUTER JOIN
+                WORKERR INNER JOIN
+                WORKILBO ON  WORKERR.ILBO_CODE =  WORKILBO.ILBO_CODE AND 
+                WORKERR.ILBO_NO =  WORKILBO.ILBO_NO INNER JOIN
+                ORDERT ON  WORKILBO.ORD_CODE =  ORDERT.ORD_CODE INNER JOIN
+                PRODUCT ON  ORDERT.PROD_CODE =  PRODUCT.PROD_CODE INNER JOIN
+                CORP ON  PRODUCT.CORP_CODE =  CORP.CORP_CODE ON 
+                FACILITY.FAC_CODE =  WORKILBO.FAC_CODE
+		WHERE WERR_CODE=#{werr_code}
+	</select>
+	
+	<insert id="nonInsertSave" parameterType="work">
+		insert into workerr (WERR_CODE,ILBO_CODE,ILBO_NO,WERR_DATE,WERR_YU,WERR_WDATE,WERR_MON,WERR_LOT,WERR_USER,WERR_REP,WERR_AMNT,WERR_GUBN,WERR_GNOTE,WERR_CASE,
+		WERR_JGUBN,WERR_JNOTE,CHECK_DATEA,CHECK_DATEB,CHECK_DATEC,WERR_USER1,WERR_USER2,WERR_USER3,WERR_NOTE1,WERR_NOTE2,WERR_NOTE3,WERR_BIGO1,WERR_BIGO2,WERR_BIGO3,WERR_ALERT,WERR_FNAME
+		,WERR_INOUTGUBN, WERR_BUSO) 
+		
+		values((select isnull(max(WERR_CODE), 0)+1 from workerr),#{ilbo_code},#{ilbo_no},#{werr_date},#{werr_yu},#{werr_wdate},#{werr_mon},#{werr_lot},#{werr_user},#{werr_rep},#{werr_amnt},
+		#{werr_gubn},#{werr_gnote},#{werr_case},#{werr_jgubn},#{werr_jnote},#{check_date_a},#{check_date_b},#{check_date_c},#{werr_user1},#{werr_user2},#{werr_user3},
+		#{werr_note1},#{werr_note2},#{werr_note3},#{werr_bigo1},#{werr_bigo2},#{werr_bigo3},#{werr_alert},#{werr_fname},#{werr_in_out_gubn},#{werr_buso})
+	</insert>
+	
+	
+	<update id="nonUdateSave" parameterType="work">
+		update workerr set ILBO_CODE= #{ilbo_code},ILBO_NO= #{ilbo_no},WERR_DATE= #{werr_date},WERR_YU= #{werr_yu},WERR_WDATE= #{werr_wdate},WERR_MON=#{werr_mon},WERR_LOT= #{werr_lot},WERR_USER = #{werr_user},
+			WERR_REP= #{werr_rep},WERR_AMNT= #{werr_amnt},WERR_GUBN= #{werr_gubn},WERR_GNOTE= #{werr_gnote},WERR_CASE= #{werr_case},WERR_JGUBN= #{werr_jgubn},WERR_JNOTE= #{werr_jnote},
+			CHECK_DATEA= #{check_date_a},CHECK_DATEB= #{check_date_b},CHECK_DATEC= #{check_date_c}, WERR_USER1= #{werr_user1},  WERR_USER2= #{werrUser2}, WERR_USER3= #{werrUser3},  WERR_NOTE1= #{werr_note1},
+			 WERR_NOTE2= #{werr_note2}, WERR_NOTE3= #{werr_note3}, WERR_BIGO1= #{werr_bigo1}, WERR_BIGO2= #{werr_bigo2}, WERR_BIGO3= #{werr_bigo3},WERR_ALERT= #{werr_alert}, WERR_FNAME = #{werr_fname},
+			 WERR_INOUTGUBN = #{werr_in_out_gubn}, WERR_BUSO = #{werr_buso}
+		where WERR_CODE = #{werr_code}
+	</update>
+	
+	
+	<delete id="deleteNon" parameterType="int">
+		delete from workerr		
+		where WERR_CODE = #{werr_code}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
 
 
 
@@ -451,7 +592,7 @@
 		ELSE
 		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
 		END
-		AS PYO,
+		AS PROD_PG,
 		ILBO_OKNG
 		from WORKILBO
 		INNER JOIN ORDERT ON ORDERT.ORD_CODE =
@@ -488,7 +629,7 @@
 		ELSE
 		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
 		END
-		AS PYO,
+		AS PROD_PG,
 		ILBO_OKNG
 		from WORKILBO
 		INNER JOIN ORDERT ON ORDERT.ORD_CODE =
@@ -532,14 +673,14 @@
 		ELSE
 		PRODUCT.PROD_PG + ' ' + PRODUCT.PROD_PG1 + '~' + PRODUCT.PROD_PG2
 		END
-		AS PYO,
+		AS PROD_PG,
 		ILBO_OKNG,
 		CASE WHEN ILBO_GUBN = 'A'
 		THEN '소입'
 		WHEN ILBO_GUBN =
 		'R'
 		THEN '템퍼링'
-		END AS GUBN
+		END AS ILBO_GUBN
 		from WORKILBO
 		INNER JOIN ORDERT ON
 		ORDERT.ORD_CODE =
@@ -609,6 +750,37 @@
 			#{prodGyu} + '%' </if> <if test="prodJai != null"> and PRODUCT.PROD_JAI like 
 			+ '%' + #{prodJai} + '%' </if> -->
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <insert id="setWorkSetSave" parameterType="work">
 		INSERT 
 		  INTO PLANP_D 
@@ -832,4 +1004,77 @@
 		       PRODUCT.PROD_NAME  
 		
 	</select>
+	
+	
+	<!-- 월별불량현황 조회 -->
+	<select id="getMonthBulList" parameterType="work" resultType="work">
+	with getMonthSUM as(
+			select
+				isnull( subString(CONVERT(VARCHAR, tn.WERR_WDATE, 120), 6,2), '') as month,
+				isnull(sum(tn.WERR_AMNT), 0)                                      as WERR_AMNT_byMonth,
+				isnull(tn.WERR_GUBN, '')                                          as WERR_GUBN
+			from WORKERR tn
+			where 1 = 1
+			  and LEFT(CONVERT(VARCHAR, tn.WERR_WDATE, 120), 4) = #{sdate}
+				group by WERR_GUBN, tn.WERR_WDATE
+		)
+		select a.WERR_GUBN
+			/*, WERR_INOUTGUBN*/
+			 , sum(case when a.month=1  then a.WERR_AMNT_byMonth else  0 end ) as m1
+			 , sum(case when a.month=2  then a.WERR_AMNT_byMonth else  0 end ) as m2
+			 , sum(case when a.month=3  then a.WERR_AMNT_byMonth else  0 end ) as m3
+			 , sum(case when a.month=4  then a.WERR_AMNT_byMonth else  0 end ) as m4
+			 , sum(case when a.month=5  then a.WERR_AMNT_byMonth else  0 end ) as m5
+			 , sum(case when a.month=6  then a.WERR_AMNT_byMonth else  0 end ) as m6
+			 , sum(case when a.month=7  then a.WERR_AMNT_byMonth else  0 end ) as m7
+			 , sum(case when a.month=8  then a.WERR_AMNT_byMonth else  0 end ) as m8
+			 , sum(case when a.month=9  then a.WERR_AMNT_byMonth else  0 end ) as m9
+			 , sum(case when a.month=10 then a.WERR_AMNT_byMonth else  0 end ) as m10
+			 , sum(case when a.month=11 then a.WERR_AMNT_byMonth else  0 end ) as m11
+			 , sum(case when a.month=12 then a.WERR_AMNT_byMonth else  0 end ) as m12
+			 , format(
+				( ( sum( case when a.month=1   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=2   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=3   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=4   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=5   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=6   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=7   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=8   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=9   then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=10  then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=11  then a.WERR_AMNT_byMonth else  0 end ) +
+					sum( case when a.month=12  then a.WERR_AMNT_byMonth else  0 end )
+					  ) / 12)
+			, '0.0' )  as average_SUM
+		from getMonthSUM as a
+		group by WERR_GUBN
+		/*, WERR_INOUTGUBN*/
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -337,13 +337,13 @@ td#bde295 {
     
 
     <tr>
-      <td class="tem1-cutum-1" id="cutum"></td>
-      <td class="tem1-pum-1" id="cutum"></td>
-      <td class="tem1-lot-1" id="cutum"></td>
-      <td class="tem1-spare-1" id="prod" colspan="2.67"></td>
-      <td class="tem1-zone-1" id="prod" colspan="2.67"></td>
-      <td class="tem1-zone-2" id="prod" colspan="2.67"></td>
-      <td class="tem1-zone-3" id="prod" colspan="2"></td>
+      <td class="tf1-cutum-1" id="cutum"></td>
+      <td class="tf1-pum-1" id="cutum"></td>
+      <td class="tf1-lot-1" id="cutum"></td>
+      <td class="tf1-spare-1" id="prod" colspan="2.67"></td>
+      <td class="tf1-zone-1" id="prod" colspan="2.67"></td>
+      <td class="tf1-zone-2" id="prod" colspan="2.67"></td>
+      <td class="tf1-zone-3" id="prod" colspan="2"></td>
     </tr>
 
 
@@ -362,7 +362,7 @@ td#bde295 {
       <td class="wm1-pum-1" id="cutum"></td>
       <td class="wm1-lot-1" id="cutum"></td>
       <td class="wm1-spare-1" id="prod" colspan="2.67"></td>
-      <td class="wm1-zone-1" id="prod" colspan="6"></td>
+      <td class="wm1-time-1" id="prod" colspan="6"></td>
     </tr>
     
     </tbody>

@@ -42,9 +42,21 @@ public class ManagementServiceImpl implements ManagementService {
 		managementDao.authorityUserSelectSave(permission);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Product> getProductList(Product product){
 		return managementDao.getProductList(product);
+	}
+	
+	@Override
+	public Product productInsertDetail(Product product) {
+		return managementDao.productInsertDetail(product);
 	}
 	
 	@Override
@@ -98,6 +110,11 @@ public class ManagementServiceImpl implements ManagementService {
 	@Override
 	public List<Fac> getFacList(Fac fac){
 		return managementDao.getFacList(fac);
+	}
+	
+	@Override
+	public Fac facInsertDetail(Fac fac) {
+		return managementDao.facInsertDetail(fac);
 	}
 	
 	@Override
@@ -171,6 +188,9 @@ public class ManagementServiceImpl implements ManagementService {
 	public List<Standard> getGoStandardList(Standard standard){
 		return managementDao.getGoStandardList(standard);
 	}
+	
+	
+	
 	
 	@Override
     public void insertUser(Users users) {

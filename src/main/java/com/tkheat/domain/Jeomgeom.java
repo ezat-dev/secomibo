@@ -2,9 +2,9 @@ package com.tkheat.domain;
 
 public class Jeomgeom {
 	
-	private int chs_code;
-	private int fac_code;
-	private String chs_no; //설비그룹
+	private Integer chs_code;
+	private Integer fac_code;
+	private Integer chs_no; //설비그룹
 	private String fac_name; //설비명
 	private String fac_no; //설비번호
 	private String chs_sort; //순번
@@ -23,10 +23,10 @@ public class Jeomgeom {
 	
 	
 	
-	public String getChs_no() {
+	public Integer getChs_no() {
 		return chs_no;
 	}
-	public void setChs_no(String chs_no) {
+	public void setChs_no(Integer  chs_no) {
 		this.chs_no = chs_no;
 	}
 	public String getFac_name() {
@@ -119,16 +119,16 @@ public class Jeomgeom {
 	public void setTech_ht(String tech_ht) {
 		this.tech_ht = tech_ht;
 	}
-	public int getChs_code() {
+	public Integer getChs_code() {
 		return chs_code;
 	}
-	public void setChs_code(int chs_code) {
+	public void setChs_code(Integer chs_code) {
 		this.chs_code = chs_code;
 	}
-	public int getFac_code() {
+	public Integer getFac_code() {
 		return fac_code;
 	}
-	public void setFac_code(int fac_code) {
+	public void setFac_code(Integer fac_code) {
 		this.fac_code = fac_code;
 	}
 	

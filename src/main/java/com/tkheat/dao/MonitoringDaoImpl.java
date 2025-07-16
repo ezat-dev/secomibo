@@ -19,5 +19,10 @@ public class MonitoringDaoImpl implements MonitoringDao{
     public List<Monitoring> getMonitoringList() {
 		return sqlSession.selectList("monitoring.getMonitoringList");
     }
+	
+	@Override
+    public List<Monitoring> gettrend(Monitoring monitoring) { 
+      return sqlSession.selectList("monitoring.gettrend", monitoring);
+    }
 
 }

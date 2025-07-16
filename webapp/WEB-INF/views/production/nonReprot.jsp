@@ -336,9 +336,9 @@ th{
 								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
 									<tr>
 										<th class="">작성일</th>
-										<td class=""><input id="werr_date" name="werr_date"class="date js-datepicker" type="date" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
+										<td class=""><input id="werr_date" name="werr_date" type="date" style="width:100px;"  maxlength="20" size="20"  /></td>
 										<th class="">발생일</th>
-										<td class=""><input id="werr_wdate" name="werr_wdate" class="date js-datepicker" type="date" style="width:100px;" value="2025-04-16" maxlength="20" size="20" readonly="readonly" /></td>
+										<td class=""><input id="werr_wdate" name="werr_wdate" type="date" style="width:100px;"  maxlength="20" size="20"  /></td>
 										<th class="">설비선택</th>
 										<td>
 										<select id="werr_fac" name="werr_fac" class="basic"style="width: 100px">									
@@ -543,7 +543,7 @@ th{
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"werr_code", sorter:"int", width:80,
+		    	{title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},
 		        {title:"발생일", field:"werr_wdate", sorter:"string", width:120,
 			        hozAlign:"center", headerFilter:"input"},	
@@ -563,6 +563,12 @@ th{
 			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"수량", field:"werr_amnt", sorter:"int", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
+			    {title:"NO", field:"werr_code", sorter:"int", width:80,
+			        hozAlign:"center", visible:false},	
+			    {title:"NO", field:"ilbo_code", sorter:"int", width:80,
+				    hozAlign:"center", visible:false},	
+				{title:"NO", field:"ilbo_no", sorter:"int", width:80,
+					hozAlign:"center", visible:false},	
 				    
 		    ],
 		    rowFormatter:function(row){
@@ -593,20 +599,46 @@ th{
 				selectedRowData = data;
 				isEditMode = true;
 				$('#nonReportForm')[0].reset();
-				$('.nonReportModal').show().addClass('show');
+				
 
-				Object.keys(data).forEach(function (key) {
+				/* Object.keys(data).forEach(function (key) {
 			        const field = $('#nonReportForm [name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);
 			        }
-				});
-
+				}); */
+				nonReportDetail(data.werr_code);
 				 $('.delete').show();
 			},
 		});		
 	}
+
+	
+	function nonReportDetail(werr_code){
+		$.ajax({
+			url:"/tkheat/production/nonReport/nonReportDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"werr_code":werr_code
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("input[name='"+key+"']").val(allData[key]);
+				}
+
+				$('.nonReportModal').show().addClass('show');
+			}
+		});
+	}
+
+
+	
 
 
 
@@ -663,7 +695,21 @@ th{
             selectable:true,
             ajaxURL:"/tkheat/production/nonReport/getNonReportIpgoList",
             ajaxConfig:"POST",
-            ajaxParams:{},
+            ajaxParams:{
+            	"ord_code": "",
+                "corp_name": "",
+                "prod_name": "",
+                "prod_no": "",
+                "prod_gyu": "", 
+                "prod_jai": "",
+                "tech_te": "",
+                "prod_pg": "",
+                "prod_no": "",
+                "prod_sg": "", 
+                "ord_date": "",
+                "ord_lot": "", 
+
+                },
 		    ajaxResponse:function(url, params, response){
 //				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
 				console.log(response);
@@ -760,7 +806,7 @@ th{
 	}
 
 
-	function deleteNonReport() {
+	function deleteNonReprot() {
 	    if (!selectedRowData || !selectedRowData.werr_code) {
 	        alert("삭제할 대상을 선택하세요.");
 	        return;

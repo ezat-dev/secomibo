@@ -5,7 +5,7 @@ public class Suri {
 	private String sdate;
 	private String edate;
 	
-	private int fac_code;
+	private Integer fac_code;
 	private String fac_no; //설비코드
 	private String fac_name; //설비명
 	private String ffx_date; //수리일자
@@ -16,7 +16,7 @@ public class Suri {
 	private String ffx_man; //담당자
 	private String ffx_next_date; //차기점검일
 	private float ffx_check; //수리완료여부
-	private int ffx_no;
+	private Integer ffx_no; 
 	private String ffx_evt;
 	private String ffx_time;
 	private String ffx_next;
@@ -107,16 +107,16 @@ public class Suri {
 	public void setEdate(String edate) {
 		this.edate = edate;
 	}
-	public int getFfx_no() {
+	public Integer getFfx_no() {
 		return ffx_no;
 	}
-	public void setFfx_no(int ffx_no) {
+	public void setFfx_no(Integer ffx_no) {
 		this.ffx_no = ffx_no;
 	}
-	public int getFac_code() {
+	public Integer getFac_code() {
 		return fac_code;
 	}
-	public void setFac_code(int fac_code) {
+	public void setFac_code(Integer fac_code) {
 		this.fac_code = fac_code;
 	}
 	public String getFfx_evt() {

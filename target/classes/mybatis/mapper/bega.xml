@@ -83,6 +83,21 @@
 	)
 	</insert>
 	
+	<!-- 설비비가동등록 더블클릭 조회 -->
+	<select id="begaInsertDetail" parameterType="bega" resultType="bega">
+		SET LOCK_TIMEOUT 10000;
+		SELECT  FACSTOP.FSTP_CODE, FACSTOP.FAC_CODE, LEFT(CONVERT(VARCHAR, CONVERT(datetime,
+               FACSTOP.FSTP_DATE, 120), 120), 10) AS FSTP_DATE, FACSTOP.FSTP_PLAN, FACSTOP.FSTP_TU,
+               FACSTOP.FSTP_STBY, FACSTOP.FSTP_SIL, FACSTOP.FSTP_MAN, FACSTOP.FSTP_MHR,
+               FACSTOP.FSTP_01, FACSTOP.FSTP_02, FACSTOP.FSTP_03, FACSTOP.FSTP_04,
+               FACSTOP.FSTP_05, FACSTOP.FSTP_06, FACSTOP.FSTP_07, FACSTOP.FSTP_08,
+               FACSTOP.FSTP_09, FACSTOP.FSTP_10, FACSTOP.FSTP_BIGO, FACILITY.FAC_NAME
+		FROM     FACSTOP WITH(NOLOCK) INNER JOIN
+               FACILITY WITH(NOLOCK) ON FACSTOP.FAC_CODE = FACILITY.FAC_CODE
+			where FSTP_CODE = #{fstp_code}
+	
+	</select>
+	
 	
 	<update id="begaUpdateSave" parameterType="bega">
 		UPDATE FACSTOP 
@@ -119,7 +134,15 @@
 	
 	
 	
-	
+	<select id="getBegaAnalyList" parameterType="bega" resultType="bega">
+		SET LOCK_TIMEOUT 10000;
+		SELECT   ROW_NUMBER()OVER(ORDER BY FAC_NAME) AS ROW_NUM, 
+		FAC_NAME, SUM(FSTP_TU) AS FSTP_TU, SUM(FSTP_10) AS FSTP_10, 
+		round(SUM(FSTP_SIL) / SUM(FSTP_TU) * 100,2) AS RunRate
+		FROM     dbo.vFacStop
+		Where FSTP_DATE between #{sdate} and #{edate}
+		GROUP BY FAC_NAME
+	</select>
 	
 	
 	

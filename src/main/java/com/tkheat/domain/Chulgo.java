@@ -33,6 +33,26 @@ public class Chulgo {
 	private float och_specimen;
 	private float och_totalsu;
 	private String och_name;
+	private int och_mon_sum;
+	private int och_mon_tax; //부가세
+	private int och_mon_total; //합계금액
+	
+	
+	
+	
+	private int mm1;
+	private int mm2;
+	private int mm3;
+	private int mm4;
+	private int mm5;
+	private int mm6;
+	private int mm7;
+	private int mm8;
+	private int mm9;
+	private int mm10;
+	private int mm11;
+	private int mm12;
+	
 	
 	//ORDERT 테이블
 	private String ord_date;
@@ -397,5 +417,95 @@ public class Chulgo {
 	}
 	public void setEdate(String edate) {
 		this.edate = edate;
+	}
+	public int getMm1() {
+		return mm1;
+	}
+	public void setMm1(int mm1) {
+		this.mm1 = mm1;
+	}
+	public int getMm2() {
+		return mm2;
+	}
+	public void setMm2(int mm2) {
+		this.mm2 = mm2;
+	}
+	public int getMm3() {
+		return mm3;
+	}
+	public void setMm3(int mm3) {
+		this.mm3 = mm3;
+	}
+	public int getMm4() {
+		return mm4;
+	}
+	public void setMm4(int mm4) {
+		this.mm4 = mm4;
+	}
+	public int getMm5() {
+		return mm5;
+	}
+	public void setMm5(int mm5) {
+		this.mm5 = mm5;
+	}
+	public int getMm6() {
+		return mm6;
+	}
+	public void setMm6(int mm6) {
+		this.mm6 = mm6;
+	}
+	public int getMm7() {
+		return mm7;
+	}
+	public void setMm7(int mm7) {
+		this.mm7 = mm7;
+	}
+	public int getMm8() {
+		return mm8;
+	}
+	public void setMm8(int mm8) {
+		this.mm8 = mm8;
+	}
+	public int getMm9() {
+		return mm9;
+	}
+	public void setMm9(int mm9) {
+		this.mm9 = mm9;
+	}
+	public int getMm10() {
+		return mm10;
+	}
+	public void setMm10(int mm10) {
+		this.mm10 = mm10;
+	}
+	public int getMm11() {
+		return mm11;
+	}
+	public void setMm11(int mm11) {
+		this.mm11 = mm11;
+	}
+	public int getMm12() {
+		return mm12;
+	}
+	public void setMm12(int mm12) {
+		this.mm12 = mm12;
+	}
+	public int getOch_mon_sum() {
+		return och_mon_sum;
+	}
+	public void setOch_mon_sum(int och_mon_sum) {
+		this.och_mon_sum = och_mon_sum;
+	}
+	public int getOch_mon_tax() {
+		return och_mon_tax;
+	}
+	public void setOch_mon_tax(int och_mon_tax) {
+		this.och_mon_tax = och_mon_tax;
+	}
+	public int getOch_mon_total() {
+		return och_mon_total;
+	}
+	public void setOch_mon_total(int och_mon_total) {
+		this.och_mon_total = och_mon_total;
 	}
 }

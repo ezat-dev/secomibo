@@ -300,12 +300,12 @@ textarea {
                                 <td class=""><textarea id="ffx_note" name="ffx_note" rows="8" class="basic" style="width:100%;"></textarea></td>
                             </tr>
                             <tr>
-                                <th class="left" style="width: 15%;">소요부품<input type="button" title="검색" class="btnSearchSmall" onclick="MM_openBrWindow('etcSub_popup_12','Srch','width=800,height=430,scrollbars=yes')"></th>
+                                <!-- <th class="left" style="width: 15%;">소요부품<input type="button" title="검색" class="btnSearchSmall" onclick="MM_openBrWindow('etcSub_popup_12','Srch','width=800,height=430,scrollbars=yes')"></th>
                                 <td>
                                     <input id="ffx_prt" name="ffx_prt" class="basic" type="text" style="width:100%;" value="" readonly="readonly" placeholder="검색버튼을 눌러 선택해 주세요.">
                                     <input id="spr_code" name="spr_code" class="basic" type="hidden">
                                     <input id="spr_time" name="spr_time" class="basic" type="hidden">
-                                </td>
+                                </td> -->
                                 <th rowspan="4" class="" style="width: 15%;">수리후 사진</th>
                                 <td rowspan="4" class="findImage">
                                     <input type="hidden" name="type" value="run">
@@ -389,12 +389,12 @@ textarea {
                             </tr> -->
                             <tr>
                                 <th class="left">차기점검일</th>
-                                <td class=""><input id="ffx_next" name="ffx_next" class="date js-datepicker hasDatepicker" type="text" style="width:100px;" value="2025-03-26" maxlength="20" size="20"></td>
+                                <td class=""><input id="ffx_next" name="ffx_next" type="date" style="width:100px;" maxlength="20" size="20"></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th>완료</th>
                                 <td><input id="ffx_check" name="ffx_check" class="basic" type="checkbox" value="" onchange="nextFfxDate(this);"></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </td>
@@ -455,16 +455,14 @@ textarea {
 		        return response; //return the response data to tabulator
 		    },
 		    columns:[
-		        {title:"NO", field:"ffx_no", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
-			        hozAlign:"center", headerFilter:"input"},	
+		        {title:"NO", field:"idx", sorter:"int", width:80,
+		        	hozAlign:"center"},	
+		        {title:"NO", field:"fac_no", sorter:"int", width:80,
+			        hozAlign:"center"},	
 			    {title:"설비명", field:"fac_name", sorter:"string", width:120,
 				    hozAlign:"center", headerFilter:"input"},     
 				{title:"점검일", field:"ffx_date", sorter:"string", width:120,
-				    hozAlign:"center", headerFilter:"input"}, 
-				{title:"소요부품", field:"ffx_prt", sorter:"string", width:150,
-				    hozAlign:"center", headerFilter:"input"}, 
+				    hozAlign:"center", headerFilter:"input"},
 		        {title:"담당자", field:"ffx_man", sorter:"string", width:120,
 		        	hozAlign:"center", headerFilter:"input"},		        
 		        {title:"수리처", field:"ffx_wrk", sorter:"string", width:100,
@@ -472,9 +470,12 @@ textarea {
 		        {title:"금액", field:"ffx_cost", sorter:"int", width:100,
 		        	hozAlign:"center", headerFilter:"input"},
 		        {title:"내용", field:"ffx_note", sorter:"string", width:600,
-			        hozAlign:"center", headerFilter:"input"},
-			        {title:"내용", field:"fac_code", sorter:"string", width:600,
-				        hozAlign:"center", headerFilter:"input", visible:false},   
+			        hozAlign:"center", headerFilter:"input"},      
+			    {title:"NO", field:"ffx_no", sorter:"int", width:80,
+			        	hozAlign:"center" ,visible:false},   
+			    {title:"NO", field:"fac_code", sorter:"int", width:80,
+				        hozAlign:"center" ,visible:false}, 
+				        	
 				    
 		    ],
 		    rowFormatter:function(row){
@@ -505,19 +506,42 @@ textarea {
 				selectedRowData = data;
 				isEditMode = true;
 				$('#suriHistoryForm')[0].reset();
-				$('.suriHistoryModal').show().addClass('show');
+				
 
-				Object.keys(data).forEach(function (key) {
+				/* Object.keys(data).forEach(function (key) {
 			        const field = $('#suriHistoryForm [name="' + key + '"]');
 
 			        if (field.length) {
 			            field.val(data[key]);
 			        }
-				});
+				}); */
 
+				suriHistoryDetail(data.ffx_no);
 				 $('.delete').show();
 			},
 		});		
+	}
+
+	function suriHistoryDetail(ffx_no){
+		$.ajax({
+			url:"/tkheat/preservation/suriHistory/suriHistoryDetail",
+			type:"post",
+			dataType:"json",
+			data:{
+				"ffx_no":ffx_no
+			},
+			success:function(result){
+//				console.log(result);
+				var allData = result.data;
+				
+				for(let key in allData){
+//					console.log(allData, key);	
+					$("[name='"+key+"']").val(allData[key]);
+				}
+
+				$('.suriHistoryModal').show().addClass('show');
+			}
+		});
 	}
 	
 

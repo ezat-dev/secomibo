@@ -34,6 +34,11 @@ public class ProductionServiceImpl implements ProductionService{
 	}
 	
 	@Override
+	public Work nonReportDetail(Work work) {
+		return productionDao.nonReportDetail(work);
+	}
+	
+	@Override
 	public List<Ipgo> getNonReportIpgoList(Ipgo ipgo){
 		return productionDao.getNonReportIpgoList(ipgo);
 	}

@@ -24,6 +24,8 @@ public interface ManagementDao {
 	
 	List<Product> getProductList(Product product);
 	
+	Product productInsertDetail(Product product);
+	
 	void productInsertSave(Product product);
 	
 	void productUpdateSave(Product product);
@@ -43,6 +45,8 @@ public interface ManagementDao {
 	
 	
 	List<Fac> getFacList(Fac fac);
+	
+	Fac facInsertDetail(Fac fac);
 	
 	void facInsertSave(Fac fac);
 	

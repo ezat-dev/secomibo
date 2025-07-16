@@ -29,6 +29,7 @@ public class Bega {
 	private String fstp_08; //휴식
 	private String fstp_09; //기타
 	private String fstp_10; //계
+	private double RunRate;
 	
 	
 	
@@ -186,6 +187,12 @@ public class Bega {
 	}
 	public void setFac_no(String fac_no) {
 		this.fac_no = fac_no;
+	}
+	public double getRunRate() {
+		return RunRate;
+	}
+	public void setRunRate(double runRate) {
+		RunRate = runRate;
 	}
 
 }

@@ -9,4 +9,6 @@ public interface MonitoringService {
 	
 	List<Monitoring> getMonitoringList();
 	
+	List<Monitoring> gettrend(Monitoring monitoring);
+	
 }

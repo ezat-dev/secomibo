@@ -12,10 +12,22 @@ public interface PreservationService {
 	
 	List<SparePart> getSparePartList();
 	
+	List<SparePart> getSpareSubList(int spp_idx);
+	
+	SparePart sparePartDetail(SparePart sparePart);
+	
+	void sparePartInsertSave(SparePart sparePart);
+	
+	void sparePartUpdateSave(SparePart sparePart);
+	
+	void deleteSparePart(int spp_idx);
+	
 	
 	
 	
 	List<Bega> getBegaInsertList(Bega bega);
+	
+	Bega begaInsertDetail(Bega bega);
 	
 	void begaInsertSave(Bega bega);
 	
@@ -25,9 +37,14 @@ public interface PreservationService {
 	
 	
 	
+	List<Bega> getBegaAnalyList(Bega bega);
+	
+	
 	
 	
 	List<Suri> getSuriHistoryList(Suri srui);
+	
+	Suri suriHistoryDetail(Suri srui);
 	
 	void suriHistoryInsertSave(Suri srui);
 	
@@ -41,6 +58,8 @@ public interface PreservationService {
 	
 	List<Jeomgeom> getJeomgeomInsertList();
 	
+	Jeomgeom jeomgeomInsertDetail(Jeomgeom jeomgeom);
+	
 	void jeomgeomInsertSave(Jeomgeom jeomgeom);
 	
 	void jeomgeomUpdateSave(Jeomgeom jeomgeom);
@@ -52,7 +71,13 @@ public interface PreservationService {
 	
 	List<Measure> getGigiGojangList(Measure measure);
 	
-	void gigiGojangSave(Measure measure);
+	Measure gigiGojangtDetail(Measure measure);
+	
+	void gigiGojangInsert(Measure measure);
+	
+	void gigiGojangUdate(Measure measure);
+	
+	void gigiGojangDelete(int terr_code);
 	
 	
 	

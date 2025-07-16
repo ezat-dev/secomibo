@@ -1,6 +1,7 @@
 package com.tkheat.controller;
 
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,13 +68,62 @@ public class MonitoringController {
 	 }
 	 
 
-		 @RequestMapping(value = "/monitoring/getMonitoringList", method = RequestMethod.POST) 
-		 @ResponseBody 
-		 public Map<String, Object> getMonitoringList(HttpSession session) {
-			 Map<String, Object> rtnMap = new HashMap<>();
-			    List<Monitoring> list = monitoringService.getMonitoringList();
-			    rtnMap.put("data", list);
-			    return rtnMap;
-		 }
+	 @RequestMapping(value = "/monitoring/getMonitoringList", method = RequestMethod.POST) 
+	 @ResponseBody 
+	 public Map<String, Object> getMonitoringList(HttpSession session) {
+		 Map<String, Object> rtnMap = new HashMap<>();
+		 List<Monitoring> list = monitoringService.getMonitoringList();
+		 rtnMap.put("data", list);
+		 return rtnMap;
+	 }
+	 
+	 @RequestMapping(value = "/monitoring/trend/trendList", method = RequestMethod.POST)
+	    @ResponseBody
+	    public List<Monitoring> gettrend(Monitoring monitoring) {
+
+		 String startDateStr = monitoring.getStartDate();
+		 String endDateStr = monitoring.getEndDate();
+
+
+		 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		 DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+		 LocalDateTime startDateTime = LocalDateTime.parse(startDateStr, inputFormatter);
+		 LocalDateTime endDateTime = LocalDateTime.parse(endDateStr, inputFormatter);
+
+
+		 monitoring.setStartDate(startDateTime.format(outputFormatter)); 
+		 monitoring.setEndDate(endDateTime.format(outputFormatter));
+
+
+		 List<Monitoring> result = monitoringService.gettrend(monitoring);
+
+	        
+	        
+	        return result;
+	    }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 }

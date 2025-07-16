@@ -24,8 +24,30 @@ public class PreservationServiceImpl implements PreservationService{
 		return preservationDao.getSparePartList();
 	}
 	
+	@Override
+	public List<SparePart> getSpareSubList(int spp_idx){
+		return preservationDao.getSpareSubList(spp_idx);
+	}
 	
+	@Override
+	public SparePart sparePartDetail(SparePart sparePart) {
+		return preservationDao.sparePartDetail(sparePart);
+	}
 	
+	@Override
+	public void sparePartInsertSave(SparePart sparePart) {
+		preservationDao.sparePartInsertSave(sparePart);
+	}
+	
+	@Override
+	public void sparePartUpdateSave(SparePart sparePart) {
+		preservationDao.sparePartUpdateSave(sparePart);
+	}
+	
+	@Override
+	public void deleteSparePart(int spp_idx) {
+		preservationDao.deleteSparePart(spp_idx);
+	}
 	
 	
 	
@@ -33,6 +55,11 @@ public class PreservationServiceImpl implements PreservationService{
 	@Override
 	public List<Bega> getBegaInsertList(Bega bega){
 		return preservationDao.getBegaInsertList(bega);
+	}
+	
+	@Override
+	public Bega begaInsertDetail(Bega bega) {
+		return preservationDao.begaInsertDetail(bega);
 	}
 	
 	@Override
@@ -54,9 +81,27 @@ public class PreservationServiceImpl implements PreservationService{
 	
 	
 	
+	
+	
+	@Override
+	public List<Bega> getBegaAnalyList(Bega bega){
+		return preservationDao.getBegaAnalyList(bega);
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Suri> getSuriHistoryList(Suri suri){
 		return preservationDao.getSuriHistoryList(suri);
+	}
+	
+	@Override
+	public Suri suriHistoryDetail(Suri suri) {
+		return preservationDao.suriHistoryDetail(suri);
 	}
 	
 	@Override
@@ -80,6 +125,11 @@ public class PreservationServiceImpl implements PreservationService{
 	@Override
 	public List<Jeomgeom> getJeomgeomInsertList(){
 		return preservationDao.getJeomgeomInsertList();
+	}
+	
+	@Override
+	public Jeomgeom jeomgeomInsertDetail(Jeomgeom jeomgeom) {
+		return preservationDao.jeomgeomInsertDetail(jeomgeom);
 	}
 	
 	@Override
@@ -108,9 +158,25 @@ public class PreservationServiceImpl implements PreservationService{
 	}
 	
 	@Override
-	public void gigiGojangSave(Measure measure) {
-		preservationDao.gigiGojangSave(measure);
+	public Measure gigiGojangtDetail(Measure measure) {
+		return preservationDao.gigiGojangtDetail(measure);
 	}
+	
+	@Override
+	public void gigiGojangInsert(Measure measure) {
+		preservationDao.gigiGojangInsert(measure);
+	}
+	
+	@Override
+	public void gigiGojangUdate(Measure measure) {
+		preservationDao.gigiGojangUdate(measure);
+	}
+	
+	@Override
+	public void gigiGojangDelete(int terr_code) {
+		preservationDao.gigiGojangDelete(terr_code);
+	}
+	
 	
 	
 	

@@ -10,163 +10,236 @@
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
+    .button-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 40px auto 0 20px;
+        width: fit-content;
     }
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #f8f9fa;
+
+    .daylabel {
+        font-size: 16px;
+        margin-right: 8px;
+        white-space: nowrap;
     }
-    .content {
-      position: relative;
-      text-align: center;
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 1700px;
+
+    #hogiSelect, .datetimeSet {
+        height: 34px;
+        font-size: 14px;
+        padding: 0 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
     }
-    .date-container {
-      display: flex;
-      justify-content: right;
-      margin-bottom: 20px;
-      margin-right: 20px;
+
+    .date_input {
+        display: flex;
+        align-items: center;
     }
-    .date-container input {
-      margin: 0 10px;
-      padding: 12px;
-      border: 1px solid #ced4da;
-      border-radius: 5px;
-      font-size: 16px;
-      width: 250px;
+
+    .mid {
+        margin: 0 6px;
+        font-size: 18px;
+        font-weight: bold;
     }
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      border: none;
-      font-size: 16px;
-      text-align: center;
-      width: 130px;
-      margin-left: 20px;
+
+    .select-button {
+        height: 36px;
+        padding: 4px 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
     }
-    button:hover {
-      background-color: #0056b3;
+
+    .select-button:hover {
+        background-color: #0056b3;
     }
-    #container {
-      width: 100%;
-      height: 600px;
+
+    .button-image {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
     }
   </style>
   <title>Trend Chart</title>
 </head>
 <body>
-  <div class="container">
-    <div class="content">
-      <div class="date-container">
-        <input type="datetime-local" id="startDate" placeholder="시작 날짜">
-        <input type="datetime-local" id="endDate" placeholder="종료 날짜">
-        <button onclick="loadTrendData()">조회</button>
-      </div>
-      <div id="container"></div>
-    </div>
-  </div>
+
+	<div class="button-container">
+	    <label class="daylabel">검색 날짜 :</label>
+	    <select id="hogiSelect" style="height:30px; font-size:16px; margin-right:10px; border-radius:4px;">
+	        <option value="BCF1" selected>BCF1</option>
+	        <option value="BCF2">BCF2</option>
+	        <option value="BCF3">BCF3</option>
+	        <option value="BCF4">BCF4</option>
+	        <option value="BCF5">BCF5</option>
+	        <option value="TF1">TF1</option>
+	    </select>
+	
+	    <div class="date_input" style="text-align: center;">
+	        <input type="text" autocomplete="off" class="datetimeSet" id="startDate"
+	            style="font-size: 16px; margin: 5px; border-radius: 4px; border: 1px solid #ccc; text-align: center; height: 30px;">
+	
+	        <span class="mid" style="font-size: 20px; font-weight: bold; margin-bottom:10px;"> ~ </span>
+	
+	        <input type="text" autocomplete="off" class="datetimeSet" id="endDate"
+	            style="font-size: 16px; margin: 5px; border-radius: 4px; border: 1px solid #ccc; text-align: center; height: 30px;">
+	    </div>
+	
+	    <button class="select-button">
+	        <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">조회
+	    </button>
+	</div>
+	
+	<div id="container" style="width: 100%; height: 600px; margin-top:100px;"></div>
+			
+			
+			
+			
 <script>
-Highcharts.chart('container', {
+$(document).ready(function () {
+    $(".datetimeSet").datepicker({
+        language: 'ko',
+        timepicker: true,
+        dateFormat: 'yyyy-mm-dd',
+        timeFormat: 'hh:ii',
+        autoClose: true
+    });
 
-    title: {
-        text: '태경열처리 온도 트렌드',
-        align: 'left'
-    },
+    // 시간 셋팅
+/*    $("#startDate").val(trendStime());
+    $("#endDate").val(trendEtime());*/
+    $("#startDate").val("2025-06-25 10:00");
+    $("#endDate").val("2025-06-25 15:00");
 
-    subtitle: {
-        text: 'By EZautomation: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>.',
-        align: 'left'
-    },
+    var hogi = "";
+    // 조회 버튼 클릭 이벤트 정의
+    function fetchData() {
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
+		hogi = $("#hogiSelect").val();
+        $.ajax({
+            type: "POST",
+            url: "/tkheat/monitoring/trend/trendList",
+            data: { startDate, endDate },
+            success: function (result) {
+                console.log(" result:", result);
 
-    yAxis: {
-        title: {
-            text: 'Number of Employees'
-        }
-    },
 
-    xAxis: {
-        accessibility: {
-            rangeDescription: 'Range: 2010 to 2022'
-        }
-    },
+				trendData1 = result;
+				
+    			var t1_pv_obj = new Object();
+    			var t2_pv_obj = new Object();
+    			var t3_pv_obj = new Object();
 
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-    },
+    			var t1_pv_save = new Array();
+    			var t2_pv_save = new Array();
+    			var t3_pv_save = new Array();
 
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
+    			trendData1.forEach(function(data, i){
+//        			console.log(data, i);
+					var t1_pv = new Array();
+					var t2_pv = new Array();
+					var t3_pv = new Array();
+
+					var tdate_val = "";
+					var t1_val = 0;
+					var t2_val = 0;
+					var t3_val = 0;
+					tdate_val = data.tdatetime;
+					
+					//호기 구분
+					if(hogi == "BCF1"){						
+						t1_val = data.bcf1_cf_pv;
+						t2_val = data.bcf1_oil_pv;
+						t3_val = data.bcf1_cp_pv;
+					}else if(hogi == "BCF2"){
+						t1_val = data.bcf2_cf_pv;
+						t2_val = data.bcf2_oil_pv;
+						t3_val = data.bcf2_cp_pv;						
+					}else if(hogi == "BCF3"){
+						t1_val = data.bcf3_cf_pv;
+						t2_val = data.bcf3_oil_pv;
+						t3_val = data.bcf3_cp_pv;
+					}else if(hogi == "BCF4"){
+						t1_val = data.bcf4_cf_pv;
+						t2_val = data.bcf4_oil_pv;
+						t3_val = data.bcf4_cp_pv;
+					}else if(hogi == "BCF5"){
+						t1_val = data.bcf5_cf_pv;
+						t2_val = data.bcf5_oil_pv;
+						t3_val = data.bcf5_cp_pv;
+					}else if(hogi == "TF1"){
+						t1_val = data.t1_zone1;
+						t2_val = data.t1_zone2;
+						t3_val = data.t1_zone3;
+					}
+
+					t1_pv.push(tdate_val);
+					t1_pv.push(t1_val);
+					t2_pv.push(tdate_val);
+					t2_pv.push(t2_val);
+					t3_pv.push(tdate_val);
+					t3_pv.push(t3_val);
+
+					t1_pv_save.push(t1_pv);
+					t2_pv_save.push(t2_pv);
+					t3_pv_save.push(t3_pv);
+					
+    			});
+
+    			t1_pv_obj = {"name":"cf_pv", "data":t1_pv_save, "color":"red"};
+    			t2_pv_obj = {"name":"oil_pv", "data":t2_pv_save, "color":"blue"};
+    			t3_pv_obj = {"name":"cp_pv", "data":t3_pv_save, "color":"green"};
+
+
+                seriesArray[0] = t1_pv_obj;
+                seriesArray[1] = t2_pv_obj;
+                seriesArray[2] = t3_pv_obj;
+
+                getTrendView();
+                
+
             },
-            pointStart: 2010
-        }
-    },
-
-    series: [{
-        name: 'Installation & Developers',
-        data: [
-            43934, 48656, 65165, 81827, 112143, 142383,
-            171533, 165174, 155157, 161454, 154610, 168960, 171558
-        ]
-    }, {
-        name: 'Manufacturing',
-        data: [
-            24916, 37941, 29742, 29851, 32490, 30282,
-            38121, 36885, 33726, 34243, 31050, 33099, 33473
-        ]
-    }, {
-        name: 'Sales & Distribution',
-        data: [
-            11744, 30000, 16005, 19771, 20185, 24377,
-            32147, 30912, 29243, 29213, 25663, 28978, 30618
-        ]
-    }, {
-        name: 'Operations & Maintenance',
-        data: [
-            null, null, null, null, null, null, null,
-            null, 11164, 11218, 10077, 12530, 16585
-        ]
-    }, {
-        name: 'Other',
-        data: [
-            21908, 5548, 8105, 11248, 8989, 11816, 18274,
-            17300, 13053, 11906, 10073, 11471, 11648
-        ]
-    }],
-
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
+            error: function (xhr, status, error) {
+                console.error("❌ 에러:", error);
+                alert("데이터 조회 중 오류가 발생했습니다.");
             }
-        }]
+        });
     }
 
+    $('.select-button').click(fetchData);
+	
+
+    fetchData();
 });
+
+var seriesArray = new Array();
+function getTrendView(){
+    Highcharts.chart('container', {
+        chart: { type: 'line' },
+        title: { text: '온도 트렌드' },
+        xAxis: {
+//            categories: categories,
+            title: { text: '시간' },
+            labels: { rotation: -45 }
+        },
+        yAxis: {
+            title: { text: '값' }
+        },
+        tooltip: {
+            shared: true,
+            crosshairs: true
+        },
+        series: seriesArray
+    });
+	
+}
+
 </script>
 
 	</body>

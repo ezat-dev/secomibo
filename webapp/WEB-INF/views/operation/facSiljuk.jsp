@@ -135,13 +135,13 @@
 		    columns:[
 		        {title:"NO", field:"idx", sorter:"int", width:80,
 		        	hozAlign:"center"},    
-				{title:"생산일", field:"ilbo_strt", sorter:"string", width:120,
+				{title:"생산일", field:"ilbo_strt", sorter:"string", width:190,
 				    hozAlign:"center", headerFilter:"input"}, 
-				{title:"설비", field:"fac_name", sorter:"string", width:150,
+				{title:"설비", field:"fac_name", sorter:"string", width:190,
 				    hozAlign:"center", headerFilter:"input"}, 
-		        {title:"공정", field:"tech_te", sorter:"string", width:120,
+		        {title:"공정", field:"tech_te", sorter:"string", width:190,
 		        	hozAlign:"center", headerFilter:"input"},		        
-		        {title:"생산량", field:"ilbo_su", sorter:"int", width:100,
+		        {title:"생산량", field:"ilbo_su", sorter:"int", width:190,
 		        	hozAlign:"center", headerFilter:"input"},
 				    
 		    ],

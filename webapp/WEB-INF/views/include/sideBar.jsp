@@ -140,6 +140,35 @@
     justify-content: space-between;
 }
 
+.logout-button {
+    height: 30px; /* tab보다 조금 작게 설정 */
+    padding: 0 11px; /* 좌우 패딩 */
+    border: 1px solid rgb(53, 53, 53);
+    border-radius: 4px; /* 모서리 둥글게 */
+    background-color: #ffffff; /* 배경색 */
+    cursor: pointer; /* 포인터 커서 */
+    display: flex; /* 내부 요소를 플렉스 박스로 설정 */
+    align-items: center; /* 버튼 안에서 세로 가운데 정렬 */
+    margin-right: 30px;
+    
+    /*opacity: 0.5;  버튼을 흐릿하게 */
+ 	/*pointer-events: none;  마우스 이벤트 차단 */
+}
+
+
+.logout-button:hover {
+    background-color: #f0f0f0; /* hover 시 색상 변화 */
+}
+.button-image {
+    width: 20px; /* 원하는 너비 설정 */
+    height: 20px; /* 원하는 높이 설정 */
+    margin-right: 0px; /* 이미지와 텍스트 사이의 여백 */
+    vertical-align: middle; /* 세로 가운데 정렬 */
+}
+
+.loginName{
+	display: flex;
+}
    .menuDivTab .close-btn {
        font-size: 19px; 
        background: none;
@@ -171,7 +200,7 @@
 	    <!-- 로그인정보 표현, 로그아웃 버튼 -->
 	    <p class="loginName" style="font-size:20px; margin-left:960px; color : white; font-weight:800;"></p>
         <button class="logout-button">
-            	           
+            <img src="/tkheat/css/sideBar/exit-outline.svg" alt="select" class="button-image">로그아웃	 	           
         </button>
     </header>
     <div class="hhhh"></div>
@@ -551,7 +580,16 @@
 
 
 
-        
+        $(".logout-button").on("click",function(){
+       		$.ajax({
+       			url:"/tkheat/user/logout",
+       			type:"get",
+       			dataTypa:"json",
+       			success:function(result){
+       				location.href = "/tkheat";
+       			}
+       		});
+       	});  
 
 
 
