@@ -8,6 +8,7 @@
     <title>설비수리이력관리</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -287,8 +288,8 @@ textarea {
                                 <th rowspan="3" class="" style="width: 15%;">수리전 사진<span class="left"></span></th>
                                 <td rowspan="3" class="findImage">
                                     <input type="hidden" name="type" value="run">
-                                    <input type="file" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId')">
-                                    <div class="imgArea" id="previewId" style="height:100px;"></div>
+                                    <input type="file" class="imgInputClass" name="file_url1" title="이미지 찾기" onchange="previewImage(this,'previewId')">
+                                    <div class="imgArea" id="previewId" style="height:100px;"><img id="img0" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
                                 </td>
                             </tr>
                             <tr>
@@ -309,8 +310,8 @@ textarea {
                                 <th rowspan="4" class="" style="width: 15%;">수리후 사진</th>
                                 <td rowspan="4" class="findImage">
                                     <input type="hidden" name="type" value="run">
-                                    <input type="file" name="imageFile2" title="이미지 찾기" onchange="previewImage(this,'previewId2')">
-                                    <div class="imgArea" id="previewId2" style="height:100px;"></div>
+                                    <input type="file" name="file_url2" title="이미지 찾기" onchange="previewImage(this,'previewId2')">
+                                    <div class="imgArea" id="previewId2" style="height:100px;"><img id="img1" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
                                 </td>
                             </tr>
                             <tr>
@@ -428,6 +429,23 @@ textarea {
 		getSuriHistoryList();
 	});
 
+	$(function(){
+		// 파일 선택시 이미지 띄우기
+		$('.imgInputClass').change(function(event){
+			var selectedFile = event.target.files[0];
+			var reader = new FileReader();
+
+			var img = $(this).parent().parent().find('img')[0];
+			img.title = selectedFile.name;
+
+			reader.onload = function(event) {
+				img.src = event.target.result;
+			};
+
+			reader.readAsDataURL(selectedFile);
+		});
+	});
+
 	//이벤트
 	//함수
 	function getSuriHistoryList(){
@@ -475,6 +493,24 @@ textarea {
 			        	hozAlign:"center" ,visible:false},   
 			    {title:"NO", field:"fac_code", sorter:"int", width:80,
 				        hozAlign:"center" ,visible:false}, 
+						{title:"수리 전 사진", field:"file_name1", width:100,
+							hozAlign:"center", formatter:"image",
+						    cssClass:"rp-img-popup",
+					      	formatterParams:{
+						      	height:"30px", width:"30px",
+						      	urlPrefix:"/excelTest/태경출력파일/사진/설비수리이력관리/"
+						      	}, 
+						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+						    },
+							{title:"수리 후 사진", field:"file_name2", width:100,
+								hozAlign:"center", formatter:"image",
+							    cssClass:"rp-img-popup",
+						      	formatterParams:{
+							      	height:"30px", width:"30px",
+							      	urlPrefix:"/excelTest/태경출력파일/사진/설비수리이력관리/"
+							      	}, 
+							    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+							    },
 				        	
 				    
 		    ],
@@ -539,6 +575,29 @@ textarea {
 					$("[name='"+key+"']").val(allData[key]);
 				}
 
+				// 이미지, 제목 초기화
+				$("#img0").attr("src", "/resources/images/noimage_01.gif");
+				$("#img1").attr("src", "/resources/images/noimage_01.gif");
+				$("#img0").attr("title", "");
+				$("#img1").attr("title", "");
+
+				// 이미지
+				if (allData.file_name1) {
+					console.log("원본 파일명:", allData.file_name1);
+					console.log("인코딩된 경로:", encodeURIComponent(allData.file_name1));
+					const path = "/excelTest/태경출력파일/사진/설비수리이력관리/" + allData.file_name1;
+					console.log("path: ", path);
+					$("#img0").attr("src", path);
+				}
+
+				if (allData.file_name2) {
+					console.log("원본 파일명:", allData.file_name2);
+					console.log("인코딩된 경로:", encodeURIComponent(allData.file_name2));
+					const path = "/excelTest/태경출력파일/사진/설비수리이력관리/" + allData.file_name2;
+					console.log("path: ", path);
+					$("#img1").attr("src", path);
+				}
+
 				$('.suriHistoryModal').show().addClass('show');
 			}
 		});
@@ -587,6 +646,11 @@ textarea {
 	insertButton.addEventListener('click', function() {
 		isEditMode = false;  // 추가 모드
 	    $('#suriHistoryForm')[0].reset(); // 폼 초기화
+
+	    //사진 초기화
+		$("#img0").attr("src", "/resources/images/noimage_01.gif");
+		$("#img1").attr("src", "/resources/images/noimage_01.gif");
+		
 	    suriHistoryModal.style.display = 'block'; // 모달 표시
 
 		$('.delete').hide();
@@ -667,7 +731,13 @@ textarea {
 	        }
 	    });
 	}
-		
+
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "설비수리이력관리_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "설비수리이력관리" });
+	});
 
 
     </script>

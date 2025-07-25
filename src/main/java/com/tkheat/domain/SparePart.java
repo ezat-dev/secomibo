@@ -28,11 +28,19 @@ public class SparePart {
 	private String sph_user; //담당자
 	private String sph_bigo; //비고
 	
+	private String file_name; //사진 파일 이름
 	
 	
 	
 	
 	
+	
+	public String getFile_name() {
+		return file_name;
+	}
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
 	public String getSpp_purchase() {
 		return spp_purchase;
 	}

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부적합등록</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -432,8 +433,9 @@ textarea {
                                         <th rowspan="3" class="">개선전</th>
                                         <td rowspan="3" class="findImage"><input type="hidden" name="type" value="error">
                                             <!-- <input type="file" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId1')"> -->
-                                            <input type="text" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId1')">
-                                            <div class="imgArea" id="previewId1" style="height:168px;"><img id="prev_previewId1" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
+                                            <input id="imgInput0" class="imgInputClass valClean" type="file" name="file_url1" title="이미지 찾기">
+                                            <!-- <input type="text" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId1')"> -->
+                                            <div class="imgArea" id="previewId1" style="height:168px;"><img id="img0" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -458,8 +460,9 @@ textarea {
                                         <th rowspan="3" class="">개선후</th>
                                         <td rowspan="3" class="findImage"><input type="hidden" name="type" value="error">
 <!--                                              <input type="file" name="imageFile2" title="이미지 찾기" onchange="previewImage(this,'previewId2')">-->
-                                            <input type="text" name="imageFile2" title="이미지 찾기" onchange="previewImage(this,'previewId2')">
-                                            <div class="imgArea" id="previewId2" style="height:168px;"><img id="prev_previewId2" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
+											<input id="imgInput1" class="imgInputClass valClean" type="file" name="file_url2" title="이미지 찾기">
+                                            <!-- <input type="text" name="imageFile2" title="이미지 찾기" onchange="previewImage(this,'previewId2')"> -->
+                                            <div class="imgArea" id="previewId2" style="height:168px;"><img id="img1" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
                                         </td>
                                         </tr>
                                     <tr>
@@ -600,6 +603,24 @@ textarea {
 		        {title:"금액", field:"werr_mon", sorter:"int", width:100,
 			        hozAlign:"center"},
 			    {title:"코드", field:"werr_code", width:200, hozAlign:"center",visible:false},
+				{title:"개선 전", field:"file_name1", width:100,
+					hozAlign:"center", formatter:"image",
+				    cssClass:"rp-img-popup",
+			      	formatterParams:{
+				      	height:"30px", width:"30px",
+				      	urlPrefix:"/excelTest/태경출력파일/사진/부적합등록/"
+				      	}, 
+				    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+				    },
+					{title:"개선 후", field:"file_name2", width:100,
+						hozAlign:"center", formatter:"image",
+					    cssClass:"rp-img-popup",
+				      	formatterParams:{
+					      	height:"30px", width:"30px",
+					      	urlPrefix:"/excelTest/태경출력파일/사진/부적합등록/"
+					      	}, 
+					    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+					    },
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -736,6 +757,29 @@ textarea {
 					$("[name='"+key+"']").val(allData[key]);
 				}
 
+				// 이미지, 제목 초기화
+				$("#img0").attr("src", "/resources/images/noimage_01.gif");
+				$("#img1").attr("src", "/resources/images/noimage_01.gif");
+				$("#img0").attr("title", "");
+				$("#img1").attr("title", "");
+
+				// 이미지
+				if (allData.file_name1) {
+					console.log("원본 파일명:", allData.file_name1);
+					console.log("인코딩된 경로:", encodeURIComponent(allData.file_name1));
+					const path = "/excelTest/태경출력파일/사진/부적합등록/" + allData.file_name1;
+					console.log("path: ", path);
+					$("#img0").attr("src", path);
+				}
+
+				if (allData.file_name2) {
+					console.log("원본 파일명:", allData.file_name2);
+					console.log("인코딩된 경로:", encodeURIComponent(allData.file_name2));
+					const path = "/excelTest/태경출력파일/사진/부적합등록/" + allData.file_name2;
+					console.log("path: ", path);
+					$("#img1").attr("src", path);
+				}
+
 				$('.nonModal').show().addClass('show');
 			}
 		});
@@ -848,6 +892,13 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
+		isEditMode = false;	//추가모드
+
+		$('#nonInsertForm')[0].reset();
+		// 이미지 초기화
+		$("#img0").attr("src", "/resources/images/noimage_01.gif");
+		$("#img1").attr("src", "/resources/images/noimage_01.gif");
+		
 		nonModal.style.display = 'block'; // 모달 표시
 	});
 
@@ -855,7 +906,29 @@ textarea {
 		nonModal.style.display = 'none'; // 모달 숨김
 	});
 		
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "부적합등록_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "부적합등록" });
+	});
 
+	$(function(){
+		// 파일 선택시 이미지 띄우기
+		$('.imgInputClass').change(function(event){
+			var selectedFile = event.target.files[0];
+			var reader = new FileReader();
+
+			var img = $(this).parent().parent().find('img')[0];
+			img.title = selectedFile.name;
+
+			reader.onload = function(event) {
+				img.src = event.target.result;
+			};
+
+			reader.readAsDataURL(selectedFile);
+		});
+	});
 
     </script>
     

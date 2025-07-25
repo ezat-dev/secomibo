@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
 <%@include file="../include/pluginpage.jsp" %> 
+<!-- 엑셀 다운로드용 cdn-->
+<script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
     <style>
     
 .main{
@@ -185,7 +187,7 @@
 			        hozAlign:"center", headerFilter:"input"},	
 		        {title:"거래처", field:"corp_name", sorter:"int", width:100,
 		        	hozAlign:"center", headerFilter:"input"},  	
-		        {title:"픔명", field:"prod_name", sorter:"string", width:100,
+		        {title:"품명", field:"prod_name", sorter:"string", width:100,
 			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"품번", field:"prod_no", sorter:"string", width:100,
 				    hozAlign:"center", headerFilter:"input"},	
@@ -225,6 +227,13 @@
 			},
 		});		
 	}
+
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "전세정작업실적_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "전세정작업실적" });
+	});
+
 	
 
     </script>

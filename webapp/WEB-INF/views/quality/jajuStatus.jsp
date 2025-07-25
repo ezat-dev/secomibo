@@ -8,6 +8,7 @@
     <title>자주검사불량현황</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -192,6 +193,17 @@
 			},
 		});		
 	}
+
+    //엑셀 다운로드
+    $(".excel-button").click(function () {
+        if (userTable) {
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+            const filename = "자주검사불량현황_" + today + ".xlsx";
+            userTable.download("xlsx", filename, { sheetName: "자주검사불량현황" });
+        } else {
+            alert("엑셀 다운로드를 위해 먼저 불량현황을 열어주세요.");
+        }
+    });
 	
 
     </script>

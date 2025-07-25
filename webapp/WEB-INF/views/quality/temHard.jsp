@@ -8,6 +8,7 @@
     <title>템퍼링경도확인</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -191,6 +192,13 @@
 			},
 		});		
 	}
+
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "템퍼링경도현황_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "템퍼링경도현황" });
+	});
 	
 
     </script>

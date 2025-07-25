@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sparePart관리</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -293,8 +294,8 @@ textarea {
 								<th class="thSub2">이미지</th>
 								<td class="tdRight">
 									<div>
-										<input id="imgInput0" class="imgInputClass valClean" type="file" title="이미지 찾기">
-										<input type="button" value="X" onclick="$('#img0').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput0').val('');">
+										<input id="imgInput0" class="imgInputClass valClean" type="file" name="file_url" title="이미지 찾기">
+										<!-- <input type="button" value="X" onclick="$('#img0').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput0').val('');"> -->
 										<a href="" class="form-control aphoto" download="">다운로드</a>
 									</div>
 									<div class="imgArea" style="width:200px; height:150px; border:1px solid #ddd;">
@@ -400,6 +401,15 @@ textarea {
 			        hozAlign:"center", headerFilter:"input"},	
 			    {title:"현재고", field:"spp_jaigo", sorter:"int", width:100,
 				    hozAlign:"center", headerFilter:"input"},	
+					{title:"제품", field:"file_name", width:100,
+						hozAlign:"center", formatter:"image",
+					    cssClass:"rp-img-popup",
+				      	formatterParams:{
+					      	height:"30px", width:"30px",
+					      	urlPrefix:"/excelTest/태경출력파일/사진/SparePart관리/"
+					      	}, 
+					    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+					    },
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -458,6 +468,19 @@ textarea {
 					$("input[name='"+key+"']").val(allData[key]);
 				}
 
+				// 이미지 초기화
+				$("#img0").attr("src", "/resources/images/noimage_01.gif");
+
+				// 이미지
+				if (allData.file_name) {
+					console.log("원본 파일명:", allData.file_name);
+					console.log("인코딩된 경로:", encodeURIComponent(allData.file_name));
+					const path = "/excelTest/태경출력파일/사진/SparePart관리/" + allData.file_name;
+					console.log("path: ", path);
+					$("#img0").attr("src", path);
+					//$(".aphoto").attr("href", path).text(d.product_file_name);
+				}
+
 				$('.spareModal').show().addClass('show');
 			}
 		});
@@ -465,15 +488,18 @@ textarea {
 
 	//SparePart 저장
     function save() {
+        console.log("save 함수");
 	    var formData = new FormData($("#sparePartForm")[0]);
 
 	    let confirmMsg = "";
 
 	    if (isEditMode && selectedRowData && selectedRowData.spp_idx) {
+	    	console.log("수정");
 	        formData.append("mode", "update");
 	        formData.append("spp_idx", selectedRowData.spp_idx);
 	        confirmMsg = "수정하시겠습니까?";
 	    } else {
+	    	console.log("저장");
 	        formData.append("mode", "insert");
 	        confirmMsg = "저장하시겠습니까?";
 	    }
@@ -612,19 +638,6 @@ textarea {
     </script>
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <script>
 		
  	// 드래그 기능 추가
@@ -662,12 +675,74 @@ textarea {
 	const closeButton = document.querySelector('.close');
 
 	insertButton.addEventListener('click', function() {
+		$('#img0').attr('src', '/resources/images/noimage_01.gif');
+		$('#sparePartForm')[0].reset();
+		
 		spareModal.style.display = 'block'; // 모달 표시
 	});
 
 	closeButton.addEventListener('click', function() {
 		spareModal.style.display = 'none'; // 모달 숨김
 	});
+
+    //엑셀 다운로드
+$(".excel-button").click(function () {
+    const data1 = userTable.getData();
+    const data2 = subTable.getData();
+
+    const columns1 = userTable.getColumnDefinitions();
+    const columns2 = subTable.getColumnDefinitions();
+
+    const ws = XLSX.utils.aoa_to_sheet([]);
+    let rowIndex = 0;
+
+    //  [userTable] 삽입
+    if (data1.length > 0) {
+        const headers1 = columns1.map(col => col.title);
+        const fields1 = columns1.map(col => col.field);
+
+        XLSX.utils.sheet_add_aoa(ws, [["[SparePart 관리]"]], { origin: rowIndex++ });
+        XLSX.utils.sheet_add_aoa(ws, [headers1], { origin: rowIndex++ });
+
+        const rows1 = data1.map(row =>
+            fields1.map(f => row[f])
+        );
+        XLSX.utils.sheet_add_aoa(ws, rows1, { origin: rowIndex });
+        rowIndex += rows1.length;
+    }
+
+    rowIndex += 2; // 구분용 빈 줄
+
+
+    const headers2 = columns2.map(col => col.title);
+    const fields2 = columns2.map(col => col.field);
+
+    XLSX.utils.sheet_add_aoa(ws, [["[SparePart 관리]"]], { origin: rowIndex++ });
+    XLSX.utils.sheet_add_aoa(ws, [headers2], { origin: rowIndex++ });
+
+    //  [subTable] 삽입
+    if (data2.length > 0) {
+        const rows2 = data2.map(row =>
+            fields2.map(f => row[f])
+        );
+        XLSX.utils.sheet_add_aoa(ws, rows2, { origin: rowIndex });
+    }
+
+    // 열 너비 설정 (전체 최대 열 수 기준)
+    const maxCols = Math.max(
+        columns1.length,
+        columns2.length
+    );
+    ws['!cols'] = Array.from({ length: maxCols }, () => ({ wch: 20 }));
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "SparePart 관리");
+
+    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+    const filename = "SparePart 관리_" + today + ".xlsx";
+    XLSX.writeFile(wb, filename);
+});
+
 		
 
 

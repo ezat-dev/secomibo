@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>월별불량현황</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -375,6 +376,66 @@ textarea {
 			},
 		});		
 	}
+
+
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const data1 = userTable.getData();
+	    const data2 = subTable.getData();
+
+	    const columns1 = userTable.getColumnDefinitions();
+	    const columns2 = subTable.getColumnDefinitions();
+
+	    const ws = XLSX.utils.aoa_to_sheet([]);
+	    let rowIndex = 0;
+
+        const headers1 = columns1.map(col => col.title);
+        const fields1 = columns1.map(col => col.field);
+
+        XLSX.utils.sheet_add_aoa(ws, [["[불량유형별]"]], { origin: rowIndex++ });
+        XLSX.utils.sheet_add_aoa(ws, [headers1], { origin: rowIndex++ });
+	    
+	    //  [userTable] 삽입
+	    if (data1.length > 0) {
+
+	        const rows1 = data1.map(row =>
+	            fields1.map(f => row[f])
+	        );
+	        XLSX.utils.sheet_add_aoa(ws, rows1, { origin: rowIndex });
+	        rowIndex += rows1.length;
+	    }
+
+	    rowIndex += 2; // 구분용 빈 줄
+
+
+	    const headers2 = columns2.map(col => col.title);
+	    const fields2 = columns2.map(col => col.field);
+
+	    XLSX.utils.sheet_add_aoa(ws, [["[항목]"]], { origin: rowIndex++ });
+	    XLSX.utils.sheet_add_aoa(ws, [headers2], { origin: rowIndex++ });
+
+	    //  [subTable] 삽입
+	    if (data2.length > 0) {
+	        const rows2 = data2.map(row =>
+	            fields2.map(f => row[f])
+	        );
+	        XLSX.utils.sheet_add_aoa(ws, rows2, { origin: rowIndex });
+	    }
+
+	    // 열 너비 설정 (전체 최대 열 수 기준)
+	    const maxCols = Math.max(
+	        columns1.length,
+	        columns2.length
+	    );
+	    ws['!cols'] = Array.from({ length: maxCols }, () => ({ wch: 20 }));
+
+	    const wb = XLSX.utils.book_new();
+	    XLSX.utils.book_append_sheet(wb, ws, "월별불량현황");
+
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "월별불량현황_" + today + ".xlsx";
+	    XLSX.writeFile(wb, filename);
+	});
 	
 
     </script>
@@ -436,6 +497,7 @@ textarea {
 	closeButton.addEventListener('click', function() {
 		spareModal.style.display = 'none'; // 모달 숨김
 	});
+
 		
 
 

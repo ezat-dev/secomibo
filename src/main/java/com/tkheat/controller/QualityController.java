@@ -1,6 +1,10 @@
 package com.tkheat.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tkheat.domain.Suip;
 import com.tkheat.domain.Work;
@@ -23,6 +27,35 @@ public class QualityController {
 
 	@Autowired
 	private QualityService qualityService;
+	
+	//파일 업로드
+	private String saveFiles(MultipartFile[] files, String uploadDir) throws IOException {
+		if (files == null || files.length == 0) return null;
+
+		File directory = new File(uploadDir);
+		if (!directory.exists()) directory.mkdirs();
+
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				String originalFilename = file.getOriginalFilename();
+				String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+				String ext = "";
+				int dotIndex = originalFilename.lastIndexOf('.');
+				if (dotIndex > 0) {
+					ext = originalFilename.substring(dotIndex);
+					originalFilename = originalFilename.substring(0, dotIndex);
+				}
+
+				String savedFilename = originalFilename + "_" + timestamp + ext;
+				File destination = new File(uploadDir + "/" + savedFilename);
+				file.transferTo(destination);
+
+				return savedFilename; //
+			}
+		}
+		return null;
+	}
 
 	//수입검사 - 화면로드
 	@RequestMapping(value = "/quality/suip", method = RequestMethod.GET)
@@ -105,6 +138,8 @@ public class QualityController {
 	  nonInsertList.get(i).getWerr_amnt()); rowMap.put("werr_mon",
 	  nonInsertList.get(i).getWerr_mon());
 	  rowMap.put("werr_code", nonInsertList.get(i).getWerr_code());
+	  rowMap.put("file_name1", nonInsertList.get(i).getFile_name1());
+	  rowMap.put("file_name2", nonInsertList.get(i).getFile_name2());
 	  
 	  rtnList.add(rowMap); }
 	  
@@ -179,7 +214,9 @@ public class QualityController {
 	  @ResponseBody
 	  public Map<String, Object> nonInsertSave(
 			  @ModelAttribute Work work,
-			  @RequestParam("mode") String mode) { 
+			  @RequestParam("mode") String mode,
+			  @RequestParam(value = "file_url1", required = false) MultipartFile[] files1,
+			  @RequestParam(value = "file_url2", required = false) MultipartFile[] files2) { 
 
 		  System.out.println("mode = " + mode);
 		  System.out.println("werr_code = " + work.getWerr_code());
@@ -187,6 +224,17 @@ public class QualityController {
 		  Map<String, Object> result = new HashMap<>();
 
 		  try {
+			  
+				String path = "D:/엑셀테스트/태경출력파일/사진/부적합등록/";
+
+				String productFileName = saveFiles(files1, path);
+				if (productFileName != null) work.setFile_name1(productFileName);
+				System.out.println("파일 이름: "+productFileName);
+				
+				String productFileName2 = saveFiles(files2, path);
+				if (productFileName2 != null) work.setFile_name2(productFileName2);
+				System.out.println("파일 이름: "+productFileName2);
+				
 			  if ("insert".equalsIgnoreCase(mode)) {
 				  qualityService.nonInsertSave(work);
 			  } else if ("update".equalsIgnoreCase(mode)) {

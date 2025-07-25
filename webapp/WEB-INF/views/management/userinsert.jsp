@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
     <%@include file="../include/pluginpage.jsp" %>
     <link rel="stylesheet" href="/tkheat/css/management/userinsert2.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
     <style>
 
     
@@ -322,20 +323,12 @@
 });
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "작업자등록_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "작업자등록" });
+	});
 
     </script>
 

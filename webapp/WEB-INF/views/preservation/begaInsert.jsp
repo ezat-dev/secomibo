@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>설비비가동등록</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
 .main {
@@ -780,6 +781,13 @@ th{
 	closeButton.addEventListener('click', function() {
 		begaInsertModal.style.display = 'none'; // 모달 숨김
 	});
+
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "설비비가동등록_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "설비비가동등록" });
+	});
 		
 
 
@@ -788,49 +796,11 @@ th{
     
     <script>
 
-	
-
-
-
-
-
-
-
-
-
-    
 
     
 
     </script>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 
 	</body>
 </html>

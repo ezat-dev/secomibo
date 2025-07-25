@@ -497,13 +497,6 @@ th{
     
     
     <script>
-		
-
-
-
-
-
-
 
 	//설비검색버튼 리스트 모달
     function openFacListModal() {
@@ -632,6 +625,8 @@ th{
             }
         });
     }
+
+
 
     function closeJajuListModal() {
         document.getElementById('jajuListModal').style.display = 'none';

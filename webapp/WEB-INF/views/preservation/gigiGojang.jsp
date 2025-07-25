@@ -8,6 +8,7 @@
     <title>측정기기고장이력</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -379,16 +380,18 @@ th{
                                 <tr>
                                     <th class="left">수리전사진</th>
                                     <td>
-                                                <input id="terr_bphoto" name="terr_bphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
+                                                <input id="terr_bphoto" name="file_url1" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="terr_bphoto_before" name="terr_bphoto_before" height="220" width="100%" align="center"  style="display: none;">
+                                                <img id="img0" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%">
+                                                <!-- <img id="terr_bphoto_before" name="terr_bphoto_before" height="220" width="100%" align="center"  style="display: none;"> -->
                                             
                                     </td>
                                     <th class="left">수리후사진</th>
                                     <td>
-                                                <input id="terr_aphoto" name="terr_aphoto" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
+                                                <input id="terr_aphoto" name="file_url2" type="file" class="rp-input" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');" style="float:left;width: 220px;">
                                                 <button onclick="imageDelete(this)" style="float:left">X</button><br><br>
-                                                <img id="terr_aphoto_after" name="terr_aphoto_after" height="220" width="100%" align="center"  style="display: none;">
+                                                <img id="img1" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%">
+                                                <!-- <img id="terr_aphoto_after" name="terr_aphoto_after" height="220" width="100%" align="center"  style="display: none;"> -->
                                             
                                     </td>
                                 </tr>
@@ -668,12 +671,13 @@ th{
 		gojangModal.style.display = 'none'; // 모달 숨김
 	});
 
-
-
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "측정기고장이력_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "측정기고장이력" });
+	});
 	
-		
-
-
     </script>
 
 	</body>

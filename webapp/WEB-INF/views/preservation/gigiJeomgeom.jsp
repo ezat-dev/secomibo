@@ -8,6 +8,7 @@
     <title>측정기기점검관리</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -375,8 +376,9 @@ th{
 							<th>첨부파일</th>
 							<td>
 								<div>
-									<input id="file" class="valClean" type="file" title="파일 찾기">
+									<input id="file" name="file_url" class="imgInputClass" type="file" title="파일 찾기" onchange="previewImage(this,'previewId')">
 									<input type="button" value="X" onclick="$('#file').val('');">
+									<div class="imgArea" id="previewId" style="height:100px;"><img id="img0" class="imgClass rp-img-popup" src="/resources/images/noimage_01.gif" width="100%" height="100%"></div>
 								</div>
 								<div>
 									<a href="" id="fileLink" class="valClean" target="_blank"></a>
@@ -424,6 +426,23 @@ th{
 			$("#sdate").val(ydate);
 			$("#edate").val(tdate);
 			getGigiJeomgeomList();
+		});
+
+		$(function(){
+			// 파일 선택시 이미지 띄우기
+			$('.imgInputClass').change(function(event){
+				var selectedFile = event.target.files[0];
+				var reader = new FileReader();
+
+				var img = $(this).parent().parent().find('img')[0];
+				img.title = selectedFile.name;
+
+				reader.onload = function(event) {
+					img.src = event.target.result;
+				};
+
+				reader.readAsDataURL(selectedFile);
+			});
 		});
 
 		//이벤트
@@ -522,6 +541,15 @@ th{
 							width : 100,
 							hozAlign : "center"
 						},
+						{title:"사진", field:"file_name3", width:100,
+							hozAlign:"center", formatter:"image",
+						    cssClass:"rp-img-popup",
+					      	formatterParams:{
+						      	height:"30px", width:"30px",
+						      	urlPrefix:"/excelTest/태경출력파일/사진/측정기기점검관리/"
+						      	}, 
+						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+						    },
 
 						],
 						rowFormatter : function(row) {
@@ -557,6 +585,7 @@ th{
 
 							var data = row.getData();
 							selectedRowData = data;
+							console.log("선택된 기기: ", selectedRowData);
 							isEditMode = true;
 							$('#gigiJeomgeomForm')[0].reset();
 							$('.gigiJeomgeomModal').show().addClass('show');
@@ -567,6 +596,19 @@ th{
 						        if (field.length) {
 						            field.val(data[key]);
 						        }
+
+								// 이미지 초기화
+								$("#img0").attr("src", "/resources/images/noimage_01.gif");
+
+								// 이미지
+								if (data.file_name3) {
+									console.log("원본 파일명:", data.file_name3);
+									console.log("인코딩된 경로:", encodeURIComponent(data.file_name3));
+									const path = "/excelTest/태경출력파일/사진/측정기기점검관리/" + data.file_name3;
+									console.log("path: ", path);
+									$("#img0").attr("src", path);
+									//$(".aphoto").attr("href", path).text(d.product_file_name);
+								}
 							});
 
 							 $('.delete').show();
@@ -746,7 +788,12 @@ th{
 		    });
 		}
 
-
+	    //엑셀 다운로드
+		$(".excel-button").click(function () {
+		    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+		    const filename = "측정기기점검관리_" + today + ".xlsx";
+		    userTable.download("xlsx", filename, { sheetName: "측정기기점검관리" });
+		});
 
 		
 	</script>

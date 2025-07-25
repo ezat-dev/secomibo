@@ -6,7 +6,7 @@ public class Measure {
 	private String edate;
 	
 	
-	private Integer ter_code;
+	private Integer ter_code;	//PK
 	private String ter_name;		//측정기기명
 	private String ter_no;			//측정기기번호
 	private String ter_model;		//모델명
@@ -77,11 +77,37 @@ public class Measure {
 	private String mcd_mod_cd; //최종수정자명
 	private int site_seq;
 	private String device_location_cd;
+	private String file_name;	//측정기기 사진 이름
+	private String file_name1;	//수리 전 이름
+	private String file_name2;	//수리 후 이름
+	private String file_name3; //측정기기점검관리 사진 이름
 	
 	
 	
-	
-	
+	public String getFile_name3() {
+		return file_name3;
+	}
+	public void setFile_name3(String file_name3) {
+		this.file_name3 = file_name3;
+	}
+	public String getFile_name1() {
+		return file_name1;
+	}
+	public void setFile_name1(String file_name1) {
+		this.file_name1 = file_name1;
+	}
+	public String getFile_name2() {
+		return file_name2;
+	}
+	public void setFile_name2(String file_name2) {
+		this.file_name2 = file_name2;
+	}
+	public String getFile_name() {
+		return file_name;
+	}
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
 	public Integer getTer_code() {
 		return ter_code;
 	}
@@ -482,4 +508,30 @@ public class Measure {
 	public void setTerr_code(Integer terr_code) {
 		this.terr_code = terr_code;
 	}
+	@Override
+	public String toString() {
+		return "Measure [sdate=" + sdate + ", edate=" + edate + ", ter_code=" + ter_code + ", ter_name=" + ter_name
+				+ ", ter_no=" + ter_no + ", ter_model=" + ter_model + ", ter_sn=" + ter_sn + ", ter_yong=" + ter_yong
+				+ ", ter_kind=" + ter_kind + ", ter_man1=" + ter_man1 + ", ter_man2=" + ter_man2 + ", ter_place="
+				+ ter_place + ", ter_use=" + ter_use + ", ter_ubigo=" + ter_ubigo + ", ter_bigo=" + ter_bigo
+				+ ", ter_maker=" + ter_maker + ", ter_mdate=" + ter_mdate + ", ter_buy=" + ter_buy + ", ter_bdate="
+				+ ter_bdate + ", ter_bmon=" + ter_bmon + ", ter_gum=" + ter_gum + ", ter_v=" + ter_v + ", ter_a="
+				+ ter_a + ", ter_kw=" + ter_kw + ", ter_next_gum=" + ter_next_gum + ", ter_end_gum=" + ter_end_gum
+				+ ", ter_file=" + ter_file + ", terr_code=" + terr_code + ", terr_name=" + terr_name + ", terr_chkman="
+				+ terr_chkman + ", terr_date=" + terr_date + ", terr_condi=" + terr_condi + ", terr_cost=" + terr_cost
+				+ ", terr_reward=" + terr_reward + ", terr_bigo=" + terr_bigo + ", terr_bphoto=" + terr_bphoto
+				+ ", terr_aphoto=" + terr_aphoto + ", terr_strt=" + terr_strt + ", terr_strt_h=" + terr_strt_h
+				+ ", terr_strt_mm=" + terr_strt_mm + ", terr_strt_ss=" + terr_strt_ss + ", terr_end=" + terr_end
+				+ ", terr_end_h=" + terr_end_h + ", terr_end_mm=" + terr_end_mm + ", terr_end_ss=" + terr_end_ss
+				+ ", terr_time=" + terr_time + ", terr_man=" + terr_man + ", terr_suri=" + terr_suri + ", terr_content="
+				+ terr_content + ", mcd_cd=" + mcd_cd + ", mcd_inspection_date=" + mcd_inspection_date + ", mcd_no="
+				+ mcd_no + ", mcd_man_no=" + mcd_man_no + ", mcd_correction_cycle=" + mcd_correction_cycle
+				+ ", mcd_next_date=" + mcd_next_date + ", repair_comp=" + repair_comp + ", mcd_manager_user_cd="
+				+ mcd_manager_user_cd + ", mcd_available_term=" + mcd_available_term + ", repair_history="
+				+ repair_history + ", mcd_file=" + mcd_file + ", mcd_reg_dt=" + mcd_reg_dt + ", mcd_reg_cd="
+				+ mcd_reg_cd + ", mcd_mod_dt=" + mcd_mod_dt + ", mcd_mod_cd=" + mcd_mod_cd + ", site_seq=" + site_seq
+				+ ", device_location_cd=" + device_location_cd + ", file_name=" + file_name + "]";
+	}
+
+	
 }

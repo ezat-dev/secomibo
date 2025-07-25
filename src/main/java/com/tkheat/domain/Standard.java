@@ -345,6 +345,22 @@ public class Standard {
 	private String fac_cau;			//설비점검 주의사항
 	private String fac_pda_use;
 	private String fac_state;
+	private String wstd_chim_file_name1; //단취사진 이름
+	private String wstd_chim_file_name2; //사진-3
+	
+	
+	public String getWstd_chim_file_name1() {
+		return wstd_chim_file_name1;
+	}
+	public void setWstd_chim_file_name1(String wstd_chim_file_name1) {
+		this.wstd_chim_file_name1 = wstd_chim_file_name1;
+	}
+	public String getWstd_chim_file_name2() {
+		return wstd_chim_file_name2;
+	}
+	public void setWstd_chim_file_name2(String wstd_chim_file_name2) {
+		this.wstd_chim_file_name2 = wstd_chim_file_name2;
+	}
 	public int getWstd_code() {
 		return wstd_code;
 	}

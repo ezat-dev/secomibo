@@ -1,6 +1,10 @@
 package com.tkheat.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tkheat.domain.Bega;
 import com.tkheat.domain.Jeomgeom;
@@ -27,6 +32,35 @@ public class PreservationController {
 
 	@Autowired
 	private PreservationService preservationService;
+
+	//파일 업로드
+	private String saveFiles(MultipartFile[] files, String uploadDir) throws IOException {
+		if (files == null || files.length == 0) return null;
+
+		File directory = new File(uploadDir);
+		if (!directory.exists()) directory.mkdirs();
+
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				String originalFilename = file.getOriginalFilename();
+				String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+				String ext = "";
+				int dotIndex = originalFilename.lastIndexOf('.');
+				if (dotIndex > 0) {
+					ext = originalFilename.substring(dotIndex);
+					originalFilename = originalFilename.substring(0, dotIndex);
+				}
+
+				String savedFilename = originalFilename + "_" + timestamp + ext;
+				File destination = new File(uploadDir + "/" + savedFilename);
+				file.transferTo(destination);
+
+				return savedFilename; //
+			}
+		}
+		return null;
+	}
 
 	//SparePart관리 - 화면로드
 	@RequestMapping(value = "/preservation/sparePart", method = RequestMethod.GET)
@@ -59,6 +93,7 @@ public class PreservationController {
 			rowMap.put("sph_suriout", sparePartList.get(i).getSph_suriout());
 			rowMap.put("sph_jasanout", sparePartList.get(i).getSph_jasanout());
 			rowMap.put("spp_jaigo", sparePartList.get(i).getSpp_jaigo());
+			rowMap.put("file_name", sparePartList.get(i).getFile_name());
 
 			rtnList.add(rowMap);
 		}
@@ -68,7 +103,7 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//SparePart 더블클릭조회
 	@RequestMapping(value = "/preservation/sparePart/sparePartDetail", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -90,12 +125,19 @@ public class PreservationController {
 	@ResponseBody
 	public Map<String, Object> sparePartSave(
 			@ModelAttribute SparePart sparePart,
-			@RequestParam("mode") String mode) { 
+			@RequestParam("mode") String mode,
+			@RequestParam(value = "file_url", required = false) MultipartFile[] files) {
+		System.out.println("sparePartSave 컨트롤러 도착");
 
-		
 		Map<String, Object> result = new HashMap<>();
 
 		try {
+
+			String path = "D:/엑셀테스트/태경출력파일/사진/SparePart관리";
+
+			String productFileName = saveFiles(files, path);
+			if (productFileName != null) sparePart.setFile_name(productFileName);
+
 			if ("insert".equalsIgnoreCase(mode)) {
 				preservationService.sparePartInsertSave(sparePart);
 			} else if ("update".equalsIgnoreCase(mode)) {
@@ -139,11 +181,11 @@ public class PreservationController {
 
 		return result;
 	}	
-		
-	
-	
-	
-	
+
+
+
+
+
 	//SpareSub 관리 조회
 	@RequestMapping(value = "/preservation/sparePart/getSpareSubList", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -153,8 +195,8 @@ public class PreservationController {
 
 		SparePart s = new SparePart();
 		s.setSpp_idx(spp_idx);
-		
-		List<SparePart> sparePartList = preservationService.getSpareSubList(s);
+
+		List<SparePart> sparePartList = preservationService.getSpareSubList(s.getSpp_idx());
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
 		for(int i=0; i<sparePartList.size(); i++) {
@@ -181,13 +223,13 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
-	
-	
 
-	
-	
-	
+
+
+
+
+
+
 
 
 	//설비비가동등록 - 화면로드
@@ -209,7 +251,7 @@ public class PreservationController {
 
 		bega.setSdate(sdate);
 		bega.setEdate(edate);
-		
+
 		List<Bega> begaInsertList = preservationService.getBegaInsertList(bega);
 
 		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
@@ -244,7 +286,7 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//비가동등록 더블클릭조회
 	@RequestMapping(value = "/preservation/begaInsert/begaInsertDetail", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -260,17 +302,17 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//설비 비가동등록 - insert,update
 	@RequestMapping(value = "/preservation/begaInsert/begaInsertSave", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> begaInsertSave(
 			@ModelAttribute Bega bega,
 			@RequestParam("mode") String mode) { 
-		
+
 		System.out.println("mode = " + mode);
-	    System.out.println("fstp_code = " + bega.getFstp_code());
-	    System.out.println("fac_code = " + bega.getFac_code());
+		System.out.println("fstp_code = " + bega.getFstp_code());
+		System.out.println("fac_code = " + bega.getFac_code());
 		Map<String, Object> result = new HashMap<>();
 
 		try {
@@ -292,11 +334,11 @@ public class PreservationController {
 
 		System.out.println(result.get("status"));
 		System.out.println(result.get("message"));
-		
+
 
 		return result;
 	}
-	
+
 	//설비비가동등록 삭제 - delete
 	@RequestMapping(value = "/preservation/begaInsert/begaDelete", method = RequestMethod.POST)
 	@ResponseBody
@@ -317,9 +359,9 @@ public class PreservationController {
 
 		return result;
 	}	
-	
-	
-	
+
+
+
 
 
 	//설비비가동율분석 - 화면로드
@@ -327,10 +369,10 @@ public class PreservationController {
 	public String begaAnaly() {
 		return "/preservation/begaAnaly.jsp";
 	}	 
-	
-	
-	
-	
+
+
+
+
 	//설비비가동률 조회
 	@RequestMapping(value = "/preservation/begaAnaly/getBegaAnalyList", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -367,8 +409,8 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
-	
+
+
 
 	//설비수리이력관리 - 화면로드
 	@RequestMapping(value = "/preservation/suriHistory", method = RequestMethod.GET)
@@ -407,6 +449,8 @@ public class PreservationController {
 			rowMap.put("ffx_cost", suriHistoryList.get(i).getFfx_cost());
 			rowMap.put("ffx_note", suriHistoryList.get(i).getFfx_note());
 			rowMap.put("ffx_no", suriHistoryList.get(i).getFfx_no());
+			rowMap.put("file_name1", suriHistoryList.get(i).getFile_name1());
+			rowMap.put("file_name2", suriHistoryList.get(i).getFile_name2());
 
 			rtnList.add(rowMap);
 		}
@@ -416,7 +460,7 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//설비 수리이력 더블클릭조회
 	@RequestMapping(value = "/preservation/suriHistory/suriHistoryDetail", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -432,20 +476,33 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//설비 수리이력 - insert, update
 	@RequestMapping(value = "/preservation/suriHistory/suriHistorySave", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> suriHistorySave(
 			@ModelAttribute Suri suri,
-			@RequestParam("mode") String mode) { 
-		
+			@RequestParam("mode") String mode,
+			  @RequestParam(value = "file_url1", required = false) MultipartFile[] files1,
+			  @RequestParam(value = "file_url2", required = false) MultipartFile[] files2) { 
+
 		System.out.println("mode = " + mode);
-	    System.out.println("Ffx_note = " + suri.getFfx_note());
-	    System.out.println("Ffx_no = " + suri.getFfx_no());
+		System.out.println("Ffx_note = " + suri.getFfx_note());
+		System.out.println("Ffx_no = " + suri.getFfx_no());
 		Map<String, Object> result = new HashMap<>();
 
 		try {
+			
+			String path = "D:/엑셀테스트/태경출력파일/사진/설비수리이력관리/";
+
+			String productFileName = saveFiles(files1, path);
+			if (productFileName != null) suri.setFile_name1(productFileName);
+			System.out.println("파일 이름: "+productFileName);
+			
+			String productFileName2 = saveFiles(files2, path);
+			if (productFileName2 != null) suri.setFile_name2(productFileName2);
+			System.out.println("파일 이름: "+productFileName2);
+			
 			if ("insert".equalsIgnoreCase(mode)) {
 				preservationService.suriHistoryInsertSave(suri);
 			} else if ("update".equalsIgnoreCase(mode)) {
@@ -467,8 +524,8 @@ public class PreservationController {
 
 		return result;
 	}
-		
-		
+
+
 	//설비 수리이력 삭제 - delete
 	@RequestMapping(value = "/preservation/suriHistory/suriHistoryDelete", method = RequestMethod.POST)
 	@ResponseBody
@@ -490,12 +547,12 @@ public class PreservationController {
 		return result;
 	}	
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	//설비점검기준등록 - 화면로드
 	@RequestMapping(value = "/preservation/jeomgeomInsert", method = RequestMethod.GET)
@@ -539,23 +596,23 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//설비점검기준등록 더블클릭조회
-		@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertDetail", method = RequestMethod.POST) 
-		@ResponseBody 
-		public Map<String, Object> jeomgeomInsertDetail(
-				@RequestParam int chs_code) {
-			Map<String, Object> rtnMap = new HashMap<String, Object>();
+	@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertDetail", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> jeomgeomInsertDetail(
+			@RequestParam int chs_code) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
-			Jeomgeom jeomgeom = new Jeomgeom();
-			jeomgeom.setChs_code(chs_code);
-			Jeomgeom JeomgeomList = preservationService.jeomgeomInsertDetail(jeomgeom);
+		Jeomgeom jeomgeom = new Jeomgeom();
+		jeomgeom.setChs_code(chs_code);
+		Jeomgeom JeomgeomList = preservationService.jeomgeomInsertDetail(jeomgeom);
 
-			rtnMap.put("data",JeomgeomList);
+		rtnMap.put("data",JeomgeomList);
 
-			return rtnMap; 
-		}
-	
+		return rtnMap; 
+	}
+
 	//설비 점검기준등록 - insert, update
 	@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomInsertSave", method = RequestMethod.POST)
 	@ResponseBody
@@ -586,8 +643,8 @@ public class PreservationController {
 
 		return result;
 	}
-	
-	
+
+
 	//설비 점검기준등록 삭제 - delete
 	@RequestMapping(value = "/preservation/jeomgeomInsert/jeomgeomDelete", method = RequestMethod.POST)
 	@ResponseBody
@@ -608,15 +665,15 @@ public class PreservationController {
 
 		return result;
 	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
 
 	//설비별점검현황(일별) - 화면로드
 	@RequestMapping(value = "/preservation/dayJeomgeom", method = RequestMethod.GET)
@@ -635,7 +692,7 @@ public class PreservationController {
 	public String gigiGojang() {
 		return "/preservation/gigiGojang.jsp";
 	}
-	
+
 	//측정기기고장이력 조회
 	@RequestMapping(value = "/preservation/gigiGojang/getGigiGojangList", method = RequestMethod.POST) 
 	@ResponseBody 
@@ -680,17 +737,20 @@ public class PreservationController {
 
 		return rtnMap; 
 	}
-	
+
 	//측정기기고장이력 더블클릭조회
 	@RequestMapping(value = "/preservation/gigiGojang/gigiGojangtDetail", method = RequestMethod.POST) 
 	@ResponseBody 
 	public Map<String, Object> gigiGojangtDetail(
 			@RequestParam int terr_code) {
+		System.out.println("gigiGojangtDetail 컨트롤러 도착");
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
 		Measure measure = new Measure();
 		measure.setTerr_code(terr_code);
+		System.out.println("measure.getTerr_code()"+measure.getTerr_code());
 		Measure gojangList = preservationService.gigiGojangtDetail(measure);
+		System.out.println("가져온 데이터: "+gojangList);
 
 		rtnMap.put("data",gojangList);
 
@@ -702,13 +762,26 @@ public class PreservationController {
 	@ResponseBody
 	public Map<String, Object> gigiGojangSave(
 			@ModelAttribute Measure measure,
-			@RequestParam("mode") String mode) { 
+			@RequestParam("mode") String mode,
+			  @RequestParam(value = "file_url1", required = false) MultipartFile[] files1,
+			  @RequestParam(value = "file_url2", required = false) MultipartFile[] files2) { 
 
 		System.out.println("mode = " + mode);
 		System.out.println("terr_code = " + measure.getTerr_code());
 		Map<String, Object> result = new HashMap<>();
 
 		try {
+			
+			String path = "D:/엑셀테스트/태경출력파일/사진/측정기기고장이력/";
+
+			String productFileName = saveFiles(files1, path);
+			if (productFileName != null) measure.setFile_name1(productFileName);
+			System.out.println("파일 이름: "+productFileName);
+			
+			String productFileName2 = saveFiles(files2, path);
+			if (productFileName2 != null) measure.setFile_name2(productFileName2);
+			System.out.println("파일 이름: "+productFileName2);
+			
 			if ("insert".equalsIgnoreCase(mode)) {
 				preservationService.gigiGojangInsert(measure);
 			} else if ("update".equalsIgnoreCase(mode)) {
@@ -752,107 +825,116 @@ public class PreservationController {
 
 		return result;
 	}	
-	
+
 
 	//측정기기점검관리 - 화면로드
 	@RequestMapping(value = "/preservation/gigiJeomgeom", method = RequestMethod.GET)
 	public String gigiJeomgeom() {
 		return "/preservation/gigiJeomgeom.jsp";
 	}	 
-	
-	
+
+
 	//측정기기점검관리 조회
-		@RequestMapping(value = "/preservation/gigiJeomgeom/getGigiJeomgeomList", method = RequestMethod.POST) 
-		@ResponseBody 
-		public Map<String, Object> getGigiJeomgeomList(
-				@RequestParam String sdate,
-				@RequestParam String edate
-				) {
-			Map<String, Object> rtnMap = new HashMap<String, Object>();
+	@RequestMapping(value = "/preservation/gigiJeomgeom/getGigiJeomgeomList", method = RequestMethod.POST) 
+	@ResponseBody 
+	public Map<String, Object> getGigiJeomgeomList(
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
-			Measure measure = new Measure();
+		Measure measure = new Measure();
 
-			measure.setSdate(sdate);
-			measure.setEdate(edate);
+		measure.setSdate(sdate);
+		measure.setEdate(edate);
 
 
-			List<Measure> gigiJeomgeomList = preservationService.getGigiJeomgeomList(measure);
+		List<Measure> gigiJeomgeomList = preservationService.getGigiJeomgeomList(measure);
 
-			List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
-			for(int i=0; i<gigiJeomgeomList.size(); i++) {
-				HashMap<String, Object> rowMap = new HashMap<String, Object>();
-				rowMap.put("mcd_inspection_date", gigiJeomgeomList.get(i).getMcd_inspection_date());
-				rowMap.put("ter_name", gigiJeomgeomList.get(i).getTer_name());
-				rowMap.put("mcd_no", gigiJeomgeomList.get(i).getMcd_no());
-				rowMap.put("mcd_correction_cycle", gigiJeomgeomList.get(i).getMcd_correction_cycle());
-				rowMap.put("mcd_next_date", gigiJeomgeomList.get(i).getMcd_next_date());
-				rowMap.put("mcd_manager_user_cd", gigiJeomgeomList.get(i).getMcd_manager_user_cd());
-				rowMap.put("mcd_reg_dt", gigiJeomgeomList.get(i).getMcd_reg_dt());
-				rowMap.put("mcd_reg_cd", gigiJeomgeomList.get(i).getMcd_reg_cd());
-				rowMap.put("mcd_mod_dt", gigiJeomgeomList.get(i).getMcd_mod_dt());
-				rowMap.put("mcd_mod_cd", gigiJeomgeomList.get(i).getMcd_mod_cd());
+		List<HashMap<String, Object>> rtnList = new ArrayList<HashMap<String, Object>>();
+		for(int i=0; i<gigiJeomgeomList.size(); i++) {
+			HashMap<String, Object> rowMap = new HashMap<String, Object>();
+			rowMap.put("mcd_inspection_date", gigiJeomgeomList.get(i).getMcd_inspection_date());
+			rowMap.put("ter_name", gigiJeomgeomList.get(i).getTer_name());
+			rowMap.put("mcd_no", gigiJeomgeomList.get(i).getMcd_no());
+			rowMap.put("mcd_correction_cycle", gigiJeomgeomList.get(i).getMcd_correction_cycle());
+			rowMap.put("mcd_next_date", gigiJeomgeomList.get(i).getMcd_next_date());
+			rowMap.put("mcd_manager_user_cd", gigiJeomgeomList.get(i).getMcd_manager_user_cd());
+			rowMap.put("mcd_reg_dt", gigiJeomgeomList.get(i).getMcd_reg_dt());
+			rowMap.put("mcd_reg_cd", gigiJeomgeomList.get(i).getMcd_reg_cd());
+			rowMap.put("mcd_mod_dt", gigiJeomgeomList.get(i).getMcd_mod_dt());
+			rowMap.put("mcd_mod_cd", gigiJeomgeomList.get(i).getMcd_mod_cd());
+			rowMap.put("file_name3", gigiJeomgeomList.get(i).getFile_name3());
 
-				rtnList.add(rowMap);
-			}
-
-			rtnMap.put("last_page",1);
-			rtnMap.put("data",rtnList);
-
-			return rtnMap; 
-		}
-		
-		
-		//측정기기점검관리 - insert, update
-		@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomSave", method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> gigiJeomgeomSave(
-				@ModelAttribute Measure measure,
-				@RequestParam("mode") String mode) { 
-			Map<String, Object> result = new HashMap<>();
-
-			try {
-				if ("insert".equalsIgnoreCase(mode)) {
-					preservationService.gigiJeomgeomInsertSave(measure);
-				} else if ("update".equalsIgnoreCase(mode)) {
-					preservationService.gigiJeomgeomUpdateSave(measure);  
-				} else {
-					throw new IllegalArgumentException("Invalid mode: " + mode);
-				}
-
-				result.put("status", "success");
-				result.put("message", "OK");
-
-			} catch (Exception e) {
-				result.put("status", "error");
-				result.put("message", e.getMessage());
-			}
-
-			System.out.println(result.get("status"));
-			System.out.println(result.get("message"));
-
-			return result;
+			rtnList.add(rowMap);
 		}
 
+		rtnMap.put("last_page",1);
+		rtnMap.put("data",rtnList);
 
-		//측정기기점검관리 삭제 - delete
-		@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomDelete", method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> gigiJeomgeomDelete(@RequestParam("ter_code") int ter_code) {
-			Map<String, Object> result = new HashMap<>();
+		return rtnMap; 
+	}
 
-			try {
-				preservationService.jeomgeomDelete(ter_code);
-				result.put("status", "success");
-				result.put("message", "삭제 완료");
-			} catch (Exception e) {
-				result.put("status", "error");
-				result.put("message", e.getMessage());
+
+	//측정기기점검관리 - insert, update
+	@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomSave", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> gigiJeomgeomSave(
+			@ModelAttribute Measure measure,
+			@RequestParam("mode") String mode,
+			@RequestParam(value = "file_url", required = false) MultipartFile[] files1) { 
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			
+			String path = "D:/엑셀테스트/태경출력파일/사진/측정기기점검관리/";
+
+			String productFileName = saveFiles(files1, path);
+			if (productFileName != null) measure.setFile_name3(productFileName);
+			System.out.println("파일 이름: "+productFileName);
+			
+			if ("insert".equalsIgnoreCase(mode)) {
+				preservationService.gigiJeomgeomInsertSave(measure);
+			} else if ("update".equalsIgnoreCase(mode)) {
+				preservationService.gigiJeomgeomUpdateSave(measure);  
+			} else {
+				throw new IllegalArgumentException("Invalid mode: " + mode);
 			}
 
-			System.out.println(result.get("status"));
-			System.out.println(result.get("message"));
+			result.put("status", "success");
+			result.put("message", "OK");
 
-			return result;
-		}	
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}
+
+
+	//측정기기점검관리 삭제 - delete
+	@RequestMapping(value = "/preservation/gigiJeomgeom/gigiJeomgeomDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> gigiJeomgeomDelete(@RequestParam("ter_code") int ter_code) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			preservationService.jeomgeomDelete(ter_code);
+			result.put("status", "success");
+			result.put("message", "삭제 완료");
+		} catch (Exception e) {
+			result.put("status", "error");
+			result.put("message", e.getMessage());
+		}
+
+		System.out.println(result.get("status"));
+		System.out.println(result.get("message"));
+
+		return result;
+	}	
 
 }

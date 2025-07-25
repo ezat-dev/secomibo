@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>입고관리</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -504,7 +505,12 @@ input[type="date"] {
 		ipgoModal.style.display = 'none'; // 모달 숨김
 	}
 
-
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "입고관리_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "입고관리" });
+	});
 	
 
     </script>

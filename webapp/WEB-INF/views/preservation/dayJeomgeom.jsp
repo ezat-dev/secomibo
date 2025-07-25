@@ -8,6 +8,7 @@
     <title>설비점검현황(일별)</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
     
@@ -168,7 +169,13 @@
 			},
 		});		
 	}
-	
+
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "설비별점검현황(일별)_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "설비별점검현황(일별)" });
+	});
 
     </script>
 

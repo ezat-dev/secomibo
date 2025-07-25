@@ -322,7 +322,26 @@ public class Work {
 	//2025-06-20 추가
 	private String queryGb;
 	
+	private String file_name1; //개선전 사진
+	private String file_name2; //개선후 사진
 	
+	
+	public String getFile_name1() {
+		return file_name1;
+	}
+
+	public void setFile_name1(String file_name1) {
+		this.file_name1 = file_name1;
+	}
+
+	public String getFile_name2() {
+		return file_name2;
+	}
+
+	public void setFile_name2(String file_name2) {
+		this.file_name2 = file_name2;
+	}
+
 	public int getPlnp_code() {
 		return plnp_code;
 	}

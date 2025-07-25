@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>침탄로작업표준</title>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %>     
     
     <style>
@@ -748,7 +749,7 @@ body{
               <legend>단취사진</legend>
               <div class="findImage">
                 <input type="hidden" name="type" value="standard">
-                  <input type="file" name="imageFile1" title="이미지 찾기" onchange="previewImage(this,'previewId1')">
+                  <input type="file" id="imgInput0" class="imgInputClass" name=wstd_chim_file_url1 title="이미지 찾기" onchange="previewImage(this,'previewId1')">
                   <!--<input type="button" value="X" title="삭제" class="btnFT" /> -->
                 <div class="imgArea" id="previewId1" style="height:90px;border:1px solid #ddd;"><img id="prev_previewId1"  width="100%" height="100%"></div>
               </div>
@@ -762,7 +763,7 @@ body{
               <legend>사진-3</legend>
               <div class="findImage">
               <input type="hidden" name="type" value="standard">
-                  <input type="file" name="imageFile3" title="이미지 찾기" onchange="previewImage(this,'previewId3')"><!-- <input type="button" value="X" title="삭제" class="btnFT" /> -->
+                  <input type="file" id="imgInput1" class="imgInputClass" name=wstd_chim_file_url2 title="이미지 찾기" onchange="previewImage(this,'previewId3')"><!-- <input type="button" value="X" title="삭제" class="btnFT" /> -->
                 <div class="imgArea" id="previewId3" style="height:91px;border:1px solid #ddd;"><img id="prev_previewId3"  width="100%" height="100%"></div>
               </div>
             </fieldset>
@@ -985,6 +986,23 @@ body{
 		getChimStandardList();
 	});
 
+    $(function(){	
+        // 파일 선택시 이미지 띄우기
+      $('.imgInputClass').change(function(event){
+        var selectedFile = event.target.files[0];
+      var reader = new FileReader();
+      
+      var img = $(this).parent().parent().find('img')[0];
+      img.title = selectedFile.name;
+      
+      reader.onload = function(event) {
+        img.src = event.target.result;
+      };
+      
+      reader.readAsDataURL(selectedFile);
+      });
+    });
+
 	//이벤트
 	//함수
 	function getChimStandardList(){
@@ -1032,7 +1050,25 @@ body{
 				    hozAlign:"center", headerFilter:"input"},
 				{title:"공정", field:"tech_te", sorter:"int", width:150,
 					hozAlign:"center", headerFilter:"input"},
-					{title:"", field:"wstd_code", visible:false}
+					{title:"", field:"wstd_code", visible:false},
+					{title:"단취사진", field:"wstd_chim_file_name1", width:100,
+						hozAlign:"center", formatter:"image",
+					    cssClass:"rp-img-popup",
+				      	formatterParams:{
+					      	height:"30px", width:"30px",
+					      	urlPrefix:"/excelTest/태경출력파일/사진/침탄로작업표준/"
+					      	}, 
+					    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+					    },
+						{title:"사진-3", field:"wstd_chim_file_name2", width:100,
+							hozAlign:"center", formatter:"image",
+						    cssClass:"rp-img-popup",
+					      	formatterParams:{
+						      	height:"30px", width:"30px",
+						      	urlPrefix:"/excelTest/태경출력파일/사진/침탄로작업표준/"
+						      	}, 
+						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+						    },
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -1090,12 +1126,35 @@ function getChimStandardDetail(wstd_code){
 			"wstd_code":wstd_code
 		},
 		success:function(result){
-//			console.log(result);
+			console.log(result);
 			var allData = result.data;
 			
 			for(let key in allData){
 //				console.log(allData, key);	
 				$("[name='"+key+"']").val(allData[key]);
+			}
+
+			// 이미지 초기화
+			$("#prev_previewId1, #prev_previewId3, #prev_previewId7").attr("src", "/resources/images/noimage_01.gif");
+
+			// 단취사진
+			if (allData.wstd_chim_file_name1) {
+				console.log("원본 파일명:", allData.wstd_chim_file_name1);
+				console.log("인코딩된 경로:", encodeURIComponent(allData.wstd_chim_file_name1));
+				const path = "/excelTest/태경출력파일/사진/침탄로작업표준/" + allData.wstd_chim_file_name1;
+				console.log("path: ", path);
+				$("#prev_previewId1").attr("src", path);
+				//$(".aphoto").attr("href", path).text(d.product_file_name);
+			}
+			// 사진-3
+			if (allData.wstd_chim_file_name2) {
+				console.log("원본 파일명:", allData.wstd_chim_file_name2);
+				console.log("인코딩된 경로:", encodeURIComponent(allData.wstd_chim_file_name2));
+				const path = "/excelTest/태경출력파일/사진/침탄로작업표준/" + allData.wstd_chim_file_name2;
+				console.log("path: ", path);
+				$("#prev_previewId3").attr("src", path);
+				$("#prev_previewId7").attr("src", path);
+				//$(".aphoto").attr("href", path).text(d.product_file_name);
 			}
 
 			$('.chimStandardModal').show().addClass('show');
@@ -1301,7 +1360,12 @@ function getChimStandardDetail(wstd_code){
 	    });
 	}
 
-    
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "침탄로작업표준_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "침탄로작업표준" });
+	});
 		
 
 

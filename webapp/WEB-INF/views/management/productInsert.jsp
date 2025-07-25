@@ -8,6 +8,7 @@
     <title>제품등록</title>
     <link rel="stylesheet" href="/tkheat/css/management/productInsert.css">
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <%@include file="../include/pluginpage.jsp" %> 
     <style>
 .main {
@@ -762,8 +763,9 @@ textarea {
                       <th class="thSub2">제품</th>
                       <td class="tdRight">
                         <div>
-                              <input id="imgInput0" class="imgInputClass valClean" type="file" title="이미지 찾기">
-                              <input type="button" value="X" onclick="$('#img0').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput0').val('');">
+                              <input id="imgInput0" class="imgInputClass valClean" type="file" name="product_file_url" title="이미지 찾기" onchange="rpReadImageURL(this); $(this).parent().find('img').removeClass('rp-file-del');">
+                              <!-- <input type="button" value="X" name="product_file_url" onclick="$('#img0').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput0').val('');"> -->
+                          <!-- <input type="text" name="product_file_name">  -->
                           <a href="" class="form-control aphoto" download="">다운로드</a>
                         </div>
                         <div class="imgArea" style="width:200px; height:150px; border:1px solid #ddd;">
@@ -775,7 +777,7 @@ textarea {
                       <th class="thSub2">외형사진<br>및<br>분석위치</th>
                       <td class="tdRight">
                         <div>
-                              <input id="imgInput1" class="imgInputClass valClean" type="file" title="이미지 찾기">
+                              <input id="imgInput1" class="imgInputClass valClean" type="file" name="apperance_file_url" title="이미지 찾기">
                               <input type="button" value="X" onclick="$('#img1').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput1').val('');">
                           <a href="" class="form-control bphoto" download="">다운로드</a>
                           </div>
@@ -788,7 +790,7 @@ textarea {
                       <th class="thSub2">열처리공정</th>
                       <td class="tdRight">
                         <div>
-                              <input id="imgInput2" class="imgInputClass valClean" type="file" title="이미지 찾기">
+                              <input id="imgInput2" class="imgInputClass valClean" type="file" name="heat_file_url" title="이미지 찾기">
                               <input type="button" value="X" onclick="$('#img2').attr('src', '/resources/images/noimage_01.gif'); $('#imgInput2').val('');">
                           <a href="" class="form-control cphoto" download="">다운로드</a>
                           </div>
@@ -918,6 +920,20 @@ textarea {
 
 	    
 <script>
+
+
+$('.imgInputClass').change(function(event){
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+    var img = $(this).parent().parent().find('img')[0];
+    img.title = selectedFile.name;
+
+    reader.onload = function(event) {
+        img.src = event.target.result; // base64 URI로 넣기 때문에 file:// 아님
+    };
+    reader.readAsDataURL(selectedFile);
+});
+
 	//전역변수
     var productTable;	
     var isEditMode = false; //수정,최초저장 구분값
@@ -994,6 +1010,33 @@ textarea {
 					hozAlign:"center", headerFilter:"input"},
  			    {title:"심부경도", field:"prod_sg", sorter:"int", width:100,
 					hozAlign:"center", headerFilter:"input"},
+				{title:"제품", field:"product_file_name", width:100,
+					hozAlign:"center", formatter:"image",
+				    cssClass:"rp-img-popup",
+			      	formatterParams:{
+				      	height:"30px", width:"30px",
+				      	urlPrefix:"/excelTest/태경출력파일/사진/제품등록/"
+				      	}, 
+				    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+				    },
+					{title:"외형사진 및 분석위치", field:"apperance_file_name", width:100,
+						hozAlign:"center", formatter:"image",
+					    cssClass:"rp-img-popup",
+				      	formatterParams:{
+					      	height:"30px", width:"30px",
+					      	urlPrefix:"/excelTest/태경출력파일/사진/제품등록/"
+					      	}, 
+					    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+					    },
+						{title:"열처리공정", field:"heat_file_name", width:100,
+							hozAlign:"center", formatter:"image",
+						    cssClass:"rp-img-popup",
+					      	formatterParams:{
+						      	height:"30px", width:"30px",
+						      	urlPrefix:"/excelTest/태경출력파일/사진/제품등록/"
+						      	}, 
+						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
+						    },
 		    ],
 		    rowFormatter:function(row){
 			    var data = row.getData();
@@ -1019,7 +1062,7 @@ textarea {
 			},
 			rowDblClick:function(e, row){
 
-				var data = row.getData();
+ 				var data = row.getData();
 				selectedRowData = data;
 				isEditMode = true;
 				$('#productInsertForm')[0].reset();
@@ -1027,8 +1070,17 @@ textarea {
 
 				console.log(data);
 				
-				productInsertDetail(data.prod_code);	
-				 $('.delete').show();
+/* 				productInsertDetail(data.prod_code);	
+				 $('.delete').show();  */
+
+				    const d = row.getData();
+				    selectedRowData = d;
+				    $('#productInsertForm')[0].reset();
+				    
+				    // 상세조회 Ajax 요청 실행
+				    productInsertDetail(d.prod_code);
+
+				    $('.delete').show();  // 필요 시
 			},
 		});		
 	}
@@ -1039,21 +1091,49 @@ textarea {
 			url:"/tkheat/management/productInsert/productInsertDetail",
 			type:"post",
 			dataType:"json",
-			data:{
-				"prod_code":prod_code
-			},
+			data:{ "prod_code":prod_code },
 			success:function(result){
-				console.log(result);
-				var allData = result.data;
-				
-				for(let key in allData){
-//					console.log(allData, key);	
-					if(key == "prod_date"){
-						$("[name='"+key+"']").val(allData[key].substring(0,10));
+				console.log("result", result);
+				const d = result.data;
+
+				// 폼 초기화
+				$('#productInsertForm')[0].reset();
+
+				// 기본 데이터 바인딩
+				for(let key in d){
+					if(key === "prod_date"){
+						$("[name='"+key+"']").val(d[key].substring(0,10));
 					}else{
-						$("[name='"+key+"']").val(allData[key]);
+						$("[name='"+key+"']").val(d[key]);
 					}
-					
+				}
+
+				// 이미지 초기화
+				$("#img0, #img1, #img2").attr("src", "/resources/images/noimage_01.gif");
+				$(".aphoto, .bphoto, .cphoto").attr("href", "").text("");
+
+				// 제품 사진
+				if (d.product_file_name) {
+					console.log("원본 파일명:", d.product_file_name);
+					console.log("인코딩된 경로:", encodeURIComponent(d.product_file_name));
+					const path = "/excelTest/태경출력파일/사진/제품등록/" + d.product_file_name;
+					console.log("path: ", path);
+					$("#img0").attr("src", path);
+					$(".aphoto").attr("href", path).text(d.product_file_name);
+				}
+
+				// 외형 사진
+				if (d.apperance_file_name) {
+					const path = "/excelTest/태경출력파일/사진/제품등록/" + d.apperance_file_name;
+					$("#img1").attr("src", path);
+					$(".bphoto").attr("href", path).text(d.apperance_file_name);
+				}
+
+				// 열처리 사진
+				if (d.heat_file_name) {
+					const path = "/excelTest/태경출력파일/사진/제품등록/" + d.heat_file_name;
+					$("#img2").attr("src", path);
+					$(".cphoto").attr("href", path).text(d.heat_file_name);
 				}
 
 				$('.productModal').show().addClass('show');
@@ -1104,6 +1184,11 @@ textarea {
 	insertButton.addEventListener('click', function() {
 		isEditMode = false;  // 추가 모드
 	    $('#productInsertForm')[0].reset(); // 폼 초기화
+
+		// 이미지 초기화
+		$("#img0, #img1, #img2").attr("src", "/resources/images/noimage_01.gif");
+		$(".aphoto, .bphoto, .cphoto").attr("href", "").text("");
+		
 	    productModal.style.display = 'block'; // 모달 표시
 
 		$('.delete').hide();
@@ -1236,6 +1321,12 @@ textarea {
 	        }
 	    });
 	}
+    //엑셀 다운로드
+	$(".excel-button").click(function () {
+	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+	    const filename = "제품등록_" + today + ".xlsx";
+	    userTable.download("xlsx", filename, { sheetName: "제품등록" });
+	});
 
 	
 
