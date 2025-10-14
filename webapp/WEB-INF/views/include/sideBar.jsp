@@ -208,7 +208,7 @@
         <nav class="nav">
             <div>
                 <div class="nav__brand">
-                     <a href="#" class="nav__logo"><img class="tkLogo" src="/tkheat/css/sideBar/tkLogo.png"></a>
+                     <a href="#" class="nav__logo"><img class="tkLogo" src="/tkheat/css/sideBar/miboLogo1.png"></a>
                 </div>
                 <div class="nav__list">
                     
@@ -473,10 +473,10 @@
 		var menuUrl = url;
 		var menuName = menuGroupName;
         
-		menuSave(loginCode, menuUrl, menuName);
+		//menuSave(loginCode, menuUrl, menuName);
 	}
         
-	function menuSave(loginCode, menuUrl, menuName){
+/* 	function menuSave(loginCode, menuUrl, menuName){
 		$.ajax({
 			url:"/tkheat/user/login/menuSave",
 			type:"post",
@@ -490,9 +490,9 @@
 				menuList();
 			}
 		});
-	}
+	} */
 
-	function menuList(){
+/* 	function menuList(){
 		var loginCode = "${loginUser.user_code}";
         	
 		$.ajax({
@@ -528,7 +528,7 @@
          			
 			}
 		});
-	}
+	} */
 	
 	   function removeMenu(url) {
 			var loginCode = "${loginUser.user_code}";		   

@@ -5,1371 +5,1940 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>침탄로작업표준</title>
+    <title>그룹관리</title>
+    <%-- <%@ include file="../include/sideBar.jsp" %> --%>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <%@include file="../include/pluginpage.jsp" %>
+    <link rel="stylesheet" href="/tkheat/css/management/userinsert2.css">
     <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-<%@include file="../include/pluginpage.jsp" %>     
-    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/locales-all.min.js'></script>
     <style>
     
-	.container {
-		display: flex;
-		justify-content: space-between;
-/*		margin-left:1008px;
-		margin-top:200px;*/
-	}
-
-.chimStandardModal {
-    position: fixed; /* 화면에 고정 */
-    top: 50%; /* 수직 중앙 */
-    left: 55%; /* 수평 중앙 */
-    display : none;
-    transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-#editPop {
-    background: #ffffff;
-    border: 1px solid #000000;
-    width: 1300px; /* 가로 길이 고정 */
-    height: 720px; /* 세로 길이 고정 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-    margin: 20px auto; /* 중앙 정렬 */
-    padding: 20px;
-    border-radius: 5px; /* 모서리 둥글게 */
-    overflow-y: auto; /* 세로 스크롤 추가 */
-}
-
-.popField {
-    margin-bottom: 20px; /* 각 필드셋 간의 여백 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 둥근 모서리 */
-    padding: 10px; /* 내부 여백 */
-}
-
-.popField legend {
-    font-weight: bold; /* 굵은 글씨 */
-    padding: 0 10px; /* 레전드 패딩 */
-}
-
-.popFieldTable, .popFieldTable2, .popFieldTable3 {
-    width: 100%; /* 테이블 너비 100% */
-    border-collapse: collapse; /* 테두리 겹침 제거 */
-}
-
-.popFieldTable th,
-.popFieldTable td,
-.popFieldTable2 th,
-.popFieldTable2 td,
-.popFieldTable3 th,
-.popFieldTable3 td {
-    padding: 5px; /* 셀 패딩 */
-    border: 1px solid #ccc; /* 셀 경계선 */
-}
-
-.basic {
-    background: #ffffff;
-    border: 1px solid #949494; /* 경계선 색상 */
-    width: calc(100% - 10px); /* 기본 너비 100%에서 여백 제외 */
-    padding: 5px; /* 내부 여백 */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
-    border-radius: 3px; /* 둥근 모서리 */
-}
-
-.basic[readonly] {
-    background-color: #f9f9f9; /* 읽기 전용 필드 색상 */
-}
-
-.imgArea {
-    width: 100%; /* 이미지 영역 너비 */
-    height: 90px; /* 이미지 영역 높이 */
-    border: 1px solid #ddd; /* 경계선 */
-    
-    margin-bottom: 10px; /* 하단 여백 */
-}
-
-.imgArea img {
-    width: 100%; /* 이미지 너비 */
-    height: 100%; /* 이미지 높이 */
-    object-fit: cover; /* 이미지 비율 유지 */
-}
-.header {
-    display: flex; /* 플렉스 박스 사용 */
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 10px; /* 상단 여백 */
-    background-color: #33363d; /* 배경색 */
-    height: 50px; /* 높이 */
-    color: white; /* 글자색 */
-    font-size: 20px; /* 글자 크기 */
-    text-align: center; /* 텍스트 정렬 */
-}
-.btnSaveClose {
-	display: flex;
-	justify-content: center; /* 가운데 정렬 */
-	gap: 20px; /* 버튼 사이 여백 */
-	margin-top: 30px; /* 모달 내용과의 간격 */
-	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
-}
-.btnSaveClose button {
-	width: 100px;
-	height: 35px;
-	background-color: #FFD700; /* 기본 배경 - 노란색 */
-	color: black;
-	border: 2px solid #FFC107; /* 노란 테두리 */
-	border-radius: 5px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
-	line-height: 35px;
-	margin: 0 10px;
-	margin-top: 10px;
-	transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* 저장 버튼 호버 시 */
-.btnSaveClose .save:hover {
-	background-color: #FFC107;
-	transform: scale(1.05);
-}
-
-/* 닫기 버튼 - 회색 톤 */
-.btnSaveClose .close {
-	background-color: #A9A9A9;
-	color: black;
-	border: 2px solid #808080;
-}
-
-/* 닫기 버튼 호버 시 */
-.btnSaveClose .close:hover {
-	background-color: #808080;
-	transform: scale(1.05);
-}
-    
-body{
-	font-size : 15px;
-}
-.box1 {
-	display: flex;
-	justify-content: right;
-	align-items: center;
-	width: 1500px;
-	margin-left: -940px;
-}
-
-.box1 input{
-	width : 5%;
-}
-.box1 select{
-	width: 5%
-} 
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.6);
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-left: 1008px;
+            margin-top: 200px;
+        }
+        .view {
+            display: flex;
+            justify-content: center;
+            margin-top: 1%;
+        }
+        .groupScheduleView {
+            display: flex;
+            justify-content: center;
+            margin-top: 1%;
+        }
+        .tab {
+            width: 95%;
+            margin-bottom: 37px;
+            margin-top: 5px;
+            height: 45px;
+            border-radius: 6px 6px 0px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-in-out;
+        }
+	    .modal-content{
+	        background: white;
+		    width: 70%;
+		    max-width: 1065px;
+	        height: 80vh; 
+	        overflow-y: auto; 
+	        margin: 6% auto 0;
+	        padding: 20px;
+	        border-radius: 10px;
+	        position: relative;
+	        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	        transform: scale(0.8);
+	        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	        opacity: 0;
+	    }
+        .modal.show {
+            display: block;
+            opacity: 1;
+        }
+        .modal.show .modal-content{
+            transform: scale(1);
+            opacity: 1;
+        }
+        .close {
+            background-color:white;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-content form, .alarm-modal-content form{
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content label, .alarm-modal-content label{
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        .modal-content input, .modal-content textarea, 
+        .alarm-modal-content input, .alarm-modal-content textarea{
+            width: 97%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            width: 14%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content button, 
+        .alarm-modal-content button{
+            background-color: #d3d3d3;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal-content button:hover, 
+        .alarm-modal-content button:hover{
+            background-color: #a9a9a9;
+        }
+        .button-container {
+    		display: flex;
+		    gap: 10px;
+		    margin-left: auto;
+		    margin-right: 10px;
+		    margin-top: 40px;
+		}
+		.box1 {
+		    display: flex;
+		    justify-content: right;
+		    align-items: center;
+		    width: 1000px;
+		    margin-right: 0px;
+		    margin-top: 4px;
+		    margin-left: -16%;
+		}
+        .dayselect {
+            width: 20%;
+            text-align: center;
+            font-size: 15px;
+        }
+        .daySet {
+        	width: 20%;
+      		text-align: center;
+            height: 16px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .daylabel {
+            margin-right: 10px;
+            margin-bottom: 13px;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+        button-container.button{
+        height: 16px;
+        }
+         .mid{
+        margin-right: 9px;
+	    font-size: 20px;
+	    font-weight: bold;
+	
+	    height: 42px;
+	    margin-left: 9px;
+        }
+        .row_select {
+	    background-color: #ffeeba !important;
+	    }
+	    
+	    .form-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 9999;
+  gap: 16px;           /* 레이블–인풋 간격 */
+  flex-wrap: wrap;     /* 화면 좁아지면 줄 바꿈 */
+  margin-bottom: 12px; /* 각 행 간 간격 */
+}
+	.delete-button {
+	    height: 40px; /* tab보다 조금 작게 설정 */
+	    padding: 0 11px; /* 좌우 패딩 */
+	    border: 1px solid rgb(53, 53, 53);
+	    border-radius: 4px; /* 모서리 둥글게 */
+	    background-color: #ffffff; /* 배경색 */
+	    cursor: pointer; /* 포인터 커서 */
+	    display: flex; /* 내부 요소를 플렉스 박스로 설정 */
+	    align-items: center; /* 버튼 안에서 세로 가운데 정렬 */
+	}
+.group-time-button {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: none;
+    transition: background-color 0.2s;
+    width: 158px;
+}
+.alarm-group-button{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: none;
+    transition: background-color 0.2s;
+    width: 158px;
+}
+.recieve-alarm-button{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0px 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: none;
+    transition: background-color 0.2s;
+    width: 188px;
+}
+/* 모달 전체 배경 */
+.modal {
+  display: none; /* 초기에는 숨김 */
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  overflow: auto;
+  font-family: 'Arial', sans-serif;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 1000px;
+/* 모달 내용 영역 */
+.time-modal {
+  background-color: #fff;
+  margin: 8% auto;
+  padding: 20px 30px;
+  border-radius: 12px;
+  width: 60%;
+  max-width: 623px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   position: relative;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
+/* 모달 닫기 버튼 */
+.close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 28px;
   font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.modal-close {
+  color: #333;
   cursor: pointer;
-  font-size: 24px;
-}     
-    </style>
-    
-    
-    <body>
-    
-    <div class="tab">
-    <div class="box1">
-         <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
-		<!-- <label class="daylabel">고객명 :</label>
-		<input type="text" class="corp_name" id="corp_name" style="font-size: 16px;" autocomplete="off">
-			
-		<label class="daylabel">품명 :</label>
-		<input type="text" class="prod_name" id="prod_name" style="font-size: 16px;" autocomplete="off">
-			
-		<label class="daylabel">도번/품번 :</label>
-		<input type="text" class="prod_no" id="prod_no" style="font-size: 16px;" autocomplete="off">
-			
-		<label class="daylabel">설비 :</label>
-		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px; autocomplete="off"> -->			
-	</div>
-    <div class="button-container">
-        <button class="select-button" onclick="getChimStandardList();">
-            <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
-           
-        </button>
-        <button class="insert-button">
-            <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
-          
-        </button>
-        <button class="excel-button">
-            <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
-            
-        </button>
-        <button class="printer-button" style="pointer-events: none; opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); ">
-            <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
-            
-        </button>
-    </div>
-</div>
-    
-    
-    <main class="main">
-		<div class="container">
-			<div id="tab1" class="tabulator"></div>
-		</div>
-	</main>
-
-
-
-
-<form method="post" class="corrForm" id="chimStandardForm" name="chimStandardForm">	    
-   <div class="chimStandardModal">    
-	
-      <div id="editPop">
-       <div class="header">
-       			침탄로표준등록
-       </div>
-        <fieldset class="popField">
-          <legend>제품정보</legend>
-          <fieldset class="popField">
-              <legend>제품사진</legend>
-              <div class="findImage">
-                <input type="hidden" name="type" value="standard">
-                
-                
-                <div class="imgArea" id="previewId7" style="height:90px;border:1px solid #ddd;">
-                  <img class="rp-img-popup" id="prev_previewId7"  width="30%" height="100%">
-                </div>
-              </div>
-            </fieldset><table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-          <colgroup span="8">
-            <col width="7%">
-            <col width="18%">
-            <col width="7%">
-            <col width="18%">
-            <col width="7%">
-            <col width="18%">
-            <col width="7%">
-            <col width="18%">
-          </colgroup>
-            
-          <tbody><tr>
-            <th class="left">고객명<input id="prod_code" name="prod_code" type="hidden" value=""></th>
-            <td class=""><input id="corp_name" name="corp_name" class="basic" type="text" style="width:70%;" value="" readonly="">
-            <input class="" type="button" title="제품선택" onclick="openProductListModal();"></td>
-            <th class="">단중(g)</th>
-            <td class=""><input id="prod_danj" name="prod_danj" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="">도번/품번</th>
-            <td class=""><input id="prod_no" name="prod_no" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="">품명</th>
-            <td class=""><input id="prod_name" name="prod_name" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-          </tr>
-          <tr>
-            <th class="left">재질</th>
-            <td class=""><input id="prod_jai" name="prod_jai" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="">단가</th>
-            <td class=""><input id="prod_dang" name="prod_dang" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="">주문번호</th>
-            <td class=""><input id="prodC_cno" name="prodC_cno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="">PWS No.</th>
-            <td class=""><input id="prod_pwsno" name="prod_pwsno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-          </tr>
-          <tr>
-            <th class="">공정</th>
-            <td class=""><input id="tech_te" name="tech_te" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="left">도면/공정도</th>
-            <td class=""><input id="prod_do" name="prod_do" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="left">Ref No.</th>
-            <td class=""><input id="prod_refno" name="prod_refno" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <th class="left">검사규격</th>
-            <td class=""><input id="prod_gyu" name="prod_gyu" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-          </tr>
-          <tr>
-            <!-- <th class="">ECD</th>
-            <td class=""><input id="prodE5" name="prodE5" class="basic" type="text" style="width:100%;" value="" readonly /></td>
-            <th class="left">Ra%</th>
-            <td class=""><input id="prodRa" name="prodRa" class="basic" type="text" style="width:100%;" value="" readonly/></td> -->
-            <th class="left">기종</th>
-            <td class=""><input id="prod_kijong" name="prod_kijong" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-            <td class=""><input id="prod_appear" name="prod_appear" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
-            <td class=""><input id="prod_transform" name="prod_transform" class="basic" type="hidden" style="width:90%;" value="" readonly=""></td>
-            <th class="left" hidden="">기종</th>
-            <td class="" hidden="">&gt;<input id="prod_cd" name="prod_cd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-          </tr>
-        </tbody></table>
-        </fieldset>
-
-        <table cellspacing="0" cellpadding="0" width="100%" class="">
-        <colgroup span="2">
-          <col width="70%">
-          <col width="30%">
-        </colgroup>
-        <tbody><tr>
-          <td class="" valign="top">
-            <div class="">
-              <fieldset class="popField">
-              <legend>요구규격</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="5">
-                    <col width="3%">
-                    <col width="5%">
-                    <col width="3%">
-                    <col width="5%">
-                    <col width="3%">
-                    <col width="5%">
-                    <col width="2%">
-                    <col width="5%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">표면경도</th>
-                    <td class=""><input id="prod_pg" name="prod_pg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <th class="">심부경도</th>
-                    <td class=""><input id="prod_sg" name="prod_sg" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <th class="">금속조직</th>
-                    <td class=""><input id="prod_e1" name="prod_e1" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <th class="">변형량</th>
-                    <td class=""><input id="prod_e3" name="prod_e3" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                  </tr>
-                  <tr>
-                    <th class="" hidden="">표면경도 비고</th>
-                    <td class="" hidden=""><input id="prodPg3" name="prod_pg3" class="basic" type="text" style="width:90%; display:none;" value="" readonly=""></td>
-                    <th class="" hidden="">심부경도 비고</th>
-                    <td class="" hidden=""><input id="prodSg3" name="prod_sg3" class="basic" type="text" style="width:90%; display:none;" value="" readonly=""></td>
-                    <!-- <th class="">표면경도 (실측치)</th>
-                    <td class=""><input id="prodPgs" name="prodPgs" class="basic" type="text" style="width:100%;" value="" readonly/></td> -->
-                    <!-- <th class="">경화거리(ECD)</th>
-                    <td class=""><input id="prod_khecd" name="prod_khecd" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <th class="">경화거리(TCD)</th>
-                    <td class=""><input id="prod_khtcd" name="prod_khtcd" class="basic" type="text" style="width:90%;" value="" readonly=""></td> -->
-                  </tr>
-                    <tr>
-                    <th class="">경화깊이</th>
-                    <td class=""><input id="prod_gd1" name="prod_gd1" class="basic" type="text" style="width:90%;" value="" readonly=""></td><td class="" align="center">기준</td><td class=""><input id="prod_gd2" name="prod_gd2" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    <td class="" align="center">~</td><td class=""><input id="prod_gd5" name="prod_gd5" class="basic" type="text" style="width:90%;" value="" readonly=""></td>
-                    </tr>
-                    <tr>
-                    <input id="prod_cd" name="prod_cd" class="basic" type="hidden" value="" readonly="">
-                    <input id="prod_e5" name="prod_e5" class="basic" type="hidden" value="" readonly="">
-                    <input id="prod_ra" name="prod_ra" class="basic" type="hidden" value="" readonly="">
-                    <input id="prod_pgs" name="prod_pgs" class="basic" type="hidden" value="" readonly="">
-                    </tr>
-                </tbody></table>
-              </fieldset>
-            </div>
-
-            <div class="" hidden="">
-              <fieldset class="popField">
-                <legend>침탄경화깊이</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="5">
-                    <col width="1%">
-                    <col width="8%">
-                    <col width="1%">
-                    <col width="8%">
-                    <col width="1%">
-                    <col width="8%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">0.28mm</th>
-                    <td class=""><input id="prod_gd1" name="prod_gd1" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
-                    <th class="">0.68mm</th>
-                    <td class=""><input id="prod_gd2" name="prod_gd2" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
-                    <th class="">1.18mm</th>
-                    <td class=""><input id="prod_gd3" name="prod_gd3" class="basic" type="text" style="width:100%;" value="" readonly=""></td>
-                  </tr>
-                </tbody></table>
-              </fieldset>
-            </div>
-
-
-            <div class="">
-              <fieldset class="popField">
-                <legend>전세척</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <tbody><tr>
-                  <td class=""><select id="fac_code1" name="fac_code1" class="basic" style="width: 100%">
-                        
-                          <option value="15">진공세정기 2호기</option>
-                        
-                          </select>
-                  <!-- <td class=""  hidden=""><select id="wstdStep07" name="wstdStep07"class="basic" style="width:145px;">
-                          <option></option>
-                          <option>STEP1</option>
-                          <option>STEP2</option>
-                          <option>STEP3</option>
-                         </select> -->
-                    </td><th class="" style="width:5%;">온도</th>
-                    <td class=""><input id="wstd_n01" name="wstd_n01" class="basic" type="text" style="width:80%;" value=""></td>
-                    <th class="" style="width:5%;">시간</th>
-                    <td class=""><input id="wstd_n02" name="wstd_n02" class="basic" type="text" style="width:80%;" value=""></td>
-                    <th class="" style="width:5%;">농도</th>
-                    <td class=""><input id="wstd_t66" name="wstd_t66" class="basic" type="text" style="width:80%;" value=""></td>
-                      
-                </tr>
-                </tbody></table>
-              </fieldset>
-            </div>
-
-            <div class="">
-              <fieldset class="popField">
-                <legend>공정</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="9">
-                    <col width="12%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                    <col width="11%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th>구분</th>
-                    <th>예열</th>
-                    <th>침탄</th>
-                    <th>확산</th>
-                    <th>강온</th>
-                    <th>균열</th>
-                    <th>Oil</th>
-                    <th>교반기</th>
-                    <th>냉각시간</th>
-                  </tr>
-                  <tr>
-                    <th>온도[℃]</th>
-                    <td><input id="wstd_gj11" name="wstd_gj11" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj12" name="wstd_gj12" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj13" name="wstd_gj13" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj14" name="wstd_gj14" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj15" name="wstd_gj15" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj16" name="wstd_gj16" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj17" name="wstd_gj17" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj18" name="wstd_gj18" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                  <tr>
-                    <th>시간[분]</th>
-                    <td><input id="wstd_gj21" name="wstd_gj21" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj22" name="wstd_gj22" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj23" name="wstd_gj23" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj24" name="wstd_gj24" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj25" name="wstd_gj25" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj26" name="wstd_gj26" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj27" name="wstd_gj27" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj28" name="wstd_gj28" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                  <tr>
-                    <th>cp%</th>
-                    <td><input id="wstd_gj31" name="wstd_gj31" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj32" name="wstd_gj32" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj33" name="wstd_gj33" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj34" name="wstd_gj34" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj35" name="wstd_gj35" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj36" name="wstd_gj36" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj37" name="wstd_gj37" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj38" name="wstd_gj38" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                  <tr>
-                    <th>RX[㎥/Hr]</th>
-                    <td><input id="wstd_gj39" name="wstd_gj39" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj42" name="wstd_gj42" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj43" name="wstd_gj43" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj44" name="wstd_gj44" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj45" name="wstd_gj45" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                  </tr>
-                  <tr>
-                    <th>LPG</th>
-                    <td><input id="wstd_gj49" name="wstd_gj49" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj52" name="wstd_gj52" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj53" name="wstd_gj53" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj54" name="wstd_gj54" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj55" name="wstd_gj55" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                  </tr>
-                  <tr>
-                    <th>CH3OH[cc/Hr]</th>
-                    <td><input id="wstd_gj59" name="wstd_gj59" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj62" name="wstd_gj62" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj63" name="wstd_gj63" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj64" name="wstd_gj64" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj65" name="wstd_gj65" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                  </tr>
-                  <tr>
-                    <th>N2[㎥/Hr]</th>
-                    <td><input id="wstd_gj69" name="wstd_gj69" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj72" name="wstd_gj72" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj73" name="wstd_gj73" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj74" name="wstd_gj74" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj75" name="wstd_gj75" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                  </tr>
-                  <tr>
-                    <th>NH3[Nl/min]</th>
-                    <td><input id="wstd_gj79" name="wstd_gj79" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj82" name="wstd_gj82" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj83" name="wstd_gj83" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj84" name="wstd_gj84" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="wstd_gj85" name="wstd_gj85" class="basic" type="text" style="width:90%;" value=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                    <td><input id="" name="" class="basic" type="text" style="width:90%;" value="" disabled=""></td>
-                  </tr>
-                  <tr>
-                    <th>수량</th>
-                    <td><input id="wstd_gjsu" name="wstd_gjsu" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                  <tr>
-                    <th>rpm</th>
-                    <td><input id="wstd_gjrpm" name="wstd_gjrpm" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                </tbody></table>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="2">
-                    <col width="10%">
-                    <col width="90%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">비고</th>
-                    <td class=""><input id="wstd_worknote" name="wstd_worknote" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-
-                </tbody></table>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="2">
-                    <col width="10%">
-                    <col width="90%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">설비</th>
-                    <td class="">
-                      <select id="fac_code" name="fac_code" class="basic" style="width: 100%">
-                        
-                          <option value="5">고주파 1호기(폐기)</option>
-                        
-                          <option value="6">고주파 2호기 (폐기)</option>
-                        
-                          <option value="9">고주파 5호기</option>
-                        
-                          <option value="21">급수시설</option>
-                        
-                          <option value="10">변성로 1호기</option>
-                        
-                          <option value="11">변성로 2호기</option>
-                        
-                          <option value="12">쇼트 1호기</option>
-                        
-                          <option value="13">쇼트 2호기</option>
-                        
-                          <option value="14">쇼트 3호기</option>
-                        
-                          <option value="19">쇼트 4호기</option>
-                        
-                          <option value="20">전기시설</option>
-                        
-                          <option value="15">진공세정기 2호기</option>
-                        
-                          <option value="1">침탄로 1호기</option>
-                        
-                          <option value="2">침탄로 2호기</option>
-                        
-                          <option value="3">침탄로 3호기</option>
-                        
-                          <option value="4">침탄로 4호기</option>
-                        
-                          <option value="18">침탄로 5호기</option>
-                        
-                          <option value="22">콤프레샤</option>
-                        
-                          <option value="16">템퍼링기 1호기</option>
-                        
-                          <option value="17">템퍼링기 2호기</option>
-                        
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="">보고서 유형</th>
-                    <td class="">
-                      <select id="reportType" name="report_type" class="basic" style="width: 100%">
-                        <option value="QT1">QT-Tempering</option>
-                        <option value="QT2">QT-1차,2차 Tempering</option>
-                        <option value="QT3">QT-심냉처리</option>
-                        <option value="QT4">QT-응력제거</option>
-                        <option value="CH1">침탄-Tempering</option>
-                        <option value="CH2">침탄-1차,2차 Tempering</option>
-                        <option value="CH3">침탄-중간검사교정</option>
-                        <option value="CH4">침탄-Marking</option>
-                      </select>
-                    </td>
-                  </tr>
-                </tbody></table>
-              </fieldset>
-            </div>
-            <div class="">
-              <fieldset class="popField">
-                <legend>후세척</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                      <tbody><tr>
-                      <td class=""><select id="facCode2" name="fac_code2" class="basic" style="width: 100%">
-                           
-                           <option value="15">진공세정기 2호기</option>
-                           
-                           </select>
-                      <!-- <td class="" hidden=""><select id="wstdStep08" name="wstdStep08"class="basic" style="width:145px;">
-                          <option></option>
-                          <option>STEP1</option>
-                          <option>STEP2</option>
-                          <option>STEP3</option>
-                         </select> -->
-                    </td><th class="" style="width:5%;">온도</th>
-                    <td class=""><input id="wstd_n03" name="wstd_n03" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="" style="width:5%;">시간</th>
-                    <td class=""><input id="wstd_n04" name="wstd_n04" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="" style="width:5%;">농도</th>
-                    <td class=""><input id="wstd_t67" name="wstd_t67" class="basic" type="text" style="width:90%;" value=""></td>
-                      </tr>
-                </tbody></table>
-              </fieldset>
-              <fieldset class="popField">
-                <legend>1차탬퍼링</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="5">
-                    <col width="1%">
-                    <col width="5%">
-                    <col width="1%">
-                    <col width="5%">
-                    <col width="1%">
-                    <col width="5%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">온도</th>
-                    <td class=""><input id="wstd_ready" name="wstd_ready" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="">시간</th>
-                    <td class=""><input id="wstd_worktime" name="wstd_worktime" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="">비고</th>
-                    <td class=""><input id="wstd_t62" name="wstd_t62" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                </tbody></table>
-              </fieldset>
-              <fieldset class="popField">
-                <legend>2차탬퍼링</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <colgroup span="5">
-                    <col width="1%">
-                    <col width="5%">
-                    <col width="1%">
-                    <col width="5%">
-                    <col width="1%">
-                    <col width="5%">
-                  </colgroup>
-                  <tbody><tr>
-                    <th class="">온도</th>
-                    <td class=""><input id="wstd_t63" name="wstd_t63" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="">시간</th>
-                    <td class=""><input id="wstd_t64" name="wstd_t64" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="">비고</th>
-                    <td class=""><input id="wstd_t65" name="wstd_t65" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                </tbody></table>
-              </fieldset>
-              <fieldset class="popField">
-                <legend>후처리</legend>
-                <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-                  <tbody><tr>
-                    <th class="" style="width:10%;">후처리 수량</th>
-                    <td class=""><input id="wstd_gj97" name="wstd_gj97" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="" style="width:10%;">설비</th>
-                    <td class=""><select id="fac_code3" name="fac_code3" class="basic" style="width: 90%">
-                      
-                        <option value="12">쇼트 1호기</option>
-                      
-                        <option value="13">쇼트 2호기</option>
-                      
-                        <option value="14">쇼트 3호기</option>
-                      
-                        <option value="19">쇼트 4호기</option>
-                      
-                    </select>
-                  </td></tr>
-                  <tr>
-                    <th class="" style="width:5%;">1차처리</th>
-                    <td class=""><input id="wstd_gj98" name="wstd_gj98" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="" style="width:5%;">압력</th>
-                    <td class=""><input id="wstd_gj99" name="wstd_gj99" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                  <tr>
-                    <th class="" style="width:5%;">2차처리</th>
-                    <td class=""><input id="wstd_gj100" name="wstd_gj100" class="basic" type="text" style="width:90%;" value=""></td>
-                    <th class="" style="width:5%;">압력</th>
-                    <td class=""><input id="wstd_gj101" name="wstd_gj101" class="basic" type="text" style="width:90%;" value=""></td>
-                  </tr>
-                </tbody></table>
-              </fieldset>
-            </div>
-          </td>
-
-
-          <td class="" valign="top" style="padding-left:10px;">
-            <fieldset class="popField">
-              <legend>단취사진</legend>
-              <div class="findImage">
-                <input type="hidden" name="type" value="standard">
-                  <input type="file" id="imgInput0" class="imgInputClass" name=wstd_chim_file_url1 title="이미지 찾기" onchange="previewImage(this,'previewId1')">
-                  <!--<input type="button" value="X" title="삭제" class="btnFT" /> -->
-                <div class="imgArea" id="previewId1" style="height:90px;border:1px solid #ddd;"><img id="prev_previewId1"  width="100%" height="100%"></div>
-              </div>
-            </fieldset>
-            <fieldset class="popField">
-              <legend>작업표준서</legend>
-              <input type="hidden" name="type" value="pdffile">
-              <input type="file" name="wstdfile" title="" onchange="" style=" width: 140px;" accept=".pdf">
-            </fieldset>
-            <fieldset class="popField">
-              <legend>사진-3</legend>
-              <div class="findImage">
-              <input type="hidden" name="type" value="standard">
-                  <input type="file" id="imgInput1" class="imgInputClass" name=wstd_chim_file_url2 title="이미지 찾기" onchange="previewImage(this,'previewId3')"><!-- <input type="button" value="X" title="삭제" class="btnFT" /> -->
-                <div class="imgArea" id="previewId3" style="height:91px;border:1px solid #ddd;"><img id="prev_previewId3"  width="100%" height="100%"></div>
-              </div>
-            </fieldset>
-
-            <!-- 단취방법 -->
-            <div class="">
-            <fieldset class="popField">
-              <legend>단취방법</legend>
-              <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable3">
-                <colgroup span="4">
-                  <col width="34%">
-                  <col width="33%">
-                  <col width="25%">
-                  <col width="25%">
-                </colgroup>
-                <tbody><tr>
-                  <td class="top">EA/줄(판)</td>
-                  <td class="top2" colspan="2"><input type="text" id="wstd_t32" name="wstd_t32" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td class="top2">이하</td>
-                </tr>
-                <tr>
-                  <td class="left">줄(판)/단</td>
-                  <td colspan="3"><input type="text" id="wstd_t33" name="wstd_t33" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td colspan="2" hidden=""><input type="text" id="wstd_t34" name="wstd_t34" value="" class="basic" style="width:90%; display:none;"></td>
-                </tr>
-                <tr>
-                  <td class="left">단/Tray</td>
-                  <td><input type="text" id="wstd_t41" name="wstd_t41" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td>Tray차지</td>
-                  <td><input type="text" id="wstd_t42" name="wstd_t42" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                </tr>
-                <tr>
-                  <td class="left">추가수량</td>
-                  <td colspan="3"><input type="text" id="wstd_t87" name="wstd_t87" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                </tr>
-                <tr>
-                  <td class="left">단취수량</td>
-                  <td colspan="2"><input type="text" id="wstd_t43" name="wstd_t43" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
-                  <td>EA/CH</td>
-                </tr>
-                <tr>
-                  <td class="left">Jig무게</td>
-                  <td colspan="2"><input type="text" id="wstd_t44" name="wstd_t44" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td>kg</td>
-                </tr>
-                <tr>
-                  <td class="left">제품무게/ch</td>
-                  <td colspan="2"><input type="text" id="wstd_t51" name="wstd_t51" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
-                  <td>kg</td>
-                </tr>
-                <tr>
-                  <td class="left">총단중/ch</td>
-                  <td colspan="2"><input type="text" id="wstd_t52" name="wstd_t52" value="" class="basic" style="width:90%; text-align: right;" readonly=""></td>
-                  <td>kg</td>
-                </tr>
-
-                <tr height="5px"></tr>
-
-                <tr>
-                  <th class="left" colspan="4">단취시 유의사항</th>
-                </tr>
-                <tr>
-                  <td class="left" colspan="4">
-                    ● <input type="text" id="wstd_t53" name="wstd_t53" value="" class="basic" style="width:91%;">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left" colspan="4">
-                    ● <input type="text" id="wstd_t54" name="wstd_t54" value="" class="basic" style="width:91%;">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left" colspan="4">
-                    ● <input type="text" id="wstd_t30" name="wstd_t30" value="" class="basic" style="width:91%;">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left">단중</td>
-                  <td colspan="2"><input type="text" id="wstd_t40" name="wstd_t40" value="" class="basic" style="width:90%; text-align: right;" onchange="fn_Calc()"></td>
-                  <td>kg</td>
-                </tr>
-                <tr>
-                  <!-- <td class="left">HIGH NO</td> -->
-                  <td colspan="2" hidden=""><input type="text" id="wstd_t50" name="wstd_t50" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
-                  <!-- <td>EA</td> -->
-                </tr>
-                <tr>
-                  <!-- <td class="left">LOW NO</td> -->
-                  <td colspan="2" hidden=""><input type="text" id="wstd_t55" name="wstd_t55" value="" class="basic" style="width:97%; text-align: right; display:none;" readonly=""></td>
-                  <!-- <td>EA</td> -->
-                </tr>
-              </tbody></table>
-            </fieldset>
-            </div>
-           </td>
-          </tr>
-        </tbody></table>
-        
-        <div style="margin-top:10px; border-top:1px solid #bbb; height:1px;"></div>
-          <div class="clear"></div>
-          
-        <fieldset class="popField">
-          <legend>심냉처리</legend>
-            <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable">
-            <colgroup span="5">
-              <col width="60">
-              <col width="100">
-              <col width="60">
-              <col width="100">
-              <col width="60">
-              <col width="100">
-              <col width="60">
-              <col width="100">
-              <col width="70">
-              <col width="100">
-              <col width="40">
-              <col width="100">
-            </colgroup>
-            <tbody><tr>
-              <th class="left">예냉온도</th>
-              <td class=""><input id="wstd_t68" name="wstd_t68" class="basic" type="text" style="width:90%;" value=""></td>
-              <th class="">예냉시간</th>
-              <td class=""><input id="wstd_t69" name="wstd_t69" class="basic" type="text" style="width:90%;" value=""></td>
-              <th class="">심냉온도</th>
-              <td class=""><input id="wstd_t70" name="wstd_t70" class="basic" type="text" style="width:90%;" value=""></td>
-              <th class="">심냉시간</th>
-              <td class=""><input id="wstd_t71" name="wstd_t71" class="basic" type="text" style="width:90%;" value=""></td>
-              <th class="">방냉후실온</th>
-              <td class=""><input id="wstd_t72" name="wstd_t72" class="basic" type="text" style="width:90%;" value=""></td>
-              <th class="">비고</th>
-              <td class=""><input id="wstd_t73" name="wstd_t73" class="basic" type="text" style="width:90%;" value=""></td>
-            </tr>
-            </tbody></table>
-        </fieldset>
-        
-        <div class="">
-          <fieldset class="popField">
-            <legend>개정이력</legend>
-            <table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable2">
-              <colgroup span="5">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-              </colgroup>
-              <tbody><tr>
-                <th class="left">NO</th>
-                <th class="">개정일자</th>
-                <th class="">사유</th>
-                <th class="">확인</th>
-              </tr>
-              <tr>
-                <td class="left">1</td>
-                <td class=""><input id="wstd_g11" name="wstd_g11" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstd_g12" name="wstd_g12" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""></td>
-              </tr>
-              <tr>
-                <td class="left">2</td>
-                <td class=""><input id="wstd_g21" name="wstd_g21" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstd_g22" name="wstd_g22" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""></td>
-              </tr>
-              <tr>
-                <td class="left">3</td>
-                <td class=""><input id="wstd_g31" name="wstd_g31" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstd_g32" name="wstd_g32" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""></td>
-              </tr>
-              <tr>
-                <td class="left">4</td>
-                <td class=""><input id="wstd_g41" name="wstd_g41" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""><input id="wstd_g42" name="wstd_g42" class="basic" type="text" style="width:98%;" value=""></td>
-                <td class=""></td>
-              </tr>
-            </tbody></table>
-          </fieldset>
-        </div>
-        <div class="btnSaveClose">
-        	<button class="delete" type="button" onclick="deleteChim();"  style="display: none;">삭제</button>
-            <button class="save" type="button" onclick="save();">저장</button>
-            <button class="close" type="button" onclick="window.close();">닫기</button>
-    	</div>
-     </div>
-  </div>    
- </form>   
- 
- 
- 
- <!-- (검색버튼) 팝업창 -->
-	<div id="productListModal" class="modal-overlay" style="display: none;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<span class="modal-title">제품 리스트</span> <span class="modal-close" onclick="closeProductListModal();">&times;</span>
-			</div>
-			<div id="productListTabulator" style="height: 500px;"></div>
-		</div>
-	</div>
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-<script>
-	//전역변수
-    var cutumTable;	
-    var isEditMode = false; //수정,최초저장 구분값
-
-	//로드
-	$(function(){
-		//전체 거래처목록 조회
-		getChimStandardList();
-	});
-
-    $(function(){	
-        // 파일 선택시 이미지 띄우기
-      $('.imgInputClass').change(function(event){
-        var selectedFile = event.target.files[0];
-      var reader = new FileReader();
-      
-      var img = $(this).parent().parent().find('img')[0];
-      img.title = selectedFile.name;
-      
-      reader.onload = function(event) {
-        img.src = event.target.result;
-      };
-      
-      reader.readAsDataURL(selectedFile);
-      });
-    });
-
-	//이벤트
-	//함수
-	function getChimStandardList(){
-		userTable = new Tabulator("#tab1", {
-		    height:"750px",
-		    layout:"fitColumns",
-		    selectable:true,	//로우 선택설정
-		    tooltips:true,
-		    selectableRangeMode:"click",
-		    selectableRows:true,
-		    reactiveData:true,
-		    headerHozAlign:"center",
-		    ajaxConfig:"POST",
-		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/chimStandardInsert/getChimStandardList",
-		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{
-		    	/* "corp_name": $("#corp_name").val(),
-                "prod_name": $("#prod_name").val(),
-                "prod_no": $("#prod_no").val(),
-                "fac_name": $("#fac_name").val(), */
-			    },
-		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
-		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
-		        return response; //return the response data to tabulator
-		    },
-		    columns:[
-		        {title:"NO", field:"idx", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"고객명", field:"corp_name", sorter:"string", width:120,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"품명", field:"prod_name", sorter:"string", width:220,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"도번/품번", field:"prod_no", sorter:"string", width:200,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"기종", field:"prod_kijong", sorter:"string", width:100,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"재질", field:"prod_jai", sorter:"int", width:200,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"단가", field:"prod_dang", sorter:"int", width:200,
-			        hozAlign:"center", headerFilter:"input"},
-			    {title:"설비", field:"fac_name", sorter:"string", width:120,
-				    hozAlign:"center", headerFilter:"input"},
-				{title:"공정", field:"tech_te", sorter:"int", width:150,
-					hozAlign:"center", headerFilter:"input"},
-					{title:"", field:"wstd_code", visible:false},
-					{title:"단취사진", field:"wstd_chim_file_name1", width:100,
-						hozAlign:"center", formatter:"image",
-					    cssClass:"rp-img-popup",
-				      	formatterParams:{
-					      	height:"30px", width:"30px",
-					      	urlPrefix:"/excelTest/태경출력파일/사진/침탄로작업표준/"
-					      	}, 
-					    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
-					    },
-						{title:"사진-3", field:"wstd_chim_file_name2", width:100,
-							hozAlign:"center", formatter:"image",
-						    cssClass:"rp-img-popup",
-					      	formatterParams:{
-						      	height:"30px", width:"30px",
-						      	urlPrefix:"/excelTest/태경출력파일/사진/침탄로작업표준/"
-						      	}, 
-						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
-						    },
-		    ],
-		    rowFormatter:function(row){
-			    var data = row.getData();
-			    
-			    row.getElement().style.fontWeight = "700";
-				row.getElement().style.backgroundColor = "#FFFFFF";
-			},
-			rowClick:function(e, row){
-
-				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
-						
-					if($(this).hasClass("row_select")){							
-						$(this).removeClass('row_select');
-						row.getElement().className += " row_select";
-					}else{
-						$("#tab1 div.row_select").removeClass("row_select");
-						row.getElement().className += " row_select";	
-					}
-				});
-
-				var rowData = row.getData();
-				
-			},
-			rowDblClick:function(e, row){
-
-				var data = row.getData();
-				selectedRowData = data;
-				isEditMode = true;
-				$('#chimStandardForm')[0].reset();
-
-/*
-				Object.keys(data).forEach(function (key) {
-			        const field = $('#chimStandardForm [name="' + key + '"]');
-
-			        if (field.length) {
-			            field.val(data[key]);
-			        }
-				});
-*/
-
-
-				getChimStandardDetail(data.wstd_code);
-				 $('.delete').show();
-			},
-		});		
-	}
-	
-
-function getChimStandardDetail(wstd_code){
-	$.ajax({
-		url:"/tkheat/management/chimStandardInsert/getChimStandardDetail",
-		type:"post",
-		dataType:"json",
-		data:{
-			"wstd_code":wstd_code
-		},
-		success:function(result){
-			console.log(result);
-			var allData = result.data;
-			
-			for(let key in allData){
-//				console.log(allData, key);	
-				$("[name='"+key+"']").val(allData[key]);
-			}
-
-			// 이미지 초기화
-			$("#prev_previewId1, #prev_previewId3, #prev_previewId7").attr("src", "/resources/images/noimage_01.gif");
-
-			// 단취사진
-			if (allData.wstd_chim_file_name1) {
-				console.log("원본 파일명:", allData.wstd_chim_file_name1);
-				console.log("인코딩된 경로:", encodeURIComponent(allData.wstd_chim_file_name1));
-				const path = "/excelTest/태경출력파일/사진/침탄로작업표준/" + allData.wstd_chim_file_name1;
-				console.log("path: ", path);
-				$("#prev_previewId1").attr("src", path);
-				//$(".aphoto").attr("href", path).text(d.product_file_name);
-			}
-			// 사진-3
-			if (allData.wstd_chim_file_name2) {
-				console.log("원본 파일명:", allData.wstd_chim_file_name2);
-				console.log("인코딩된 경로:", encodeURIComponent(allData.wstd_chim_file_name2));
-				const path = "/excelTest/태경출력파일/사진/침탄로작업표준/" + allData.wstd_chim_file_name2;
-				console.log("path: ", path);
-				$("#prev_previewId3").attr("src", path);
-				$("#prev_previewId7").attr("src", path);
-				//$(".aphoto").attr("href", path).text(d.product_file_name);
-			}
-
-			$('.chimStandardModal').show().addClass('show');
-		}
-	});
+  transition: color 0.2s;
 }
-	
-    </script>
-    
-    
-   <script>
-		
- // 드래그 기능 추가
-	const modal = document.querySelector('.chimStandardModal');
-	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
 
-	header.addEventListener('mousedown', function(e) {
-		// transform 제거를 위한 초기 위치 설정
-		const rect = modal.getBoundingClientRect();
-		modal.style.left = rect.left + 'px';
-		modal.style.top = rect.top + 'px';
-		modal.style.transform = 'none'; // 중앙 정렬 해제
+.close:hover {
+  color: #e74c3c;
+}
 
-		let offsetX = e.clientX - rect.left;
-		let offsetY = e.clientY - rect.top;
+/* 모달 제목 */
+.time-modal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
 
-		function moveModal(e) {
-			modal.style.left = (e.clientX - offsetX) + 'px';
-			modal.style.top = (e.clientY - offsetY) + 'px';
-		}
+/* 테이블 기본 스타일 */
+.time-modal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
 
-		function stopMove() {
-			window.removeEventListener('mousemove', moveModal);
-			window.removeEventListener('mouseup', stopMove);
-		}
+.time-modal th, .time-modal td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
 
-		window.addEventListener('mousemove', moveModal);
-		window.addEventListener('mouseup', stopMove);
-	});
-		
+.time-modal th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
 
-	// 모달 열기
-	const insertButton = document.querySelector('.insert-button');
-	const chimStandardModal = document.querySelector('.chimStandardModal');
-	const closeButton = document.querySelector('.close');
+/* 입력 필드 */
+.time-modal input[type="datetime-local"] {
+  width: 90%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+}
 
-	insertButton.addEventListener('click', function() {
-		isEditMode = false;  // 추가 모드
-	    $('#chimStandardForm')[0].reset(); // 폼 초기화
-	    chimStandardModal.style.display = 'block'; // 모달 표시
+/* 모달 하단 버튼 */
+.modal-footer {
+  text-align: right;
+}
 
-		$('.delete').hide();
-	});
+.modal-footer button {
+  padding: 8px 16px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-	closeButton.addEventListener('click', function() {
-		chimStandardModal.style.display = 'none'; // 모달 숨김
-	});
+.modal-footer button[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+}
 
+.modal-footer button[type="submit"]:hover {
+  background-color: #2980b9;
+}
 
+.modal-footer button#cancelBtn {
+  background-color: #ccc;
+}
 
+.modal-footer button#cancelBtn:hover {
+  background-color: #999;
+}
+	   .alarm-modal-content{
+	        background: white;
+			width: 100%;
+			max-width: 1555px;
+	        height: 80vh; 
+	        overflow-y: auto; 
+	        margin: 6% auto 0;
+	        padding: 20px;
+	        border-radius: 10px;
+	        position: relative;
+	        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	        transform: scale(0.8);
+	        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	        opacity: 0;
+	    }
+        .alarm-modal-content{
+            transform: scale(1);
+            opacity: 1;
+        }
+    </style>
+</head>
 
+<body>
 
-
-
-	//제품검색버튼 리스트 모달
-    function openProductListModal() {
-        document.getElementById('productListModal').style.display = 'flex';
-
+    <main class="main">
+        <div class="tab">
         
-        let productListTable = new Tabulator("#productListTabulator", {
-            height:"450px",
-            layout:"fitColumns",
-            selectable:true,
-            ajaxURL:"/tkheat/management/productInsert/productList",
-            ajaxConfig:"POST",
-            ajaxParams:{
-                "corp_name": "",
-                "prod_code": "",
-                   
-            },
-		    ajaxResponse:function(url, params, response){
-//				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
-				console.log(response);
-		        return response.data; //return the response data to tabulator
-		    },    
-            columns:[
-                {title:"NO", field:"idx", width:80, hozAlign:"center"},
-                {title:"거래처", field:"corp_name", width:120, hozAlign:"center"},
-                {title:"품명", field:"prod_name", width:120, hozAlign:"center",visible:false},
-                {title:"품번", field:"prod_no", width:150, hozAlign:"center"},
-                {title:"규격", field:"prod_gyu", width:100, hozAlign:"center"},
-                {title:"재질", field:"prod_jai", width:200, hozAlign:"center"},
-                {title:"공정", field:"tech_te", width:200, hozAlign:"center"},
-                {title:"표면경도", field:"prod_pg", width:200, hozAlign:"center"},
-                {title:"심부경도", field:"prod_sg", width:200, hozAlign:"center"},
-                {title:"경화깊이", field:"prod_gd2", width:200, hozAlign:"center"},
-                {title:"경화깊이1", field:"prod_gd1", width:200, hozAlign:"center"},
-                {title:"경화깊이2", field:"prod_gd3", width:200, hozAlign:"center"},
-            ],
-            rowDblClick:function(e, row){
-                let data = row.getData();
+
+            <div class="button-container">
+            
+               <div class="box1">
+	           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+	           <label class="daylabel">그룹별 조회 :</label>
+				<select id="groupSelect" name="group_filter">
+				    <option value="">-- 전체 그룹 --</option> 
+				    <option value="1">그룹 A</option>
+				    <option value="2">그룹 B</option>
+				    <option value="3">그룹 C</option>
+				    <option value="4">그룹 D</option>
+				    <option value="5">그룹 E</option>
+				</select>
+				
+				<!-- <span class="mid"  style="font-size: 20px; font-weight: bold; margin-botomm:10px;"> ~ </span> -->
+	
+			<!-- 	<input type="text"autocomplete="off" class="daySet" id="endDate" style="font-size: 16px; margin-bottom:10px;" placeholder="종료 날짜 선택"> 
+ -->
+	
+			  <label class="daylabel">성명 :</label>
+			 <input type="text" id="user_name" style="font-size:16px; height:30px; width:220px; margin-bottom:10px; text-align:center; border-radius:6px; border:1px solid #ccc;" placeholder="이름 입력">
+
+
+
+	</div>
+
+	           
+		<!-- 
+                <button class="select-button">
+                    <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">조회
+                </button>
+              -->
+                <button class="insert-button" style="width: 125px;">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">회원 그룹 관리
+                </button>
+                <button class="group-time-button">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">알람 발송 스케줄
+                </button>
+                <button class="recieve-alarm-button">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">그룹별 수신 알람 설정
+                </button>
+                <button class="alarm-group-button">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">알람 그룹 관리
+                </button>
+                <!-- 
+                <button class="delete-button">
+				    <img src="/tkheat/css/tabBar/xDel3.png" alt="delete" class="button-image"> 삭제
+				</button>
+                <button class="excel-button">
+                    <img src="/tkheat/css/tabBar/excel-icon.png" alt="excel" class="button-image">엑셀
+                </button>
+                 -->
                 
-                document.getElementById('corp_name').value = data.corp_name;
-                document.getElementById('prod_code').value = data.prod_code;
-                document.getElementById('prod_danj').value = data.prod_danj;
-                document.getElementById('prod_no').value = data.prod_no;
-                document.getElementById('prod_name').value = data.prod_name;
-                document.getElementById('prod_jai').value = data.prod_jai;
-                document.getElementById('prod_dang').value = data.prod_dang;
-                document.getElementById('prod_pwsno').value = data.prod_pwsno;
-                document.getElementById('tech_te').value = data.tech_te;
-                document.getElementById('prod_do').value = data.prod_do;
-                document.getElementById('prod_refno').value = data.prod_refno;
-                document.getElementById('prod_gyu').value = data.prod_gyu;
-                document.getElementById('prod_kijong').value = data.prod_kijong;
-                document.getElementById('prod_pg').value = data.prod_pg;
-                document.getElementById('prod_sg').value = data.prod_sg;
-                document.getElementById('prod_e1').value = data.prod_e1;
-                document.getElementById('prod_e3').value = data.prod_e3;
-                document.getElementById('prod_khecd').value = data.prod_khecd;
-                document.getElementById('prod_khtcd').value = data.prod_khtcd;
-                document.getElementById('prod_gd1').value = data.prod_gd1;
-                document.getElementById('prod_gd2').value = data.prod_gd2;
-                document.getElementById('prod_gd5').value = data.prod_gd5;
-                document.getElementById('productListModal').style.display = 'none';
+            </div>
+        </div>
+<div id="groupTimeModal" class="modal">
+  <div class="time-modal">
+    <h2>알람 발송 스케줄</h2>
+
+    <form id="groupTimeForm">
+      <table>
+        <thead>
+          <tr>
+            <th>그룹</th>
+                <th>시작 날짜</th>
+                <th>종료 날짜</th>
+                <th>시작 시간</th>
+                <th>종료 시간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select name="group_id" required style="width: 100px;">
+                <option value="">--그룹 선택--</option>
+                <option value="1">그룹 A</option>
+                <option value="2">그룹 B</option>
+                <option value="3">그룹 C</option>
+                <option value="4">그룹 D</option>
+                <option value="5">그룹 E</option>
+              </select>
+            </td>
+                <td><input type="date" name="start_date" required></td>
+                <td><input type="date" name="end_date" required></td>
+                <td><input type="time" name="start_time" required></td>
+                <td><input type="time" name="end_time" required></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="modal-footer">
+        <button type="submit" id="saveTimeBtn">저장</button>
+        <button type="button" id="cancelBtn">취소</button>
+      </div>
+    </form>
+  </div>
+</div>
+        <div class="view">
+            <div id="dataTable"></div>
+            
+            <div id="groupScheduleDataTable" style="margin-left:75px"></div>
+        </div>
+         <div class="groupScheduleView">
+        </div>
+    </main>
+	
+	   <div id="modalContainer" class="modal">
+	    <div class="modal-content">
+	<!--         <span class="close">&times;</span> -->
+	        <h2>회원 그룹 관리</h2>
+            <div id="modalDataTable" style="margin-bottom: 20px;"></div> 
+	        <form id="corrForm"autocomplete="off">
+
+	            <!-- <button type="submit" id="saveCorrStatus">저장</button> -->
+	            <!-- <button type="submit" id="updateCorrStatus" style="display: none;">수정</button>-->
+	            <button type="button" id="closeModal">닫기</button>
+	        </form>
+	    </div>
+	</div>
+	
+		   <div id="alarmGroupModal" class="modal">
+	    <div class="alarm-modal-content">
+	<!--         <span class="close">&times;</span> -->
+	        <h2>알람 그룹 관리</h2>
+            <div id="alarmGroupTable" style="margin-bottom: 20px;"></div> 
+	        <form id="corrForm"autocomplete="off">
+
+	            <!-- <button type="submit" id="saveCorrStatus">저장</button> -->
+	            <!-- <button type="submit" id="updateCorrStatus" style="display: none;">수정</button>-->
+	            <button type="button" id="closeModal">닫기</button>
+	        </form>
+	    </div>
+	</div>
+	
+			   <div id="recieveAlarmModal" class="modal">
+	    <div class="alarm-modal-content">
+	<!--         <span class="close">&times;</span> -->
+	        <h2>그룹별 수신 알람 설정</h2>
+            <div id="recieveAlarmTable" style="margin-bottom: 20px;"></div> 
+	        <form id="corrForm"autocomplete="off">
+
+	            <!-- <button type="submit" id="saveCorrStatus">저장</button> -->
+	            <!-- <button type="submit" id="updateCorrStatus" style="display: none;">수정</button>-->
+	            <button type="button" id="closeModal">닫기</button>
+	        </form>
+	    </div>
+	</div>
+
+
+<script>
+let now_page_code = "h03";
+var dataTable;
+var selectedRowData = null;
+var modalDataTable; // ⚠️ 모달용 Tabulator 변수 추가
+var alarmGroupTable;
+var groupScheduleDataTable;
+var calendar;
+var calendarEl;
+var recieveAlarmTable;
+
+$(function() {
+  // Initialize the dataTable
+  dataTable = new Tabulator('#dataTable', {
+    height: "705px",
+    layout: "fitColumns",
+    headerHozAlign: "center",
+    ajaxConfig: { method: 'POST' },
+    ajaxLoader: false,
+    ajaxURL: "/tkheat/user/selectList",
+    ajaxParams: {},
+    placeholder: "조회된 데이터가 없습니다.",
+    ajaxResponse: function(url, params, response) {
+     console.log("서버 응답 데이터 확인:", response);
+      return response;
+    },
+    columns: [
+      { title: "NO", formatter: "rownum", hozAlign: "center", width: 120 },
+      { title: "user_code", field: "user_code", sorter: "string", width: 240, hozAlign: "center"},
+      { title: "user_pw", field: "user_pw", sorter: "string", width: 240, hozAlign: "center", visible: false },
+
+      { title: "아이디", field: "user_id", sorter: "string", width: 100, hozAlign: "center" },
+      { title: "비밀번호", field: "user_pw", sorter: "string", width: 240, hozAlign: "center", visible: false },
+      { title: "성명", field: "user_name", sorter: "string", width: 120, hozAlign: "center" },
+      { title: "소속 그룹", field: "user_groups", width: 140, hozAlign: "center" }
+    ],
+    rowClick: function(e, row) {
+      $('#dataTable .tabulator-row').removeClass('row_select');
+      row.getElement().classList.add('row_select');
+      selectedRowData = row.getData();
+
+      // 선택된 행 정보를 오른쪽 영역에 표시
+      $('#display_user_name').text('성명: ' + selectedRowData.user_name);
+      $('#display_user_phone').text('전화번호: ' + selectedRowData.user_phone);
+
+
+      // 2. 1호기 알람 상태에 따라 HTML 변경 (기존 코드 수정)
+      const alarm1_yn = selectedRowData.message_yn;
+      console.log("alarm1_yn: ", alarm1_yn);
+      const alarm1_html = createAlarmCheckboxHtml('1라인 알람', alarm1_yn);
+      // display_message_yn이 이미 P 태그이므로 내부를 변경합니다.
+      $('#display_message_yn').html(alarm1_html); 
+
+      // 3. 2호기 알람 상태에 따라 HTML 변경 (기존 코드 수정)
+      const alarm2_yn = selectedRowData.message_yn2; 
+      console.log("alarm2_yn: ", alarm2_yn);
+      const alarm2_html = createAlarmCheckboxHtml('2라인 알람', alarm2_yn);
+      // display_message_yn2가 이미 P 태그이므로 내부를 변경합니다.
+      $('#display_message_yn2').html(alarm2_html); 
+    },
+    rowDblClick: function(e, row) {
+      var d = row.getData();
+      selectedRowData = d;
+      $('#corrForm')[0].reset();
+      $('input[name="no"]').val(d.idx);
+      $('input[name="user_id"]').val(d.user_id);
+      $('input[name="user_pw"]').val(d.user_pw);
+      $('input[name="st_day"]').val(d.st_day);
+      $('input[name="user_phone"]').val(d.user_phone);
+      $('input[name="user_name"]').val(d.user_name);
+      $('select[name="user_level"]').val(d.user_level);
+      $('input[name="user_busu"]').val(d.user_busu);
+      $('input[name="user_jick"]').val(d.user_jick);
+
+      // 저장 숨기고 수정 보이게
+      $('#saveCorrStatus').hide();
+      $('#updateCorrStatus').show();
+      
+      $('#modalContainer').show().addClass('show');
+    }
+  });
+
+      calendarEl = document.getElementById('groupScheduleDataTable'); // ID 재사용
+
+      calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth', // 기본 월별 뷰
+      locale: 'ko', // 한국어 설정
+      height: "600px", 
+      headerToolbar: { 
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      displayEventTime: false,
+      eventTimeFormat: {
+          hour: '2-digit', // 시 (예: 10)
+          minute: '2-digit', // 분 (예: 15)
+          meridiem: false, // 🌟 오전/오후(AM/PM) 표시를 완전히 제거합니다.
+          hour12: false     // 🌟 12시간제 대신 24시간제를 사용하도록 강제합니다.
+      },
+      
+      // 🚨 DB 데이터 연동 핵심: 서버 API에서 JSON 이벤트 데이터를 가져옵니다.
+      events: {
+          // Tabulator에서 사용했던 URL을 재사용하되, 반환 형식이 FullCalendar JSON 형식이어야 합니다.
+          url: "/tkheat/user/getGroupScheduleList", 
+          method: 'POST', // POST 방식으로 요청
+          // 데이터를 FullCalendar 형식으로 변환하는 함수
+          eventDataTransform: function(rawEventData) {
+              // 백엔드에서 받은 schedule 데이터를 FullCalendar 이벤트 형식으로 변환합니다.
+              return {
+                  id: rawEventData.schedule_id,
+                  groupId: rawEventData.group_id,
+                  title: '그룹 ' + rawEventData.group_id + ' (' + rawEventData.start_time + '~' + rawEventData.end_time + ')', // 예시 제목
+                  start: rawEventData.start_date + 'T' + rawEventData.start_time, // 'YYYY-MM-DDT10:15:00' 형식
+                  end: rawEventData.end_date + 'T' + rawEventData.end_time, // 'YYYY-MM-DDT22:15:00' 형식
+                  allDay: false // 시간 정보가 있으므로 allDay는 false
+              };
+          },
+          failure: function() {
+              console.error('일정 데이터를 불러오는 데 실패했습니다.');
+          }
+      }
+      // ... 필요한 다른 옵션 (eventClick 등)
+  });
+
+  calendar.render();
+
+  
+  // 조회 버튼 클릭 시
+  $('.select-button').click(function() {
+    var user_name = $('#user_name').val();
+    var startDate = $('#startDate').val();
+/*     console.log("조회 버튼 클릭됨 - 전송 데이터:", {
+      user_name: user_name,
+      startDate: startDate
+    }); */
+   // console.log("전송된 startDate 값:", startDate);
+    dataTable.setData("/tkheat/user/selectList", {});
+
+  });
+
+  function initModalDataTable() {
+	    if (modalDataTable) {
+	        modalDataTable.destroy();
+	    }
+	    //오늘 날짜
+	    const todayDate = getTodayDate();  
+	    
+	    modalDataTable = new Tabulator('#modalDataTable', {
+	        height: "450px", // 테이블 높이 설정 (모달 크기에 맞게)
+	        layout: "fitColumns",
+	        headerHozAlign: "center",
+	        ajaxConfig: { method: 'POST' },
+	        ajaxLoader: false,
+	        ajaxURL: "/tkheat/user/selectList", // 적절한 데이터 로드 URL 사용
+	        ajaxParams: {work_day: todayDate },
+	        placeholder: "조회된 데이터가 없습니다.",
+	        columns: [
+	        	{ title: "user_code", field: "user_code", visible: false},
+	        	{ title: "no", field: "no", visible: false},
+	            { title: "ID", field: "user_id", sorter: "string", hozAlign: "center", width: 110 },
+	            { title: "성명", field: "user_name", sorter: "string", hozAlign: "center", width: 120 },
+	            { title: "부서", field: "user_busu", sorter: "string", hozAlign: "center", width: 120 },
+	            { 
+	                title: "그룹 A", 
+	                field: "user_groups", 
+	                width: 140, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                    const groupString = cell.getValue();
+	                    console.log("groupString: ", groupString);
+	                    let isChecked = false;
+	                    
+	                    // 1. groupString이 유효하고, 'A 그룹'을 포함하는지 확인
+	                    if (groupString && groupString.includes('A')) {
+	                         isChecked = true;
+	                    }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: handleGroupClick
+	            },
+	            { 
+	                title: "그룹 B", 
+	                field: "user_groups", 
+	                width: 140, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                    const groupString = cell.getValue();
+	                    console.log("groupString: ", groupString);
+	                    let isChecked = false;
+	                    
+	                    // 1. groupString이 유효하고, 'A 그룹'을 포함하는지 확인
+	                    if (groupString && groupString.includes('B')) {
+	                         isChecked = true;
+	                    }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: handleGroupClick
+	            },
+	            { 
+	                title: "그룹 C", 
+	                field: "user_groups", 
+	                width: 140, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                    const groupString = cell.getValue();
+	                    console.log("groupString: ", groupString);
+	                    let isChecked = false;
+	                    
+	                    // 1. groupString이 유효하고, 'A 그룹'을 포함하는지 확인
+	                    if (groupString && groupString.includes('C')) {
+	                         isChecked = true;
+	                    }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: handleGroupClick
+	            },
+	            { 
+	                title: "그룹 D", 
+	                field: "user_groups", 
+	                width: 140, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                    const groupString = cell.getValue();
+	                    console.log("groupString: ", groupString);
+	                    let isChecked = false;
+	                    
+	                    // 1. groupString이 유효하고, 'A 그룹'을 포함하는지 확인
+	                    if (groupString && groupString.includes('D')) {
+	                         isChecked = true;
+	                    }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: handleGroupClick
+	            },
+	            { 
+	                title: "그룹 E", 
+	                field: "user_groups", 
+	                width: 140, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                    const groupString = cell.getValue();
+	                    console.log("groupString: ", groupString);
+	                    let isChecked = false;
+	                    
+	                    // 1. groupString이 유효하고, 'A 그룹'을 포함하는지 확인
+	                    if (groupString && groupString.includes('E')) {
+	                         isChecked = true;
+	                    }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: handleGroupClick
+	            }
+	        ],
+	        // 모달 내 테이블 클릭 이벤트 (필요 시 추가)
+	        rowClick: function(e, row) {
+	            // ... (모달 내 테이블 클릭 시 동작 정의)
+	        }
+	    });
+	}
+
+	//알람 그룹 테이블
+	  function initAlarmGroupTable() {
+	    if (alarmGroupTable) {
+	    	alarmGroupTable.destroy();
+	    }
+	    //오늘 날짜
+	    const todayDate = getTodayDate();  
+	    
+	    alarmGroupTable = new Tabulator('#alarmGroupTable', {
+	        height: "450px", // 테이블 높이 설정 (모달 크기에 맞게)
+	        layout: "fitColumns",
+	        headerHozAlign: "center",
+	        ajaxConfig: { method: 'POST' },
+	        contentType: 'application/json',
+	        ajaxLoader: false,
+	        ajaxURL: "/tkheat/alarm/allAlarmList", // 적절한 데이터 로드 URL 사용
+	        placeholder: "조회된 데이터가 없습니다.",
+	        columns: [
+		        {title: "알람 주소", field: "alarm_address", hozAlign: "center", width: 180},
+		        {title: "알람 내용", field: "comment", hozAlign: "center", width: 250},
+	            { 
+	                title: "그룹 A", 
+	                field: "group_a", 
+	                width: 110, 
+	                hozAlign: "center",
+	                headerSort: false, 
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "그룹 B", 
+	                field: "group_b", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "그룹 C", 
+	                field: "group_c", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "그룹 D", 
+	                field: "group_d", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "그룹 E", 
+	                field: "group_e", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "알람 그룹 F", 
+	                field: "group_f", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "알람 그룹 G", 
+	                field: "group_g", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "알람 그룹 H", 
+	                field: "group_h", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "알람 그룹 I", 
+	                field: "group_i", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	            { 
+	                title: "알람 그룹 J", 
+	                field: "group_j", 
+	                width: 110, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: alarmGroupClick
+	            },
+	        ],
+	        // 모달 내 테이블 클릭 이벤트 (필요 시 추가)
+	        rowClick: function(e, row) {
+	            // ... (모달 내 테이블 클릭 시 동작 정의)
+	        }
+	    });
+	}
+
+		//그룹별 수신 알람 테이블
+	  function initRecieveAlarmTable() {
+	    if (recieveAlarmTable) {
+	    	recieveAlarmTable.destroy();
+	    }
+	    
+	    recieveAlarmTable = new Tabulator('#recieveAlarmTable', {
+	        height: "450px", // 테이블 높이 설정 (모달 크기에 맞게)
+	        layout: "fitColumns",
+	        headerHozAlign: "center",
+	        ajaxConfig: { method: 'POST' },
+	        contentType: 'application/json',
+	        ajaxLoader: false,
+	        ajaxURL: "/tkheat/user/getGroupList", // 적절한 데이터 로드 URL 사용
+	        placeholder: "조회된 데이터가 없습니다.",
+	        columns: [
+		        {title: "group_id", field: "group_id", hozAlign: "center", width: 130},
+	        	{ title: "그룹 이름", field: "group_name", hozAlign: "center", width: 150},
+	            { 
+	                title: "알람 그룹 A", 
+	                field: "recieve_a", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 B", 
+	                field: "recieve_b", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 C", 
+	                field: "recieve_c", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 D", 
+	                field: "recieve_d", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 E", 
+	                field: "recieve_e", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 F", 
+	                field: "recieve_f", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 G", 
+	                field: "recieve_g", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 H", 
+	                field: "recieve_h", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 I", 
+	                field: "recieve_I", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	            { 
+	                title: "알람 그룹 J", 
+	                field: "recieve_j", 
+	                width: 120, 
+	                hozAlign: "center",
+	                // HTML 체크박스를 반환하는 formatter
+	                formatter: function(cell, formatterParams, onRender){
+	                	const groupValue = cell.getValue(); 
+	                    let isChecked = false;
+	                    
+				        if (groupValue == 1) { 
+				            isChecked = true;
+				        }
+	                    console.log("isChecked: ", isChecked);
+	                    if (isChecked) {
+	                        return '<input type="checkbox" checked>';
+	                    } else {
+	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                cellClick: recieveAlarmpClick
+	            },
+	        ],
+	        // 모달 내 테이블 클릭 이벤트 (필요 시 추가)
+	        rowClick: function(e, row) {
+	            // ... (모달 내 테이블 클릭 시 동작 정의)
+	        }
+	    });
+	}
+
+  //그룹 선택시 호출 함수
+    function handleGroupClick(e, cell) {
+        if (e.target.type !== 'checkbox') {
+            return; 
+        }
+        // e.target.checked는 클릭 후의 체크박스 상태 (true 또는 false)를 반환합니다.
+        const isChecked = e.target.checked; 
+
+        console.log("체크박스 클릭:", isChecked, cell.getData());
+	  console.log("체크박스 클릭:", e.target.checked, cell.getData());
+      // 이벤트가 라디오 버튼에서 발생했는지 확인
+          const groupTitle = cell.getColumn().getDefinition().title; 
+          console.log("어떤 그룹인지: ", groupTitle);
+          console.log("user_code: ", cell.getData().user_code);
+          const user_code = cell.getData().user_code;
+    
+    // 2-2. 그룹 제목과 ID를 연결하는 맵 정의 (가장 확실한 방법)
+    const groupIdMap = {
+        "그룹 A": 1,
+        "그룹 B": 2,
+        "그룹 C": 3,
+        "그룹 D": 4,
+        "그룹 E": 5
+    };
+    const group_id = groupIdMap[groupTitle];
+    console.log("group_id: ", group_id);
+
+    let url = '';
+    let method = '';
+    let message = '';
+
+    if (isChecked) {
+        // 체크: 그룹에 추가 (INSERT 요청)
+        url = '/tkheat/user/insertGroup'; // 서버에 그룹 추가를 요청할 URL
+        method = 'POST';
+        message = '그룹에 추가되었습니다.';
+    } else {
+        // 체크 해제: 그룹에서 제외 (DELETE 요청)
+        url = '/tkheat/user/deleteGroup'; // 서버에 그룹 해제를 요청할 URL
+        method = 'POST'; 
+        message = '그룹에서 해제되었습니다.';
+    }
+
+    // 서버에 보낼 데이터 (user_code와 group_id)
+    const data = {
+        user_code: user_code,
+        group_id: group_id
+    };
+    $.ajax({
+        url: url,
+        type: method,
+        contentType: 'application/json', // JSON 형식으로 데이터를 보낼 때
+        data: JSON.stringify(data),
+        success: function(response) {
+            if (response == true) {
+                //alert(`${fieldName} 상태가 성공적으로 ${newValue == 'Y' ? '수신' : '거부'}로 변경되었습니다. (작업 시간 기록 완료)`);
+                
+                // Tabulator 데이터 업데이트 (화면 갱신)
+                const row = cell.getRow();
+                const currentData = row.getData();
+                
+                // Tabulator 행 데이터를 수동으로 업데이트합니다.
+                const updateObj = {};
+                updateObj[fieldName] = newValue;
+                row.update(updateObj); 
+                
+            } else {
+                alert("오류가 발생했습니다: " + response.data);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('오류 발생: 변경 사항이 저장되지 않았습니다. (' + error + ')');
+            // 실패 시 체크박스 상태를 되돌립니다.
+            // (가장 확실한 방법은 Tabulator 데이터를 다시 로드하는 것입니다.)
+            dataTable.replaceData(); 
+        }
+    });
+  }
+
+    //알람 그룹 선택 시 호출 함수
+    function alarmGroupClick(e, cell) {
+        if (e.target.type !== 'checkbox') {
+            return; 
+        }
+        // e.target.checked는 클릭 후의 체크박스 상태 (true 또는 false)를 반환합니다.
+        const isChecked = e.target.checked;
+        const newValue = isChecked ? 1 : 0; // 서버에 보낼 값 (1 또는 0) 
+
+        const alarm_address = cell.getData().alarm_address; // 알람 고유 ID (PK)
+        const columnField = cell.getColumn().getField(); // 클릭된 칼럼 이름 (예: "group_a", "group_b")
+        const groupTitle = cell.getColumn().getDefinition().title; // 컬럼 제목 (예: "그룹 A")
+        console.log("alarm_address: ", alarm_address + ", 필드: ", columnField + ", 새 값: ", newValue);
+
+        // 서버에 보낼 데이터
+        const data = {
+        	alarm_address: alarm_address,
+            fieldName: columnField, // "group_a", "group_b" 등
+            newValue: newValue      // 1 또는 0
+        };
+        $.ajax({
+            url: '/tkheat/alarm/updateAlarmGroup', 
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            
+            success: function(response) {
+                // 서버 응답이 성공 (true)일 경우
+                if (response === true) { // 서버 응답 구조에 맞게 수정 (예: {success: true})
+                    //alert(`${groupTitle} 상태가 성공적으로 ${isChecked ? '추가' : '해제'}되었습니다.`);
+                    
+                    // 2. Tabulator 데이터 업데이트 (화면 갱신)
+                    const row = cell.getRow();
+                    const updateObj = {};
+                    
+                    // 클릭된 칼럼 필드(group_a 등)의 값을 새 값(1 또는 0)으로 설정
+                    updateObj[columnField] = newValue;
+                    row.update(updateObj); 
+                    
+                } else {
+                    alert("오류가 발생했습니다: " + (response.message || '알 수 없는 오류'));
+                    // 실패 시, Tabulator를 강제 새로고침하여 체크박스 상태를 되돌립니다.
+                    // alarmGroupTable.replaceData(); 
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('오류 발생: 변경 사항이 저장되지 않았습니다. (' + error + ')');
+                // 실패 시, 실제 데이터의 상태와 맞추기 위해 테이블을 새로고침하는 것이 안전합니다.
+                // alarmGroupTable.replaceData(); 
             }
         });
-    }
+  }
 
-    function closeProductListModal() {
-        document.getElementById('productListModal').style.display = 'none';
-    }
+    //그룹별 수신 알람 선택 시 호출 함수
+    function recieveAlarmpClick(e, cell) {
+        if (e.target.type !== 'checkbox') {
+            return; 
+        }
+        // e.target.checked는 클릭 후의 체크박스 상태 (true 또는 false)를 반환합니다.
+        const isChecked = e.target.checked;
+        const newValue = isChecked ? 1 : 0; // 서버에 보낼 값 (1 또는 0) 
 
+        const group_id = cell.getData().group_id; // 알람 고유 ID (PK)
+        const columnField = cell.getColumn().getField(); // 클릭된 칼럼 이름 (예: "group_a", "group_b")
+        const groupTitle = cell.getColumn().getDefinition().title; // 컬럼 제목 (예: "그룹 A")
+        console.log("알람 ID: ", group_id + ", 필드: ", columnField + ", 새 값: ", newValue);
+
+        // 서버에 보낼 데이터
+        const data = {
+        	group_id: group_id,
+            fieldName: columnField, // "group_a", "group_b" 등
+            newValue: newValue      // 1 또는 0
+        };
+        $.ajax({
+            url: '/tkheat/user/updateRecieveAlarm', 
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            
+            success: function(response) {
+                // 서버 응답이 성공 (true)일 경우
+                if (response === true) { // 서버 응답 구조에 맞게 수정 (예: {success: true})
+                    //alert(`${groupTitle} 상태가 성공적으로 ${isChecked ? '추가' : '해제'}되었습니다.`);
+                    
+                    // 2. Tabulator 데이터 업데이트 (화면 갱신)
+                    const row = cell.getRow();
+                    const updateObj = {};
+                    
+                    // 클릭된 칼럼 필드(group_a 등)의 값을 새 값(1 또는 0)으로 설정
+                    updateObj[columnField] = newValue;
+                    row.update(updateObj); 
+                    
+                } else {
+                    alert("오류가 발생했습니다: " + (response.message || '알 수 없는 오류'));
+                    // 실패 시, Tabulator를 강제 새로고침하여 체크박스 상태를 되돌립니다.
+                    // alarmGroupTable.replaceData(); 
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('오류 발생: 변경 사항이 저장되지 않았습니다. (' + error + ')');
+                // 실패 시, 실제 데이터의 상태와 맞추기 위해 테이블을 새로고침하는 것이 안전합니다.
+                // alarmGroupTable.replaceData(); 
+            }
+        });
+  }
     
-  //침탄로작업표준 저장
-    function save() {
-	    var formData = new FormData($("#chimStandardForm")[0]);
+//1호기 수신/거부 라디오 버튼 포맷터
+function customCheckboxFormatter1(cell, formatterParams, onRendered) {
+    const data = cell.getRow().getData();
+    
+    // 데이터가 null/undefined일 경우 'N'으로 기본값 설정
+    const ynValue = data.message_yn || 'N'; 
+    
+    //console.log("ynValue: ", ynValue);
+    
+    // 1. 셀이 렌더링 된 후 실행될 콜백 함수를 등록합니다.
+    onRendered(function() {
+        // 셀 컴포넌트(cell)의 DOM 요소 내에서 체크박스를 찾습니다.
+        const checkbox = cell.getElement().querySelector('input[type="checkbox"]');
+        
+        if (checkbox) {
+            // 2. data.message_yn 값에 따라 체크박스의 checked 속성을 직접 설정합니다.
+            // 'Y'이면 true (체크됨), 아니면 false (체크 안됨)
+            checkbox.checked = (ynValue === 'Y');
+            
+            // 3. (선택 사항) 체크박스에 대한 이벤트 리스너를 여기서 설정할 수도 있습니다.
+            //    현재는 column 정의의 cellClick을 사용하고 있다면 이 부분은 불필요합니다.
+        }
+    });
 
-	    let confirmMsg = "";
-
-	    if (isEditMode && selectedRowData && selectedRowData.wstd_code) {
-	        formData.append("mode", "update");
-	        formData.append("wstd_code", selectedRowData.wstd_code);
-	        confirmMsg = "수정하시겠습니까?";
-	    } else {
-	        formData.append("mode", "insert");
-	        confirmMsg = "저장하시겠습니까?";
-	    }
-
-	    if (!confirm(confirmMsg)) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/management/chimStandardInsert/chimStandardInsertSave",
-	        type: "POST",
-	        data: formData,
-	        contentType: false,
-	        processData: false,
-	        dataType: "json",
-	        success: function(result) {
-	        	alert("저장 되었습니다.");
-                $(".chimStandardModal").hide();
-                getChimStandardList();
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("저장 오류:", error);
+    // 4. 반환할 HTML 문자열 (checked 속성 없이 깨끗하게)
+    //    체크 상태는 onRendered에서 설정되므로, HTML 템플릿에는 checked 속성을 넣지 않습니다.
+    return `
+        <label style="display: block; width: 100%; text-align: center;">
+            <input type="checkbox" 
+                   value="Y" 
+                   data-field="message_yn" 
+                   data-code="${data.user_code}"> 수신
+        </label>
+    `;
+}
+//2호기 수신/거부 라디오 버튼 포맷터 (message_yn2 필드를 사용)
+  function customCheckboxFormatter2(cell, formatterParams, onRendered) {
+	    const data = cell.getRow().getData();
+	    
+	    // 데이터가 null/undefined일 경우 'N'으로 기본값 설정
+	    const ynValue = data.message_yn2 || 'N'; 
+	    
+	    //console.log("ynValue: ", ynValue);
+	    
+	    // 1. 셀이 렌더링 된 후 실행될 콜백 함수를 등록합니다.
+	    onRendered(function() {
+	        // 셀 컴포넌트(cell)의 DOM 요소 내에서 체크박스를 찾습니다.
+	        const checkbox = cell.getElement().querySelector('input[type="checkbox"]');
+	        
+	        if (checkbox) {
+	            // 2. data.message_yn 값에 따라 체크박스의 checked 속성을 직접 설정합니다.
+	            // 'Y'이면 true (체크됨), 아니면 false (체크 안됨)
+	            checkbox.checked = (ynValue === 'Y');
+	            
+	            // 3. (선택 사항) 체크박스에 대한 이벤트 리스너를 여기서 설정할 수도 있습니다.
+	            //    현재는 column 정의의 cellClick을 사용하고 있다면 이 부분은 불필요합니다.
 	        }
 	    });
-	}
+
+	    // 4. 반환할 HTML 문자열 (checked 속성 없이 깨끗하게)
+	    //    체크 상태는 onRendered에서 설정되므로, HTML 템플릿에는 checked 속성을 넣지 않습니다.
+	    return `
+	        <label style="display: block; width: 100%; text-align: center;">
+	            <input type="checkbox" 
+	                   value="Y" 
+	                   data-field="message_yn2" 
+	                   data-code="${data.user_code}"> 수신
+	        </label>
+	    `;
+  }
+
+//라디오 버튼 클릭 이벤트 처리 함수
+  function handleCheckboxClick(e, cell) {
+	  console.log("체크박스 클릭:", e.target.checked, cell.getData());
+      // 이벤트가 라디오 버튼에서 발생했는지 확인
+      
+    // 1. 클릭된 체크박스의 상태 및 정보 추출
+    const input = e.target;
+    const row = cell.getRow();
+    const rowData = row.getData();
+    const fieldName = cell.getField(); // 'message_yn' 또는 'message_yn2'
+    const newValue = input.checked ? 'Y' : 'N'; // 👈 실제 체크 상태를 기준으로 'Y'/'N' 결정
+    
+    // 2. Tabulator 내부 데이터 갱신 (화면과 데이터 일치)
+    // 클릭된 필드의 상태만 Tabulator 내부 데이터에 반영
+    row.update({
+        [fieldName]: newValue
+    }).then(function() {
+        // 3. 서버 전송 데이터 준비
+        // 최신 데이터(클릭으로 인해 message_yn/2가 업데이트된 상태)를 가져옵니다.
+        const currentData = row.getData();
+        console.log("currentData: ", currentData);
+        
+        // 서버 @ModelAttribute Users에 맞게 필요한 최소 필드만 구성
+        const dataToSend = {
+            user_code: currentData.user_code,
+            user_id: currentData.user_id,
+            user_pw: currentData.user_pw,
+            message_yn: currentData.message_yn,
+            message_yn2: currentData.message_yn2
+        };
+        
+        console.log("메시지 수신 상태 업데이트 요청 데이터:", dataToSend);
+
+          // 2. AJAX 통신 (tb_user 업데이트 및 tb_user_worktime 저장)
+          $.ajax({
+              url: "/tkheat/user/updateMessage", 
+              type: "POST",
+              data: dataToSend,
+              success: function(response) {
+                  if (response == true) {
+                      //alert(`${fieldName} 상태가 성공적으로 ${newValue == 'Y' ? '수신' : '거부'}로 변경되었습니다. (작업 시간 기록 완료)`);
+                      
+                      // Tabulator 데이터 업데이트 (화면 갱신)
+                      const row = cell.getRow();
+                      const currentData = row.getData();
+                      
+                      // Tabulator 행 데이터를 수동으로 업데이트합니다.
+                      const updateObj = {};
+                      updateObj[fieldName] = newValue;
+                      row.update(updateObj); 
+                      
+                  } else {
+                      alert("업데이트 중 오류가 발생했습니다: " + response.data);
+                  }
+              },
+              error: function() {
+                  alert('서버와의 통신 중 오류가 발생했습니다.');
+              }
+          });
+    });
+  }
+	
+  // 삽입 버튼 클릭 시
+  $('.insert-button').click(function() {
+      // 수정 숨기고 저장 보이게
+      $('#saveCorrStatus').show();
+      $('#updateCorrStatus').hide();
+    selectedRowData = null;
+    $('#corrForm')[0].reset();
+    $('#modalContainer').show().addClass('show');
+    initModalDataTable(); 
+  });
+
+  // 알람 발송 스케줄 시간 버튼 클릭 시
+  $('.group-time-button').click(function() {
+	  $('#groupTimeModal form').trigger('reset');
+    $('#groupTimeModal').show().addClass('show');
+  });
+
+  // 알람 그룹 관리 버튼 클릭 시
+  $('.alarm-group-button').click(function() {
+    $('#alarmGroupModal').show().addClass('show');
+    initAlarmGroupTable();
+  });
+  // 그룹별 수신 알람 설정 버튼 클릭 시
+  $('.recieve-alarm-button').click(function() {
+    $('#recieveAlarmModal').show().addClass('show');
+    initRecieveAlarmTable();
+  });
+
+  // 삭제 버튼 클릭 시
+  $('.delete-button').click(function() {
+    if (!selectedRowData) {
+      alert('삭제할 행을 먼저 클릭해 주세요.');
+      return;
+    }
+    if (!selectedRowData) {
+    	  alert('삭제할 행을 먼저 클릭해 주세요.');
+    	  return;
+    	}
+    	if (!confirm('선택된 항목을 정말 삭제하시겠습니까?')) return;
+
+    	const deleteData = { user_code: selectedRowData.user_code };
+    	console.log("삭제 요청 데이터:", deleteData); // 추가된 로그
+
+    	$.ajax({
+    	  url: "/geomet/user/userInsert/delete",
+    	  type: "POST",
+    	  contentType: "application/json",
+    	  data: JSON.stringify(deleteData),
+    	  success: function(res) {
+    	    alert('삭제되었습니다.');
+    	
+    	    dataTable.setData("/geomet/user/userInsert/select", {});
+    	    selectedRowData = null;
+    	  },
+    	  error: function() {
+    	    alert('삭제 중 오류가 발생했습니다.');
+    	  }
+    	});
+  });
+
+  // 모달 닫기
+  $('.close, #closeModal, #cancelBtn').click(function() {
+    $('#modalContainer').removeClass('show').hide();
+    $('#groupTimeModal').removeClass('show').hide();
+    $('#alarmGroupModal').removeClass('show').hide();
+    $('#recieveAlarmModal').removeClass('show').hide();
+    dataTable.setData("/tkheat/user/selectList", {});
+  });
+
+//1. 오늘 날짜를 YYYY-MM-DD 형식으로 반환하는 헬퍼 함수
+  function getTodayDate() {
+      const today = new Date();
+      const year = today.getFullYear();
+      // getMonth()는 0부터 시작하므로 +1, padStart(2, '0')로 2자리수 확보
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      return year + "-" + month + "-" + day;
+  }
+  
+  // 저장 버튼 클릭 시
+  $('#saveCorrStatus').click(function(event) {
+    event.preventDefault();
+
+    const todayDate = getTodayDate();
+    console.log("todayDate: ", todayDate);
+    let dataToSend = []; // 전송할 데이터를 담을 배열
+    let dataToDelete = [];  //  삭제할 데이터
+
+    if (!modalDataTable) {
+        alert('테이블 데이터가 준비되지 않았습니다.');
+        return;
+    }
+
+    dataToSend = []; // 데이터 배열 초기화
+
+    // 1. Tabulator에서 모든 행 컴포넌트(Row Component)를 가져옵니다.
+    const allRows = modalDataTable.getRows();
+
+    // 2. 각 행을 순회하며 DOM 요소의 체크박스 상태를 직접 확인합니다.
+    allRows.forEach(row => {
+        const rowElement = row.getElement(); // 행의 DOM 요소
+        const rowData = row.getData();       // 행의 기본 데이터
+
+        const workTime = rowData.work_time || "";
+        
+        if (workTime === '오전' || workTime === '오후') { 
+            dataToSend.push({
+                user_code: rowData.user_code,
+                work_day: todayDate,
+                work_time: workTime
+            });
+        }else if (workTime === "" || workTime === "선택 안함") { 
+            // 삭제 요청은 user_code와 work_day만 필요
+            dataToDelete.push({
+                user_code: rowData.user_code,
+                work_day: todayDate
+            });
+        }
+    });
+    
+    if (dataToSend.length === 0) {
+        alert("저장할 체크된 사용자 데이터가 없습니다.");
+        return;
+    }
+
+    console.log("서버에 전송할 체크된 사용자 데이터 (JSON 배열):", dataToSend);
+    console.log("삭제할 데이터:", dataToDelete);
+
+    //2. ajax 요청
+    let ajaxRequests = [];
+    if (dataToSend.length > 0) {
+    $.ajax({
+      url: "/tkheat/user/insertWorkTime",
+      type: "POST",
+      contentType: "application/json", // 👈 필수: JSON 데이터임을 서버에 알림
+      data: JSON.stringify(dataToSend), // 👈 필수: JS 객체를 JSON 문자열로 변환
+      //processData: false,
+      //contentType: false,
+      success: function(result) {
+        console.log(result);
+        if (result === true) {
+            //alert("성공적으로 저장되었습니다."); // "사용자 정보가 성공적으로 저장되었습니다."
+            $('#modalContainer').hide();
+            //dataTable.setData("/tkheat/user/selectList", {});
+            //selectedRowData = null;
+        } else {
+            //alert("오류: " + result.data); 
+        }
+      },
+      error: function() {
+        alert('저장 중 오류가 발생했습니다.');
+      }
+    });
+    }
+
+    if (dataToDelete.length > 0) {
+        ajaxRequests.push(
+            $.ajax({
+                // 🚨 삭제 전용 컨트롤러 URL 사용
+                url: "/tkheat/user/deleteWorkTime", 
+                type: "POST", // DELETE 메서드가 더 적합하지만, POST를 흔히 사용
+                contentType: "application/json",
+                data: JSON.stringify(dataToDelete)
+            })
+        );
+        console.log("삭제 데이터:", dataToDelete);
+    }
+
+    // 3. 모든 요청의 성공/실패 처리
+    Promise.all(ajaxRequests)
+        .then(results => {
+            // 모든 요청이 성공했을 때
+            alert("작업 시간 정보가 성공적으로 처리되었습니다.");
+            $('#modalContainer').hide();
+            dataTable.setData("/tkheat/user/selectList", {});
+        })
+        .catch(error => {
+            // 하나라도 실패했을 때
+            alert('일부 요청 처리 중 오류가 발생했습니다.');
+            console.error("AJAX 오류:", error);
+        });
+  });
+
+  // 시간 저장 버튼 클릭 시
+  $('#saveTimeBtn').click(function(event) {
+    event.preventDefault();
+    
+    const formElement = document.getElementById('groupTimeForm'); 
+    
+    // 🌟 폼 요소를 FormData에 전달합니다. 🌟
+    const formData = new FormData(formElement); 
+
+    // ... (이하 데이터 추출 로직은 동일) ...
+    const data = {
+        group_id: formData.get('group_id'),
+        start_date: formData.get('start_date'),
+        end_date: formData.get('end_date'),
+        start_time: formData.get('start_time'),
+        end_time: formData.get('end_time')
+    };
+    console.log("전송 data: ", data);
+
+    if (!data.group_id || !data.start_time || !data.end_time) {
+        alert("모든 항목을 선택해 주세요.");
+        return;
+    }
+    
+    $.ajax({
+        url: '/tkheat/user/insertGroupSchedule', 
+        type: 'POST', 
+        contentType: 'application/json', // 보내는 데이터 형식: JSON
+        data: JSON.stringify(data), // JavaScript 객체를 JSON 문자열로 변환하여 전송
+        success: function(response) {
+            alert("알림 수신 시간이 성공적으로 업데이트되었습니다. ");
+            
+            // 모달 닫기 (이전에 정의된 closeGroupTimeModal 함수 사용 가정)
+            if (typeof closeGroupTimeModal === 'function') {
+                closeGroupTimeModal();
+            } else {
+                // closeGroupTimeModal 함수가 없을 경우, jQuery로 모달 숨기기
+                $('#groupTimeModal').hide(); 
+            }
+            calendar.refetchEvents();
+        },
+        error: function(xhr, status, error) {
+            alert('시간 설정 업데이트 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요. ❌');
+            console.error("AJAX Error:", error, xhr.responseText);
+        }
+    });
+    
+  });
+
+  //수정 버튼 클릭 시
+  $('#updateCorrStatus').click(function(event) {
+    event.preventDefault();
+    //var formData = new FormData($('#corrForm')[0]);
+    var formData = $('#corrForm').serialize();
+    if (selectedRowData && selectedRowData.user_code) {
+      formData.append('user_code', selectedRowData.user_code);  // 수정 시 user_code 추가
+    }
+/*     for (var pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      } */
+        
+
+    $.ajax({
+      url: "/geomet/user/userInsert/update",
+      type: "POST",
+      data: formData,
+      //processData: false,
+      //contentType: false,
+      success: function() {
+        alert("수정되었습니다!");
+        $('#modalContainer').hide();
+    
+        dataTable.setData("/geomet/user/userInsert/select", {});
+        selectedRowData = null;
+      },
+      error: function() {
+        alert('저장 중 오류가 발생했습니다.');
+      }
+    });
+  });
+
+  //그룹별 조회
+  $('#groupSelect').on('change', function() {
+      const selectedGroupId = $(this).val(); // 선택된 <option>의 value (그룹 ID 또는 빈 문자열)
+/*       // 빈 문자열인 경우 null로 변환 (Integer 바인딩 오류 방지)
+      if (selectedGroupId === "") {
+          selectedGroupId = null;
+      } */
+      console.log("선택된 그룹 ID:", selectedGroupId);
+
+      // 1. 서버에 전송할 데이터 준비
+      const dataToSend = {
+          group_id: selectedGroupId // 서버에서 받을 파라미터 이름에 맞춰 사용
+      };
+
+      // 2. AJAX 요청: 서버에서 필터링된 알람 목록을 요청
+      $.ajax({
+          url: "/tkheat/user/getGroupUser",
+          type: 'POST', 
+          contentType: 'application/json', // 보내는 데이터 형식: JSON
+          data: JSON.stringify(dataToSend), // JavaScript 객체를 JSON 문자열로 변환하여 전송 
+          success: function(filteredData) {
+              console.log("필터링된 데이터 수신:", filteredData.length);
+              
+              // 3. Tabulator 데이터 갱신
+              // dataTable은 Tabulator 인스턴스 변수라고 가정합니다.
+              if (typeof dataTable !== 'undefined' && dataTable.replaceData) {
+                  // 서버로부터 받은 새 데이터로 Tabulator를 교체하여 화면을 갱신합니다.
+                  dataTable.replaceData(filteredData);
+              } else {
+                  console.error("Tabulator 인스턴스를 찾을 수 없습니다: dataTable");
+              }
+          },
+          
+          error: function(xhr, status, error) {
+              console.error("그룹별 알람 조회 중 오류 발생:", error);
+              alert("알람 목록을 조회하는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+          }
+      });
+  });
+});
+</script>
 
 
-	function deleteChim() {
-	    if (!selectedRowData || !selectedRowData.wstd_code) {
-	        alert("삭제할 대상을 선택하세요.");
-	        return;
-	    }
-
-	    if (!confirm("삭제하시겠습니까?")) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/management/chimStandardInsert/chimStandardDelete",
-	        type: "POST",
-	        data: {
-	        	wstd_code: selectedRowData.wstd_code
-	        },
-	        dataType: "json",
-	        success: function(result) {
-	            if (result.status === "success") {
-	                alert("삭제되었습니다.");
-	                $(".chimStandardModal").hide();
-	                getChimStandardList();
-	            } else {
-	                alert("삭제 중 오류가 발생했습니다: " + result.message);
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("삭제 오류:", error);
-	            alert("삭제 요청 중 오류가 발생했습니다.");
-	        }
-	    });
-	}
-
-    //엑셀 다운로드
-	$(".excel-button").click(function () {
-	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-	    const filename = "침탄로작업표준_" + today + ".xlsx";
-	    userTable.download("xlsx", filename, { sheetName: "침탄로작업표준" });
-	});
-		
-
-
-    </script>
-
-	</body>
+</body>
 </html>

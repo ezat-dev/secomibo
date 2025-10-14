@@ -85,5 +85,120 @@ public class UserDaoImpl implements UserDao{
 	public void userLoginHisSave(Users users) {
 		sqlSession.insert("users.userLoginHisSave",users);
 	}
+	
+	@Override
+	public void userInsertInsert(Users users) {
+		sqlSession.insert("users.userInsertInsert",users);
+	}
+	@Override
+	public Users userDuplicateCheck(Users users) {
+		return sqlSession.selectOne("users.userDuplicateCheck",users);
+	}
+	@Override
+	public List<Users> selectUserList(Users users) {
+		return sqlSession.selectList("users.selectUserList",users);
+	}
+
+	@Override
+	public boolean insertWorkTime(Users users) {
+		int result = sqlSession.insert("users.insertWorkTime", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public boolean updateMessage(Users users) {
+		int result = sqlSession.update("users.updateMessage", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public boolean deleteWorkTime(Users users) {
+		int result = sqlSession.delete("users.deleteWorkTime", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public boolean deviceTokenUpdate(Users users) {
+		int result = sqlSession.delete("users.deviceTokenUpdate", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public List<Users> selectUserModalList(Users users) {
+		return sqlSession.selectList("users.selectUserModalList",users);
+	}
+	@Override
+	public List<Users> getAlarmUser1(Users users) {
+		return sqlSession.selectList("users.getAlarmUser1",users);
+	}
+	@Override
+	public List<Users> getAlarmUser2(Users users) {
+		return sqlSession.selectList("users.getAlarmUser2",users);
+	}
+
+	@Override
+	public boolean insertGroup(Users users) {
+		int result = sqlSession.insert("users.insertGroup", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean deleteGroup(Users users) {
+		int result = sqlSession.delete("users.deleteGroup", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean updateGroupTime(Users users) {
+		int result = sqlSession.update("users.updateGroupTime", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public List<Users> getGroupUser(Users users) {
+		return sqlSession.selectList("users.getGroupUser",users);
+	}
+
+	@Override
+	public boolean insertGroupSchedule(Users users) {
+		int result = sqlSession.insert("users.insertGroupSchedule", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public List<Users> getGroupScheduleList(Users users) {
+		return sqlSession.selectList("users.getGroupScheduleList",users);
+	}
+	@Override
+	public boolean updateRecieveAlarm(Users users) {
+		int result = sqlSession.update("users.updateRecieveAlarm", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public List<Users> getGroupList(Users users) {
+		return sqlSession.selectList("users.getGroupList",users);
+	}
 
 }

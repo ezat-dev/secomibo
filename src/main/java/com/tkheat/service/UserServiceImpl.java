@@ -91,5 +91,83 @@ public class UserServiceImpl implements UserService{
 	public void userLoginHisSave(Users users) {
 		userDao.userLoginHisSave(users);
 	}
+	
+    @Override
+    public void userInsertInsert(Users users) {
+        userDao.userInsertInsert(users);
+    }
+    @Override
+    public Users userDuplicateCheck(Users users) {
+        return userDao.userDuplicateCheck(users);
+    }
+    @Override
+    public List<Users> selectUserList(Users users) {
+        return userDao.selectUserList(users);
+    }
 
+	@Override
+	public boolean insertWorkTime(Users users) {
+		return userDao.insertWorkTime(users);
+	}
+	@Override
+	public boolean updateMessage(Users users) {
+		return userDao.updateMessage(users);
+	}
+	@Override
+	public boolean deleteWorkTime(Users users) {
+		return userDao.deleteWorkTime(users);
+	}
+	@Override
+	public boolean deviceTokenUpdate(Users users) {
+		return userDao.deviceTokenUpdate(users);
+	}
+	@Override
+	public List<Users> selectUserModalList(Users users) {
+		return userDao.selectUserModalList(users);
+	}
+	@Override
+	public List<Users> getAlarmUser1(Users users) {
+		return userDao.getAlarmUser1(users);
+	}
+	@Override
+	public List<Users> getAlarmUser2(Users users) {
+		return userDao.getAlarmUser2(users);
+	}
+
+	@Override
+	public boolean insertGroup(Users users) {
+		return userDao.insertGroup(users);
+	}
+
+	@Override
+	public boolean deleteGroup(Users users) {
+		return userDao.deleteGroup(users);
+	}
+
+	@Override
+	public boolean updateGroupTime(Users users) {
+		return userDao.updateGroupTime(users);
+	}
+
+	@Override
+	public List<Users> getGroupUser(Users users) {
+		return userDao.getGroupUser(users);
+	}
+
+	@Override
+	public boolean insertGroupSchedule(Users users) {
+		return userDao.insertGroupSchedule(users);
+	}
+	@Override
+	public List<Users> getGroupScheduleList(Users users) {
+		return userDao.getGroupScheduleList(users);
+	}
+	@Override
+	public boolean updateRecieveAlarm(Users users) {
+		return userDao.updateRecieveAlarm(users);
+	}
+	@Override
+	public List<Users> getGroupList(Users users) {
+		return userDao.getGroupList(users);
+	}
 }

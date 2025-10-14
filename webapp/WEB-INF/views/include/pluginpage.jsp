@@ -259,10 +259,10 @@ function pageObject(paramKey){
 			"g19":["/tkheat/operation/cuMonthBul","월별거래처별불량현황"],
 			"h01":["/tkheat/management/productInsert","제품등록"],
 			"h02":["/tkheat/management/cutumInsert","거래처등록"],
-			"h03":["/tkheat/management/facInsert","설비등록"],
-			"h04":["/tkheat/management/chimStandard","침탄로작업표준"],
+			"h03":["/tkheat/management/facInsert","푸시알림"],
+			"h04":["/tkheat/management/chimStandard","그룹관리"],
 			"h05":["/tkheat/management/userinsert","작업자등록"],
-			"h06":"",//기존 : 불량코드등록
+			"h06":["/tkheat/management/pushAlarm","푸시알림 관리"],
 			"h07":"",//기존 : 설비비가동코드등록
 			"h08":["/tkheat/management/authority","사원별권한등록"],
 			"h09":"",//기존 : 로그인기록

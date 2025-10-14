@@ -5,836 +5,763 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설비등록</title>
-    <link rel="stylesheet" href="/tkheat/css/management/facInsert.css">
+    <title>권한 설정</title>
+    <%-- <%@ include file="../include/sideBar.jsp" %> --%>
     <link rel="stylesheet" href="/tkheat/css/tabBar/tabBar.css">
+    <%@include file="../include/pluginpage.jsp" %>
+    <link rel="stylesheet" href="/tkheat/css/management/userinsert2.css">
     <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-	<%@include file="../include/pluginpage.jsp" %>    
-<style>
-.main {
-	width: 98%;
-}
-
-.container {
-	display: flex;
-	justify-content: space-between;
-}
-
-.detail {
-	background: #ffffff;
-	border: 1px solid #000000;
-	width: 1000px; /* 가로 길이 고정 */
-	height: 630px; /* 세로 길이 고정 */
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-	margin: 20px auto; /* 중앙 정렬 */
-	padding: 20px;
-	border-radius: 5px; /* 모서리 둥글게 */
-	overflow-y: auto; /* 세로 스크롤 추가 */
-}
-
-.insideTable {
-	width: 100%; /* 내부 테이블 너비 100% */
-	border-collapse: collapse;
-}
-
-.insideTable th, .insideTable td {
-	padding: 5px; /* 셀 패딩을 줄여 세로 길이 감소 */
-	border: 1px solid #ccc; /* 셀 경계선 */
-	text-align: left; /* 텍스트 왼쪽 정렬 */
-}
-
-.insideTable th {
-	background: #f0f0f0; /* 헤더 배경색 */
-	font-weight: bold; /* 굵은 글씨 */
-}
-
-.basic {
-	background: #ffffff;
-	border: 1px solid #949494; /* 경계선 색상 */
-	width: calc(50% - 10px); /* 입력 박스 너비 조정 */
-	padding: 5px; /* 내부 여백 */
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
-	border-radius: 3px; /* 둥근 모서리 */
-	display: inline-block; /* 인라인 블록으로 설정하여 가로 정렬 */
-	margin-right: 5px; /* 입력 박스 간격 조정 */
-}
-
-.basic:last-child {
-	margin-right: 0; /* 마지막 입력 박스의 여백 제거 */
-}
-
-.btnSearchCorp, .btn1T {
-	background: #007bff; /* 버튼 배경색 */
-	color: white; /* 버튼 글자색 */
-	border: none; /* 경계선 없음 */
-	padding: 5px 10px; /* 내부 여백 */
-	cursor: pointer; /* 커서 변경 */
-	border-radius: 3px; /* 모서리 둥글게 */
-	margin-top: 5px; /* 위쪽 여백 */
-}
-
-.btnSearchCorp:hover, .btn1T:hover {
-	background: #0056b3; /* 호버 시 색상 변경 */
-}
-
-.resultArea2 {
-	background: #f9f9f9; /* 결과 영역 배경색 */
-	padding: 10px; /* 내부 여백 */
-	border: 1px solid #ddd; /* 경계선 */
-	border-radius: 5px; /* 모서리 둥글게 */
-}
-
-.imgArea {
-	width: 200px; /* 이미지 영역 너비 */
-	height: 150px; /* 이미지 영역 높이 */
-	border: 1px solid #ddd; /* 경계선 */
-	margin-bottom: 10px; /* 하단 여백 */
-}
-
-.imgClass {
-	width: 100%; /* 이미지 너비 */
-	height: 100%; /* 이미지 높이 */
-	object-fit: cover; /* 이미지 비율 유지 */
-}
-
-.tdRight {
-	text-align: right; /* 오른쪽 정렬 */
-}
-
-.thSub2 {
-	width: 150px; /* 서브 헤더 너비 */
-}
-
-.valClean {
-	margin-left: 5px; /* 여백 */
-}
-
-textarea {
-	border: 1px solid #949494; /* 경계선 색상 */
-	padding: 5px; /* 내부 여백 */
-	width: calc(100% - 10px); /* 너비 100%에서 여백 제외 */
-	height: 100px; /* 높이 */
-	border-radius: 3px; /* 둥근 모서리 */
-}
-
-.facModal {
-	position: fixed; /* 화면에 고정 */
-	top: 50%; /* 수직 중앙 */
-	left: 50%; /* 수평 중앙 */
-	display: none;
-	transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
-	z-index: 1000; /* 다른 요소 위에 표시 */
-}
-
-.header {
-	display: flex; /* 플렉스 박스 사용 */
-	justify-content: center; /* 중앙 정렬 */
-	align-items: center; /* 수직 중앙 정렬 */
-	margin-bottom: -20px; /* 상단 여백 */
-	background-color: #33363d; /* 배경색 */
-	height: 50px; /* 높이 */
-	color: white; /* 글자색 */
-	font-size: 20px; /* 글자 크기 */
-	text-align: center; /* 텍스트 정렬 */
-}
-.btnSaveClose {
-	display: flex;
-	justify-content: center; /* 가운데 정렬 */
-	gap: 20px; /* 버튼 사이 여백 */
-	margin-top: 30px; /* 모달 내용과의 간격 */
-	margin-bottom: 20px; /* 모달 하단과 버튼 사이 간격  */
-}
-.btnSaveClose button {
-	width: 100px;
-	height: 35px;
-	background-color: #FFD700; /* 기본 배경 - 노란색 */
-	color: black;
-	border: 2px solid #FFC107; /* 노란 테두리 */
-	border-radius: 5px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
-	line-height: 35px;
-	margin: 0 10px;
-	margin-top: 10px;
-	transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* 저장 버튼 호버 시 */
-.btnSaveClose .save:hover {
-	background-color: #FFC107;
-	transform: scale(1.05);
-}
-
-/* 닫기 버튼 - 회색 톤 */
-.btnSaveClose .close {
-	background-color: #A9A9A9;
-	color: black;
-	border: 2px solid #808080;
-}
-
-/* 닫기 버튼 호버 시 */
-.btnSaveClose .close:hover {
-	background-color: #808080;
-	transform: scale(1.05);
-}
-.box1 {
-	display: flex;
-	justify-content: right;
-	align-items: center;
-	width: 1500px;
-	margin-left: -1050px;
-}
-
-.box1 select{
-	width: 5%
-}  
-.box1 input[type="date"] {
-	width: 150px;
-	padding: 5px 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	background-color: #f9f9f9;
-	color: #333;
-	outline: none;
-	transition: border 0.3s ease;
-}
-
-.box1 input[type="date"]:focus {
-	border: 1px solid #007bff;
-	background-color: #fff;
-}  
-.box1 label,
-.box1 input {
-	margin-right: 10px; /* 요소 사이 간격 */
-}  
-th{
-	font-size : 14px;
-}
+    <style>
     
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-left: 1008px;
+            margin-top: 200px;
+        }
+        .view {
+            display: flex;
+            justify-content: center;
+            margin-top: 1%;
+        }
+        .tab {
+            width: 95%;
+            margin-bottom: 37px;
+            margin-top: 5px;
+            height: 45px;
+            border-radius: 6px 6px 0px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-in-out;
+        }
+	    .modal-content {
+	        background: white;
+		    width: 50%;
+		    max-width: 715px;
+	        height: 80vh; 
+	        overflow-y: auto; 
+	        margin: 6% auto 0;
+	        padding: 20px;
+	        border-radius: 10px;
+	        position: relative;
+	        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	        transform: scale(0.8);
+	        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	        opacity: 0;
+	    }
+        .modal.show {
+            display: block;
+            opacity: 1;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .close {
+            background-color:white;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content label {
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        .modal-content input, .modal-content textarea {
+            width: 97%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            background-color: #d3d3d3;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal-content button:hover {
+            background-color: #a9a9a9;
+        }
+        .button-container {
+    		display: flex;
+		    gap: 10px;
+		    margin-left: auto;
+		    margin-right: 10px;
+		    margin-top: 40px;
+		}
+		.box1 {
+		    display: flex;
+		    justify-content: right;
+		    align-items: center;
+		    width: 1000px;
+		    margin-right: 20px;
+		    margin-top:4px;
+		}
+        .dayselect {
+            width: 20%;
+            text-align: center;
+            font-size: 15px;
+        }
+        .daySet {
+        	width: 20%;
+      		text-align: center;
+            height: 16px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .daylabel {
+            margin-right: 10px;
+            margin-bottom: 13px;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+        button-container.button{
+        height: 16px;
+        }
+         .mid{
+        margin-right: 9px;
+	    font-size: 20px;
+	    font-weight: bold;
+	
+	    height: 42px;
+	    margin-left: 9px;
+        }
+        .row_select {
+	    background-color: #ffeeba !important;
+	    }
+	    
+	    .form-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;           /* 레이블–인풋 간격 */
+  flex-wrap: wrap;     /* 화면 좁아지면 줄 바꿈 */
+  margin-bottom: 12px; /* 각 행 간 간격 */
+}
+	.delete-button {
+	    height: 40px; /* tab보다 조금 작게 설정 */
+	    padding: 0 11px; /* 좌우 패딩 */
+	    border: 1px solid rgb(53, 53, 53);
+	    border-radius: 4px; /* 모서리 둥글게 */
+	    background-color: #ffffff; /* 배경색 */
+	    cursor: pointer; /* 포인터 커서 */
+	    display: flex; /* 내부 요소를 플렉스 박스로 설정 */
+	    align-items: center; /* 버튼 안에서 세로 가운데 정렬 */
+	}
+
     </style>
-    
-    
-    <body>
-    
-    <div class="tab">
-    <div class="box1">
-           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
-        
-        
-		<!-- <label class="daylabel">설비NO :</label>
-		<input type="text" class="fac_no" id="fac_no" style="font-size: 16px;" autocomplete="off">
-			
-		<label class="daylabel">설비명 :</label>
-		<input type="text" class="fac_name" id="fac_name" style="font-size: 16px;" autocomplete="off">
-			
-		<label class="daylabel">설비현황표 :</label>
-		<input type="text" class="" id="" style="font-size: 16px;" autocomplete="off"> -->
-			
-	</div>
-    <div class="button-container">
-        <button class="select-button" onclick="getFacList();">
-            <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">
-           
-        </button>
-        <button class="insert-button">
-            <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">
-          
-        </button>
-        <button class="excel-button">
-            <img src="/tkheat/css/image/excel-icon.png" alt="excel" class="button-image">
-            
-        </button>
-        <button class="printer-button">
-            <img src="/tkheat/css/image/printer-icon.png" alt="printer" class="button-image">
-            
-        </button>
-    </div>
-</div>
+</head>
+
+<body>
+
     <main class="main">
-		<div class="container">
-			<div id="tab1" class="tabulator"></div>
-		</div>
-	</main>
-	    
-	    
-	<form method="post" class="corrForm" id="facInsertForm" name="facInsertForm">
-			<div class="facModal">
-				<div class="header">설비등록</div>
-				<div class="detail">
-					<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-						<colgroup span="4">
-							<col width="*" />
-							<col width="40%" />
-							<col width="*" />
-							<col width="40%" />
-						</colgroup>
-						<tr>
-							<th class="">설비번호</th>
-							<td class="">
-								<input id="fac_no" name="fac_no" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-							<th class="">설비명</th>
-							<td class="">
-								<input id="fac_name" name="fac_name" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-						</tr>
-						<tr>
-							<th class="">규격</th>
-							<td class="">
-<!-- 								<input id="facGyu" name="facGyu" class="basic" type="text" style="width:100%;" value="" /> -->
-								<select id="fac_gyu" name="fac_gyu" class="basic" style="width:90%;">
-									<option>가스질화</option>
-									<option>이온질화</option>
-									<option>침탄</option>
-									<option>VC</option>
-									<option>PQ</option>
-									<option>TEMPERING</option>
-									<option>진공</option>
-									<option>세척기</option>
-									<option>후처리</option>
-									<option>기타</option>
-								</select>
-							</td>
-							<th class="">형식</th>
-							<td class="">
-								<input id="fac_hyun" name="fac_hyun" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-						</tr>
-						<tr>
-							<th class="">용도</th>
-							<td class="">
-								<input id="fac_yong" name="fac_yong" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-							<th class="">설비종류</th>
-							<td class="">
-								<select id="tech_no" name="tech_no" class="basic">									
-									
-										<option value="A08">PIT로(A08)</option>
-									
-										<option value="A11">PIT로(A11)</option>
-									
-										<option value="A12">PIT로(A12)</option>
-									
-										<option value="A13">PIT로(A13)</option>
-									
-										<option value="A14">PIT로(A14)</option>
-									
-										<option value="A15">PIT로(A15)</option>
-									
-										<option value="A16">Box Type(A16)</option>
-									
-										<option value="A17">Box Type(A17)</option>
-									
-										<option value="A18">Box Type(A18)</option>
-									
-										<option value="A20">Box Type(A20)</option>
-									
-										<option value="A21">Box Type(A21)</option>
-									
-										<option value="A27">이온질화(A27)</option>
-									
-										<option value="A30">Salt로(A30)</option>
-									
-										<option value="A31">Box Type(A31)</option>
-									
-										<option value="A32">PIT로(A32)</option>
-									
-										<option value="A33">Box Type(A33)</option>
-									
-										<option value="A34">Box Type(A34)</option>
-									
-										<option value="A35">PIT로(A35)</option>
-									
-										<option value="B16">템퍼링로(B16)</option>
-									
-										<option value="B17">템퍼링로(B17)</option>
-									
-										<option value="B38">진공로(B38)</option>
-									
-										<option value="B39">이온질화(B39)</option>
-									
-										<option value="B40">진공로(B40)</option>
-									
-										<option value="B41">진공로(B41)</option>
-									
-										<option value="B42">진공로(B42)</option>
-									
-										<option value="C01">PQ(C01)</option>
-									
-										<option value="C02">PQ(C02)</option>
-									
-										<option value="C03">PQ(C03)</option>
-									
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th class="">관리자(정)</th>
-							<td class="">
-								<input id="fac_man1" name="fac_man1" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-							<th class="">관리자(부)</th>
-							<td class="">
-								<input id="fac_man2" name="fac_man2" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-						</tr>
-						<tr>
-							<th class="">사용부서</th>
-							<td class="">
-								<input id="fac_lot" name="fac_lot" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-							<th class="">제조번호</th>
-							<td class="">
-								<input id="fac_e1" name="fac_e1" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-						</tr>
-						<tr>
-							<th class="">설치장소</th>
-							<td colspan="3" class="">
-								<input id="fac_plc" name="fac_plc" class="basic" type="text" style="width:90%;" value="" />
-							</td>
-						</tr>
-					</table>
-													
-					<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
-								
-					<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-						<tr>
-							<td class="leftSide">
-								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-									<tr>
-										<th class="">제조사국적</th>
-										<td class="">
-											<input id="fac_e2" name="fac_e2" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-										<th class="">제조회사</th>
-										<td class="">
-											<input id="fac_make" name="fac_make" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-									</tr>
-									<tr>
-										<th class="">구입처</th>
-										<td class="">
-											<input id="fac_cBuy" name="fac_cBuy" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-										<th class="">유지보수업체</th>
-										<td class="">
-											<input id="fac_e3" name="fac_e3" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-									</tr>
-									<tr>
-										<th class="">도입시기</th>
-										<td class="">
-											<input id="fac_buy" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_buy" />
-										</td>
-										<th class="">제조일자</th>
-										<td class="">
-											<input id="fac_mday" class="date js-datepicker" type="text" style="width:100px;" value="2025-04-21" maxlength="20" size="20" name="fac_mday" />
-										</td>
-									</tr>
-									<tr>
-										<th class="">구입가격</th>
-										<td class="">
-											<input id="fac_mon" name="fac_mon" class="basic" type="text" style="width:90;" value="0"/> 만원</td>
-										<th class="">실적및현황 출력</th>
-										<td class="">
-										 <input type="checkbox" id="fac_dan" name="fac_dan" checked="checked" class="">
-										</td>
-									</tr>
-									<tr>
-										<td class=""></td>
-										<td class=""></td>
-										<td class=""></td>
-										<td class=""></td>
-									</tr>
-								</table>
-								
-								<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
-								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-									<tr>
-										<th class="">처리용량</th>
-										<td colspan="3" class="">
-											<input id="fac_able" name="fac_able" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-										</tr>
-									<tr>
-										<th class="">가동기준시간</th>
-										<td class="">
-											<input id="fac_time" name="fac_time" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-										<th class="">점검주기</th>
-										<td class="">
-											<input id="fac_test" name="fac_test" class="basic" type="text" style="width:90%;" value=""/>
-										</td>
-									</tr>
-									<tr>
-										<td class=""></td>
-										<td class=""></td>
-										<td class=""></td>
-										<td class=""></td>
-									</tr>
-								</table>
-								
-								<p style="margin-top:4px; padding:4px 0; border-top:1px solid #bbb;">
-								
-								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-									<tr>
-										<th class="">주변설비 및<br />관련사항</th>
-										<td class="">
-											<textarea id="fac_e4" name="fac_e4" class="basic" style="width:90%;"></textarea></td>
-									</tr>
-									<tr>
-										<th class="">비고</th>
-										<td class="">
-											<textarea id="fac_bigo" name="fac_bigo" class="basic" style="width:90%;"></textarea></td>
-									</tr>
-									<tr>
-										<th class="left">설비점검주의사항</td>
-										<td class=""><textarea id="fac_cau" name="fac_cau" class="basic" style="width:90%;  height: 70px;"></textarea></td>
-									</tr>
-								</table>
-							</td>
-							<td class="rightSide">
-								<table cellspacing="0" cellpadding="0" width="100%" class="insideTable">
-									<tr>
-										<th class="">이미지</th>
-										<td class="findImage">
-											<input type="hidden" name="type" value="facility" />
-											<input id="imgInput0" class="imgInputClass" type="file" name="fac_file_url" title="이미지 찾기" onchange="previewImage(this,'previewId')">
-											<div class="imgArea" id='previewId' style="height:200px;border:1px solid #ddd;">
-												<img id="img0" src="/resources/images/noimage_01.gif" width="100%" height="100%" />
-											</div>
-										</td>
-									</tr>
-								</table>
-									<table cellspacing="0" cellpadding="0" width="100%" class="popFieldTable2">
-										<colgroup span="3">
-											<col width="" />
-											<col width="" />
-										</colgroup>
-										<tr>
-											<th class="left" style="height: 70px;">특이사항</th>
-											<td class=""><textarea id="fac_unus" name="fac_unus" class="basic" style="width:90%;  height: 70px;"></textarea></td>
-										</tr>
-									</table>
-							</td>
-						</tr>
-					</table>
-					<div class="btnSaveClose">
-					<button class="delete" type="button" onclick="deleteFac();"  style="display: none;">삭제</button>
-		            <button class="save" type="button" onclick="save();">저장</button>
-		            <button class="close" type="button" onclick="window.close();">닫기</button>
-	    			</div>
-				</div>
+        <div class="tab">
+        
+
+            <div class="button-container">
+            
+               <div class="box1">
+	           <p class="tabP" style="font-size: 20px; margin-left: 40px; color: white; font-weight: 800;"></p>
+	           <label class="daylabel">입사 연도 :</label>
+				<input type="text" autocomplete="off" class="yearSet" id="startDate" style="font-size:16px; height:30px; width:220px; margin-bottom:10px; text-align:center; border-radius:6px; border:1px solid #ccc;" placeholder="시작 날짜 선택">
 				
-				</div>
-			</form>
-	    
-	    
-	    
-	    
-	    
+				<!-- <span class="mid"  style="font-size: 20px; font-weight: bold; margin-botomm:10px;"> ~ </span> -->
+	
+			<!-- 	<input type="text"autocomplete="off" class="daySet" id="endDate" style="font-size: 16px; margin-bottom:10px;" placeholder="종료 날짜 선택"> 
+ -->
+	
+			  <label class="daylabel">성명 :</label>
+			 <input type="text" id="user_name" style="font-size:16px; height:30px; width:220px; margin-bottom:10px; text-align:center; border-radius:6px; border:1px solid #ccc;" placeholder="이름 입력">
+
+
+
+	</div>
+
+	           
+		
+                <button class="select-button">
+                    <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">조회
+                </button>
+                <button class="insert-button">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">추가
+                </button>
+                <!-- 
+                <button class="delete-button">
+				    <img src="/tkheat/css/tabBar/xDel3.png" alt="delete" class="button-image"> 삭제
+				</button>
+                <button class="excel-button">
+                    <img src="/tkheat/css/tabBar/excel-icon.png" alt="excel" class="button-image">엑셀
+                </button>
+                 -->
+                
+            </div>
+        </div>
+
+        <div class="view">
+            <div id="dataTable"></div>
+        </div>
+    </main>
+	
+	   <div id="modalContainer" class="modal">
+	    <div class="modal-content">
+	<!--         <span class="close">&times;</span> -->
+	        <h2>사용자 등록</h2>
+            <div id="modalDataTable" style="margin-bottom: 20px;"></div> 
+	        <form id="corrForm"autocomplete="off">
+
+	            <button type="submit" id="saveCorrStatus">저장</button>
+	            <button type="submit" id="updateCorrStatus" style="display: none;">수정</button>
+	            <button type="button" id="closeModal">닫기</button>
+	        </form>
+	    </div>
+	</div>
+
+
 <script>
-	//전역변수
-    var cutumTable;	
-    var isEditMode = false; //수정,최초저장 구분값
+let now_page_code = "h03";
+var dataTable;
+var selectedRowData = null;
+var modalDataTable; // ⚠️ 모달용 Tabulator 변수 추가
 
-	//로드
-	$(function(){
-		//전체 거래처목록 조회
-		getFacList();
-	});
+$(function() {
+  // Initialize the dataTable
+  dataTable = new Tabulator('#dataTable', {
+    height: "705px",
+    layout: "fitColumns",
+    headerHozAlign: "center",
+    ajaxConfig: { method: 'POST' },
+    ajaxLoader: false,
+    ajaxURL: "/tkheat/user/selectList",
+    ajaxParams: {},
+    placeholder: "조회된 데이터가 없습니다.",
+    ajaxResponse: function(url, params, response) {
+     // console.log("서버 응답 데이터 확인:", response);
+      return response;
+    },
+    columns: [
+      { title: "NO", formatter: "rownum", hozAlign: "center", width: 120 },
+      { title: "user_code", field: "user_code", sorter: "string", width: 240, hozAlign: "center"},
+      { title: "user_pw", field: "user_pw", sorter: "string", width: 240, hozAlign: "center", visible: false },
 
-    $(function(){	
-        // 파일 선택시 이미지 띄우기
-      $('.imgInputClass').change(function(event){
-        var selectedFile = event.target.files[0];
-      var reader = new FileReader();
+      { title: "아이디", field: "user_id", sorter: "string", width: 100, hozAlign: "center" },
+      { title: "비밀번호", field: "user_pw", sorter: "string", width: 240, hozAlign: "center", visible: false },
+      { title: "성명", field: "user_name", sorter: "string", width: 120, hozAlign: "center" },
+      { title: "전화번호", field: "user_phone", width: 140, hozAlign: "center" },
+      { title: "1라인 수신", field: "message_yn", sorter: "string", width: 100, hozAlign: "center",
+    	    formatter: function(cell) {
+    	        const value = cell.getValue();
+    	        
+    	        if (value === 'Y') {
+    	            return "수신";
+    	        } else if (value === 'N') {
+    	            return "거부";
+    	        } else {
+    	            // Y나 N이 아닌 경우 (null, undefined 등)
+    	            return value || "거부"; // 값이 없으면 기본값으로 '거부' 처리
+    	        }
+    	    } },
+      { title: "2라인 수신", field: "message_yn2", sorter: "string", width: 100, hozAlign: "center",
+    	    formatter: function(cell) {
+    	        const value = cell.getValue();
+    	        
+    	        if (value === 'Y') {
+    	            return "수신";
+    	        } else if (value === 'N') {
+    	            return "거부";
+    	        } else {
+    	            // Y나 N이 아닌 경우 (null, undefined 등)
+    	            return value || "거부"; // 값이 없으면 기본값으로 '거부' 처리
+    	        }
+    	    } }
+    ],
+    rowClick: function(e, row) {
+      $('#dataTable .tabulator-row').removeClass('row_select');
+      row.getElement().classList.add('row_select');
+      selectedRowData = row.getData();
+
+      // 선택된 행 정보를 오른쪽 영역에 표시
+      $('#display_user_name').text('성명: ' + selectedRowData.user_name);
+      $('#display_user_phone').text('전화번호: ' + selectedRowData.user_phone);
+
+
+      // 2. 1호기 알람 상태에 따라 HTML 변경 (기존 코드 수정)
+      const alarm1_yn = selectedRowData.message_yn;
+      console.log("alarm1_yn: ", alarm1_yn);
+      const alarm1_html = createAlarmCheckboxHtml('1라인 알람', alarm1_yn);
+      // display_message_yn이 이미 P 태그이므로 내부를 변경합니다.
+      $('#display_message_yn').html(alarm1_html); 
+
+      // 3. 2호기 알람 상태에 따라 HTML 변경 (기존 코드 수정)
+      const alarm2_yn = selectedRowData.message_yn2; 
+      console.log("alarm2_yn: ", alarm2_yn);
+      const alarm2_html = createAlarmCheckboxHtml('2라인 알람', alarm2_yn);
+      // display_message_yn2가 이미 P 태그이므로 내부를 변경합니다.
+      $('#display_message_yn2').html(alarm2_html); 
+    },
+    rowDblClick: function(e, row) {
+      var d = row.getData();
+      selectedRowData = d;
+      $('#corrForm')[0].reset();
+      $('input[name="no"]').val(d.idx);
+      $('input[name="user_id"]').val(d.user_id);
+      $('input[name="user_pw"]').val(d.user_pw);
+      $('input[name="st_day"]').val(d.st_day);
+      $('input[name="user_phone"]').val(d.user_phone);
+      $('input[name="user_name"]').val(d.user_name);
+      $('select[name="user_level"]').val(d.user_level);
+      $('input[name="user_busu"]').val(d.user_busu);
+      $('input[name="user_jick"]').val(d.user_jick);
+
+      // 저장 숨기고 수정 보이게
+      $('#saveCorrStatus').hide();
+      $('#updateCorrStatus').show();
       
-      var img = $(this).parent().parent().find('img')[0];
-      img.title = selectedFile.name;
-      
-      reader.onload = function(event) {
-        img.src = event.target.result;
-      };
-      
-      reader.readAsDataURL(selectedFile);
-      });
+      $('#modalContainer').show().addClass('show');
+    }
+  });
+
+  
+  // 조회 버튼 클릭 시
+  $('.select-button').click(function() {
+    var user_name = $('#user_name').val();
+    var startDate = $('#startDate').val();
+/*     console.log("조회 버튼 클릭됨 - 전송 데이터:", {
+      user_name: user_name,
+      startDate: startDate
+    }); */
+   // console.log("전송된 startDate 값:", startDate);
+    dataTable.setData("/tkheat/user/selectList", {});
+
+  });
+
+  function initModalDataTable() {
+	    if (modalDataTable) {
+	        modalDataTable.destroy();
+	    }
+	    //오늘 날짜
+	    const todayDate = getTodayDate();  
+	    
+	    modalDataTable = new Tabulator('#modalDataTable', {
+	        height: "450px", // 테이블 높이 설정 (모달 크기에 맞게)
+	        layout: "fitColumns",
+	        headerHozAlign: "center",
+	        ajaxConfig: { method: 'POST' },
+	        ajaxLoader: false,
+	        ajaxURL: "/tkheat/user/selectModalList", // 적절한 데이터 로드 URL 사용
+	        ajaxParams: {work_day: todayDate },
+	        placeholder: "조회된 데이터가 없습니다.",
+	        columns: [
+	        	{ title: "user_code", field: "user_code", visible: false},
+	        	{ title: "no", field: "no", visible: false},
+	            { title: "ID", field: "user_id", sorter: "string", hozAlign: "center", width: 110 },
+	            { title: "성명", field: "user_name", sorter: "string", hozAlign: "center", width: 120 },
+	            { title: "부서", field: "user_busu", sorter: "string", hozAlign: "center", width: 120 },
+	                        { 
+	                title: "1라인 수신", 
+	                field: "message_yn", 
+	                hozAlign: "center", 
+	                width: 110,
+	                formatter: customCheckboxFormatter1, // 커스텀 포맷터 적용
+	                cellClick: handleCheckboxClick // 셀 클릭 이벤트 핸들러 적용
+	            },
+	            { title: "2라인 수신", field: "message_yn2", sorter: "string", hozAlign: "center", width: 110,
+	                formatter: customCheckboxFormatter2, // 커스텀 포맷터 적용
+	                cellClick: handleCheckboxClick},
+	                { title: "근무조", field: "work_time", sorter: "string", hozAlign: "center", width: 120,
+	                    // 🌟 editor 속성 추가: 셀 클릭 시 편집 모드 활성화
+	                    editor: "select", 
+	                    // 🌟 editorParams 추가: 드롭다운 옵션 정의
+	                    editorParams: {
+	                        // value: 표시될 값, label: 드롭다운에 보일 텍스트
+	                        values: [
+	                            {value: "오전", label: "오전"},
+	                            {value: "오후", label: "오후"},
+	                            {value: "", label: "선택 안함"} // 선택 사항
+	                        ],
+	                        verticalNavigation: "editor" // 키보드 탐색 설정
+	                    },
+	                    // 🌟 formatter 속성 추가 (선택 사항): 값이 없을 때 기본 텍스트 표시
+	                    formatter: function(cell){
+	                        const value = cell.getValue();
+	                        return value || "선택"; // 값이 없을 때 '선택'이라고 표시
+	                    },
+	                    // 🌟 셀 변경 이벤트 핸들러 추가: 값 변경 시 즉시 처리
+	                    cellEdited: function(cell){
+	                        // 드롭다운에서 값이 변경되었을 때 실행됩니다.
+	                        // 여기서 변경된 값을 사용하여 AJAX 요청을 보내거나, 
+	                        // '저장' 버튼을 위한 내부 데이터 업데이트 로직을 추가할 수 있습니다.
+	                        handleWorkTimeEdited(cell); 
+	                    } },
+	        ],
+	        // 모달 내 테이블 클릭 이벤트 (필요 시 추가)
+	        rowClick: function(e, row) {
+	            // ... (모달 내 테이블 클릭 시 동작 정의)
+	        }
+	    });
+	}
+
+//1호기 수신/거부 라디오 버튼 포맷터
+function customCheckboxFormatter1(cell, formatterParams, onRendered) {
+    const data = cell.getRow().getData();
+    
+    // 데이터가 null/undefined일 경우 'N'으로 기본값 설정
+    const ynValue = data.message_yn || 'N'; 
+    
+    console.log("ynValue: ", ynValue);
+    
+    // 1. 셀이 렌더링 된 후 실행될 콜백 함수를 등록합니다.
+    onRendered(function() {
+        // 셀 컴포넌트(cell)의 DOM 요소 내에서 체크박스를 찾습니다.
+        const checkbox = cell.getElement().querySelector('input[type="checkbox"]');
+        
+        if (checkbox) {
+            // 2. data.message_yn 값에 따라 체크박스의 checked 속성을 직접 설정합니다.
+            // 'Y'이면 true (체크됨), 아니면 false (체크 안됨)
+            checkbox.checked = (ynValue === 'Y');
+            
+            // 3. (선택 사항) 체크박스에 대한 이벤트 리스너를 여기서 설정할 수도 있습니다.
+            //    현재는 column 정의의 cellClick을 사용하고 있다면 이 부분은 불필요합니다.
+        }
     });
 
-	//이벤트
-	//함수
-	function getFacList(){
-		
-		userTable = new Tabulator("#tab1", {
-		    height:"750px",
-		    layout:"fitColumns",
-		    selectable:true,	//로우 선택설정
-		    tooltips:true,
-		    selectableRangeMode:"click",
-		    selectableRows:true,
-		    reactiveData:true,
-		    headerHozAlign:"center",
-		    ajaxConfig:"POST",
-		    ajaxLoader:false,
-		    ajaxURL:"/tkheat/management/facInsert/getFacList",
-		    ajaxProgressiveLoad:"scroll",
-		    ajaxParams:{
-		    	"fac_no": $("#fac_no").val(),
-                "fac_name": $("#fac_name").val(),
-                "fac_code":"",
-			    },
-		    placeholder:"조회된 데이터가 없습니다.",
-		    paginationSize:20,
-		    ajaxResponse:function(url, params, response){
-				$("#tab1 .tabulator-col.tabulator-sortable").css("height","55px");
-		        return response; //return the response data to tabulator
-		    },
-		    columns:[
-		        {title:"NO", field:"fac_code", sorter:"int", width:80,
-		        	hozAlign:"center"},
-		        {title:"설비NO", field:"fac_no", sorter:"string", width:120,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"설비명", field:"fac_name", sorter:"string", width:150,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"규격", field:"fac_gyu", sorter:"string", width:100,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"형식", field:"fac_hyun", sorter:"string", width:200,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"용도", field:"fac_yong", sorter:"int", width:200,
-		        	hozAlign:"center", headerFilter:"input"},
-		        {title:"설치장소", field:"fac_plc", sorter:"int", width:200,
-			        hozAlign:"center", headerFilter:"input"},
-			    {title:"능력", field:"fac_able", sorter:"int", width:120,
-				    hozAlign:"center", headerFilter:"input"},
-				{title:"제작사", field:"fac_make", sorter:"int", width:150,
-					hozAlign:"center", headerFilter:"input"},
-				{title:"구매처", field:"fac_cbuy", sorter:"int", width:100,
-					hozAlign:"center", headerFilter:"input"},   
-					{title:"이미지", field:"fac_file_name", width:100,
-						hozAlign:"center", formatter:"image",
-					    cssClass:"rp-img-popup",
-				      	formatterParams:{
-					      	height:"30px", width:"30px",
-					      	urlPrefix:"/excelTest/태경출력파일/사진/설비등록/"
-					      	},   
-						    cellMouseEnter:function(e, cell){ productImage(cell.getValue());} 
-				    },		
-		    ],
-		    rowFormatter:function(row){
-			    var data = row.getData();
-			    
-			    row.getElement().style.fontWeight = "700";
-				row.getElement().style.backgroundColor = "#FFFFFF";
-			},
-			rowClick:function(e, row){
-
-				$("#tab1 .tabulator-tableHolder > .tabulator-table > .tabulator-row").each(function(index, item){
-						
-					if($(this).hasClass("row_select")){							
-						$(this).removeClass('row_select');
-						row.getElement().className += " row_select";
-					}else{
-						$("#tab1 div.row_select").removeClass("row_select");
-						row.getElement().className += " row_select";	
-					}
-				});
-
-				var rowData = row.getData();
-				
-			},
-			rowDblClick:function(e, row){
-
-				var data = row.getData();
-				selectedRowData = data;
-				isEditMode = true;
-				$('#facInsertForm')[0].reset();
-				
-
-				/* Object.keys(data).forEach(function (key) {
-			        const field = $('[name="' + key + '"]');
-
-			        if (field.length) {
-			            field.val(data[key]);
-			        }
-				}); */
-				facInsertDetail(data.fac_code);	
-
-				 $('.delete').show();
-			},
-			
-		});		
-	}
-
-	function facInsertDetail(fac_code){
-		$.ajax({
-			url:"/tkheat/management/facInsert/facInsertDetail",
-			type:"post",
-			dataType:"json",
-			data:{
-				"fac_code":fac_code
-			},
-			success:function(result){
-//				console.log(result);
-				var allData = result.data;
-				
-				for(let key in allData){
-//					console.log(allData, key);	
-					$("#facInsertForm [name='"+key+"']").val(allData[key]);
-				}
-
-				// 이미지 초기화
-				$("#img0").attr("src", "/resources/images/noimage_01.gif");
-
-				// 이미지
-				if (allData.fac_file_name) {
-					console.log("원본 파일명:", allData.fac_file_name);
-					console.log("인코딩된 경로:", encodeURIComponent(allData.fac_file_name));
-					const path = "/excelTest/태경출력파일/사진/설비등록/" + allData.fac_file_name;
-					console.log("path: ", path);
-					$("#img0").attr("src", path);
-					//$(".aphoto").attr("href", path).text(d.product_file_name);
-				}
-
-				$('.facModal').show().addClass('show');
-			}
-		});
-	}
-
-
-	
-
-
-	// 드래그 기능 추가
-	const modal = document.querySelector('.facModal');
-	const header = document.querySelector('.header'); // 헤더를 드래그할 요소로 사용
-
-	header.addEventListener('mousedown', function(e) {
-		// transform 제거를 위한 초기 위치 설정
-		const rect = modal.getBoundingClientRect();
-		modal.style.left = rect.left + 'px';
-		modal.style.top = rect.top + 'px';
-		modal.style.transform = 'none'; // 중앙 정렬 해제
-
-		let offsetX = e.clientX - rect.left;
-		let offsetY = e.clientY - rect.top;
-
-		function moveModal(e) {
-			modal.style.left = (e.clientX - offsetX) + 'px';
-			modal.style.top = (e.clientY - offsetY) + 'px';
-		}
-
-		function stopMove() {
-			window.removeEventListener('mousemove', moveModal);
-			window.removeEventListener('mouseup', stopMove);
-		}
-
-		window.addEventListener('mousemove', moveModal);
-		window.addEventListener('mouseup', stopMove);
-	});
-		
-
-	// 모달 열기
-	const insertButton = document.querySelector('.insert-button');
-	const facModal = document.querySelector('.facModal');
-	const closeButton = document.querySelector('.close');
-
-	insertButton.addEventListener('click', function() {
-		isEditMode = false;  // 추가 모드
-	    $('#facInsertForm')[0].reset(); // 폼 초기화
-		facModal.style.display = 'block'; // 모달 표시
-
-		$('.delete').hide();
-	});
-
-	closeButton.addEventListener('click', function() {
-	    facModal.style.display = 'none'; // 모달 숨김
-	});
-
-	
-	// 저장 and 수정
-	function save() {
-	    var formData = new FormData($("#facInsertForm")[0]);
-
-	    let confirmMsg = "";
-
-	    if (isEditMode && selectedRowData && selectedRowData.fac_code) {
-	        formData.append("mode", "update");
-	        formData.append("fac_code", selectedRowData.fac_code);
-	        confirmMsg = "수정하시겠습니까?";
-	    } else {
-	        formData.append("mode", "insert");
-	        confirmMsg = "저장하시겠습니까?";
-	    }
-
-	    if (!confirm(confirmMsg)) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/management/facInsert/facInsertSave",
-	        type: "POST",
-	        data: formData,
-	        contentType: false,
-	        processData: false,
-	        dataType: "json",
-	        success: function(result) {
-	            alert("저장 되었습니다.");
-	            $(".facModal").hide();
-	            getFacList();
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("저장 오류:", error);
+    // 4. 반환할 HTML 문자열 (checked 속성 없이 깨끗하게)
+    //    체크 상태는 onRendered에서 설정되므로, HTML 템플릿에는 checked 속성을 넣지 않습니다.
+    return `
+        <label style="display: block; width: 100%; text-align: center;">
+            <input type="checkbox" 
+                   value="Y" 
+                   data-field="message_yn" 
+                   data-code="${data.user_code}"> 수신
+        </label>
+    `;
+}
+//2호기 수신/거부 라디오 버튼 포맷터 (message_yn2 필드를 사용)
+  function customCheckboxFormatter2(cell, formatterParams, onRendered) {
+	    const data = cell.getRow().getData();
+	    
+	    // 데이터가 null/undefined일 경우 'N'으로 기본값 설정
+	    const ynValue = data.message_yn2 || 'N'; 
+	    
+	    console.log("ynValue: ", ynValue);
+	    
+	    // 1. 셀이 렌더링 된 후 실행될 콜백 함수를 등록합니다.
+	    onRendered(function() {
+	        // 셀 컴포넌트(cell)의 DOM 요소 내에서 체크박스를 찾습니다.
+	        const checkbox = cell.getElement().querySelector('input[type="checkbox"]');
+	        
+	        if (checkbox) {
+	            // 2. data.message_yn 값에 따라 체크박스의 checked 속성을 직접 설정합니다.
+	            // 'Y'이면 true (체크됨), 아니면 false (체크 안됨)
+	            checkbox.checked = (ynValue === 'Y');
+	            
+	            // 3. (선택 사항) 체크박스에 대한 이벤트 리스너를 여기서 설정할 수도 있습니다.
+	            //    현재는 column 정의의 cellClick을 사용하고 있다면 이 부분은 불필요합니다.
 	        }
 	    });
-	}
 
+	    // 4. 반환할 HTML 문자열 (checked 속성 없이 깨끗하게)
+	    //    체크 상태는 onRendered에서 설정되므로, HTML 템플릿에는 checked 속성을 넣지 않습니다.
+	    return `
+	        <label style="display: block; width: 100%; text-align: center;">
+	            <input type="checkbox" 
+	                   value="Y" 
+	                   data-field="message_yn2" 
+	                   data-code="${data.user_code}"> 수신
+	        </label>
+	    `;
+  }
 
-	function deleteFac() {
-	    if (!selectedRowData || !selectedRowData.fac_code) {
-	        alert("삭제할 대상을 선택하세요.");
-	        return;
-	    }
+//라디오 버튼 클릭 이벤트 처리 함수
+  function handleCheckboxClick(e, cell) {
+	  console.log("체크박스 클릭:", e.target.checked, cell.getData());
+      // 이벤트가 라디오 버튼에서 발생했는지 확인
+      
+    // 1. 클릭된 체크박스의 상태 및 정보 추출
+    const input = e.target;
+    const row = cell.getRow();
+    const rowData = row.getData();
+    const fieldName = cell.getField(); // 'message_yn' 또는 'message_yn2'
+    const newValue = input.checked ? 'Y' : 'N'; // 👈 실제 체크 상태를 기준으로 'Y'/'N' 결정
+    
+    // 2. Tabulator 내부 데이터 갱신 (화면과 데이터 일치)
+    // 클릭된 필드의 상태만 Tabulator 내부 데이터에 반영
+    row.update({
+        [fieldName]: newValue
+    }).then(function() {
+        // 3. 서버 전송 데이터 준비
+        // 최신 데이터(클릭으로 인해 message_yn/2가 업데이트된 상태)를 가져옵니다.
+        const currentData = row.getData();
+        console.log("currentData: ", currentData);
+        
+        // 서버 @ModelAttribute Users에 맞게 필요한 최소 필드만 구성
+        const dataToSend = {
+            user_code: currentData.user_code,
+            user_id: currentData.user_id,
+            user_pw: currentData.user_pw,
+            message_yn: currentData.message_yn,
+            message_yn2: currentData.message_yn2
+        };
+        
+        console.log("메시지 수신 상태 업데이트 요청 데이터:", dataToSend);
 
-	    if (!confirm("삭제하시겠습니까?")) {
-	        return;
-	    }
-
-	    $.ajax({
-	        url: "/tkheat/management/facInsert/facDelete",
-	        type: "POST",
-	        data: {
-	        	fac_code: selectedRowData.fac_code
-	        },
-	        dataType: "json",
-	        success: function(result) {
-	            if (result.status === "success") {
-	                alert("삭제되었습니다.");
-	                $(".facModal").hide();
-	                getFacList();
-	            } else {
-	                alert("삭제 중 오류가 발생했습니다: " + result.message);
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("삭제 오류:", error);
-	            alert("삭제 요청 중 오류가 발생했습니다.");
-	        }
-	    });
-	}
-
-    //엑셀 다운로드
-	$(".excel-button").click(function () {
-	    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-	    const filename = "설비등록_" + today + ".xlsx";
-	    userTable.download("xlsx", filename, { sheetName: "설비등록" });
-	});
-
-
+          // 2. AJAX 통신 (tb_user 업데이트 및 tb_user_worktime 저장)
+          $.ajax({
+              url: "/tkheat/user/updateMessage", 
+              type: "POST",
+              data: dataToSend,
+              success: function(response) {
+                  if (response == true) {
+                      //alert(`${fieldName} 상태가 성공적으로 ${newValue == 'Y' ? '수신' : '거부'}로 변경되었습니다. (작업 시간 기록 완료)`);
+                      
+                      // Tabulator 데이터 업데이트 (화면 갱신)
+                      const row = cell.getRow();
+                      const currentData = row.getData();
+                      
+                      // Tabulator 행 데이터를 수동으로 업데이트합니다.
+                      const updateObj = {};
+                      updateObj[fieldName] = newValue;
+                      row.update(updateObj); 
+                      
+                  } else {
+                      alert("업데이트 중 오류가 발생했습니다: " + response.data);
+                  }
+              },
+              error: function() {
+                  alert('서버와의 통신 중 오류가 발생했습니다.');
+              }
+          });
+    });
+  }
 	
-    </script>
+  // 삽입 버튼 클릭 시
+  $('.insert-button').click(function() {
+      // 수정 숨기고 저장 보이게
+      $('#saveCorrStatus').show();
+      $('#updateCorrStatus').hide();
+    selectedRowData = null;
+    $('#corrForm')[0].reset();
+    $('#modalContainer').show().addClass('show');
+    initModalDataTable(); 
+  });
 
-	</body>
+  // 삭제 버튼 클릭 시
+  $('.delete-button').click(function() {
+    if (!selectedRowData) {
+      alert('삭제할 행을 먼저 클릭해 주세요.');
+      return;
+    }
+    if (!selectedRowData) {
+    	  alert('삭제할 행을 먼저 클릭해 주세요.');
+    	  return;
+    	}
+    	if (!confirm('선택된 항목을 정말 삭제하시겠습니까?')) return;
+
+    	const deleteData = { user_code: selectedRowData.user_code };
+    	console.log("삭제 요청 데이터:", deleteData); // 추가된 로그
+
+    	$.ajax({
+    	  url: "/geomet/user/userInsert/delete",
+    	  type: "POST",
+    	  contentType: "application/json",
+    	  data: JSON.stringify(deleteData),
+    	  success: function(res) {
+    	    alert('삭제되었습니다.');
+    	
+    	    dataTable.setData("/geomet/user/userInsert/select", {});
+    	    selectedRowData = null;
+    	  },
+    	  error: function() {
+    	    alert('삭제 중 오류가 발생했습니다.');
+    	  }
+    	});
+  });
+
+  // 모달 닫기
+  $('.close, #closeModal').click(function() {
+    $('#modalContainer').removeClass('show').hide();
+    dataTable.setData("/tkheat/user/selectList", {});
+  });
+
+//1. 오늘 날짜를 YYYY-MM-DD 형식으로 반환하는 헬퍼 함수
+  function getTodayDate() {
+      const today = new Date();
+      const year = today.getFullYear();
+      // getMonth()는 0부터 시작하므로 +1, padStart(2, '0')로 2자리수 확보
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      return year + "-" + month + "-" + day;
+  }
+  
+  // 저장 버튼 클릭 시
+  $('#saveCorrStatus').click(function(event) {
+    event.preventDefault();
+
+    const todayDate = getTodayDate();
+    console.log("todayDate: ", todayDate);
+    let dataToSend = []; // 전송할 데이터를 담을 배열
+    let dataToDelete = [];  //  삭제할 데이터
+
+    if (!modalDataTable) {
+        alert('테이블 데이터가 준비되지 않았습니다.');
+        return;
+    }
+
+    dataToSend = []; // 데이터 배열 초기화
+
+    // 1. Tabulator에서 모든 행 컴포넌트(Row Component)를 가져옵니다.
+    const allRows = modalDataTable.getRows();
+
+    // 2. 각 행을 순회하며 DOM 요소의 체크박스 상태를 직접 확인합니다.
+    allRows.forEach(row => {
+        const rowElement = row.getElement(); // 행의 DOM 요소
+        const rowData = row.getData();       // 행의 기본 데이터
+
+        const workTime = rowData.work_time || "";
+        
+        if (workTime === '오전' || workTime === '오후') { 
+            dataToSend.push({
+                user_code: rowData.user_code,
+                work_day: todayDate,
+                work_time: workTime
+            });
+        }else if (workTime === "" || workTime === "선택 안함") { 
+            // 삭제 요청은 user_code와 work_day만 필요
+            dataToDelete.push({
+                user_code: rowData.user_code,
+                work_day: todayDate
+            });
+        }
+    });
+    
+    if (dataToSend.length === 0) {
+        alert("저장할 체크된 사용자 데이터가 없습니다.");
+        return;
+    }
+
+    console.log("서버에 전송할 체크된 사용자 데이터 (JSON 배열):", dataToSend);
+    console.log("삭제할 데이터:", dataToDelete);
+
+    //2. ajax 요청
+    let ajaxRequests = [];
+    if (dataToSend.length > 0) {
+    $.ajax({
+      url: "/tkheat/user/insertWorkTime",
+      type: "POST",
+      contentType: "application/json", // 👈 필수: JSON 데이터임을 서버에 알림
+      data: JSON.stringify(dataToSend), // 👈 필수: JS 객체를 JSON 문자열로 변환
+      //processData: false,
+      //contentType: false,
+      success: function(result) {
+        console.log(result);
+        if (result === true) {
+            //alert("성공적으로 저장되었습니다."); // "사용자 정보가 성공적으로 저장되었습니다."
+            $('#modalContainer').hide();
+            //dataTable.setData("/tkheat/user/selectList", {});
+            //selectedRowData = null;
+        } else {
+            //alert("오류: " + result.data); 
+        }
+      },
+      error: function() {
+        alert('저장 중 오류가 발생했습니다.');
+      }
+    });
+    }
+
+    if (dataToDelete.length > 0) {
+        ajaxRequests.push(
+            $.ajax({
+                // 🚨 삭제 전용 컨트롤러 URL 사용
+                url: "/tkheat/user/deleteWorkTime", 
+                type: "POST", // DELETE 메서드가 더 적합하지만, POST를 흔히 사용
+                contentType: "application/json",
+                data: JSON.stringify(dataToDelete)
+            })
+        );
+        console.log("삭제 데이터:", dataToDelete);
+    }
+
+    // 3. 모든 요청의 성공/실패 처리
+    Promise.all(ajaxRequests)
+        .then(results => {
+            // 모든 요청이 성공했을 때
+            alert("작업 시간 정보가 성공적으로 처리되었습니다.");
+            $('#modalContainer').hide();
+            dataTable.setData("/tkheat/user/selectList", {});
+        })
+        .catch(error => {
+            // 하나라도 실패했을 때
+            alert('일부 요청 처리 중 오류가 발생했습니다.');
+            console.error("AJAX 오류:", error);
+        });
+  });
+
+  //수정 버튼 클릭 시
+  $('#updateCorrStatus').click(function(event) {
+    event.preventDefault();
+    //var formData = new FormData($('#corrForm')[0]);
+    var formData = $('#corrForm').serialize();
+    if (selectedRowData && selectedRowData.user_code) {
+      formData.append('user_code', selectedRowData.user_code);  // 수정 시 user_code 추가
+    }
+/*     for (var pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      } */
+        
+
+    $.ajax({
+      url: "/geomet/user/userInsert/update",
+      type: "POST",
+      data: formData,
+      //processData: false,
+      //contentType: false,
+      success: function() {
+        alert("수정되었습니다!");
+        $('#modalContainer').hide();
+    
+        dataTable.setData("/geomet/user/userInsert/select", {});
+        selectedRowData = null;
+      },
+      error: function() {
+        alert('저장 중 오류가 발생했습니다.');
+      }
+    });
+  });
+});
+</script>
+
+
+</body>
 </html>

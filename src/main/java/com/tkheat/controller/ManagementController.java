@@ -86,6 +86,13 @@ public class ManagementController {
 
 		return "/management/productInsert.jsp";
 	}	 
+	
+	//푸시알림 관리 페이지
+	@RequestMapping(value = "/management/pushAlarm", method = RequestMethod.GET)
+	public String pushAlarm(Users users) {
+
+		return "/management/pushAlarm.jsp";
+	}	
 
 
 	//제품등록, 수정 - insert,update
@@ -1099,7 +1106,6 @@ public class ManagementController {
 
 		return managementService.getSmallPageList(pageBig); 
 	}
-
 
 
 

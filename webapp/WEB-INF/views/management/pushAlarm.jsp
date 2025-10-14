@@ -212,19 +212,19 @@
 	           
 		
                 <button class="select-button">
-                    <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">조회
+                    <img src="/geomet/css/tabBar/search-icon.png" alt="select" class="button-image">조회
                 </button>
                 <button class="insert-button">
-                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">추가
+                    <img src="/geomet/css/tabBar/add-outline.png" alt="insert" class="button-image">추가
                 </button>
-<!--                 <button class="delete-button">
+                <button class="delete-button">
 				    <img src="/geomet/css/tabBar/xDel3.png" alt="delete" class="button-image"> 삭제
 				</button>
                 
                 
                 <button class="excel-button">
                     <img src="/geomet/css/tabBar/excel-icon.png" alt="excel" class="button-image">엑셀
-                </button> -->
+                </button>
                 
             </div>
         </div>
@@ -269,24 +269,18 @@
 			<select name="user_yn" style="display: none;">
 			  <option value="Y">기본</option>
 			</select>
-			           	            	
+			
+			<select name="message_yn" style="display: none;">
+			  <option value="N">기본</option>
+			</select>
+				            	
+	            	
+	            	            	
 	            <label>부서</label>
 	             <input type="text" name="user_busu">
 	           
 	            <label>직책</label>
 	             <input type="text" name="user_jick">
-	             
-	        <label>1라인</label>
-			<select name="message_yn">
-			  <option value="Y">수신</option>
-			  <option value="N">수신 안함</option>
-			</select>
-			
-			<label>2라인</label>
-			<select name="message_yn2">
-			  <option value="Y">수신</option>
-			  <option value="N">수신 안함</option>
-			</select>
 	            
 	         
 	
@@ -325,36 +319,12 @@ $(function() {
       { title: "아이디", field: "user_id", sorter: "string", width: 100, hozAlign: "center" },
       { title: "비밀번호", field: "user_pw", sorter: "string", width: 240, hozAlign: "center", visible: false },
       { title: "성명", field: "user_name", sorter: "string", width: 240, hozAlign: "center" },
-      { title: "입사일", field: "st_day", width: 170, hozAlign: "center" },
-      { title: "전화번호", field: "user_phone", width: 200, hozAlign: "center" },
+      { title: "입사일", field: "st_day", width: 140, hozAlign: "center" },
+      { title: "전화번호", field: "user_phone", width: 140, hozAlign: "center" },
       { title: "등급", field: "user_level", sorter: "string", width: 240, hozAlign: "center", visible: false },
 
-      { title: "부서", field: "user_busu", sorter: "string", width: 120, hozAlign: "center" },
-      { title: "직책", field: "user_jick", sorter: "string", width: 120, hozAlign: "center" },
-      { title: "1호기 수신", field: "message_yn", sorter: "string", width: 200, hozAlign: "center",
-          formatter: function(cell, formatterParams, onRender){
-              const value = cell.getValue();
-              if (value === 'Y') {
-                  return "수신";
-              } else if (value === 'N') {
-                  return "수신 안함";
-              } else {
-                  return value; // Y/N이 아닌 다른 값은 그대로 출력
-              }
-          }
-       },
-      { title: "2호기 수신", field: "message_yn2", sorter: "string", width: 200, hozAlign: "center",
-           formatter: function(cell, formatterParams, onRender){
-               const value = cell.getValue();
-               if (value === 'Y') {
-                   return "수신";
-               } else if (value === 'N') {
-                   return "수신 안함";
-               } else {
-                   return value; // Y/N이 아닌 다른 값은 그대로 출력
-               }
-           }
-        }
+      { title: "부서", field: "user_busu", sorter: "string", width: 240, hozAlign: "center" },
+      { title: "직책", field: "user_jick", sorter: "string", width: 240, hozAlign: "center" }
     ],
     rowClick: function(e, row) {
       $('#dataTable .tabulator-row').removeClass('row_select');
