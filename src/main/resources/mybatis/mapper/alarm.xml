@@ -29,4 +29,10 @@
     WHERE
         alarm_address = #{alarm_address}
 </update>
+	<!-- 알람 그룹 일괄 업데이트 -->
+<update id="updateAllAlarmGroup" parameterType="alarm">
+    UPDATE tb_alarm
+    SET 
+        ${fieldName} = #{newValue}
+</update>
 </mapper>

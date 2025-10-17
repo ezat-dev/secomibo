@@ -200,5 +200,17 @@ public class UserDaoImpl implements UserDao{
 	public List<Users> getGroupList(Users users) {
 		return sqlSession.selectList("users.getGroupList",users);
 	}
+	@Override
+	public List<Users> sendAlarmList(Users users) {
+		return sqlSession.selectList("users.sendAlarmList",users);
+	}
+	@Override
+	public boolean updateAlarmSend(Users users) {
+		int result = sqlSession.update("users.updateAlarmSend", users);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
 
 }

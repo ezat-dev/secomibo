@@ -170,4 +170,13 @@ public class UserServiceImpl implements UserService{
 	public List<Users> getGroupList(Users users) {
 		return userDao.getGroupList(users);
 	}
+
+	@Override
+	public List<Users> sendAlarmList(Users users) {
+		return userDao.sendAlarmList(users);
+	}
+	@Override
+	public boolean updateAlarmSend(Users users) {
+		return userDao.updateAlarmSend(users);
+	}
 }

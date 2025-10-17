@@ -13,6 +13,11 @@ public class Alarm {
 	private String group_c;
 	private String group_d;
 	private String group_e;
+	private String group_f;
+	private String group_g;
+	private String group_h;
+	private String group_i;
+	private String group_j;
 	private String id;
 	private String fieldName;
 	private String newValue;
@@ -38,6 +43,37 @@ public class Alarm {
 	private String alarm_address;
 	private String comment;
 	
+	
+	public String getGroup_f() {
+		return group_f;
+	}
+	public void setGroup_f(String group_f) {
+		this.group_f = group_f;
+	}
+	public String getGroup_g() {
+		return group_g;
+	}
+	public void setGroup_g(String group_g) {
+		this.group_g = group_g;
+	}
+	public String getGroup_h() {
+		return group_h;
+	}
+	public void setGroup_h(String group_h) {
+		this.group_h = group_h;
+	}
+	public String getGroup_i() {
+		return group_i;
+	}
+	public void setGroup_i(String group_i) {
+		this.group_i = group_i;
+	}
+	public String getGroup_j() {
+		return group_j;
+	}
+	public void setGroup_j(String group_j) {
+		this.group_j = group_j;
+	}
 	public String getAlarm_address() {
 		return alarm_address;
 	}

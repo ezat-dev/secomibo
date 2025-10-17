@@ -208,7 +208,11 @@
         <nav class="nav">
             <div>
                 <div class="nav__brand">
-                     <a href="#" class="nav__logo"><img class="tkLogo" src="/tkheat/css/sideBar/miboLogo1.png"></a>
+                     <a href="#" class="nav__logo"><img class="tkLogo" src="/tkheat/css/sideBar/mibologo_final.png" 
+                     style="width: 167px;
+    height: 18px;
+    margin-left: -48px;
+    margin-top:5px;"></a>
                 </div>
                 <div class="nav__list">
                     

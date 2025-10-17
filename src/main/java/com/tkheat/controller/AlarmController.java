@@ -32,4 +32,11 @@ public class AlarmController {
 		return alarmService.updateAlarmGroup(alarm); 
 	}
 	
+	//알람 그룹 일괄 업데이트
+	@RequestMapping(value="/alarm/updateAllAlarmGroup", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean updateAllAlarmGroup(@RequestBody Alarm alarm) {
+		return alarmService.updateAllAlarmGroup(alarm); 
+	}
+	
 }

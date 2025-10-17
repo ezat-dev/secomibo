@@ -539,4 +539,69 @@ SELECT * FROM tb_group
     WHERE
         group_id = #{group_id}
 </update>
+
+<!-- 알람 내용, 보낼 사람 조회 -->
+<select id="sendAlarmList" parameterType="users"
+		resultType="users">
+<![CDATA[
+SELECT a.*, b.is_send,
+    CASE
+        WHEN a.alarm_address LIKE '%BCF1%' THEN 'BCF1호기'
+        WHEN a.alarm_address LIKE '%BCF2%' THEN 'BCF2호기'
+        WHEN a.alarm_address LIKE '%BCF3%' THEN 'BCF3호기'
+        WHEN a.alarm_address LIKE '%BCF4%' THEN 'BCF4호기'
+        WHEN a.alarm_address LIKE '%CM.%' THEN '공통1호기'
+        WHEN a.alarm_address LIKE '%CM2.%' THEN '공통2호기'
+        ELSE a.alarm_address 
+    END AS a_hogi, b.regtime,
+    g.*, ug.user_code, u.device_token
+ FROM tb_alarm AS a
+INNER JOIN tb_alarmlist AS b
+ON a.alarm_address = b.alarm_address
+INNER JOIN tb_group AS g
+    ON (
+        (a.group_a = '1' AND g.recieve_a = '1') OR
+        (a.group_b = '1' AND g.recieve_b = '1') OR
+        (a.group_c = '1' AND g.recieve_c = '1') OR
+        (a.group_d = '1' AND g.recieve_d = '1') OR
+        (a.group_e = '1' AND g.recieve_e = '1') OR
+        (a.group_f = '1' AND g.recieve_f = '1') OR
+        (a.group_g = '1' AND g.recieve_g = '1') OR
+        (a.group_h = '1' AND g.recieve_h = '1') OR
+        (a.group_i = '1' AND g.recieve_i = '1') OR
+        (a.group_j = '1' AND g.recieve_j = '1')
+    )
+    INNER JOIN tb_group_schedule AS s
+    ON g.group_id = s.group_id
+    INNER JOIN tb_user_group AS ug
+    ON g.group_id = ug.group_id
+    INNER JOIN tb_user AS u
+    ON ug.user_code = u.user_code
+WHERE b.is_send = '0'
+   AND b.a_value = 1
+    AND CURDATE() BETWEEN s.start_date AND s.end_date
+    
+    AND (
+        (s.start_time <= s.end_time 
+            AND CURTIME() BETWEEN s.start_time AND s.end_time)
+            
+        OR
+        
+        (s.start_time > s.end_time 
+            AND (
+                (CURDATE() = s.start_date AND CURTIME() >= s.start_time)
+                OR (CURDATE() = s.end_date AND CURTIME() <= s.end_time)
+                OR (CURDATE() > s.start_date AND CURDATE() < s.end_date)
+            )
+        )
+    )
+]]>
+</select>
+
+<!-- 알람 전송됨으로 업데이트 -->
+	<update id="updateAlarmSend" parameterType="users">
+		UPDATE tb_alarmlist
+		SET is_send = '1'
+		WHERE regtime = #{regtime}
+	</update>
 </mapper>

@@ -85,16 +85,17 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .modal-content form, .alarm-modal-content form{
+        .modal-content form, .alarm-modal-content form, .recieve-alarm-modal-content form{
             display: flex;
             flex-direction: column;
         }
-        .modal-content label, .alarm-modal-content label{
+        .modal-content label, .alarm-modal-content label, .recieve-alarm-modal-content label{
             font-weight: bold;
             margin: 10px 0 5px;
         }
         .modal-content input, .modal-content textarea, 
-        .alarm-modal-content input, .alarm-modal-content textarea{
+        .alarm-modal-content input, .alarm-modal-content textarea,
+        .recieve-alarm-modal-content input, .recieve-alarm-modal-content textarea{
             width: 97%;
             padding: 8px;
             margin-bottom: 10px;
@@ -109,7 +110,8 @@
             border-radius: 5px;
         }
         .modal-content button, 
-        .alarm-modal-content button{
+        .alarm-modal-content button,
+        .recieve-alarm-modal-content button{
             background-color: #d3d3d3;
             color: black;
             padding: 10px;
@@ -120,7 +122,8 @@
             transition: background-color 0.3s ease;
         }
         .modal-content button:hover, 
-        .alarm-modal-content button:hover{
+        .alarm-modal-content button:hover,
+        .recieve-alarm-modal-content  button:hover{
             background-color: #a9a9a9;
         }
         .button-container {
@@ -355,7 +358,22 @@
 	   .alarm-modal-content{
 	        background: white;
 			width: 100%;
-			max-width: 1555px;
+			max-width: 1545px;
+	        height: 80vh; 
+	        overflow-y: auto; 
+	        margin: 6% auto 0;
+	        padding: 20px;
+	        border-radius: 10px;
+	        position: relative;
+	        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	        transform: scale(0.8);
+	        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	        opacity: 0;
+	    }
+	    	   .recieve-alarm-modal-content{
+	        background: white;
+			width: 100%;
+			max-width: 1350px;
 	        height: 80vh; 
 	        overflow-y: auto; 
 	        margin: 6% auto 0;
@@ -370,6 +388,13 @@
         .alarm-modal-content{
             transform: scale(1);
             opacity: 1;
+        }
+         .recieve-alarm-modal-content{
+            transform: scale(1);
+            opacity: 1;
+        }
+        #groupScheduleDataTable{
+        width: 600px;
         }
     </style>
 </head>
@@ -399,8 +424,8 @@
 			<!-- 	<input type="text"autocomplete="off" class="daySet" id="endDate" style="font-size: 16px; margin-bottom:10px;" placeholder="종료 날짜 선택"> 
  -->
 	
-			  <label class="daylabel">성명 :</label>
-			 <input type="text" id="user_name" style="font-size:16px; height:30px; width:220px; margin-bottom:10px; text-align:center; border-radius:6px; border:1px solid #ccc;" placeholder="이름 입력">
+<!-- 			  <label class="daylabel">성명 :</label>
+			 <input type="text" id="user_name" style="font-size:16px; height:30px; width:220px; margin-bottom:10px; text-align:center; border-radius:6px; border:1px solid #ccc;" placeholder="이름 입력"> -->
 
 
 
@@ -412,8 +437,8 @@
                     <img src="/tkheat/css/image/search-icon.png" alt="select" class="button-image">조회
                 </button>
               -->
-                <button class="insert-button" style="width: 125px;">
-                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">회원 그룹 관리
+                <button class="insert-button" style="width: 156px;">
+                    <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">알람 발송 그룹 관리
                 </button>
                 <button class="group-time-button">
                     <img src="/tkheat/css/image/insert-icon.png" alt="insert" class="button-image">알람 발송 스케줄
@@ -489,7 +514,7 @@
 	   <div id="modalContainer" class="modal">
 	    <div class="modal-content">
 	<!--         <span class="close">&times;</span> -->
-	        <h2>회원 그룹 관리</h2>
+	        <h2>알람 발송 그룹 관리</h2>
             <div id="modalDataTable" style="margin-bottom: 20px;"></div> 
 	        <form id="corrForm"autocomplete="off">
 
@@ -515,7 +540,7 @@
 	</div>
 	
 			   <div id="recieveAlarmModal" class="modal">
-	    <div class="alarm-modal-content">
+	    <div class="recieve-alarm-modal-content">
 	<!--         <span class="close">&times;</span> -->
 	        <h2>그룹별 수신 알람 설정</h2>
             <div id="recieveAlarmTable" style="margin-bottom: 20px;"></div> 
@@ -620,7 +645,7 @@ $(function() {
       headerToolbar: { 
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          right: ''
       },
       displayEventTime: false,
       eventTimeFormat: {
@@ -638,13 +663,19 @@ $(function() {
           // 데이터를 FullCalendar 형식으로 변환하는 함수
           eventDataTransform: function(rawEventData) {
               // 백엔드에서 받은 schedule 데이터를 FullCalendar 이벤트 형식으로 변환합니다.
+            const groupName = getGroupName(rawEventData.group_id);
+            
+            // 2. 변환된 그룹명을 사용하여 title 구성
+            const eventTitle = '그룹 ' + groupName + ' (' + rawEventData.start_time + '~' + rawEventData.end_time + ')';
+            const eventColor = getGroupColor(rawEventData.group_id);
               return {
                   id: rawEventData.schedule_id,
                   groupId: rawEventData.group_id,
-                  title: '그룹 ' + rawEventData.group_id + ' (' + rawEventData.start_time + '~' + rawEventData.end_time + ')', // 예시 제목
+                  title: eventTitle,
                   start: rawEventData.start_date + 'T' + rawEventData.start_time, // 'YYYY-MM-DDT10:15:00' 형식
                   end: rawEventData.end_date + 'T' + rawEventData.end_time, // 'YYYY-MM-DDT22:15:00' 형식
-                  allDay: false // 시간 정보가 있으므로 allDay는 false
+                  allDay: false, // 시간 정보가 있으므로 allDay는 false
+                  backgroundColor: eventColor 
               };
           },
           failure: function() {
@@ -656,7 +687,30 @@ $(function() {
 
   calendar.render();
 
-  
+//그룹 ID를 그룹명(A, B, C...)으로 변환하는 함수
+  function getGroupName(groupId) {
+      // 1: A, 2: B, ..., 5: E
+      const groupNames = {
+          1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E'
+      };
+      // 매핑된 이름이 없으면 (예: 6 이상) 기본 그룹 ID를 반환하거나 '?' 등을 반환
+      return groupNames[groupId] || String(groupId); 
+  }
+//그룹 ID에 따라 색상을 반환하는 함수 (새로 추가)
+  function getGroupColor(groupId) {
+      // 🎨 그룹별 색상 정의
+      const groupColors = {
+          1: '#4CAF50', // 그룹 A: 그린 계열
+          2: '#2196F3', // 그룹 B: 블루 계열
+          3: '#FF9800', // 그룹 C: 오렌지 계열
+          4: '#9C27B0', // 그룹 D: 퍼플 계열
+          5: '#F44336', // 그룹 E: 레드 계열
+          // 기본값: 6번 이상의 그룹 ID를 위한 기본 색상
+          default: '#607D8B' 
+      };
+      // 해당 ID의 색상이 있으면 반환하고, 없으면 default 색상을 반환
+      return groupColors[groupId] || groupColors.default; 
+  }
   // 조회 버튼 클릭 시
   $('.select-button').click(function() {
     var user_name = $('#user_name').val();
@@ -841,7 +895,10 @@ $(function() {
 		        {title: "알람 주소", field: "alarm_address", hozAlign: "center", width: 180},
 		        {title: "알람 내용", field: "comment", hozAlign: "center", width: 250},
 	            { 
-	                title: "그룹 A", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>중대 알람</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                },
 	                field: "group_a", 
 	                width: 110, 
 	                hozAlign: "center",
@@ -861,13 +918,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "그룹 B", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>일반 알람</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_b", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -883,13 +968,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "그룹 C", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>경알람</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_c", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -905,13 +1018,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "그룹 D", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 D</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_d", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -927,13 +1068,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "그룹 E", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 E</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                },
 	                field: "group_e", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -949,13 +1118,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "알람 그룹 F", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 F</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_f", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -971,13 +1168,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "알람 그룹 G", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 G</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_g", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -993,13 +1218,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "알람 그룹 H", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 H</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_h", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -1015,13 +1268,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "알람 그룹 I", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 I</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_i", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -1037,13 +1318,41 @@ $(function() {
 	                        return '<input type="checkbox">';
 	                    }
 	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
+	                    }
+	                },
 	                cellClick: alarmGroupClick
 	            },
 	            { 
-	                title: "알람 그룹 J", 
+		        	titleFormatter: function(cell, formatterParams, onRender) {
+	                    // 헤더 텍스트와 체크박스를 함께 반환
+	                    return '<span>알람 그룹 J</span> <input type="checkbox" class="header-group-checkbox" style="width: 15px"> ';
+	                }, 
 	                field: "group_j", 
 	                width: 110, 
 	                hozAlign: "center",
+	                headerSort: false,
 	                // HTML 체크박스를 반환하는 formatter
 	                formatter: function(cell, formatterParams, onRender){
 	                	const groupValue = cell.getValue(); 
@@ -1057,17 +1366,82 @@ $(function() {
 	                        return '<input type="checkbox" checked>';
 	                    } else {
 	                        return '<input type="checkbox">';
+	                    }
+	                },
+	                headerClick: function(e, column) {
+	                    const headerCheckbox = e.target;
+	                    
+	                    if (headerCheckbox.matches('input[type="checkbox"]')) {
+	                        e.stopPropagation(); // Tabulator 정렬 이벤트 방지
+
+	                        const isChecked = headerCheckbox.checked;
+	                        const columnField = column.getField();
+	                        const groupTitle = column.getDefinition().title;
+	                        const newValue = isChecked ? 1 : 0;
+	                        console.log("isChecked: ", isChecked + ", columnField: ", columnField
+	    	                        + ", newValue: "+newValue);
+	                        
+	                        // 🚨 alarmAddresses 수집 로직 제거됨
+
+	                        // 2. 분리된 함수 호출
+	                        updateAllAlarmGroup(
+	                            columnField, 
+	                            newValue, 
+	                            groupTitle, 
+	                            headerCheckbox
+	                        );
 	                    }
 	                },
 	                cellClick: alarmGroupClick
 	            },
 	        ],
+	        //데이터 로드된 후 타이블의 체크박스 체크 여부
+	        dataLoaded: function(data){
+	            // 데이터 로드가 완료되면 이 함수가 실행됩니다.
+	            
+	            // 모든 알람 그룹 컬럼(group_a ~ group_j)에 대해 전체 체크 상태를 확인합니다.
+	            const groupFields = ["group_a", "group_b", "group_c", "group_d", "group_e", "group_f", "group_g", "group_h", "group_i", "group_j"];
+
+	            groupFields.forEach(fieldName => {
+	                // 데이터 로드 시점에는 현재 셀의 상태 변경이 아니므로 isChecked 인수는 필요 없음.
+	                // 대신, 모든 행을 검사하는 checkAllRowsChecked 함수를 사용합니다.
+	                checkAllRowsCheckedAndSetHeader(fieldName);
+	            });
+	        },
 	        // 모달 내 테이블 클릭 이벤트 (필요 시 추가)
 	        rowClick: function(e, row) {
 	            // ... (모달 내 테이블 클릭 시 동작 정의)
 	        }
 	    });
 	}
+
+		//타이틀 체크박스 체크 여부
+		function checkAllRowsCheckedAndSetHeader(fieldName) {
+			console.log("타이틀 체크박스 여부");
+    const allRows = alarmGroupTable.getRows();
+    
+    // 1. 모든 행이 체크되어 있는지 확인
+    let allChecked = true;
+    for (const row of allRows) {
+        const value = row.getData()[fieldName];
+        if (value != 1) {
+            allChecked = false;
+            break;
+        }
+    }
+    console.log("allChecked: ", allChecked);
+
+    // 2. 헤더 체크박스를 찾아서 상태를 업데이트
+    const headerSelector = ".tabulator-col[tabulator-field='" + fieldName + "'] .tabulator-col-title input[type=\"checkbox\"]";
+    
+    const headerCheckbox = document.querySelector(headerSelector);
+    console.log(fieldName, "헤더 체크박스 요소:", headerCheckbox); 
+    if (headerCheckbox) {
+        headerCheckbox.checked = allChecked;
+        // console.log(`[Data Loaded] ${fieldName} 헤더 상태: ${allChecked}`);
+    }
+}
+		
 
 		//그룹별 수신 알람 테이블
 	  function initRecieveAlarmTable() {
@@ -1085,10 +1459,10 @@ $(function() {
 	        ajaxURL: "/tkheat/user/getGroupList", // 적절한 데이터 로드 URL 사용
 	        placeholder: "조회된 데이터가 없습니다.",
 	        columns: [
-		        {title: "group_id", field: "group_id", hozAlign: "center", width: 130},
+		        {title: "group_id", field: "group_id", hozAlign: "center", width: 130, visible: false},
 	        	{ title: "그룹 이름", field: "group_name", hozAlign: "center", width: 150},
 	            { 
-	                title: "알람 그룹 A", 
+	                title: "중대 알람", 
 	                field: "recieve_a", 
 	                width: 120, 
 	                hozAlign: "center",
@@ -1110,7 +1484,7 @@ $(function() {
 	                cellClick: recieveAlarmpClick
 	            },
 	            { 
-	                title: "알람 그룹 B", 
+	                title: "일반 알람", 
 	                field: "recieve_b", 
 	                width: 120, 
 	                hozAlign: "center",
@@ -1132,7 +1506,7 @@ $(function() {
 	                cellClick: recieveAlarmpClick
 	            },
 	            { 
-	                title: "알람 그룹 C", 
+	                title: "경알람", 
 	                field: "recieve_c", 
 	                width: 120, 
 	                hozAlign: "center",
@@ -1314,6 +1688,43 @@ $(function() {
 	        }
 	    });
 	}
+//알람 그룹 일관 선택시 호출 함수
+function updateAllAlarmGroup(columnField, newValue, headerCheckbox) {
+    const isChecked = (newValue === 1);
+    
+    // 2. 서버에 보낼 데이터 (필드와 새 값만 전송)
+    const data = {
+        fieldName: columnField,         // "group_a", "group_b" 등
+        newValue: newValue              // 1 또는 0
+    };
+    
+    // 3. AJAX 호출
+    $.ajax({
+        url: '/tkheat/alarm/updateAllAlarmGroup', // 🚨 서버 API는 모든 tb_alarm 행을 업데이트
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        
+        success: function(response) {
+            if (response === true) { // 서버 응답 성공 확인 (구조에 맞게 수정 필요)
+                // 4. Tabulator 데이터 일괄 업데이트 (화면 갱신)
+                // 모든 행을 순회하며 해당 컬럼 필드만 업데이트
+                alarmGroupTable.getRows().forEach(row => {
+                    row.update({ [columnField]: newValue });
+                });
+                //alert(`알람 그룹 ${groupTitle}의 전체 상태가 성공적으로 ${isChecked ? '추가' : '해제'}되었습니다.`);
+            } else {
+                alert("오류가 발생했습니다: 일괄 변경 실패");
+                // 실패 시 헤더 체크박스 상태를 되돌림
+                headerCheckbox.checked = !isChecked;
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('오류 발생: 전체 변경 사항이 저장되지 않았습니다. (' + error + ')');
+            headerCheckbox.checked = !isChecked; // 실패 시 상태 되돌림
+        }
+    });
+}
 
   //그룹 선택시 호출 함수
     function handleGroupClick(e, cell) {
@@ -1428,10 +1839,13 @@ $(function() {
                     // 2. Tabulator 데이터 업데이트 (화면 갱신)
                     const row = cell.getRow();
                     const updateObj = {};
+                    const isChecked = e.target.checked;
                     
                     // 클릭된 칼럼 필드(group_a 등)의 값을 새 값(1 또는 0)으로 설정
                     updateObj[columnField] = newValue;
                     row.update(updateObj); 
+
+                    checkAllRowsCheckedAndSetHeader(columnField);
                     
                 } else {
                     alert("오류가 발생했습니다: " + (response.message || '알 수 없는 오류'));

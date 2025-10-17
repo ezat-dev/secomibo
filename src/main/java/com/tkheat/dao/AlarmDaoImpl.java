@@ -40,4 +40,12 @@ public class AlarmDaoImpl implements AlarmDao{
 		}
 		return true;
 	}
+	@Override
+	public boolean updateAllAlarmGroup(Alarm alarm) {
+		int result = sqlSession.update("alarm.updateAllAlarmGroup", alarm);
+		if(result <= 0) {
+			return false;
+		}
+		return true;
+	}
 }

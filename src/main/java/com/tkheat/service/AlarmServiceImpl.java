@@ -30,4 +30,8 @@ public class AlarmServiceImpl implements AlarmService{
 	public boolean updateAlarmGroup(Alarm alarm) {
 		return alarmDao.updateAlarmGroup(alarm);
 	}
+	@Override
+	public boolean updateAllAlarmGroup(Alarm alarm) {
+		return alarmDao.updateAllAlarmGroup(alarm);
+	}
 }

@@ -358,59 +358,86 @@ public class UserController {
 			    	Alarm alarm = new Alarm();
 			    	Users users = new Users();
 			    	System.out.println("푸시알림 컨트롤러 도착");
-			    	//List<String> tokenList = new ArrayList<>();
 			    	String title="";
 			    	String content="";
 			    	String send="";
+//			    	
+//			    	//안보낸 알람 조회
+//			    	List<Alarm> alarmDatas = alarmService.getAlarmList(alarm);
+//			    	System.out.println("alarmDatas.size()" + alarmDatas.size());
+//			    	
+//			    	//오늘 일하면서 1호기 알림 받는 사람 조회
+//			    	List<Users> getAlarmUser1 = userService.getAlarmUser1(users);
+//			    	System.out.println("getAlarmUser1.size()" + getAlarmUser1.size());
+//			    	
+//			    	//오늘 일하면서 2호기 알림 받는 사람 조회
+//			    	List<Users> getAlarmUser2 = userService.getAlarmUser2(users);
+//			    	System.out.println("getAlarmUser2.size()" + getAlarmUser2.size());
+//			    	for(Alarm data: alarmDatas) {
+//			    		List<String> tokenList = new ArrayList<>();
+//			    		if(data.getA_hogi() != null && data.getA_hogi().contains("1")) {
+//		                    title = "알람발생";
+//		                    content = data.getA_desc();
+//		                    send = "1";
+//			                // 1호기 알림 받는 사람의 device token
+//			                for(Users user1: getAlarmUser1) {
+//			                    String deviceToken = user1.getDevice_token();
+//			                    
+//			                    if (deviceToken != null && !deviceToken.isEmpty()) {
+//			                        tokenList.add(deviceToken);
+//			                        System.out.println("  -> 1호기 수신자 토큰 추가: " + user1.getUser_id());
+//			                    }
+//			                }
+//			    		}else if (data.getA_hogi() != null && data.getA_hogi().contains("2")) {
+//		                    title = "알람발생";
+//		                    content = data.getA_desc();
+//		                    send = "2";
+//			                for(Users user2: getAlarmUser2) {
+//			                    String deviceToken = user2.getDevice_token();
+//			                    
+//			                    if (deviceToken != null && !deviceToken.isEmpty()) {
+//			                        tokenList.add(deviceToken);
+//			                        System.out.println("  -> 2호기 수신자 토큰 추가: " + user2.getUser_id());
+//			                    }
+//			                }
+//			    		}
+//			    	    if (!tokenList.isEmpty()) {
+//			    	        try {
+//			    	             send_FCM(tokenList, title, content, send);
+//			    	             alarmService.updateAlarmSend(data);
+//			    	        } catch (Exception e) {
+//			    	             System.err.println("FCM 전송 중 오류 발생: " + e.getMessage());
+//			    	             e.printStackTrace();
+//			    	        }
+//			    	    }
+//			    	}
 			    	
-			    	//안보낸 알람 조회
-			    	List<Alarm> alarmDatas = alarmService.getAlarmList(alarm);
-			    	System.out.println("alarmDatas.size()" + alarmDatas.size());
-			    	
-			    	//오늘 일하면서 1호기 알림 받는 사람 조회
-			    	List<Users> getAlarmUser1 = userService.getAlarmUser1(users);
-			    	System.out.println("getAlarmUser1.size()" + getAlarmUser1.size());
-			    	
-			    	//오늘 일하면서 2호기 알림 받는 사람 조회
-			    	List<Users> getAlarmUser2 = userService.getAlarmUser2(users);
-			    	System.out.println("getAlarmUser2.size()" + getAlarmUser2.size());
-			    	for(Alarm data: alarmDatas) {
-			    		List<String> tokenList = new ArrayList<>();
-			    		if(data.getA_hogi() != null && data.getA_hogi().contains("1")) {
-		                    title = "알람발생";
-		                    content = data.getA_desc();
-		                    send = "1";
-			                // 1호기 알림 받는 사람의 device token
-			                for(Users user1: getAlarmUser1) {
-			                    String deviceToken = user1.getDevice_token();
-			                    
-			                    if (deviceToken != null && !deviceToken.isEmpty()) {
-			                        tokenList.add(deviceToken);
-			                        System.out.println("  -> 1호기 수신자 토큰 추가: " + user1.getUser_id());
-			                    }
-			                }
-			    		}else if (data.getA_hogi() != null && data.getA_hogi().contains("2")) {
-		                    title = "알람발생";
-		                    content = data.getA_desc();
-		                    send = "2";
-			                for(Users user2: getAlarmUser2) {
-			                    String deviceToken = user2.getDevice_token();
-			                    
-			                    if (deviceToken != null && !deviceToken.isEmpty()) {
-			                        tokenList.add(deviceToken);
-			                        System.out.println("  -> 2호기 수신자 토큰 추가: " + user2.getUser_id());
-			                    }
-			                }
+			    	List<Users> datas = userService.sendAlarmList(users); //보낼 알람, 사람 정보
+			    	List<String> sendedAlarm = new ArrayList<>(); //보낸 알람 배열
+			    	for(Users v: datas) {
+			    		title = "알람 발생";
+			    		content = v.getComment();
+			    		send = v.getA_hogi();
+			    		sendedAlarm.add(v.getRegtime());
+				    	List<String> tokenList = new ArrayList<>();
+			    		if(v.getDevice_token() != null ) {
+				    		tokenList.add(v.getDevice_token());
 			    		}
 			    	    if (!tokenList.isEmpty()) {
-			    	        try {
-			    	             send_FCM(tokenList, title, content, send);
-			    	             alarmService.updateAlarmSend(data);
-			    	        } catch (Exception e) {
-			    	             System.err.println("FCM 전송 중 오류 발생: " + e.getMessage());
-			    	             e.printStackTrace();
-			    	        }
-			    	    }
+		    	        try {
+		    	             send_FCM(tokenList, title, content, send);
+		    	        } catch (Exception e) {
+		    	             System.err.println("FCM 전송 중 오류 발생: " + e.getMessage());
+		    	             e.printStackTrace();
+		    	        }
+		    	    }
+			    		
+			    	}
+			    	
+			    	for(String v: sendedAlarm) {
+			    		users.setRegtime(v);
+			    		System.out.println("보낸 알람: " + v);
+			    		userService.updateAlarmSend(users);
 			    	}
 
 			    	}catch(Exception e) {

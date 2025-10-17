@@ -60,7 +60,10 @@ public class Users {
 	private String recieve_j;
 	private String fieldName;
 	private String newValue;
-	
+	private String alarm_address;
+	private String comment;
+	private String a_hogi;
+	private String regtime;
 	
 	
 	//공지사항
@@ -78,6 +81,30 @@ public class Users {
 	
 	
 	
+	public String getRegtime() {
+		return regtime;
+	}
+	public void setRegtime(String regtime) {
+		this.regtime = regtime;
+	}
+	public String getAlarm_address() {
+		return alarm_address;
+	}
+	public void setAlarm_address(String alarm_address) {
+		this.alarm_address = alarm_address;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getA_hogi() {
+		return a_hogi;
+	}
+	public void setA_hogi(String a_hogi) {
+		this.a_hogi = a_hogi;
+	}
 	public String getFieldName() {
 		return fieldName;
 	}

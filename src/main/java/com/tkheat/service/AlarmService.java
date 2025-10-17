@@ -10,5 +10,5 @@ public interface AlarmService {
 	boolean updateAlarmSend(Alarm alarm);
 	List<Alarm> allAlarmList(Alarm alarm);
 	boolean updateAlarmGroup(Alarm alarm);
-
+	boolean updateAllAlarmGroup(Alarm alarm);
 }

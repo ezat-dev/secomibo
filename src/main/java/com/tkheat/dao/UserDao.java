@@ -46,4 +46,6 @@ public interface UserDao {
 	List<Users> getGroupScheduleList(Users users);
 	boolean updateRecieveAlarm(Users users);
 	List<Users> getGroupList(Users users);
+	List<Users> sendAlarmList(Users users);
+	boolean updateAlarmSend(Users users);
 }
